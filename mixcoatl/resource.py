@@ -3,11 +3,61 @@ import mixcoatl.auth as auth
 import requests as r
 
 class Resource(object):
-    def __init__(self):
-        self.path = None
-        self.last_request = None
-        self.last_error = None
-        self.current_job = None
+    def __init__(self, base_path=None):
+        self.__path = base_path
+        self.__last_request = None
+        self.__last_error = None
+        self.__current_job = None
+        if self.__path is None:
+            raise Exception("You must override your base path")
+
+    def __props(self):
+        p = [k for k,v in self.__class__.__dict__.items() if type(v) is property]
+        rp = ['last_error', 'path', 'last_request', 'current_job']
+        return p + rp
+
+    def __repr__(self):
+        d = {}
+        for x in self.__props():
+            try:
+                d[x] = getattr(self, x)
+            except AttributeError:
+                d[x] = None
+            except KeyError:
+                d[x] = None
+        return str(d)
+
+    @property
+    def path(self):
+        return self.__path
+
+    @path.setter
+    def path(self, p):
+        self.__path = p
+
+    @property
+    def last_request(self):
+        return self.__last_request
+
+    @last_request.setter
+    def last_request(self, lr):
+        self.__last_request = lr
+
+    @property
+    def last_error(self):
+        return self.__last_error
+
+    @last_error.setter
+    def last_error(self, le):
+        self.__last_error = le
+
+    @property
+    def current_job(self):
+        return self.__current_job
+
+    @current_job.setter
+    def current_job(self, cj):
+        self.__current_job = cj
 
     def __doreq(self, method, *args, **kwargs):
         failures = [400, 403, 404, 409, 500, 501, 503]
@@ -16,7 +66,7 @@ class Resource(object):
         headers = {'x-esauth-access':sig['access_key'],
         'x-esauth-timestamp':str(sig['timestamp']),
         'x-esauth-signature':str(sig['signature']),
-        'x-es-details':'basic',
+        'x-es-details':'extended',
         'Accept':'application/json',
         'User-Agent':sig['ua']}
 
@@ -77,3 +127,4 @@ class Resource(object):
     def delete(self, path=None, *args, **kwargs):
         self.set_path(path)
         return self.__doreq('DELETE', *args, **kwargs)
+

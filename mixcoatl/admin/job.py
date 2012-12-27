@@ -2,7 +2,8 @@ from mixcoatl.resource import Resource
 
 class Job(Resource):
     def __init__(self):
-        self.path = 'admin/Job'
+        path = 'admin/Job'
+        Resource.__init__(self, path)
 
     def get_job(self, job_id):
         p = self.path+"/"+str(job_id)
