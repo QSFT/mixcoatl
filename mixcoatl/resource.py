@@ -8,6 +8,7 @@ class Resource(object):
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
+        self.__request_details = 'basic'
         if self.__path is None:
             raise Exception("You must override your base path")
 
@@ -26,6 +27,14 @@ class Resource(object):
             except KeyError:
                 d[x] = None
         return str(d)
+
+    @property
+    def request_details(self):
+        return self.__request_details
+
+    @request_details.setter
+    def request_details(self, level):
+        self.__request_details = level
 
     @property
     def path(self):
@@ -63,12 +72,13 @@ class Resource(object):
         failures = [400, 403, 404, 409, 500, 501, 503]
         sig = auth.get_sig(method, self.path)
         url = settings.endpoint+'/'+self.path
-        headers = {'x-esauth-access':sig['access_key'],
-        'x-esauth-timestamp':str(sig['timestamp']),
-        'x-esauth-signature':str(sig['signature']),
-        'x-es-details':'extended',
-        'Accept':'application/json',
-        'User-Agent':sig['ua']}
+
+        headers = {'x-esauth-access': sig['access_key'],
+        'x-esauth-timestamp': str(sig['timestamp']),
+        'x-esauth-signature': str(sig['signature']),
+        'x-es-details': self.__request_details,
+        'Accept': 'application/json',
+        'User-Agent': sig['ua']}
 
         results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
 

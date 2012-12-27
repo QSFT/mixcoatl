@@ -9,36 +9,59 @@ import json
 from collections import defaultdict
 
 class Server(Resource):
+    path = 'infrastructure/Server'
+    collection_name = 'servers'
+
     def __init__(self, server_id = None):
-        obj_path = 'infrastructure/Server'
-        self.collection_name = 'servers'
-        Resource.__init__(self, obj_path)
-        #if server_id is None:
-        self.__server_id = None
-        self.__cloud = None
-        self.__datacenter = None
-        self.__region = None
-        self.__status = None
-        self.__name = None
-        self.__platform = None
-        self.__budget = None
-        self.__start_date = None
-        self.__label = None
-        self.__customer = None
-        self.__description = None
-        self.__firewalls = None
-        self.__private_ip_addresses = None
-        self.__public_ip_address = None
-        self.__owning_groups = None
-        self.__owning_user = None
-        self.__product_id = None
-        self.__provider_product_id = None
-        self.__keypair = None
-        self.__agent_version = None
-        self.__machine_image = None
-        self.__provider_id = None
-        if server_id is not None:
-            self.get_server(server_id)
+        self.collection_name = self.__class__.collection_name
+        Resource.__init__(self, self.__class__.path)
+        if server_id is None:
+            self.__server_id = None
+            self.__cloud = None
+            self.__datacenter = None
+            self.__region = None
+            self.__status = None
+            self.__name = None
+            self.__platform = None
+            self.__budget = None
+            self.__start_date = None
+            self.__label = None
+            self.__customer = None
+            self.__description = None
+            self.__firewalls = None
+            self.__private_ip_addresses = None
+            self.__public_ip_address = None
+            self.__owning_groups = None
+            self.__owning_user = None
+            self.__product_id = None
+            self.__provider_product_id = None
+            self.__keypair = None
+            self.__agent_version = None
+            self.__machine_image = None
+            self.__provider_id = None
+        else:
+            self.__server_id = server_id
+            #self.get_server(server_id)
+
+    def __getattr__(self, item):
+        if item == 'server_id':
+            pass
+        else:
+            self.__lazyload(item)
+
+    def __lazyload(self, attr):
+        if self.__dict__.has_key(attr):
+            pass
+        elif self.__dict__.has_key('loaded'):
+            pass
+        elif self.server_id is not None:
+                self.load()
+        try:
+            return self.__dict__[attr]
+        except KeyError:
+            raise AttributeError("%r object has no attribute %r" %
+                                 (type(self).__name__, attr))
+
 
     @property
     def server_id(self):
@@ -57,7 +80,7 @@ class Server(Resource):
     @cloud.setter
     def cloud(self, c):
         self.__cloud = c
-        
+
     @property
     def label(self):
         return self.__label
@@ -215,34 +238,23 @@ class Server(Resource):
     def budget(self, bid):
         self.__budget = bid
 
-    def get_server(self, server_id):
-        p = self.path+"/"+str(server_id)
-        s = self.get(path=p)
+    def load(self):
+        p = self.path+"/"+str(self.server_id)
+
+        self.request_details = 'extended'
+        s = self.get(p)
         if self.last_error is None:
             try:
                 scope = uncamel_keys(s[self.collection_name][0])
                 for k in scope.keys():
-                    setattr(self,k,scope[k])
-#                self.server_id = server_id
-#                self.budget = scope['budget']
-#                self.machine_image = scope['machineImage']['machineImageId']
-#                self.description = scope['description']
-#                self.name = scope['name']
-#                self.start_date = scope['startDate']
-#                self.status = scope['status']
-#                self.private_ip_addresses = scope['privateIpAddresses']
-#                self.public_ip_address =  scope['publicIpAddress']
-#                self.label = scope['label']
-#                self.product_id = scope['product']['productId']
-#                self.provider_id = scope['providerId']
-#                self.provider_product_id = scope['providerProductId']
-#                self.owning_user = scope['owningUser']['userId']
-            except KeyError, ke:
-                print("missing key "+str(ke.args))
-                pass
+                    nk = '_%s__%s' % (self.__class__.__name__, k)
+                    setattr(self, nk, scope[k])
+                self.loaded = True
+                #return self
+            except KeyError:
+                print("missing key "+k)
             except AttributeError:
                 print("missing attribute: "+k)
-            return self
         else:
             return self.last_error
 
@@ -251,20 +263,14 @@ class Server(Resource):
         params = {'reason':reason}
         return self.delete(path=p, params=params)
 
-def list_all():
-    s = Server()
-    servers = s.get()
-    if s.last_error is None:
-        return servers['servers']
-    else:
-        return s.last_error
-
-def get(server_id):
-    s = Server(server_id)
-    if s.last_error is None:
-        return s['servers'][0]
-    else:
-        return s.last_error
+    @classmethod
+    def all(cls):
+        r = Resource(cls.path)
+        s = r.get()
+        if r.last_error is None:
+            return [server['serverId'] for server in s[cls.collection_name]]
+        else:
+            return r.last_error
 
 def terminate(server_id, reason='mixcoatl terminate server'):
     s = Server()
