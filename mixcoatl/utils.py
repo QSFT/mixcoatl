@@ -1,8 +1,8 @@
-from mixcoatl.admin import job
 import time
-import json
 
+# TODO: refactor this out as it creates a circular import issue
 def wait_for_job(job_id, status='COMPLETE'):
+    from mixcoatl.admin import job
     j = job.get(job_id)
     initial_status = j['status']
     if initial_status == 'ERROR':
@@ -32,6 +32,25 @@ def uncamel_keys(d1):
             d2[new_key] = uncamel_keys(v)
         elif isinstance(v, list):
             d2[new_key] = [uncamel_keys(item) for item in v]
+        else:
+            d2[new_key] = v
+    return d2
+
+def camelize(str):
+    s = ''.join([t.title() for t in str.split('_')])
+    #print('%s converted to %s' % (str, s[0].lower()+s[1:]))
+    return s[0].lower()+s[1:]
+
+def camel_keys(d1):
+    d2 = dict()
+    if not isinstance(d1, dict):
+        return d1
+    for k, v in d1.iteritems():
+        new_key = camelize(k)
+        if isinstance(v, dict):
+            d2[new_key] = camel_keys(v)
+        elif isinstance(v, list):
+            d2[new_key] = [camel_keys(item) for item in v]
         else:
             d2[new_key] = v
     return d2

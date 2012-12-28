@@ -1,20 +1,21 @@
+from decorators.lazy import lazy
 from mixcoatl.resource import Resource
 from mixcoatl.admin import job
 from mixcoatl.utils import wait_for_job
-from mixcoatl.utils import uncamel_keys
+from mixcoatl.utils import camel_keys
+from decorators.validations import required_attrs
 
-import time
-import os
 import json
-from collections import defaultdict
 
+
+@lazy(key='server_id')
 class Server(Resource):
     path = 'infrastructure/Server'
     collection_name = 'servers'
 
-    def __init__(self, server_id = None):
+    def __init__(self, server_id = None, *args, **kwargs):
         self.collection_name = self.__class__.collection_name
-        Resource.__init__(self, self.__class__.path)
+        Resource.__init__(self)
         if server_id is None:
             self.__server_id = None
             self.__cloud = None
@@ -39,29 +40,9 @@ class Server(Resource):
             self.__agent_version = None
             self.__machine_image = None
             self.__provider_id = None
+            self.__keypair = None
         else:
             self.__server_id = server_id
-            #self.get_server(server_id)
-
-    def __getattr__(self, item):
-        if item == 'server_id':
-            pass
-        else:
-            self.__lazyload(item)
-
-    def __lazyload(self, attr):
-        if self.__dict__.has_key(attr):
-            pass
-        elif self.__dict__.has_key('loaded'):
-            pass
-        elif self.server_id is not None:
-                self.load()
-        try:
-            return self.__dict__[attr]
-        except KeyError:
-            raise AttributeError("%r object has no attribute %r" %
-                                 (type(self).__name__, attr))
-
 
     @property
     def server_id(self):
@@ -238,30 +219,65 @@ class Server(Resource):
     def budget(self, bid):
         self.__budget = bid
 
-    def load(self):
-        p = self.path+"/"+str(self.server_id)
+    @property
+    def keypair(self):
+        return self.__keypair
 
-        self.request_details = 'extended'
-        s = self.get(p)
-        if self.last_error is None:
-            try:
-                scope = uncamel_keys(s[self.collection_name][0])
-                for k in scope.keys():
-                    nk = '_%s__%s' % (self.__class__.__name__, k)
-                    setattr(self, nk, scope[k])
-                self.loaded = True
-                #return self
-            except KeyError:
-                print("missing key "+k)
-            except AttributeError:
-                print("missing attribute: "+k)
+    @keypair.setter
+    def keypair(self, kp):
+        self.__keypair = kp
+
+    def reload(self):
+        if self.server_id is not None:
+            self.load()
+        elif self.current_job is None:
+            self.load()
         else:
-            return self.last_error
+            if wait_for_job(self.current_job):
+                self.server_id = job.get(self.current_job)['message']
+                self.load()
+            else:
+                return self.last_error
 
-    def del_server(self, server_id, reason):
-        p = self.path+"/"+str(server_id)
-        params = {'reason':reason}
-        return self.delete(path=p, params=params)
+    @required_attrs(['server_id'])
+    def destroy(self, reason='no reason provided'):
+        p = self.path+"/"+str(self.server_id)
+        qopts = {'reason':reason}
+        return self.delete(p, params=qopts)
+
+    @required_attrs(['server_id'])
+    def pause(self, reason=None):
+        p = '%s/%s' % (self.path, str(self.server_id))
+        payload = {'pause':[{}]}
+
+        if reason is not None:
+            payload['pause'][0].update({'reason':reason})
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['provider_product_id', 'machine_image', 'description', 'name','datacenter'])
+    def launch(self, callback=None):
+        optional_attrs = ['firewalls','keypair', 'label']
+        if self.server_id is not None:
+            raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
+
+        payload = {'launch':
+                    [{
+                        'productId': self.provider_product_id,
+                        'machineImage': camel_keys(self.machine_image),
+                        'description': self.description,
+                        'name': self.name,
+                        'dataCenter': camel_keys(self.datacenter)
+                    }]}
+
+        for oa in optional_attrs:
+            if getattr(self, oa) is not None:
+                payload['launch'][0].update(camel_keys({oa:getattr(self, oa)}))
+
+        self.post(data=json.dumps(payload))
+
+    def duplicate(self, server):
+        pass
 
     @classmethod
     def all(cls):
@@ -272,45 +288,5 @@ class Server(Resource):
         else:
             return r.last_error
 
-def terminate(server_id, reason='mixcoatl terminate server'):
-    s = Server()
-    s.del_server(server_id, reason)
-    if s.last_error is None:
-        return True
-    else:
-        return s.last_error
-
-# This should be abstracted a bit more....
-def launch(img_id, product, dc_id, fw_id, kp=None, wait=False):
-    s = Server()
-    now = int(round(time.time() * 1000))
-    whoami = os.environ['USER']
-
-    payload = {'launch':
-            [{
-                'product':product,
-                'firewalls':[{'firewallId':fw_id}],
-                'machineImage':{'machineImageId':img_id},
-                'description':'mixcoatl server launch',
-                'name':'mixcoatl-'+whoami+'-'+str(now),
-                'dataCenter':{'dataCenterId':dc_id}
-                }]}
-
-    if kp is None:
-        pass
-    else:
-        payload['launch'][0].update({'kp':kp})
-
-    s.post(data=json.dumps(payload))
-    if s.last_error is None:
-        if wait is True:
-            w = wait_for_job(s.current_job)
-            if w == True:
-                sid = job.get(s.current_job)['message']
-                return get(sid)
-            else:
-                return job.get(s.current_job)
-        else:
-            return s.current_job
-    else:
-        return s.last_error
+class ServerException(BaseException): pass
+class ServerLaunchException(ServerException): pass

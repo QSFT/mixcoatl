@@ -4,13 +4,17 @@ import requests as r
 
 class Resource(object):
     def __init__(self, base_path=None):
-        self.__path = base_path
+        if base_path is None:
+            try:
+                self.__path = self.__class__.path
+            except:
+                raise("you must override base_path")
+        else:
+            self.__path = base_path
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
         self.__request_details = 'basic'
-        if self.__path is None:
-            raise Exception("You must override your base path")
 
     def __props(self):
         p = [k for k,v in self.__class__.__dict__.items() if type(v) is property]
@@ -67,6 +71,27 @@ class Resource(object):
     @current_job.setter
     def current_job(self, cj):
         self.__current_job = cj
+
+    def load(self):
+        from mixcoatl.utils import uncamel_keys
+        p = self.path+"/"+str(getattr(self, self.__class__.primary_key))
+
+        self.request_details = 'extended'
+        s = self.get(p)
+        if self.last_error is None:
+            try:
+                scope = uncamel_keys(s[self.__class__.collection_name][0])
+                for k in scope.keys():
+                    nk = '_%s__%s' % (self.__class__.__name__, k)
+                    setattr(self, nk, scope[k])
+                self.loaded = True
+                #return self
+            except KeyError:
+                print("missing key "+k)
+            except AttributeError:
+                print("missing attribute: "+k)
+        else:
+            return self.last_error
 
     def __doreq(self, method, *args, **kwargs):
         failures = [400, 403, 404, 409, 500, 501, 503]
@@ -133,6 +158,10 @@ class Resource(object):
     def post(self, path=None, *args, **kwargs):
         self.set_path(path)
         return self.__doreq('POST', *args, **kwargs)
+
+    def put(self, path=None, *args, **kwargs):
+        self.set_path(path)
+        return self.__doreq('PUT', *args, **kwargs)
 
     def delete(self, path=None, *args, **kwargs):
         self.set_path(path)
