@@ -21,16 +21,21 @@ class Resource(object):
         rp = ['last_error', 'path', 'last_request', 'current_job']
         return p + rp
 
+
     def __repr__(self):
+        from mixcoatl.utils import convert
         d = {}
         for x in self.__props():
             try:
-                d[x] = getattr(self, x)
+                if x == 'last_request':
+                    d[x] = str(getattr(self, x))
+                else:
+                    d[x] = getattr(self, x)
             except AttributeError:
                 d[x] = None
             except KeyError:
                 d[x] = None
-        return str(d)
+        return repr(convert(d))
 
     @property
     def request_details(self):
@@ -167,3 +172,6 @@ class Resource(object):
         self.set_path(path)
         return self.__doreq('DELETE', *args, **kwargs)
 
+    def pprint(self):
+        import pprint
+        pprint.pprint(eval(repr(self)))

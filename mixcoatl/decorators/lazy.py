@@ -7,6 +7,7 @@ def lazy(**dargs):
         cls.primary_key = dargs['key']
         orig_init = cls.__init__
         def wrapped_init(self, *args, **kwargs):
+            self.primary_key = cls.primary_key
             if not ('load' in dir(self)):
                 raise Exception("Lazy decorated classes must implement load()")
             orig_init(self, *args, **kwargs)
@@ -24,11 +25,12 @@ def lazy(**dargs):
                 pass
             elif getattr(self, cls.primary_key) is not None:
                 self.load()
-            try:
-                return self.__dict__[attr]
-            except KeyError:
-                raise AttributeError("%r object has no attribute %r" %
-                                        (type(self).__name__, attr))
+            else:
+                try:
+                    return self.__dict__[attr]
+                except KeyError:
+                    raise AttributeError("%r object has no attribute %r" %
+                                            (type(self).__name__, attr))
         cls.__getattr__ = wrapped__getattr__
         cls.__init__ = wrapped_init
         return cls

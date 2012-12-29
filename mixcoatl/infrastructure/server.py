@@ -1,9 +1,9 @@
-from decorators.lazy import lazy
 from mixcoatl.resource import Resource
 from mixcoatl.admin import job
 from mixcoatl.utils import wait_for_job
 from mixcoatl.utils import camel_keys
-from decorators.validations import required_attrs
+from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.decorators.lazy import lazy
 
 import json
 
@@ -43,6 +43,7 @@ class Server(Resource):
             self.__keypair = None
         else:
             self.__server_id = server_id
+
 
     @property
     def server_id(self):
@@ -284,7 +285,7 @@ class Server(Resource):
         r = Resource(cls.path)
         s = r.get()
         if r.last_error is None:
-            return [server['serverId'] for server in s[cls.collection_name]]
+            return [cls(server['serverId']) for server in s[cls.collection_name]]
         else:
             return r.last_error
 
