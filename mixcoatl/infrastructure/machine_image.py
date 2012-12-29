@@ -1,6 +1,9 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy
 
+# TODO: certain images cause weird redirect
+# m = MachineImage(284555) redirect loop
+# m = MachineImage(284831) no loop
 @lazy(key='machine_image_id')
 class MachineImage(Resource):
     path = 'infrastructure/MachineImage'
