@@ -64,6 +64,15 @@ class Firewall(Resource):
     def customer(self):
         return self.__customer
 
+    @property
+    def rules(self):
+        from mixcoatl.network.firewall_rule import FirewallRule
+        rls = FirewallRule.all(self.__firewall_id)
+        if len(rls) < 1:
+            self.__rules = []
+        else:
+            self.__rules = rls
+
     @classmethod
     def all(cls, region_id):
         from mixcoatl.utils import uncamel_keys
@@ -72,8 +81,8 @@ class Firewall(Resource):
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
-            return [cls(i['firewallId']) for i in c[cls.collection_name]]
-            #return c
+            #return [cls(i['firewallId']) for i in c[cls.collection_name]]
+            return uncamel_keys(c)
         else:
             return r.last_error
 
