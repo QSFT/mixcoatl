@@ -1,10 +1,10 @@
 from mixcoatl.resource import Resource
-from mixcoatl.decorators.lazy import lazy
+from mixcoatl.decorators.lazy_property import lazy_property
 
-@lazy(key='firewall_rule_id')
 class FirewallRule(Resource):
     path = 'network/FirewallRule'
     collection_name = 'rules'
+    primary_key = 'firewall_rule_id'
 
     def __init__(self, firewall_rule_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -13,22 +13,22 @@ class FirewallRule(Resource):
         self.__firewall_rule_id = firewall_rule_id
 
     @property
+    def firewall_rule_id(self):
+        return self.__firewall_rule_id
+    
+    @lazy_property
     def direction(self):
         return self.__direction
 
-    @property
+    @lazy_property
     def firewall(self):
         return self.__firewall
 
-    @property
-    def firewall_rule_id(self):
-        return self.__firewall_rule_id
-
-    @property
+    @lazy_property
     def network_address(self):
         return self.__network_address
 
-    @property
+    @lazy_property
     def protocol(self):
         return self.__protocol
 
@@ -40,6 +40,7 @@ class FirewallRule(Resource):
         params = {'firewallId':firewall_id}
         c = r.get(params=params)
         if r.last_error is None:
-            return [cls(i['firewallRuleId']) for i in c[cls.collection_name]]
+            rules = [i['firewallRuleId'] for i in c[cls.collection_name]]
+            return [cls(rule) for rule in rules]
         else:
             return r.last_error

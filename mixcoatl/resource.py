@@ -1,6 +1,7 @@
 from mixcoatl import settings
 import mixcoatl.auth as auth
 import requests as r
+from mixcoatl.decorators.lazy_property import lazy_property
 
 class Resource(object):
     def __init__(self, base_path=None):
@@ -17,7 +18,7 @@ class Resource(object):
         self.__request_details = 'basic'
 
     def __props(self):
-        p = [k for k,v in self.__class__.__dict__.items() if type(v) is property]
+        p = [k for k,v in self.__class__.__dict__.items() if type(v) is lazy_property]
         rp = ['last_error', 'path', 'last_request', 'current_job']
         return p + rp
 
@@ -90,9 +91,8 @@ class Resource(object):
                     nk = '_%s__%s' % (self.__class__.__name__, k)
                     setattr(self, nk, scope[k])
                 self.loaded = True
-                #return self
-            except KeyError:
-                print("missing key "+k)
+#            except KeyError, e:
+#                print(e)
             except AttributeError:
                 print("missing attribute: "+k)
         else:

@@ -3,47 +3,22 @@ from mixcoatl.admin import job
 from mixcoatl.utils import wait_for_job
 from mixcoatl.utils import camel_keys
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.decorators.lazy import lazy
+from mixcoatl.decorators.lazy_property import lazy_property
 
 import json
 
 
-@lazy(key='server_id')
 class Server(Resource):
     path = 'infrastructure/Server'
     collection_name = 'servers'
+    primary_key = 'server_id'
 
     def __init__(self, server_id = None, *args, **kwargs):
         self.collection_name = self.__class__.collection_name
         Resource.__init__(self)
         if server_id is None:
-            self.__server_id = None
-            self.__cloud = None
-            self.__datacenter = None
-            self.__region = None
-            self.__status = None
-            self.__name = None
-            self.__platform = None
-            self.__budget = None
-            self.__start_date = None
-            self.__label = None
-            self.__customer = None
-            self.__description = None
-            self.__firewalls = None
-            self.__private_ip_addresses = None
-            self.__public_ip_address = None
-            self.__owning_groups = None
-            self.__owning_user = None
-            self.__product_id = None
-            self.__provider_product_id = None
-            self.__keypair = None
-            self.__agent_version = None
-            self.__machine_image = None
-            self.__provider_id = None
-            self.__keypair = None
-        else:
-            self.__server_id = server_id
-
+            pass
+        self.__server_id = server_id
 
     @property
     def server_id(self):
@@ -54,171 +29,94 @@ class Server(Resource):
     def server_id(self, sid):
         self.__server_id = sid
 
-    @property
+    @lazy_property
     def cloud(self):
         '''The id of the cloud where the instance is located'''
         return self.__cloud
 
-    @cloud.setter
-    def cloud(self, c):
-        self.__cloud = c
-
-    @property
+    @lazy_property
     def label(self):
         return self.__label
 
-    @label.setter
-    def label(self, label):
-        self.__label = label
-
-    @property
+    @lazy_property
     def customer(self):
         return self.__customer
 
-    @customer.setter
-    def customer(self, c):
-        self.__customer = c
-
-    @property
+    @lazy_property
     def datacenter(self):
         '''The id of the specific datacenter where the instance is located.'''
         return self.__datacenter
 
-    @datacenter.setter
-    def datacenter(self, dc):
-        self.__datacenter = dc
-
-    @property
+    @lazy_property
     def description(self):
         return self.__description
 
-    @description.setter
-    def description(self, desc):
-        self.__description = desc
-
-    @property
+    @lazy_property
     def machine_image(self):
         return self.__machine_image
 
-    @machine_image.setter
-    def machine_image(self, mi):
-        self.__machine_image = mi
-
-    @property
+    @lazy_property
     def firewalls(self):
         return self.__firewalls
 
-    @firewalls.setter
-    def firewalls(self, fw):
-        self.__firewalls = fw
-
-    @property
+    @lazy_property
     def name(self):
         return self.__name
 
-    @name.setter
-    def name(self, n):
-        self.__name = n
-
-    @property
+    @lazy_property
     def owning_groups(self):
         return self.__owning_groups
 
-    @owning_groups.setter
-    def owning_groups(self, og):
-        self.__owning_groups = og
-
-    @property
+    @lazy_property
     def owning_user(self):
         return self.__owning_user
 
-    @owning_user.setter
-    def owning_user(self, ou):
-        self.__owning_user = ou
-
-    @property
+    @lazy_property
     def platform(self):
         return self.__platform
 
-    @property
+    @lazy_property
     def private_ip_addresses(self):
         return self.__private_ip_addresses
 
-    @private_ip_addresses.setter
-    def private_ip_addresses(self, ip_list):
-        self.__private_ip_addresses = ip_list
-
-    @property
+    @lazy_property
     def public_ip_address(self):
         return self.__public_ip_address
 
-    @public_ip_address.setter
-    def public_ip_address(self, ip):
-        self.__public_ip_address = ip
 
-    @property
+    @lazy_property
     def region(self):
         return self.__region
 
-    @region.setter
-    def region(self, r):
-        self.__region = r
 
-    @property
+    @lazy_property
     def platform(self):
         return self.__platform
 
-    @platform.setter
-    def platform(self, p):
-        self.__platform = p
-
-    @property
+    @lazy_property
     def product_id(self):
         return self.__product_id
 
-    @product_id.setter
-    def product_id(self, pid):
-        self.__product_id = pid
 
-    @property
+    @lazy_property
     def provider_product_id(self):
         return self.__provider_product_id
 
-    @provider_product_id.setter
-    def provider_product_id(self, ppid):
-        self.__provider_product_id = ppid
-
-    @property
+    @lazy_property
     def provider_id(self):
         return self.__provider_id
 
-    @provider_id.setter
-    def provider_id(self, pid):
-        self.__provider_id = pid
-
-    @property
+    @lazy_property
     def start_date(self):
         return self.__start_date
 
-    @start_date.setter
-    def start_date(self, date):
-        self.__start_date = date
-
-    @property
+    @lazy_property
     def status(self):
         return self.__status
 
-    @status.setter
-    def status(self, s):
-        self.__status = s
-
-    @property
+    @lazy_property
     def budget(self):
         return self.__budget
-
-    @budget.setter
-    def budget(self, bid):
-        self.__budget = bid
 
     @property
     def keypair(self):

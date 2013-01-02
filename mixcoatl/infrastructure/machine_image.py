@@ -1,93 +1,91 @@
 from mixcoatl.resource import Resource
-from mixcoatl.decorators.lazy import lazy
+from mixcoatl.decorators.lazy_property import lazy_property
 
 # TODO: certain images cause weird redirect
 # m = MachineImage(284555) redirect loop
 # m = MachineImage(284831) no loop
-@lazy(key='machine_image_id')
 class MachineImage(Resource):
     path = 'infrastructure/MachineImage'
     collection_name = 'images'
+    primary_key = 'machine_image_id'
 
     def __init__(self, machine_image_id = None, *args, **kwargs):
         Resource.__init__(self)
-        if machine_image_id is None:
-            pass
         self.__machine_image_id = machine_image_id
-
-    @property
-    def architecture(self):
-        return self.__architecture
-
-    @property
-    def cloud(self):
-        return self.__cloud
-
-    @property
-    def creation_timestamp(self):
-        return self.__creation_timestamp
-
-    @property
-    def customer(self):
-        return self.__customer
-
-    @property
-    def description(self):
-        return self.__description
 
     @property
     def machine_image_id(self):
         return self.__machine_image_id
+    
+    @lazy_property
+    def architecture(self):
+        return self.__architecture
 
-    @property
+    @lazy_property
+    def cloud(self):
+        return self.__cloud
+
+    @lazy_property
+    def creation_timestamp(self):
+        return self.__creation_timestamp
+
+    @lazy_property
+    def customer(self):
+        return self.__customer
+
+    @lazy_property
+    def description(self):
+        return self.__description
+
+    @lazy_property
     def name(self):
         return self.__name
 
-    @property
+    @lazy_property
     def owning_account(self):
         return self.__owning_account
 
-    @property
+    @lazy_property
     def owning_cloud_account_number(self):
         return self.__owning_cloud_account_number
 
-    @property
+    @lazy_property
     def owning_user(self):
         return self.__owning_user
 
-    @property
+    @lazy_property
     def platform(self):
         return self.__platform
 
-    @property
+    @lazy_property
     def provider_id(self):
         return self.__provider_id
 
-    @property
+    @lazy_property
     def region(self):
         return self.__region
 
-    @property
+    @lazy_property
     def removable(self):
         return self.__removable
 
-    @property
+    @lazy_property
     def sharable(self):
         return self.__sharable
 
-    @property
+    @lazy_property
     def status(self):
         return self.__status
 
-    @property
+    @lazy_property
     def label(self):
         return self.__label
 
-    @property
+    @lazy_property
     def products(self):
         return self.__products
 
-    @property
+    @lazy_property
     def agent_version(self):
         return self.__agent_version
 
@@ -98,7 +96,9 @@ class MachineImage(Resource):
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
-            #return [cls(i['machineImageId']) for i in c[cls.collection_name]]
-            return uncamel_keys(c)
+            #images = [i['machineImageId'] for i in c[cls.collection_name]]
+            #return images
+            return [cls(i['machineImageId']) for i in c[cls.collection_name]]
+            #return uncamel_keys(c)
         else:
             return r.last_error

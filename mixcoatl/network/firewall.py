@@ -1,10 +1,10 @@
 from mixcoatl.resource import Resource
-from mixcoatl.decorators.lazy import lazy
+from mixcoatl.decorators.lazy_property import lazy_property
 
-@lazy(key='firewall_id')
 class Firewall(Resource):
     path = 'network/Firewall'
     collection_name = 'firewalls'
+    primary_key = "firewall_id"
 
     def __init__(self, firewall_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -16,62 +16,66 @@ class Firewall(Resource):
     def firewall_id(self):
         return self.__firewall_id
 
-    @property
+    @lazy_property
     def status(self):
         return self.__status
 
-    @property
+    @lazy_property
     def label(self):
         return self.__label
 
-    @property
+    @lazy_property
     def owning_account(self):
         return self.__owning_account
 
-    @property
+    @lazy_property
     def name(self):
         return self.__name
 
-    @property
+    @lazy_property
     def owning_user(self):
         return self.__owning_user
 
-    @property
+    @lazy_property
     def description(self):
         return self.__description
 
-    @property
+    @lazy_property
     def cloud(self):
         return self.__cloud
 
-    @property
+    @lazy_property
     def provider_id(self):
         return self.__provider_id
 
-    @property
+    @lazy_property
     def region(self):
         return self.__region
 
-    @property
+    @lazy_property
     def removable(self):
         return self.__removable
 
-    @property
+    @lazy_property
     def budget(self):
         return self.__budget
 
-    @property
+    @lazy_property
     def customer(self):
         return self.__customer
 
     @property
     def rules(self):
-        from mixcoatl.network.firewall_rule import FirewallRule
-        rls = FirewallRule.all(self.__firewall_id)
-        if len(rls) < 1:
-            self.__rules = []
-        else:
-            self.__rules = rls
+        try:
+            return self.__rules
+        except AttributeError:
+            from mixcoatl.network.firewall_rule import FirewallRule
+            rls = FirewallRule.all(self.__firewall_id)
+            if len(rls) < 1:
+                self.__rules = []
+            else:
+                self.__rules = rls
+            return rls
 
     @classmethod
     def all(cls, region_id):
@@ -81,57 +85,7 @@ class Firewall(Resource):
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
-            #return [cls(i['firewallId']) for i in c[cls.collection_name]]
-            return uncamel_keys(c)
+            return [cls(i['firewallId']) for i in c[cls.collection_name]]
+            #return uncamel_keys(c)
         else:
             return r.last_error
-
-    def get_firewall(self, firewall_id):
-        p = self.path+"/"+str(firewall_id)
-        return self.get(path=p)
-
-    def del_firewall(self, firewall_id, reason):
-        p = self.path+"/"+str(firewall_id)
-        params = {'reason':reason}
-        return self.delete(path=p, params=params)
-
-def list_all(region_id):
-    f = Firewall()
-    firewalls = f.get(params={'regionId':region_id})
-    if f.last_error is None:
-        return firewalls['firewalls']
-    else:
-        return f.last_error
-
-def show(firewall_id):
-    f = Firewall()
-    firewall = f.get_firewall(firewall_id)
-    if f.last_error is None:
-        return firewall['firewalls'][0]
-    else:
-        return f.last_error
-
-def create(region_id, budget_id, wait=False):
-    f = Firewall()
-    now = int(round(time.time() * 1000))
-    whoami = os.environ['USER']
-
-    payload = {'addFirewall':[{
-        'region':{'regionId':region_id},
-        'budget':budget_id,
-        'description':'mixcoatl-generated firewall',
-        'name':'mixcoatl-'+whoami+'-'+str(now)}]}
-
-    f.post(data=json.dumps(payload))
-    if f.last_error is None:
-        if wait is True:
-            w = wait_for_job(f.current_job)
-            if w == True:
-                fwid = job.get(f.current_job)['message']
-                return show(fwid)
-            else:
-                return job.get(f.current_job)
-        else:
-            return f.current_job
-    else:
-        return f.last_error

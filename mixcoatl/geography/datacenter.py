@@ -1,50 +1,38 @@
 from mixcoatl.resource import Resource
-from mixcoatl.decorators.lazy import lazy
+from mixcoatl.decorators.lazy_property import lazy_property
 
-@lazy(key='datacenter_id')
 class DataCenter(Resource):
     path = 'geography/DataCenter'
     collection_name = 'dataCenters'
+    primary_key = 'datacenter_id'
 
     def __init__(self, datacenter_id = None, *args, **kwargs):
         Resource.__init__(self)
         if datacenter_id is None:
             pass
-        #            self.__name = None
-        #            self.__status = None
-        #            self.__cloud_provider_console_url = None
-        #            self.__cloud_provider_logo_url = None
-        #            self.__cloud_provider_name = None
-        #            self.__compute_account_number_label = None
-        #            self.__compute_delegate = None
-        #            self.__compute_endpoint = None
-        #            self.__compute_secret_key_label = None
-        #            self.__documentation_label = None
-        #            self.__private_cloud = None
-
         self.__datacenter_id = datacenter_id
 
     @property
     def datacenter_id(self):
         return self.__datacenter_id
 
-    @property
+    @lazy_property
     def description(self):
         return self.__description
 
-    @property
+    @lazy_property
     def name(self):
         return self.__name
 
-    @property
+    @lazy_property
     def provider_id(self):
         return self.__provider_id
 
-    @property
+    @lazy_property
     def region(self):
         return self.__region
 
-    @property
+    @lazy_property
     def status(self):
         return self.__status
 
