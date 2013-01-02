@@ -8,8 +8,6 @@ class DataCenter(Resource):
 
     def __init__(self, datacenter_id = None, *args, **kwargs):
         Resource.__init__(self)
-        if datacenter_id is None:
-            pass
         self.__datacenter_id = datacenter_id
 
     @property

@@ -8,8 +8,6 @@ class Firewall(Resource):
 
     def __init__(self, firewall_id = None, *args, **kwargs):
         Resource.__init__(self)
-        if firewall_id is None:
-            pass
         self.__firewall_id = firewall_id
 
     @property

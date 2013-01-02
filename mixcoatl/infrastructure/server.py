@@ -16,8 +16,6 @@ class Server(Resource):
     def __init__(self, server_id = None, *args, **kwargs):
         self.collection_name = self.__class__.collection_name
         Resource.__init__(self)
-        if server_id is None:
-            pass
         self.__server_id = server_id
 
     @property

@@ -8,8 +8,6 @@ class Region(Resource):
 
     def __init__(self, region_id = None, *args, **kwargs):
         Resource.__init__(self)
-        if region_id is None:
-            pass
         self.__region_id = region_id
 
     @property
