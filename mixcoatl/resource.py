@@ -175,3 +175,6 @@ class Resource(object):
     def pprint(self):
         import pprint
         pprint.pprint(eval(repr(self)))
+
+    def to_dict(self):
+        return eval(repr(self))
