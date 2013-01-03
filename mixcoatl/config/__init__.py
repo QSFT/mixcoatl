@@ -1,7 +1,7 @@
 import os
 
-class ConfigException(BaseException):
-    pass
+class BaseException(Exception): pass
+class ConfigException(BaseException): pass
 
 class Config(object):
     # pylint: disable-msg=E0710
@@ -18,12 +18,12 @@ class Config(object):
             if 'ES_ACCESS_KEY' in os.environ:
                 self.set_access_key(os.environ['ES_ACCESS_KEY'])
             else:
-                raise ConfigException()
+                raise ConfigException('missing ES_ACCESS_KEY')
         if self.secret_key is None:
             if 'ES_SECRET_KEY' in os.environ:
                 self.set_secret_key(os.environ['ES_SECRET_KEY'])
             else:
-                raise ConfigException()
+                raise ConfigException('missing ES_SECRET_KEY')
         if self.api_version is None:
             if 'ES_API_VERSION' in os.environ:
                 self.set_api_version(os.environ['ES_API_VERSION'])
