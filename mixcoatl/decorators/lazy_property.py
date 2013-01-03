@@ -33,3 +33,6 @@ class lazy_property(object):
 
             setattr(obj, myname, val)
             return val
+
+    def __set__(self, obj, val):
+        pass

@@ -1,6 +1,9 @@
 # Mixcoatl
 Mixcoatl was the father of Quetzalcoatl. His name means "Cloud Serpent". Fitting for a Python library for the enStratus API.
 
+# Build Status
+[![Build Status](https://secure.travis-ci.org/enStratus/mixcoatl.png)](http://travis-ci.org/enStratus/mixcoatl)
+
 ## Word of warning
 This repo is not feature complete. Preference is being given to API interactions that are most useful in conjuction with Fabric:
 

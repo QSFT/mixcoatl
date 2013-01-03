@@ -28,6 +28,10 @@ class Server(Resource):
         self.__server_id = sid
 
     @lazy_property
+    def agent_version(self):
+        return self.__agent_version
+
+    @lazy_property
     def cloud(self):
         '''The id of the cloud where the instance is located'''
         return self.__cloud
@@ -41,9 +45,9 @@ class Server(Resource):
         return self.__customer
 
     @lazy_property
-    def datacenter(self):
+    def data_center(self):
         '''The id of the specific datacenter where the instance is located.'''
-        return self.__datacenter
+        return self.__data_center
 
     @lazy_property
     def description(self):
@@ -81,11 +85,9 @@ class Server(Resource):
     def public_ip_address(self):
         return self.__public_ip_address
 
-
     @lazy_property
     def region(self):
         return self.__region
-
 
     @lazy_property
     def platform(self):
@@ -94,7 +96,6 @@ class Server(Resource):
     @lazy_property
     def product_id(self):
         return self.__product_id
-
 
     @lazy_property
     def provider_product_id(self):
