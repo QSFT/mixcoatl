@@ -40,3 +40,9 @@ class TestFirewall(unittest.TestCase):
         assert len(f.rules) == 5
         for x in f.rules:
             assert isinstance(x, fwrule.FirewallRule), '%s must be an instance of Firewallrule' % x
+
+    def test_has_no_rules(self, mock_data):
+        mock_data.return_value = fw_data.no_rules
+
+        f = firewall.Firewall(123456)
+        assert len(f.rules) == 0

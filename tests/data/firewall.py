@@ -140,3 +140,5 @@ firewall_rules = {u'rules': [{u'direction': u'INGRESS',
                               u'networkAddress': u'0.0.0.0/0',
                               u'protocol': u'TCP',
                               u'startPort': 443}]}
+
+no_rules = {u'rules': []}
