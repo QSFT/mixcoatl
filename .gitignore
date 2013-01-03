@@ -1,2 +1,8 @@
 *.pyc
 *.swp
+.coverage
+.idea
+coverage.xml
+*.iml
+nosetests.xml
+pylint.log
