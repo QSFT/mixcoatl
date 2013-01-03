@@ -2,7 +2,7 @@ import time
 import base64
 import hashlib
 import hmac
-from mixcoatl import settings
+from mixcoatl.settings.load_settings import settings
 
 def get_sig(http_method, path):
     timestamp = int(round(time.time() * 1000))

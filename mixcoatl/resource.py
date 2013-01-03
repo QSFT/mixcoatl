@@ -1,4 +1,4 @@
-from mixcoatl import settings
+from mixcoatl.settings.load_settings import settings
 import mixcoatl.auth as auth
 import requests as r
 from mixcoatl.decorators.lazy_property import lazy_property

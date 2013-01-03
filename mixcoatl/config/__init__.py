@@ -1,7 +1,6 @@
 import os
 
-class BaseException(Exception): pass
-class ConfigException(BaseException): pass
+from mixcoatl.exceptions import ConfigException
 
 class Config(object):
     # pylint: disable-msg=E0710
