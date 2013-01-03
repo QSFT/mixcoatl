@@ -6,7 +6,6 @@ os.environ['ES_SECRET_KEY'] = 'gfedcba'
 import unittest
 from mock import patch
 from mock import Mock
-from mixcoatl.resource import Resource
 import mixcoatl.admin.job as job
 import tests.data.job as job_data
 
