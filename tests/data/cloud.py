@@ -368,7 +368,7 @@ all_clouds = {u'clouds': [{u'cloudId': 1,
    u'privateCloud': False,
    u'status': u'ACTIVE'}]}
 
-one_cloud = {u'cloudId': 1,
+one_cloud = {u'clouds':[{u'cloudId': 1,
    u'cloudProviderConsoleURL': u'http://aws.amazon.com',
    u'cloudProviderLogoURL': u'/clouds/aws.gif',
    u'cloudProviderName': u'Amazon',
@@ -382,4 +382,4 @@ one_cloud = {u'cloudId': 1,
    u'documentationLabel': None,
    u'name': u'Amazon Web Services',
    u'privateCloud': False,
-   u'status': u'ACTIVE'}
+   u'status': u'ACTIVE'}]}

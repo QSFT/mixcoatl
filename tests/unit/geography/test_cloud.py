@@ -23,3 +23,10 @@ class TestClouds(unittest.TestCase):
         assert len(c) == 29
         for x in c:
             assert isinstance(x, cloud.Cloud), "%s must be an instance of Cloud" % x
+
+    def test_has_a_cloud(self, mock_data):
+        mock_data.return_value = cloud_data.one_cloud
+
+        c = cloud.Cloud(1)
+        assert c.cloud_id == 1
+        assert c.status == 'ACTIVE'
