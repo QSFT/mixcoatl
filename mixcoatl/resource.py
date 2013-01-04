@@ -1,7 +1,7 @@
 from mixcoatl.settings.load_settings import settings
 import mixcoatl.auth as auth
 import requests as r
-from mixcoatl.decorators.lazy_property import lazy_property
+from mixcoatl.decorators.lazy import lazy_property
 
 class Resource(object):
     def __init__(self, base_path=None):
@@ -16,6 +16,7 @@ class Resource(object):
         self.__last_error = None
         self.__current_job = None
         self.__request_details = 'basic'
+        self.pending_changes = {}
 
     def __props(self):
         p = [k for k,v in self.__class__.__dict__.items() if type(v) is lazy_property]
@@ -178,3 +179,7 @@ class Resource(object):
 
     def to_dict(self):
         return eval(repr(self))
+
+    def track_change(self, var, new_value):
+        prev = getattr(self, var)
+        self.pending_changes[var] = {'old': prev, 'new':new_value}

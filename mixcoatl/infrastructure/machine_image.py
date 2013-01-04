@@ -1,5 +1,5 @@
 from mixcoatl.resource import Resource
-from mixcoatl.decorators.lazy_property import lazy_property
+from mixcoatl.decorators.lazy import lazy_property
 
 # TODO: certain images cause weird redirect
 # m = MachineImage(284555) redirect loop

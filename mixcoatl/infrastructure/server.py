@@ -3,7 +3,7 @@ from mixcoatl.admin import job
 from mixcoatl.utils import wait_for_job
 from mixcoatl.utils import camel_keys
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.decorators.lazy_property import lazy_property
+from mixcoatl.decorators.lazy import lazy_property
 
 import json
 
@@ -22,10 +22,6 @@ class Server(Resource):
     def server_id(self):
         '''The immutable enStratus ID of this server'''
         return self.__server_id
-
-    @server_id.setter
-    def server_id(self, sid):
-        self.__server_id = sid
 
     @lazy_property
     def agent_version(self):
@@ -94,12 +90,12 @@ class Server(Resource):
         return self.__platform
 
     @lazy_property
-    def product_id(self):
-        return self.__product_id
-
-    @lazy_property
     def provider_product_id(self):
         return self.__provider_product_id
+
+    @provider_product_id.setter
+    def provider_product_id(self, id):
+        self.__provider_product_id = id
 
     @lazy_property
     def provider_id(self):
