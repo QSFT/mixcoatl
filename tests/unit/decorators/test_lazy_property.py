@@ -1,8 +1,12 @@
 import os
+import sys
 os.environ['ES_SECRET_KEY'] = '12345'
 os.environ['ES_ACCESS_KEY'] = 'abcdef'
 
-import unittest
+if sys.version_info < (2, 7):
+    import unittest2 as unittest
+else:
+    import unittest
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.resource import Resource
 
