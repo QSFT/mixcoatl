@@ -7,7 +7,6 @@ class lazy_property(object):
 
     def __get__(self, instance, owner=None):
         myname = self.__name__
-        privname = '_'+instance.__class__.__name__+'__'+myname
 
         if instance is None: return self
 
