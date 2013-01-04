@@ -20,9 +20,6 @@ class MockResource(Resource):
         self.__resource_id = resource_id
 
     def load(self):
-        #privprefix = '_'+self.__class__.__name__
-        #setattr(self,privprefix+'__attr_a', 'foo')
-        #setattr(self,privprefix+'__attr_b', 'bar')
         self.__attr_a = 'foo'
         self.__attr_b = 'bar'
         self.loaded = True
