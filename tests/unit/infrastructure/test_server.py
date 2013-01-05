@@ -8,21 +8,38 @@ from mock import patch
 from mock import Mock
 import mixcoatl.infrastructure.server as server
 import tests.data.server as srv_data
+from httpretty import HTTPretty
+from httpretty import httprettified
 
-@patch('mixcoatl.resource.Resource.get')
+import json
+#@patch('mixcoatl.resource.Resource.get')
 class TestServer(unittest.TestCase):
 
-    def test_has_all_servers_and_id_Server(self, mock_data):
+    @httprettified
+    def test_has_all_servers_and_id_Server(self):
         '''test all() returns a list of Server'''
-        mock_data.return_value = srv_data.all_servers
 
+        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server"
+        data = srv_data.all_servers
+        HTTPretty.register_uri(HTTPretty.GET,
+            es_url,
+            body = json.dumps(data),
+            status = 200,
+            content_type = "application/json")
         s = server.Server.all()
         assert len(s) == 3
         for x in s:
             assert isinstance(x, server.Server), '%s must be an instance of Server' % x
 
-    def test_has_a_firewall(self, mock_data):
-        mock_data.return_value = srv_data.one_server
+    @httprettified
+    def test_has_a_firewall(self):
+        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/331810"
+        data = srv_data.one_server
+        HTTPretty.register_uri(HTTPretty.GET,
+            es_url,
+            body = json.dumps(data),
+            status = 200,
+            content_type = "application/json")
 
         s = server.Server(331810)
         print s
@@ -32,7 +49,21 @@ class TestServer(unittest.TestCase):
         assert s.region['region_id'] == 19344
         assert s.data_center['data_center_id'] == 64351
 
-    @patch('mixcoatl.resource.Resource.post')
-    def test_launch(self, mock_data, mock_post):
-         mock_post.return_value = {u'jobs':[{u'jobId':84322,u'status':u'RUNNING'}]}
-         pass
+    @httprettified
+    def test_launch_basic(self):
+        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server"
+        jobdata = '{"jobs":[{"jobId":84322,"status":"RUNNING"}]}'
+        HTTPretty.register_uri(HTTPretty.POST,
+            es_url,
+            body = jobdata,
+            content_type="application/json",
+            status=202)
+        s = server.Server()
+        s.provider_product_id = 'm1.xlarge'
+        s.machine_image = 284831
+        s.description = 'unit test server'
+        s.name = 'my-test-server'
+        s.data_center = 64716
+        s.launch()
+        assert s.last_error is None
+        assert s.current_job == 84322

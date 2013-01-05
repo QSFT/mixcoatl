@@ -36,6 +36,10 @@ class Server(Resource):
     def label(self):
         return self.__label
 
+    @label.setter
+    def label(self, l):
+        self.__label = l
+
     @lazy_property
     def customer(self):
         return self.__customer
@@ -45,21 +49,41 @@ class Server(Resource):
         '''The id of the specific datacenter where the instance is located.'''
         return self.__data_center
 
+    @data_center.setter
+    def data_center(self, d):
+        self.__data_center = d
+
     @lazy_property
     def description(self):
         return self.__description
+
+    @description.setter
+    def description(self, d):
+        self.__description = d
 
     @lazy_property
     def machine_image(self):
         return self.__machine_image
 
+    @machine_image.setter
+    def machine_image(self, m):
+        self.__machine_image = m
+
     @lazy_property
     def firewalls(self):
         return self.__firewalls
 
+    @firewalls.setter
+    def firewalls(self, f):
+        self.__firewalls = f
+
     @lazy_property
     def name(self):
         return self.__name
+
+    @name.setter
+    def name(self, n):
+        self.__name = n
 
     @lazy_property
     def owning_groups(self):
@@ -149,7 +173,7 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-    @required_attrs(['provider_product_id', 'machine_image', 'description', 'name','datacenter'])
+    @required_attrs(['provider_product_id', 'machine_image', 'description', 'name','data_center'])
     def launch(self, callback=None):
         optional_attrs = ['firewalls','keypair', 'label']
         if self.server_id is not None:
@@ -161,14 +185,21 @@ class Server(Resource):
                         'machineImage': camel_keys(self.machine_image),
                         'description': self.description,
                         'name': self.name,
-                        'dataCenter': camel_keys(self.datacenter)
+                        'dataCenter': camel_keys(self.data_center)
                     }]}
 
         for oa in optional_attrs:
-            if getattr(self, oa) is not None:
-                payload['launch'][0].update(camel_keys({oa:getattr(self, oa)}))
+            try:
+                if getattr(self, oa) is not None:
+                    payload['launch'][0].update(camel_keys({oa:getattr(self, oa)}))
+            except AttributeError:
+                pass
 
-        self.post(data=json.dumps(payload))
+        s = self.post(data=json.dumps(payload))
+        if callback is not None:
+            callback(s)
+        else:
+            return s
 
     def duplicate(self, server):
         pass
