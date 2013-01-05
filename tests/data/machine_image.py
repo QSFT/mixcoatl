@@ -569,7 +569,8 @@ one_image = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
                 "userId": 16896
-            }
+            },
+            "agentVersion": 17
         }
     ]
 }

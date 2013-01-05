@@ -61,3 +61,4 @@ class TestMachineImage(unittest.TestCase):
         assert m.provider_id == 'ami-1a4fc12a'
         assert m.creation_timestamp == '1970-01-01T00:00:00.000+0000'
         assert m.owning_user['user_id'] == 16896
+        assert m.agent_version == 17
