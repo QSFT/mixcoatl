@@ -38,7 +38,6 @@ def uncamel_keys(d1):
 
 def camelize(str):
     s = ''.join([t.title() for t in str.split('_')])
-    #print('%s converted to %s' % (str, s[0].lower()+s[1:]))
     return s[0].lower()+s[1:]
 
 def camel_keys(d1):
@@ -58,7 +57,6 @@ def camel_keys(d1):
 def convert(input):
     if isinstance(input, dict):
         return dict((convert(key), convert(value)) for key, value in input.iteritems())
-        #return {convert(key): convert(value) for key, value in input.iteritems()}
     elif isinstance(input, list):
         return [convert(element) for element in input]
     elif isinstance(input, unicode):

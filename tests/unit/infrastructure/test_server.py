@@ -67,3 +67,36 @@ class TestServer(unittest.TestCase):
         s.launch()
         assert s.last_error is None
         assert s.current_job == 84322
+
+    @httprettified
+    def test_launch_advanced(self):
+        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server"
+        jobdata = '{"jobs":[{"jobId":84322,"status":"RUNNING"}]}'
+        HTTPretty.register_uri(HTTPretty.POST,
+            es_url,
+            body = jobdata,
+            content_type="application/json",
+            status=202)
+        s = server.Server()
+        s.provider_product_id = 'm1.xlarge'
+        s.machine_image = 284831
+        s.description = 'unit test server'
+        s.name = 'my-test-server'
+        s.data_center = 64716
+        s.keypair = 'test-kp-uswest2'
+        s.launch()
+        assert s.keypair == 'test-kp-uswest2'
+        assert s.last_error is None
+        assert s.current_job == 84322
+
+    @httprettified
+    def test_destroy_server(self):
+        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/33181"
+        HTTPretty.register_uri(HTTPretty.DELETE,
+            es_url,
+            content_type="application/json",
+        status = 204)
+        s = server.Server(33181)
+        r = s.destroy()
+        assert s.last_error is None
+        assert r is True

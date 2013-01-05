@@ -51,7 +51,7 @@ class Server(Resource):
 
     @data_center.setter
     def data_center(self, d):
-        self.__data_center = d
+        self.__data_center = {u'data_center_id':d}
 
     @lazy_property
     def description(self):
@@ -67,7 +67,7 @@ class Server(Resource):
 
     @machine_image.setter
     def machine_image(self, m):
-        self.__machine_image = m
+        self.__machine_image = {u'machine_image_id':m}
 
     @lazy_property
     def firewalls(self):
