@@ -101,7 +101,7 @@ class TestServer(unittest.TestCase):
             content_type = "application/json")
 
         s = server.Server(331810)
-        with self.assertRaises(server.ServerLaunchException1):
+        with self.assertRaises(server.ServerLaunchException):
             s.launch()
 
 
