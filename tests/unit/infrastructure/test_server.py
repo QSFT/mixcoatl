@@ -1,9 +1,13 @@
 import os
+import sys
 # These have to be set before importing any mixcoatl modules
 os.environ['ES_ACCESS_KEY'] = 'abcdefg'
 os.environ['ES_SECRET_KEY'] = 'gfedcba'
 
-import unittest
+if sys.version_info < (2, 7):
+    import unittest2 as unittest
+else:
+    import unittest
 import mixcoatl.infrastructure.server as server
 import tests.data.server as srv_data
 from httpretty import HTTPretty
@@ -30,7 +34,7 @@ class TestServer(unittest.TestCase):
             assert isinstance(x, server.Server), '%s must be an instance of Server' % x
 
     @httprettified
-    def test_has_a_firewall(self):
+    def test_has_a_server(self):
         es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/331810"
         data = srv_data.one_server
         HTTPretty.register_uri(HTTPretty.GET,
@@ -85,6 +89,21 @@ class TestServer(unittest.TestCase):
         assert s.keypair == 'test-kp-uswest2'
         assert s.last_error is None
         assert s.current_job == 84322
+
+    @httprettified
+    def test_dont_launch_running_server(self):
+        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/331810"
+        data = srv_data.one_server
+        HTTPretty.register_uri(HTTPretty.GET,
+            es_url,
+            body = json.dumps(data),
+            status = 200,
+            content_type = "application/json")
+
+        s = server.Server(331810)
+        with self.assertRaises(server.ServerLaunchException1):
+            s.launch()
+
 
     @httprettified
     def test_destroy_server(self):
