@@ -10,8 +10,6 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 from mixcoatl.settings.load_settings import settings
 
-import json
-
 class TestMachineImage(unittest.TestCase):
 
     def setUp(self):

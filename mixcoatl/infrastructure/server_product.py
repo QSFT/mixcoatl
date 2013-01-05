@@ -74,7 +74,6 @@ class ServerProduct(Resource):
     def all(cls, region_id):
         from mixcoatl.utils import uncamel_keys
         r = Resource(cls.path)
-        r.request_details = 'extended'
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
