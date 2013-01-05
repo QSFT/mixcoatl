@@ -10,7 +10,7 @@ class MachineImage(Resource):
     primary_key = 'machine_image_id'
 
     def __init__(self, machine_image_id = None, *args, **kwargs):
-        Resource.__init__(self)
+        Resource.__init__(self, request_details='basic')
         self.__machine_image_id = machine_image_id
 
     @property
@@ -32,6 +32,10 @@ class MachineImage(Resource):
     @lazy_property
     def customer(self):
         return self.__customer
+
+    @lazy_property
+    def budget(self):
+        return self.__budget
 
     @lazy_property
     def description(self):
@@ -92,7 +96,7 @@ class MachineImage(Resource):
     @classmethod
     def all(cls, region_id):
         from mixcoatl.utils import uncamel_keys
-        r = Resource(cls.path)
+        r = Resource(cls.path, request_details='basic')
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:

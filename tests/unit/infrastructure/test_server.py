@@ -4,15 +4,13 @@ os.environ['ES_ACCESS_KEY'] = 'abcdefg'
 os.environ['ES_SECRET_KEY'] = 'gfedcba'
 
 import unittest
-from mock import patch
-from mock import Mock
 import mixcoatl.infrastructure.server as server
 import tests.data.server as srv_data
 from httpretty import HTTPretty
 from httpretty import httprettified
 
 import json
-#@patch('mixcoatl.resource.Resource.get')
+
 class TestServer(unittest.TestCase):
 
     @httprettified
@@ -42,7 +40,6 @@ class TestServer(unittest.TestCase):
             content_type = "application/json")
 
         s = server.Server(331810)
-        print s
         assert s.server_id == 331810
         assert s.status == 'RUNNING'
         assert s.agent_version == 17

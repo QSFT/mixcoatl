@@ -4,7 +4,7 @@ import requests as r
 from mixcoatl.decorators.lazy import lazy_property
 
 class Resource(object):
-    def __init__(self, base_path=None):
+    def __init__(self, base_path=None, request_details = 'extended'):
         if base_path is None:
             try:
                 self.__path = self.__class__.path
@@ -15,7 +15,7 @@ class Resource(object):
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
-        self.__request_details = 'basic'
+        self.__request_details = request_details
         self.pending_changes = {}
 
     def __props(self):
@@ -83,7 +83,7 @@ class Resource(object):
         from mixcoatl.utils import uncamel_keys
         p = self.path+"/"+str(getattr(self, self.__class__.primary_key))
 
-        self.request_details = 'extended'
+        #self.request_details = 'extended'
         s = self.get(p)
         if self.last_error is None:
             try:
@@ -92,8 +92,6 @@ class Resource(object):
                     nk = '_%s__%s' % (self.__class__.__name__, k)
                     setattr(self, nk, scope[k])
                 self.loaded = True
-#            except KeyError, e:
-#                print(e)
             except AttributeError:
                 print("missing attribute: "+k)
         else:
