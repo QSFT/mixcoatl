@@ -64,7 +64,8 @@ class TestLazyProps(unittest.TestCase):
 
     def setUp(self):
         self.mock_resource = MockResource()
-        self.failing_mock_resource = FailingMockResource(5678)
+        self.failing_mock_resource = FailingMockResource()
+        self.failing_mock_resource_with_id = FailingMockResource(6789)
         self.mock_resource_with_id = MockResource(12345)
 
     def test_mock_resource_no_id(self):
@@ -101,6 +102,6 @@ class TestLazyProps(unittest.TestCase):
             self.failing_mock_resource.load()
 
     def test_mock_resource_fails_last_error(self):
-        assert self.failing_mock_resource.last_error == 'kaboom!'
-        f = self.failing_mock_resource.attr_a
+        assert self.failing_mock_resource_with_id.last_error == 'kaboom!'
+        f = self.failing_mock_resource_with_id.attr_a
         assert f == 'kaboom!'

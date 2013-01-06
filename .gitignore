@@ -10,3 +10,4 @@ run.py
 *.egg-info
 build/
 .autonose-depends.pickle
+dist/
