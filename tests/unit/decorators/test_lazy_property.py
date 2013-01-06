@@ -52,6 +52,7 @@ class FailingMockResource(Resource):
 
     def load(self):
         raise AttributeError, 'attribute missing'
+
     @property
     def resource_id(self):
         return self.__resource_id
@@ -98,6 +99,8 @@ class TestLazyProps(unittest.TestCase):
         assert self.mock_resource_with_id.attr_b == 'snarf'
 
     def test_mock_resource_fails_attribute_error(self):
+        self.failing_mock_resource.last_error = None
+
         with self.assertRaises(AttributeError):
             self.failing_mock_resource.load()
 
