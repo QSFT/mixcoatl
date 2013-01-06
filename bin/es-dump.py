@@ -39,9 +39,9 @@ else:
 output = sys.stdout
 headers = r.last_request.headers
 data = json.loads(r.last_request.content)
-print('HEADERS\n-------\n')
-pprint.pprint(headers)
-print('\nRESPONSE\n--------\n')
-json.dump(data, output, sort_keys=True, indent=4)
+#print('HEADERS\n-------\n')
+#pprint.pprint(headers)
+#print('\nRESPONSE\n--------\n')
+json.dump(data, output, sort_keys=True, indent=2)
 output.write('\n')
 
