@@ -33,6 +33,7 @@ setup(
     package_dir={'mixcoatl': 'mixcoatl'},
     include_package_data=True,
     install_requires=requires,
+    scripts=['bin/es-dump.py'],
     license='Apache 2.0',
     zip_safe=False,
     classifiers=(

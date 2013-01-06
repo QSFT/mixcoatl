@@ -39,6 +39,58 @@ When overriding the endpoint, it should be in the form of:
 
 Note that setting both ``ES_API_VERSION`` and ``ES_ENDPOINT`` is not cumulative. If you wish to use a private endpoint, it must include the version in the url.
 
+``es-dump.py``
+--------------
+``mixcoatl`` also ships with a small script for querying arbitrary objects via the enStratus API called ``es-dump.py``. It's very minimal and only dumps the json results of your query:
+
+example:
+
+.. code-block:: bash
+
+        es-dump.py admin/Job
+
+.. code-block:: yml
+
+        {
+          "jobs": []
+        }
+
+It can also accept query params in the form of a python ``dict`` (the same format the ``requests`` library uses:
+
+.. code-block:: bash
+
+        es-dump.py geography/DataCenter "{'regionId':19344}"
+
+.. code-block:: yml
+
+        {
+          "dataCenters": [
+            {
+              "dataCenterId": 64351, 
+              "description": "us-west-2a", 
+              "name": "us-west-2a", 
+              "providerId": "us-west-2a", 
+              "region": {
+                "cloud": {
+                  "cloudId": 1
+                }, 
+                "customer": {
+                  "customerId": 14334
+                }, 
+                "description": "AWS Western United States (2)", 
+                "jurisdiction": "US", 
+                "name": "Oregon (us-west-2)", 
+                "providerId": "us-west-2", 
+                "regionId": 19344, 
+                "status": "ACTIVE"
+              }, 
+              "status": "ACTIVE"
+            }
+          ]
+        }
+
+You'll need to set the environment variables as described above obviously.
+
 Lazy loading
 -------------
 By default, any object you request by its id will not actually hit the endpoint. Only when you request the object in full or a specific attribute, will it actually make the API call. If the API call fails, the error will be returned to you. You can always check the object's ``last_error`` attribute to determine if it failed or not.
