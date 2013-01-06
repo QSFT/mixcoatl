@@ -40,10 +40,31 @@ class MockResource(Resource):
     def attr_b(self, bid):
         self.__attr_b = bid
 
+class FailingMockResource(Resource):
+    path = 'mock/Resource'
+    collection_name = 'resources'
+    primary_key = 'resource_id'
+
+    def __init__(self, resource_id = None, *args, **kwargs):
+        Resource.__init__(self)
+        self.last_error = 'kaboom!'
+        self.__resource_id = resource_id
+
+    def load(self):
+        raise AttributeError, 'attribute missing'
+    @property
+    def resource_id(self):
+        return self.__resource_id
+
+    @lazy_property
+    def attr_a(self):
+        return self.__attr_a
+
 class TestLazyProps(unittest.TestCase):
 
     def setUp(self):
         self.mock_resource = MockResource()
+        self.failing_mock_resource = FailingMockResource(5678)
         self.mock_resource_with_id = MockResource(12345)
 
     def test_mock_resource_no_id(self):
@@ -74,3 +95,12 @@ class TestLazyProps(unittest.TestCase):
         assert self.mock_resource_with_id.attr_b == 'bar'
         self.mock_resource_with_id.attr_b = 'snarf'
         assert self.mock_resource_with_id.attr_b == 'snarf'
+
+    def test_mock_resource_fails_attribute_error(self):
+        with self.assertRaises(AttributeError):
+            self.failing_mock_resource.load()
+
+    def test_mock_resource_fails_last_error(self):
+        assert self.failing_mock_resource.last_error == 'kaboom!'
+        f = self.failing_mock_resource.attr_a
+        assert f == 'kaboom!'
