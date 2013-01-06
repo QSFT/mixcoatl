@@ -52,11 +52,11 @@ class TestMachineImage(unittest.TestCase):
         assert m.region['region_id'] == 19344
         assert m.status == 'ACTIVE'
         assert m.owning_cloud_account_number == '099720109477'
-        assert m.customer['customer_id'] == 14334
+        assert m.customer['customer_id'] == 11111
         assert m.description == 'ubuntu-lucid-10.04-amd64-server-20120913 (x86_64 Ubuntu)'
         assert m.name == 'ubuntu/images/ebs/ubuntu-lucid-10.04-amd64-server-20120913'
         assert m.cloud['cloud_id'] == 1
         assert m.provider_id == 'ami-1a4fc12a'
         assert m.creation_timestamp == '1970-01-01T00:00:00.000+0000'
-        assert m.owning_user['user_id'] == 16896
+        assert m.owning_user['user_id'] == 12345
         assert m.agent_version == 17

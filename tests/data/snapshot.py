@@ -1,4 +1,4 @@
-all = '''
+all_items = '''
 {
     "snapshots": [
         {
@@ -12,7 +12,7 @@ all = '''
                 },
                 "jurisdiction": "AU",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19556
             },
@@ -25,7 +25,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -52,7 +52,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -72,7 +72,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16578
+                    "userId": 12345
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -112,12 +112,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -140,7 +140,7 @@ all = '''
                 },
                 "jurisdiction": "AU",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19556
             },
@@ -153,7 +153,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -180,7 +180,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-8e7688bd",
@@ -232,12 +232,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -260,7 +260,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19342
             },
@@ -273,7 +273,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -300,7 +300,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -320,7 +320,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -360,12 +360,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -388,7 +388,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -401,7 +401,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -428,7 +428,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -448,7 +448,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -488,12 +488,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -516,7 +516,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -529,7 +529,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -556,7 +556,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-845c57a2",
@@ -611,12 +611,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -639,7 +639,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -652,7 +652,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -679,7 +679,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-dd37d2e4",
@@ -731,12 +731,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -759,7 +759,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -772,7 +772,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -799,7 +799,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-dd37d2e4",
@@ -851,12 +851,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -879,7 +879,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -892,7 +892,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -907,7 +907,7 @@ all = '''
                     "description": "Default administrative group with full permissions.",
                     "name": "Admin",
                     "customer": {
-                        "customerId": 14334
+                        "customerId": 11111
                     }
                 }
             ],
@@ -930,7 +930,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -947,7 +947,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sdh",
                 "owningAccount": {
@@ -987,12 +987,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1015,7 +1015,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1028,7 +1028,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1055,7 +1055,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-1eba4c27",
@@ -1070,7 +1070,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16575
+                    "userId": 99912
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -1110,12 +1110,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1138,7 +1138,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1151,7 +1151,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1178,7 +1178,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-3d12e304",
@@ -1193,7 +1193,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16575
+                    "userId": 99912
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -1233,12 +1233,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1261,7 +1261,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1274,7 +1274,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1289,7 +1289,7 @@ all = '''
                     "description": "Default administrative group with full permissions.",
                     "name": "Admin",
                     "customer": {
-                        "customerId": 14334
+                        "customerId": 11111
                     }
                 }
             ],
@@ -1312,7 +1312,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -1329,7 +1329,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sdh",
                 "owningAccount": {
@@ -1369,12 +1369,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1397,7 +1397,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1410,7 +1410,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1437,7 +1437,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -1457,7 +1457,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -1497,12 +1497,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1525,7 +1525,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1538,7 +1538,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1565,7 +1565,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -1585,7 +1585,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -1625,12 +1625,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1653,7 +1653,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1666,7 +1666,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1693,7 +1693,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -1713,7 +1713,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -1753,12 +1753,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1781,7 +1781,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1794,7 +1794,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1821,7 +1821,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-b13cfc88",
@@ -1873,12 +1873,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -1901,7 +1901,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -1914,7 +1914,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -1929,7 +1929,7 @@ all = '''
                     "description": "Default administrative group with full permissions.",
                     "name": "Admin",
                     "customer": {
-                        "customerId": 14334
+                        "customerId": 11111
                     }
                 }
             ],
@@ -1952,7 +1952,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -1969,7 +1969,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sdh",
                 "owningAccount": {
@@ -2009,12 +2009,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -2037,7 +2037,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -2050,7 +2050,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -2077,7 +2077,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -2097,7 +2097,7 @@ all = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16576
+                    "userId": 54321
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -2137,12 +2137,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -2165,7 +2165,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -2178,7 +2178,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -2205,7 +2205,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-b13cfc88",
@@ -2257,12 +2257,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -2285,7 +2285,7 @@ all = '''
                 },
                 "jurisdiction": "US",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19344
             },
@@ -2298,7 +2298,7 @@ all = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -2325,7 +2325,7 @@ all = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "encrypted": false,
                 "description": "vol-b13cfc88",
@@ -2377,12 +2377,12 @@ all = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,
@@ -2398,7 +2398,7 @@ all = '''
 }
 '''
 
-one = '''
+one_item = '''
 {
     "snapshots": [
         {
@@ -2412,7 +2412,7 @@ one = '''
                 },
                 "jurisdiction": "AU",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "regionId": 19556
             },
@@ -2425,7 +2425,7 @@ one = '''
             "available": true,
             "customer": {
                 "businessName": "CSE",
-                "customerId": 14334,
+                "customerId": 11111,
                 "createdTimestamp": "2012-11-07T16:38:26.885+0000",
                 "status": "ACTIVE",
                 "accountingCurrency": "USD",
@@ -2452,7 +2452,7 @@ one = '''
                 },
                 "available": false,
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "owningGroups": [
                     {
@@ -2472,7 +2472,7 @@ one = '''
                 },
                 "creationTimestamp": "1970-01-01T00:00:00.000+0000",
                 "owningUser": {
-                    "userId": 16578
+                    "userId": 12345
                 },
                 "deviceId": "/dev/sda1",
                 "owningAccount": {
@@ -2512,12 +2512,12 @@ one = '''
                 "subscribed": true,
                 "billingSystemId": "16000",
                 "customer": {
-                    "customerId": 14334
+                    "customerId": 11111
                 },
                 "defaultBudget": 10287,
                 "name": "CSE",
                 "owner": {
-                    "userId": 16570
+                    "userId": 12346
                 },
                 "alertConfiguration": {
                     "allowIndividualSmsAlerts": true,

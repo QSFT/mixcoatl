@@ -11,7 +11,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -28,7 +28,7 @@ all_machine_images = '''{
             "machineImageId": 281141,
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -45,7 +45,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -63,7 +63,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -80,7 +80,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -97,7 +97,7 @@ all_machine_images = '''{
             "machineImageId": 287034,
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -114,7 +114,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -132,7 +132,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16894
+                "userId": 12346
             },
             "owningAccount": {
                 "accountId": 16000
@@ -149,7 +149,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "099720109477",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "ubuntu-lucid-10.04-amd64-server-20120913 (x86_64 Ubuntu)",
             "sharable": false,
@@ -161,7 +161,7 @@ all_machine_images = '''{
             "providerId": "ami-1a4fc12a",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             }
         },
         {
@@ -175,7 +175,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "099720109477",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "ubuntu-precise-12.04-amd64-server-20121026.1 (x86_64 Ubuntu)",
             "sharable": false,
@@ -187,7 +187,7 @@ all_machine_images = '''{
             "providerId": "ami-1aab222a",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16894
+                "userId": 12346
             }
         },
         {
@@ -201,7 +201,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -219,7 +219,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -236,7 +236,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "801119661308",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "Microsoft Windows Server 2008 R2 SP1 Datacenter 64-bit Base AMI provided by Amazon",
             "sharable": false,
@@ -248,7 +248,7 @@ all_machine_images = '''{
             "providerId": "ami-3239b002",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16894
+                "userId": 12346
             }
         },
         {
@@ -262,7 +262,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -280,7 +280,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16895
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -297,7 +297,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -315,7 +315,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -332,7 +332,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -350,7 +350,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16895
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -367,7 +367,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "099720109477",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -384,7 +384,7 @@ all_machine_images = '''{
             "machineImageId": 281333,
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             }
         },
         {
@@ -398,7 +398,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "825279278023",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "owningGroups": [
                 {
@@ -416,7 +416,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 16000
@@ -433,7 +433,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "309956199498",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "RHEL-6.3-Starter-x86_64-1-Hourly2 (x86_64 Red Hat)",
             "sharable": false,
@@ -445,7 +445,7 @@ all_machine_images = '''{
             "providerId": "ami-8a25a9ba",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16891
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 1700
@@ -462,7 +462,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "672283631203",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "enstratus17-ubuntu1204-amd64-20120915.1 (x86_64 Ubuntu)",
             "sharable": false,
@@ -475,7 +475,7 @@ all_machine_images = '''{
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "agentVersion": 17,
             "owningUser": {
-                "userId": 16891
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 2800
@@ -492,7 +492,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "672283631203",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "enstratus17-RHEL6-20120915.1 (x86_64 Red Hat)",
             "sharable": false,
@@ -504,7 +504,7 @@ all_machine_images = '''{
             "providerId": "ami-be47c98e",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 2800
@@ -521,7 +521,7 @@ all_machine_images = '''{
             "owningCloudAccountNumber": "672283631203",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "enstratus17-CentOS58-x86_64-20121008.1 (x86_64 CentOS)",
             "sharable": false,
@@ -533,7 +533,7 @@ all_machine_images = '''{
             "providerId": "ami-fc33bdcc",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "owningAccount": {
                 "accountId": 2800
@@ -556,7 +556,7 @@ one_image = '''{
             "owningCloudAccountNumber": "099720109477",
             "architecture": "I64",
             "customer": {
-                "customerId": 14334
+                "customerId": 11111
             },
             "description": "ubuntu-lucid-10.04-amd64-server-20120913 (x86_64 Ubuntu)",
             "sharable": false,
@@ -568,7 +568,7 @@ one_image = '''{
             "providerId": "ami-1a4fc12a",
             "creationTimestamp": "1970-01-01T00:00:00.000+0000",
             "owningUser": {
-                "userId": 16896
+                "userId": 12345
             },
             "agentVersion": 17
         }

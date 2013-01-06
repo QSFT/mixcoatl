@@ -35,4 +35,4 @@ class TestRegions(unittest.TestCase):
         # test uncameled property
         assert d.provider_id == 'ap-northeast-1'
         # test nested uncameled key
-        assert d.customer['customer_id'] == 14334
+        assert d.customer['customer_id'] == 11111

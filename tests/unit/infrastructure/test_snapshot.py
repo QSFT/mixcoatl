@@ -25,7 +25,7 @@ class TestSnapshot(unittest.TestCase):
     def test_has_all_snapshots_and_is_Snapshot(self):
         '''test all() returns a list of Snapshot'''
 
-        data = snap_data.all
+        data = snap_data.all_items
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url,
             body=data,
@@ -41,7 +41,7 @@ class TestSnapshot(unittest.TestCase):
     @httprettified
     def test_has_a_snapshot(self):
         url = self.es_url + '/23237460'
-        data = snap_data.one
+        data = snap_data.one_item
 
         HTTPretty.register_uri(HTTPretty.GET,
             url,
@@ -58,7 +58,7 @@ class TestSnapshot(unittest.TestCase):
         assert s.created_timestamp == '2012-11-20T01:31:53.000+0000'
         assert s.status == 'ACTIVE'
         assert s.region['region_id'] == 19556
-        assert s.customer['customer_id'] == 14334
+        assert s.customer['customer_id'] == 11111
         assert s.encrypted is False
         assert s.description == 'snap-b0810e80'
         assert s.sharable is True
