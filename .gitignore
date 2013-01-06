@@ -6,3 +6,7 @@ coverage.xml
 *.iml
 nosetests.xml
 pylint.log
+run.py
+*.egg-info
+build/
+.autonose-depends.pickle
