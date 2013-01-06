@@ -19,20 +19,21 @@ packages = [
     'mixcoatl.settings'
 ]
 
+requires = ['requests==1.0.4']
 setup(
     name='mixcoatl',
     version=mixcoatl.__version__,
     description='enStratus API Python wrapper',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author='John E. Vincent',
     author_email='lusis.org+github.com@gmail.com',
     url='https://github.com/enStratus/mixcoatl',
     packages=packages,
-    package_data={'': ['LICENSE']},
+    package_data={'': ['LICENSE', 'README.rst', 'requirements.txt']},
     package_dir={'mixcoatl': 'mixcoatl'},
     include_package_data=True,
-    install_requires=open('requirements.txt').readlines(),
-    license=open('LICENSE').read(),
+    install_requires=requires,
+    license='Apache 2.0',
     zip_safe=False,
     classifiers=(
         'Development Status :: 4 - Beta',
