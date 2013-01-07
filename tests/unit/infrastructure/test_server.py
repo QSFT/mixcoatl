@@ -49,6 +49,8 @@ class TestServer(unittest.TestCase):
         assert s.agent_version == 17
         assert s.region['region_id'] == 19344
         assert s.data_center['data_center_id'] == 64351
+        assert s.customer['customer_id'] == 11111
+        assert s.cloud['cloud_id'] == 1
 
     @httprettified
     def test_launch_basic(self):
