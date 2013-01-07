@@ -31,6 +31,18 @@ class Cloud(Resource):
         return self.__compute_account_number_label
 
     @lazy_property
+    def compute_access_key_label(self):
+        return self.__compute_access_key_label
+
+    @lazy_property
+    def compute_x509_cert_label(self):
+        return self.__compute_x509_cert_label
+
+    @lazy_property
+    def compute_x509_key_label(self):
+        return self.__compute_x509_key_label
+
+    @lazy_property
     def compute_delegate(self):
         return self.__compute_delegate
 

@@ -30,3 +30,17 @@ class TestClouds(unittest.TestCase):
         c = cloud.Cloud(1)
         assert c.cloud_id == 1
         assert c.status == 'ACTIVE'
+        assert c.cloud_provider_console_url == 'http://aws.amazon.com'
+        assert c.cloud_provider_logo_url == '/clouds/aws.gif'
+        assert c.cloud_provider_name == 'Amazon'
+        assert c.compute_access_key_label == 'AWS_ACCESS_KEY'
+        assert c.compute_account_number_label == 'AWS_ACCOUNT_NUMBER'
+        assert c.compute_delegate == 'org.dasein.cloud.aws.AWSCloud'
+        assert c.compute_endpoint == 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com'
+        assert c.compute_secret_key_label == 'AWS_SECRET_ACCESS_KEY'
+        assert c.compute_x509_cert_label == 'AWS_CERTIFICATE'
+        assert c.compute_x509_key_label == 'AWS_PRIVATE_KEY'
+        assert c.documentation_label is None
+        assert c.name == 'Amazon Web Services'
+        assert c.private_cloud is False
+        assert c.status == 'ACTIVE'
