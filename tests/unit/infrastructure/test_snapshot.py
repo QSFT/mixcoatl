@@ -67,18 +67,3 @@ class TestSnapshot(unittest.TestCase):
         assert s.provider_id == 'snap-b0810e80'
         assert s.cloud['cloud_id'] == 1
         assert s.owning_account['account_id'] == 16000
-
-
-#    @httprettified
-#    def test_foo_assertion(self):
-#        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/331810"
-#        data = foo_data.one_foo
-#        HTTPretty.register_uri(HTTPretty.GET,
-#            es_url,
-#            body=json.dumps(data),
-#            status=200,
-#            content_type="application/json")
-#
-#        s = foo.Foo(331810)
-#        with self.assertRaises(foo.FooException):
-#            s.launch()
