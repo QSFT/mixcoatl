@@ -20,8 +20,8 @@ class TestGroups(unittest.TestCase):
         self.es_url = settings.endpoint + '/' + grp.Group.path
 
     @httprettified
-    def test_has_all_group_and_is_Group(self):
-        '''test all() returns a list of BillingCode'''
+    def test_has_all_and_is_one(self):
+        '''test Group.all() returns a list of Group'''
 
         with open('../../tests/data/unit/admin/group.json') as f:
             data = f.read()
@@ -37,7 +37,8 @@ class TestGroups(unittest.TestCase):
             assert isinstance(x, grp.Group)
 
     @httprettified
-    def test_has_a_group(self):
+    def test_has_one(self):
+        '''test Group(<id>) returns a valid resource'''
         with open('../../tests/data/unit/admin/group.json') as f:
             data = json.load(f)
         data[grp.Group.collection_name][:] = [d for d in data[grp.Group.collection_name] if d['groupId'] == 9848]

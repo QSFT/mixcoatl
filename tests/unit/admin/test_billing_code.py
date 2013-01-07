@@ -21,8 +21,8 @@ class TestApiKey(unittest.TestCase):
         self.es_url = settings.endpoint + '/' + billing_code.BillingCode.path
 
     @httprettified
-    def test_has_all_billing_code_and_is_BillingCode(self):
-        '''test all() returns a list of BillingCode'''
+    def test_has_all_and_is_one(self):
+        '''test BillingCode.all() returns a list of BillingCode'''
 
         with open('../../tests/data/unit/admin/billing_code.json') as f:
             data = f.read()
@@ -38,7 +38,8 @@ class TestApiKey(unittest.TestCase):
             assert isinstance(x, billing_code.BillingCode)
 
     @httprettified
-    def test_has_a_billing_code(self):
+    def test_has_one(self):
+        '''test BillingCode(<id>) returns a valid resource'''
         with open('../../tests/data/unit/admin/billing_code.json') as f:
             data = json.load(f)
         data['billingCodes'][:] = [d for d in data['billingCodes'] if d['billingCodeId'] == 10670]

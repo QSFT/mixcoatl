@@ -21,8 +21,8 @@ class TestApiKey(unittest.TestCase):
         self.es_url = settings.endpoint + '/' + api_key.ApiKey.path
 
     @httprettified
-    def test_has_all_apikey_and_is_ApiKey(self):
-        '''test all() returns a list of ApiKey'''
+    def test_has_all_and_is_one(self):
+        '''test ApiKey.all() returns a list of ApiKey'''
 
         with open('../../tests/data/unit/admin/apikey.json') as f:
             data = f.read()
@@ -39,7 +39,8 @@ class TestApiKey(unittest.TestCase):
             assert isinstance(x, api_key.ApiKey)
 
     @httprettified
-    def test_has_an_api_key(self):
+    def test_has_one(self):
+        '''test ApiKey(<id>) returns a valid resource'''
         with open('../../tests/data/unit/admin/apikey.json') as f:
             data = json.load(f)
         data['apiKeys'][:] = [d for d in data['apiKeys'] if d['accessKey'] == 'SLARTIBARTFAST']

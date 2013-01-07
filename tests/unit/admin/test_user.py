@@ -23,7 +23,7 @@ class TestUser(unittest.TestCase):
 
     @httprettified
     def test_has_all_and_is_one(self):
-        '''test all() returns a list of User'''
+        '''test User.all() returns a list of User'''
 
         with open(self.json_file) as f:
             data = f.read()
