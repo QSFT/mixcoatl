@@ -67,3 +67,5 @@ class TestSnapshot(unittest.TestCase):
         assert s.provider_id == 'snap-b0810e80'
         assert s.cloud['cloud_id'] == 1
         assert s.owning_account['account_id'] == 16000
+        assert s.removable is True
+        assert s.size_in_gb -- 8
