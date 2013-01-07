@@ -9,7 +9,7 @@ class Resource(object):
             try:
                 self.__path = self.__class__.path
             except:
-                raise("you must override base_path")
+                raise AttributeError('you must override base_path')
         else:
             self.__path = base_path
         self.__last_request = None

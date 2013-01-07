@@ -51,6 +51,15 @@ class TestServer(unittest.TestCase):
         assert s.data_center['data_center_id'] == 64351
         assert s.customer['customer_id'] == 11111
         assert s.cloud['cloud_id'] == 1
+        print s.private_ip_addresses
+        assert '10.253.17.81' in s.private_ip_addresses
+        assert s.public_ip_address == '54.245.135.4'
+        assert s.platform == 'UBUNTU'
+        assert s.owning_groups[0]['group_id'] == 9465
+        assert s.provider_id == 'i-0c67a03e'
+        assert s.start_date == '2012-12-18T18:31:26.000+0000'
+        assert s.budget == 10287
+        assert s.owning_user['user_id'] == 12345
 
     @httprettified
     def test_launch_basic(self):

@@ -110,10 +110,6 @@ class Server(Resource):
         return self.__region
 
     @lazy_property
-    def platform(self):
-        return self.__platform
-
-    @lazy_property
     def provider_product_id(self):
         return self.__provider_product_id
 
