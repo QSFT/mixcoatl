@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "alphaName": "Smith, Bob", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "editable": false, 
+      "email": "bob.smith@domain.com", 
+      "familyName": "Smith", 
+      "givenName": "Bob", 
+      "groups": [
+        {
+          "groupId": 9465
+        }
+      ], 
+      "hasCloudAPIAccess": false, 
+      "hasCloudConsoleAccess": false, 
+      "status": "ACTIVE", 
+      "timeZone": "America/Chicago", 
+      "userId": 9876, 
+      "vmLoginId": "p9876"
+    }, 
+    {
+      "alphaName": "Vincent, John", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "editable": false, 
+      "email": "john.vincent@domain.com", 
+      "familyName": "Vincent", 
+      "givenName": "John", 
+      "groups": [
+        {
+          "groupId": 9465
+        }
+      ], 
+      "hasCloudAPIAccess": false, 
+      "hasCloudConsoleAccess": false, 
+      "status": "ACTIVE",
+      "sshPublicKey": "ssh-rsa AAAABsshkey user@machine",
+      "timeZone": "America/New_York", 
+      "userId": 6789, 
+      "vmLoginId": "p6789"
+    }
+  ]
+}

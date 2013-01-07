@@ -1,0 +1,30 @@
+{
+  "roles": [
+    {
+      "acl": [], 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "General Dev Role", 
+      "name": "Dev", 
+      "roleId": 14039, 
+      "status": "ACTIVE"
+    }, 
+    {
+      "acl": [
+        {
+          "action": "ANY", 
+          "qualifier": "ANY", 
+          "resourceType": "ANY"
+        }
+      ], 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "General Admin Role", 
+      "name": "Admin", 
+      "roleId": 13712, 
+      "status": "ACTIVE"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "Default administrative group with full permissions.", 
+      "groupId": 9465, 
+      "name": "Admin", 
+      "status": "ACTIVE"
+    }, 
+    {
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "The Development group", 
+      "groupId": 9848, 
+      "name": "Development", 
+      "status": "ACTIVE"
+    }
+  ]
+}
