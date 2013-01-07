@@ -4,7 +4,7 @@ from mixcoatl.decorators.lazy import lazy_property
 class Group(Resource):
     path = 'admin/Group'
     collection_name = 'groups'
-    primary_key = 'groupId'
+    primary_key = 'group_id'
 
     def __init__(self, group_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -13,6 +13,22 @@ class Group(Resource):
     @property
     def group_id(self):
         return self.__group_id
+
+    @lazy_property
+    def description(self):
+        return self.__description
+
+    @lazy_property
+    def name(self):
+        return self.__name
+
+    @lazy_property
+    def status(self):
+        return self.__status
+
+    @lazy_property
+    def customer(self):
+        return self.__customer
 
     @classmethod
     def all(cls, **kwargs):

@@ -49,3 +49,7 @@ class TestGroups(unittest.TestCase):
             content_type="application/json")
         s = grp.Group(9848)
         assert s.group_id == 9848
+        assert s.customer['customer_id'] == 12345
+        assert s.description == 'The Development group'
+        assert s.name == 'Development'
+        assert s.status == 'ACTIVE'
