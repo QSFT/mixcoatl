@@ -50,8 +50,6 @@ class TestApiKey(unittest.TestCase):
             content_type="application/json")
 
         s = api_key.ApiKey('SLARTIBARTFAST')
-        print s
-        assert s is not None
         assert s.access_key == 'SLARTIBARTFAST'
         assert s.account['account_id'] == 16000
         assert s.activation == '2012-11-15T21:42:09.429+0000'

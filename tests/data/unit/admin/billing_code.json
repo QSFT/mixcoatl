@@ -1,0 +1,42 @@
+{
+  "billingCodes": [
+    {
+      "billingCodeId": 10287, 
+      "budgetState": "NORMAL", 
+      "currentUsage": {
+        "currency": "USD", 
+        "value": 150.90899658203125
+      }, 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "Default Billing Code", 
+      "financeCode": "DEF", 
+      "name": "Default", 
+      "projectedUsage": {
+        "currency": "USD", 
+        "value": 1023.989990234375
+      }, 
+      "status": "ACTIVE"
+    }, 
+    {
+      "billingCodeId": 10670, 
+      "budgetState": "NORMAL", 
+      "currentUsage": {
+        "currency": "USD", 
+        "value": 0
+      }, 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "a test budget code", 
+      "financeCode": "TEST", 
+      "name": "Test", 
+      "projectedUsage": {
+        "currency": "USD", 
+        "value": 0
+      }, 
+      "status": "ACTIVE"
+    }
+  ]
+}
