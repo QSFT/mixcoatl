@@ -1,3 +1,4 @@
+class LazyPropertyException(BaseException): pass
 class lazy_property(object):
     def __init__(self, func=None):
         self._func = func
@@ -24,11 +25,11 @@ class lazy_property(object):
             if getattr(instance, instance.primary_key) is not None:
                 try:
                     instance.load()
-                except AttributeError:
+                except AttributeError as detail:
                     if instance.last_error is not None:
                         return instance.last_error
                     else:
-                        raise AttributeError, "unknown attribute %s" % myname
+                        raise LazyPropertyException(detail)
 
         return self._func(instance)
 

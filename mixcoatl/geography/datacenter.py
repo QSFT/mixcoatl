@@ -4,15 +4,15 @@ from mixcoatl.decorators.lazy import lazy_property
 class DataCenter(Resource):
     path = 'geography/DataCenter'
     collection_name = 'dataCenters'
-    primary_key = 'datacenter_id'
+    primary_key = 'data_center_id'
 
-    def __init__(self, datacenter_id = None, *args, **kwargs):
+    def __init__(self, data_center_id = None, *args, **kwargs):
         Resource.__init__(self)
-        self.__datacenter_id = datacenter_id
+        self.__data_center_id = data_center_id
 
     @property
-    def datacenter_id(self):
-        return self.__datacenter_id
+    def data_center_id(self):
+        return self.__data_center_id
 
     @lazy_property
     def description(self):

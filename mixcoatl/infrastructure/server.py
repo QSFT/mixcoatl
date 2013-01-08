@@ -122,6 +122,10 @@ class Server(Resource):
         return self.__provider_id
 
     @lazy_property
+    def product(self):
+        return self.__product
+
+    @lazy_property
     def start_date(self):
         return self.__start_date
 

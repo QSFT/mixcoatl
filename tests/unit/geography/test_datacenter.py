@@ -28,6 +28,6 @@ class TestDataCenters(unittest.TestCase):
         mock_data.return_value = dc_data.one_datacenter
 
         d = datacenter.DataCenter(64351)
-        assert d.datacenter_id == 64351
+        assert d.data_center_id == 64351
         assert d.status == 'ACTIVE'
         assert d.provider_id == 'us-west-2a'

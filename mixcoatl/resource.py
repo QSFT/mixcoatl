@@ -19,7 +19,7 @@ class Resource(object):
         self.pending_changes = {}
 
     def __props(self):
-        p = [k for k,v in self.__class__.__dict__.items() if type(v) is lazy_property]
+        p = [k for k,v in self.__class__.__dict__.items() if type(v) in [lazy_property, property]]
         rp = ['last_error', 'path', 'last_request', 'current_job']
         return p + rp
 
@@ -87,17 +87,18 @@ class Resource(object):
         #self.request_details = 'extended'
         s = self.get(p)
         if self.last_error is None:
-            try:
-                scope = uncamel_keys(s[self.__class__.collection_name][0])
-                for k in scope.keys():
-                    if k in reserved_words:
-                        nk = '_%s__%s' % (self.__class__.__name__, 'e_'+k)
-                    else:
-                        nk = '_%s__%s' % (self.__class__.__name__, k)
+            scope = uncamel_keys(s[self.__class__.collection_name][0])
+            for k in scope.keys():
+                if k in reserved_words:
+                    the_key = 'e_'+k
+                else:
+                    the_key = k
+                nk = '_%s__%s' % (self.__class__.__name__, the_key)
+                if the_key not in self.__props():
+                    raise AttributeError('Key found without accessor: %s' % k)
+                else:
                     setattr(self, nk, scope[k])
-                self.loaded = True
-            except AttributeError:
-                print("missing attribute: "+k)
+                    self.loaded = True
         else:
             return self.last_error
 

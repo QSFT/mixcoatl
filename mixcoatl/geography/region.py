@@ -38,6 +38,10 @@ class Region(Resource):
     def status(self):
         return self.__status
 
+    @lazy_property
+    def description(self):
+        return self.__description
+
     @classmethod
     def all(cls,deref=False):
         r = Resource(cls.path)
