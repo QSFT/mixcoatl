@@ -51,7 +51,7 @@ class Server(Resource):
 
     @data_center.setter
     def data_center(self, d):
-        self.__data_center = {u'data_center_id':d}
+        self.__data_center = {u'data_center_id': d}
 
     @lazy_property
     def description(self):
@@ -67,7 +67,7 @@ class Server(Resource):
 
     @machine_image.setter
     def machine_image(self, m):
-        self.__machine_image = {u'machine_image_id':m}
+        self.__machine_image = {u'machine_image_id': m}
 
     @lazy_property
     def firewalls(self):
@@ -152,7 +152,7 @@ class Server(Resource):
             self.load()
         else:
             if wait_for_job(self.current_job):
-                self.server_id = job.get(self.current_job)['message']
+                self.__server_id = job.get(self.current_job)['message']
                 self.load()
             else:
                 return self.last_error
@@ -175,7 +175,7 @@ class Server(Resource):
 
     @required_attrs(['provider_product_id', 'machine_image', 'description', 'name','data_center'])
     def launch(self, callback=None):
-        optional_attrs = ['firewalls','keypair', 'label']
+        optional_attrs = ['firewalls', 'keypair', 'label']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
