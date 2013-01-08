@@ -56,7 +56,6 @@ class TestSnapshot(unittest.TestCase):
             content_type="application/json")
 
         s = self.cls(pk)
-        s.load()
 
         assert s.snapshot_id == 23237460
         assert s.available is True

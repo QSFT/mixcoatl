@@ -1,65 +1,82 @@
-import os
 import sys
 # These have to be set before importing any mixcoatl modules
+import os
 os.environ['ES_ACCESS_KEY'] = 'abcdefg'
 os.environ['ES_SECRET_KEY'] = 'gfedcba'
+import json
 
 if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
-import mixcoatl.infrastructure.server as server
-import tests.data.server as srv_data
+
 from httpretty import HTTPretty
 from httpretty import httprettified
 
-import json
+import mixcoatl.infrastructure.server as rsrc
+from mixcoatl.settings.load_settings import settings
+from mixcoatl.utils import camelize
 
 class TestServer(unittest.TestCase):
 
+    def setUp(self):
+        self.cls = rsrc.Server
+        self.es_url = '%s/%s' % (settings.endpoint, self.cls.path)
+        self.json_file = '../../tests/data/unit/infrastructure/server.json'
+
     @httprettified
-    def test_has_all_servers_and_id_Server(self):
+    def test_has_all_and_is_one(self):
         '''test all() returns a list of Server'''
 
-        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server"
-        data = srv_data.all_servers
+        with open(self.json_file) as f:
+            data = f.read()
         HTTPretty.register_uri(HTTPretty.GET,
-            es_url,
-            body = json.dumps(data),
+            self.es_url,
+            body = data,
             status = 200,
             content_type = "application/json")
-        s = server.Server.all()
-        assert len(s) == 3
+        s = self.cls.all()
+        assert len(s) == 12
         for x in s:
-            assert isinstance(x, server.Server), '%s must be an instance of Server' % x
+            assert isinstance(x, self.cls)
 
     @httprettified
-    def test_has_a_server(self):
-        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/331810"
-        data = srv_data.one_server
+    def test_has_one(self):
+        '''test Server(<id>) returns a valid resource'''
+        pk = 331810
+        with open(self.json_file) as f:
+            data = json.load(f)
+        data[self.cls.collection_name][:] = [d for d in data[self.cls.collection_name] if
+                                             d[camelize(self.cls.primary_key)] == pk]
         HTTPretty.register_uri(HTTPretty.GET,
-            es_url,
+            self.es_url+'/'+str(pk),
             body = json.dumps(data),
             status = 200,
             content_type = "application/json")
 
-        s = server.Server(331810)
-        assert s.server_id == 331810
+        s = self.cls(pk)
+        s.load()
+        assert s.server_id == pk
         assert s.status == 'RUNNING'
         assert s.agent_version == 17
         assert s.region['region_id'] == 19344
         assert s.data_center['data_center_id'] == 64351
-        assert s.customer['customer_id'] == 11111
+        assert s.customer['customer_id'] == 12345
         assert s.cloud['cloud_id'] == 1
-        print s.private_ip_addresses
-        assert '10.253.17.81' in s.private_ip_addresses
-        assert s.public_ip_address == '54.245.135.4'
+        assert '10.1.1.1' in s.private_ip_addresses
+        assert s.public_ip_address == '1.1.1.1'
         assert s.platform == 'UBUNTU'
         assert s.owning_groups[0]['group_id'] == 9465
         assert s.provider_id == 'i-0c67a03e'
         assert s.start_date == '2012-12-18T18:31:26.000+0000'
         assert s.budget == 10287
-        assert s.owning_user['user_id'] == 12345
+        assert s.owning_user['user_id'] == 54321
+        assert s.provider_product_id == 'm1.small'
+        assert s.provider_id == 'i-0c67a03e'
+        assert s.firewalls[0]['firewall_id'] == 117164
+        assert s.machine_image['machine_image_id'] == 281535
+        assert s.description == 'Sample-Tier-independent-node-0'
+        assert s.product['product_id'] == 652
 
     @httprettified
     def test_launch_basic(self):
@@ -70,7 +87,7 @@ class TestServer(unittest.TestCase):
             body = jobdata,
             content_type="application/json",
             status=202)
-        s = server.Server()
+        s = self.cls()
         s.provider_product_id = 'm1.xlarge'
         s.machine_image = 284831
         s.description = 'unit test server'
@@ -89,7 +106,7 @@ class TestServer(unittest.TestCase):
             body = jobdata,
             content_type="application/json",
             status=202)
-        s = server.Server()
+        s = self.cls()
         s.provider_product_id = 'm1.xlarge'
         s.machine_image = 284831
         s.description = 'unit test server'
@@ -103,16 +120,21 @@ class TestServer(unittest.TestCase):
 
     @httprettified
     def test_dont_launch_running_server(self):
-        es_url = "https://api.enstratus.com/api/enstratus/2012-06-15/infrastructure/Server/331810"
-        data = srv_data.one_server
+
+
+        pk = 331810
+        with open(self.json_file) as f:
+            data = json.load(f)
+        data[self.cls.collection_name][:] = [d for d in data[self.cls.collection_name] if
+                                             d[camelize(self.cls.primary_key)] == pk]
         HTTPretty.register_uri(HTTPretty.GET,
-            es_url,
+            self.es_url+'/'+str(pk),
             body = json.dumps(data),
             status = 200,
             content_type = "application/json")
 
-        s = server.Server(331810)
-        with self.assertRaises(server.ServerLaunchException):
+        s = self.cls(pk)
+        with self.assertRaises(rsrc.ServerLaunchException):
             s.launch()
 
 
@@ -123,7 +145,7 @@ class TestServer(unittest.TestCase):
             es_url,
             content_type="application/json",
         status = 204)
-        s = server.Server(33181)
+        s = self.cls(33181)
         r = s.destroy()
         assert s.last_error is None
         assert r is True
