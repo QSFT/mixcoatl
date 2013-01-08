@@ -1,0 +1,81 @@
+{
+  "tiers": [
+    {
+      "breachIncrement": 1, 
+      "breachPeriodInMinutes": 5, 
+      "cooldownPeriodInMinutes": 5, 
+      "deployment": {
+        "backupWindow": {
+          "daysOfWeek": [
+            "SUNDAY", 
+            "MONDAY", 
+            "TUESDAY", 
+            "WEDNESDAY", 
+            "THURSDAY", 
+            "FRIDAY", 
+            "SATURDAY"
+          ], 
+          "endHour": 9, 
+          "endMinute": 0, 
+          "startHour": 4, 
+          "startMinute": 0
+        }, 
+        "budget": 10287, 
+        "creationTimestamp": "2012-12-18T17:14:45.738+0000", 
+        "customer": {
+          "customerId": 12345
+        }, 
+        "deploymentId": 13607, 
+        "description": "Test for potential bug where deployments with no snapshot frequency in the launch config fail to launch.", 
+        "forServiceCatalog": false, 
+        "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
+        "maintenanceWindow": {
+          "daysOfWeek": [
+            "SUNDAY", 
+            "MONDAY", 
+            "TUESDAY", 
+            "WEDNESDAY", 
+            "THURSDAY", 
+            "FRIDAY", 
+            "SATURDAY"
+          ], 
+          "endHour": 11, 
+          "endMinute": 0, 
+          "startHour": 9, 
+          "startMinute": 1
+        }, 
+        "name": "KeithSimpleSnapshotTest", 
+        "owningGroups": [
+          {
+            "groupId": 9465
+          }
+        ], 
+        "owningUser": {
+          "userId": 54321
+        }, 
+        "reasonNotRemovable": "You must shut down the deployment before removing it.", 
+        "regions": [
+          {
+            "regionId": 19344
+          }
+        ], 
+        "removable": false, 
+        "status": "RUNNING", 
+        "type": "DEDICATED"
+      }, 
+      "description": "This is what we call a tier.", 
+      "lastBreachChangeTimestamp": "2012-12-18T18:42:06.160+0000", 
+      "lowerCpuThreshold": 25, 
+      "lowerRamThreshold": 25, 
+      "maximumServers": 1, 
+      "minimumServers": 1, 
+      "name": "Sample Tier", 
+      "removable": false, 
+      "scalingRules": "BASIC", 
+      "status": "BREACH_LOWER", 
+      "tierId": 10429, 
+      "upperCpuThreshold": 75, 
+      "upperRamThreshold": 75
+    }
+  ]
+}

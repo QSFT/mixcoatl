@@ -1,0 +1,41 @@
+{
+  "cmAccounts": [
+    {
+      "accountNumber": "1234567890",
+      "budget": -1, 
+      "cmAccountId": 3609, 
+      "cmService": {
+        "cmServiceId": 3709
+      }, 
+      "createdTimestamp": "2013-01-06T06:48:06.699+0000", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "an object store cm account", 
+      "guid": "/customer/12345/cmAccount/3609",
+      "lastModifiedTimestamp": "2013-01-06T06:48:06.699+0000", 
+      "name": "object-store-cm", 
+      "removable": true, 
+      "status": "ACTIVE"
+    }, 
+    {
+      "accountNumber": "", 
+      "budget": -1, 
+      "cmAccountId": 3610, 
+      "cmService": {
+        "cmServiceId": 3710
+      }, 
+      "createdTimestamp": "2013-01-06T06:50:29.326+0000", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "a chef cm account",
+      "guid": "/customer/12345/cmAccount/3610",
+      "label": "iconlightbulb", 
+      "lastModifiedTimestamp": "2013-01-06T06:50:29.326+0000", 
+      "name": "chef-cme",
+      "removable": true, 
+      "status": "ACTIVE"
+    }
+  ]
+}
