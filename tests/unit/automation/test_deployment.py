@@ -59,7 +59,7 @@ class TestDeployment(unittest.TestCase):
         assert s.budget == 9465
         assert s.creation_timestamp == '2012-11-13T22:57:45.622+0000'
         assert s.customer['customer_id'] == 12345
-        assert s.description == 'Copied from dpando-Wordpress-MySQLreplication'
+        assert s.description == 'Copied deployment'
         assert s.for_service_catalog is False
         assert s.launch_timestamp == '1970-01-01T00:00:00.000+0000'
         assert s.maintenance_window['days_of_week'] == ['SUNDAY', 'MONDAY', 'TUESDAY',
