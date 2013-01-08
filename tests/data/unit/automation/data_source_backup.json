@@ -1,0 +1,52 @@
+{
+  "dataSourceBackups": [
+    {
+      "dataSource": {
+        "dataSourceId": 5901
+      }, 
+      "dataSourceBackupId": 105204, 
+      "endTimestamp": "2013-01-08T05:36:48.502+0000", 
+      "server": {
+        "serverId": 338942
+      }, 
+      "startTimestamp": "2013-01-08T05:36:30.449+0000", 
+      "status": "ERROR"
+    }, 
+    {
+      "dataSource": {
+        "dataSourceId": 5901
+      }, 
+      "dataSourceBackupId": 104911, 
+      "endTimestamp": "2013-01-08T05:23:09.778+0000", 
+      "server": {
+        "serverId": 338942
+      }, 
+      "startTimestamp": "2013-01-08T05:22:52.567+0000", 
+      "status": "ERROR"
+    }, 
+    {
+      "dataSource": {
+        "dataSourceId": 5901
+      }, 
+      "dataSourceBackupId": 105203, 
+      "endTimestamp": "2013-01-08T05:02:07.346+0000", 
+      "server": {
+        "serverId": 338942
+      }, 
+      "startTimestamp": "2013-01-08T05:01:48.282+0000", 
+      "status": "ERROR"
+    }, 
+    {
+      "dataSource": {
+        "dataSourceId": 5901
+      }, 
+      "dataSourceBackupId": 104906, 
+      "endTimestamp": "2013-01-08T04:24:49.903+0000", 
+      "server": {
+        "serverId": 338942
+      }, 
+      "startTimestamp": "2013-01-08T04:24:32.380+0000", 
+      "status": "ERROR"
+    }
+  ]
+}

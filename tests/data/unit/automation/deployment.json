@@ -22,7 +22,7 @@
         "customerId": 12345
       }, 
       "deploymentId": 13392, 
-      "description": "Copied from dpando-Wordpress-MySQLreplication", 
+      "description": "Copied deployment", 
       "forServiceCatalog": false, 
       "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
       "maintenanceWindow": {
@@ -98,7 +98,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "dpando-multiVolume", 
+      "name": "multiVolume", 
       "owningGroups": [
         {
           "groupId": 9465
@@ -138,7 +138,7 @@
         "customerId": 12345
       }, 
       "deploymentId": 13288, 
-      "description": "Testing MySQL replication across regions", 
+      "description": "MySQL replication across regions", 
       "forServiceCatalog": false, 
       "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
       "maintenanceWindow": {
@@ -156,7 +156,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "dpando-mysql-multiregion-replication", 
+      "name": "MultiRegion", 
       "owningGroups": [
         {
           "groupId": 9465
@@ -199,7 +199,7 @@
         "customerId": 12345
       }, 
       "deploymentId": 13595, 
-      "description": "dpando-testencryption", 
+      "description": "Encrypted Deployment", 
       "forServiceCatalog": false, 
       "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
       "maintenanceWindow": {
@@ -217,7 +217,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "dpando-testencryption", 
+      "name": "Encryption", 
       "owningGroups": [
         {
           "groupId": 9465
@@ -275,7 +275,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "dpando-Wordpress-MySQLreplication", 
+      "name": "wordpress", 
       "owningGroups": [
         {
           "groupId": 9465
@@ -333,7 +333,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "Keith Wordpress Test", 
+      "name": "wordpress 2", 
       "owningGroups": [
         {
           "groupId": 9465
@@ -373,7 +373,7 @@
         "customerId": 12345
       }, 
       "deploymentId": 13607, 
-      "description": "Test for potential bug where deployments with no snapshot frequency in the launch config fail to launch.", 
+      "description": "Test deployment", 
       "forServiceCatalog": false, 
       "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
       "maintenanceWindow": {
@@ -391,7 +391,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "KeithSimpleSnapshotTest", 
+      "name": "Snapshot", 
       "owningGroups": [
         {
           "groupId": 9465
@@ -485,7 +485,7 @@
         "customerId": 12345
       }, 
       "deploymentId": 13488, 
-      "description": "Wordpress demo for testing new deployment configuration of David Pando.", 
+      "description": "Wordpress demo for testing", 
       "forServiceCatalog": false, 
       "label": "flagred", 
       "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
@@ -504,7 +504,7 @@
         "startHour": 9, 
         "startMinute": 1
       }, 
-      "name": "skang-wordpress-demo", 
+      "name": "Skang", 
       "owningGroups": [
         {
           "groupId": 9465

@@ -1,0 +1,22 @@
+{
+  "services": [
+    {
+      "backupIntervalInMinutes": 0, 
+      "budget": 10287, 
+      "description": "wordpress-mysql", 
+      "name": "wordpress-mysql", 
+      "owningGroup": [
+        {
+          "groupId": 9465
+        }
+      ], 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "runAsUser": null, 
+      "scalingModel": "REPLICATED", 
+      "serviceId": 11621, 
+      "status": "PAUSED"
+    }
+  ]
+}

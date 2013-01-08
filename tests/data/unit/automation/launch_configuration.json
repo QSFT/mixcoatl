@@ -1,0 +1,245 @@
+{
+  "launchConfigurations": [
+    {
+      "arrayVolumeCapacity": 0, 
+      "arrayVolumeCount": 0, 
+      "cmAccount": {
+        "accountNumber": "", 
+        "budget": -1, 
+        "cmAccountId": 3610, 
+        "cmService": {
+          "cmServiceId": 3710
+        }, 
+        "createdTimestamp": "2013-01-06T06:50:29.326+0000", 
+        "customer": {
+          "customerId": 12345
+        }, 
+        "description": "Do not use this account. Just for API tests", 
+        "guid": "/customer/14334/cmAccount/3610", 
+        "label": "iconlightbulb", 
+        "lastModifiedTimestamp": "2013-01-06T06:50:29.326+0000", 
+        "name": "chef-dont-use", 
+        "removable": true, 
+        "status": "ACTIVE"
+      }, 
+      "customer": {
+        "accountingCurrency": "USD", 
+        "automatedExchangeRates": true, 
+        "businessName": "CSE", 
+        "created": "2012-11-07T16:38:26.885+0000", 
+        "createdTimestamp": "2012-11-07T16:38:26.885+0000", 
+        "customerId": 12345, 
+        "status": "ACTIVE", 
+        "timeZone": "UTC"
+      }, 
+      "deployment": {
+        "backupWindow": {
+          "daysOfWeek": [
+            "SUNDAY", 
+            "MONDAY", 
+            "TUESDAY", 
+            "WEDNESDAY", 
+            "THURSDAY", 
+            "FRIDAY", 
+            "SATURDAY"
+          ], 
+          "endHour": 9, 
+          "endMinute": 0, 
+          "startHour": 4, 
+          "startMinute": 0
+        }, 
+        "budget": 10287, 
+        "creationTimestamp": "2013-01-08T06:02:13.936+0000", 
+        "customer": {
+          "customerId": 12345
+        }, 
+        "deploymentId": 13614, 
+        "description": "a test deployment", 
+        "forServiceCatalog": false, 
+        "label": "blue", 
+        "launchTimestamp": "1970-01-01T00:00:00.000+0000", 
+        "maintenanceWindow": {
+          "daysOfWeek": [
+            "SUNDAY", 
+            "MONDAY", 
+            "TUESDAY", 
+            "WEDNESDAY", 
+            "THURSDAY", 
+            "FRIDAY", 
+            "SATURDAY"
+          ], 
+          "endHour": 11, 
+          "endMinute": 0, 
+          "startHour": 9, 
+          "startMinute": 1
+        }, 
+        "name": "jv-deployment", 
+        "owningGroups": [
+          {
+            "groupId": 9465
+          }
+        ], 
+        "owningUser": {
+          "userId": 54321
+        }, 
+        "regions": [
+          {
+            "regionId": 19344
+          }
+        ], 
+        "removable": true, 
+        "status": "STOPPED", 
+        "type": "DEDICATED"
+      }, 
+      "firewalls": [
+        {
+          "budget": 10287, 
+          "cloud": {
+            "cloudId": 1
+          }, 
+          "customer": {
+            "customerId": 12345
+          }, 
+          "description": "default group", 
+          "firewallId": 116387, 
+          "name": "default", 
+          "owningAccount": {
+            "accountId": 16000
+          }, 
+          "providerId": "sg-28891318", 
+          "region": {
+            "regionId": 19344
+          }, 
+          "removable": true, 
+          "status": "ACTIVE"
+        }
+      ], 
+      "launchConfigurationId": 16415, 
+      "personalities": [
+        {
+          "sharedPersonalityCode": "7502-3610"
+        }
+      ], 
+      "primaryMachineImage": {
+        "agentVersion": 17, 
+        "architecture": "I64", 
+        "budget": 10287, 
+        "cloud": {
+          "cloudId": 1
+        }, 
+        "creationTimestamp": "1970-01-01T00:00:00.000+0000", 
+        "customer": {
+          "customerId": 12345
+        }, 
+        "description": "enstratus17-ubuntu1204-amd64-20120915.1 (x86_64 Ubuntu)", 
+        "machineImageId": 281731, 
+        "name": "enstratus-images/ubuntu/enstratus17-ubuntu1204-amd64-20120915.1", 
+        "owningAccount": {
+          "accountId": 2800
+        }, 
+        "owningCloudAccountNumber": "672283631203", 
+        "owningUser": {
+          "userId": 54321
+        }, 
+        "platform": "UBUNTU", 
+        "providerId": "ami-ba47c98a", 
+        "region": {
+          "regionId": 19344
+        }, 
+        "removable": false, 
+        "sharable": false, 
+        "status": "ACTIVE"
+      }, 
+      "primaryProduct": {
+        "productId": "m1.medium"
+      }, 
+      "raidLevel": "NONE", 
+      "recoveryDelayInMinutes": 10, 
+      "region": {
+        "cloud": {
+          "cloudId": 1
+        }, 
+        "customer": {
+          "customerId": 12345
+        }, 
+        "description": "AWS Western United States (2)", 
+        "jurisdiction": "US", 
+        "name": "Oregon (us-west-2)", 
+        "providerId": "us-west-2", 
+        "regionId": 19344, 
+        "status": "ACTIVE"
+      }, 
+      "scripts": [
+        {
+          "sharedPersonalityCode": "16004-3610"
+        }
+      ], 
+      "secondaryMachineImage": {
+        "agentVersion": 17, 
+        "architecture": "I64", 
+        "budget": 10287, 
+        "cloud": {
+          "cloudId": 1
+        }, 
+        "creationTimestamp": "1970-01-01T00:00:00.000+0000", 
+        "customer": {
+          "customerId": 12345
+        }, 
+        "description": "WordpressDemoImage", 
+        "machineImageId": 281731, 
+        "name": "WordpressDemoImage", 
+        "owningAccount": {
+          "accountId": 16000
+        }, 
+        "owningCloudAccountNumber": "825279278023", 
+        "owningGroups": [
+          {
+            "groupId": 9465
+          }
+        ], 
+        "owningUser": {
+          "userId": 54321
+        }, 
+        "platform": "UBUNTU", 
+        "providerId": "ami-1875fc28", 
+        "region": {
+          "regionId": 19344
+        }, 
+        "removable": false, 
+        "sharable": true, 
+        "status": "ACTIVE"
+      }, 
+      "secondaryProduct": {
+        "productId": "m1.medium"
+      }, 
+      "serverNameTemplate": "{group}-{role}-{count}-{timestamp}", 
+      "serverType": "SERVICE", 
+      "snapshotIntervalInMinutes": 1440, 
+      "status": "ACTIVE", 
+      "tier": {
+        "breachIncrement": 1, 
+        "breachPeriodInMinutes": 5, 
+        "cooldownPeriodInMinutes": 5, 
+        "deployment": {
+          "deploymentId": 13614
+        }, 
+        "description": "application tier", 
+        "label": "red", 
+        "lastBreachChangeTimestamp": "2013-01-08T06:02:50.722+0000", 
+        "lowerCpuThreshold": 25, 
+        "lowerRamThreshold": 25, 
+        "maximumServers": 1, 
+        "minimumServers": 1, 
+        "name": "app-tier", 
+        "removable": true, 
+        "scalingRules": "BASIC", 
+        "status": "NORMAL", 
+        "tierId": 10433, 
+        "upperCpuThreshold": 75, 
+        "upperRamThreshold": 75
+      }, 
+      "useEncryptedVolumes": false, 
+      "useHypervisorStats": true
+    }
+  ]
+}

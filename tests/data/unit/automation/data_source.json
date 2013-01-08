@@ -1,0 +1,196 @@
+{
+  "dataSources": [
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaa+bbbbbb==", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "dataSourceId": 5601, 
+      "dataSourceImage": {
+        "cloudFileId": 145390
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress", 
+      "name": "dpando-wordpress", 
+      "nameInDatabase": "wordpress", 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11621
+      }, 
+      "servicePassword": "password==", 
+      "serviceUser": "wordpress"
+    }, 
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaa+bbbbb==", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "dataSourceId": 5702, 
+      "dataSourceImage": {
+        "cloudFileId": 145390
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress", 
+      "name": "dpando-wordpress", 
+      "nameInDatabase": "wordpress", 
+      "owningGroup": [
+        {
+          "groupId": 9465
+        }
+      ], 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11724
+      }, 
+      "servicePassword": "password==", 
+      "serviceUser": "wordpress"
+    }, 
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaa+bbbbb==", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "dataSourceId": 5602, 
+      "dataSourceImage": {
+        "cloudFileId": 145390
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress", 
+      "label": "blue", 
+      "name": "wordpress", 
+      "nameInDatabase": "wordpress", 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11623
+      }, 
+      "servicePassword": "password==", 
+      "serviceUser": "wordpress"
+    }, 
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaa+bbbbb==", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "dataSourceId": 5700, 
+      "dataSourceImage": {
+        "cloudFileId": 145390
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress", 
+      "label": "blue", 
+      "name": "wordpress", 
+      "nameInDatabase": "wordpress", 
+      "owningGroup": [
+        {
+          "groupId": 9465
+        }
+      ], 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11720
+      }, 
+      "servicePassword": "password==", 
+      "serviceUser": "wordpress"
+    }, 
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaaa+bbbbbb==", 
+      "customer": {
+        "customerId": 12345 
+      }, 
+      "dataSourceId": 5800, 
+      "dataSourceImage": {
+        "cloudFileId": 145390
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress data source for mysql.", 
+      "name": "wordpress", 
+      "nameInDatabase": "wordpress", 
+      "owningGroup": [
+        {
+          "groupId": 9465
+        }
+      ], 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11820
+      }, 
+      "servicePassword": "password==", 
+      "serviceUser": "wpadmin"
+    }, 
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaa+bbbbb==", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "dataSourceId": 5901, 
+      "dataSourceImage": {
+        "cloudFileId": 147788
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress", 
+      "name": "wordpress", 
+      "nameInDatabase": "wordpress", 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11921
+      }, 
+      "servicePassword": "password=", 
+      "serviceUser": "wordpress"
+    }, 
+    {
+      "backupIntervalInMinutes": 1440, 
+      "customConfiguration": "aaaaa+bbbbb==", 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "dataSourceId": 5603, 
+      "dataSourceImage": {
+        "cloudFileId": 145390
+      }, 
+      "databaseType": "VM_DYNAMIC", 
+      "description": "wordpress database", 
+      "name": "wpdb", 
+      "nameInDatabase": "wordpress", 
+      "owningUser": {
+        "userId": 54321
+      }, 
+      "preventRemove": null, 
+      "removable": true, 
+      "service": {
+        "serviceId": 11625
+      }, 
+      "servicePassword": "password==", 
+      "serviceUser": "admin"
+    }
+  ]
+}

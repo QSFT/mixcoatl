@@ -1,0 +1,42 @@
+{
+  "cmSystems": [
+    {
+      "cmSystemId": 1, 
+      "description": "Chef configuration management from OpsCode.", 
+      "logoUrl": "", 
+      "name": "Chef", 
+      "private": false, 
+      "propertyNames": [
+        ""
+      ], 
+      "type": "CHEF", 
+      "vendor": "OpsCode"
+    }, 
+    {
+      "cmSystemId": 3, 
+      "description": "Built-in CM system using an object store for script storage.", 
+      "logoUrl": "", 
+      "name": "ObjectStore", 
+      "private": false, 
+      "propertyNames": [
+        "cloudDelegate", 
+        "regionId", 
+        "bucket"
+      ], 
+      "type": "ENSTRATUS", 
+      "vendor": "enStratus"
+    }, 
+    {
+      "cmSystemId": 2, 
+      "description": "Puppet configuration management from Puppet Labs.", 
+      "logoUrl": "", 
+      "name": "Puppet", 
+      "private": false, 
+      "propertyNames": [
+        ""
+      ], 
+      "type": "PUPPET", 
+      "vendor": "Puppet"
+    }
+  ]
+}

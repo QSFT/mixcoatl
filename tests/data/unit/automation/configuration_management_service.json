@@ -1,0 +1,43 @@
+{
+  "cmServices": [
+    {
+      "budget": 0, 
+      "cmServiceId": 3709, 
+      "cmSystem": {
+        "cmSystemId": 3
+      }, 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "an object store cm account", 
+      "label": "flagred", 
+      "name": "object-store-cm", 
+      "properties": {
+        "bucket": "object-store-cm", 
+        "cloudDelegate": "org.dasein.cloud.aws.AWSCloud", 
+        "esRegionId": "19343", 
+        "regionId": "us-east-1"
+      }, 
+      "removable": true, 
+      "serviceEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com", 
+      "status": "ACTIVE"
+    }, 
+    {
+      "budget": 0, 
+      "cmServiceId": 3710, 
+      "cmSystem": {
+        "cmSystemId": 1
+      }, 
+      "customer": {
+        "customerId": 12345
+      }, 
+      "description": "a chef cm account", 
+      "label": "iconlightbulb", 
+      "name": "chef-cm", 
+      "properties": {}, 
+      "removable": true, 
+      "serviceEndpoint": "http://chef.domain.com:4000", 
+      "status": "ACTIVE"
+    }
+  ]
+}
