@@ -25,6 +25,7 @@ else:
     params = None
 
 if len(sys.argv) == 4:
+    params = eval(sys.argv[2])
     details = sys.argv[3]
 else:
     details = 'extended'

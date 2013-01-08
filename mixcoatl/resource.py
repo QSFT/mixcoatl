@@ -81,6 +81,7 @@ class Resource(object):
 
     def load(self):
         from mixcoatl.utils import uncamel_keys
+        reserved_words = ['type']
         p = self.path+"/"+str(getattr(self, self.__class__.primary_key))
 
         #self.request_details = 'extended'
@@ -89,7 +90,10 @@ class Resource(object):
             try:
                 scope = uncamel_keys(s[self.__class__.collection_name][0])
                 for k in scope.keys():
-                    nk = '_%s__%s' % (self.__class__.__name__, k)
+                    if k in reserved_words:
+                        nk = '_%s__%s' % (self.__class__.__name__, 'e_'+k)
+                    else:
+                        nk = '_%s__%s' % (self.__class__.__name__, k)
                     setattr(self, nk, scope[k])
                 self.loaded = True
             except AttributeError:
