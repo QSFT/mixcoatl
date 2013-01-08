@@ -1,7 +1,7 @@
 {
   "loadBalancers": [
     {
-      "address": "wordpress-deployment-746977323.us-west-2.elb.amazonaws.com", 
+      "address": "wordpress-lb.us-west-2.elb.amazonaws.com",
       "budget": 10287, 
       "cloud": {
         "cloudId": 1
@@ -31,7 +31,7 @@
       "status": "ACTIVE"
     }, 
     {
-      "address": "Keith-LB-1659445930.us-west-2.elb.amazonaws.com", 
+      "address": "my-lb.us-west-2.elb.amazonaws.com",
       "budget": 10287, 
       "cloud": {
         "cloudId": 1
