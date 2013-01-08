@@ -3,15 +3,40 @@
     {
       "backupIntervalInMinutes": 0, 
       "budget": 10287, 
-      "description": "wordpress-mysql", 
-      "name": "wordpress-mysql", 
+      "description": "wordpress-mysql",
+      "name": "wordpress-mysql",
       "owningGroup": [
         {
-          "groupId": 9465
+          "customer": {
+            "customerId": 12345
+          }, 
+          "description": "Default administrative group with full permissions.", 
+          "groupId": 9465, 
+          "name": "Admin", 
+          "status": "ACTIVE"
         }
       ], 
       "owningUser": {
-        "userId": 54321
+        "alphaName": "Smith, Bob",
+        "customer": {
+          "customerId": 12345
+        }, 
+        "editable": false, 
+        "email": "bob.smith@domain.com",
+        "familyName": "Smith",
+        "givenName": "Bob",
+        "groups": [
+          {
+            "groupId": 9465
+          }
+        ], 
+        "hasCloudAPIAccess": false, 
+        "hasCloudConsoleAccess": false, 
+        "sshPublicKey": "ssh-rsa mykey user@hostl",
+        "status": "ACTIVE", 
+        "timeZone": "Pacific/Auckland", 
+        "userId": 54321,
+        "vmLoginId": "p54321"
       }, 
       "runAsUser": null, 
       "scalingModel": "REPLICATED", 

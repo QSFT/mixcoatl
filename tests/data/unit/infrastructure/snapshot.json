@@ -1,0 +1,2397 @@
+{
+    "snapshots": [
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-20T01:31:53.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-b0810e80",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-b0810e80",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-b0810e80",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Southeast Asia/Pacific (2)",
+                "jurisdiction": "AU",
+                "name": "Sydney (ap-southeast-2)",
+                "providerId": "ap-southeast-2",
+                "regionId": 19556,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23237460,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64716
+                },
+                "description": "vol-9a31cda9",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-9a31cda9",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-9a31cda9",
+                "region": {
+                    "regionId": 19556
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 319622
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 209179
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-21T20:47:36.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-2044cb10",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-2044cb10",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-2044cb10",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Southeast Asia/Pacific (2)",
+                "jurisdiction": "AU",
+                "name": "Sydney (ap-southeast-2)",
+                "providerId": "ap-southeast-2",
+                "regionId": 19556,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23294582,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64716
+                },
+                "description": "vol-8e7688bd",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-8e7688bd",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "providerId": "vol-8e7688bd",
+                "region": {
+                    "regionId": 19556
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 321097
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 209824
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-08T09:26:16.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-41a1946d",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-41a1946d",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-41a1946d",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (1)",
+                "jurisdiction": "US",
+                "name": "N. California (us-west-1)",
+                "providerId": "us-west-1",
+                "regionId": 19342,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23016074,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64346
+                },
+                "description": "vol-9d7875b3",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-9d7875b3",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-9d7875b3",
+                "region": {
+                    "regionId": 19342
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 311942
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 205576
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-08T03:52:17.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-53de4b75",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-53de4b75",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-53de4b75",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23008962,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-43d7de65",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-43d7de65",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-43d7de65",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 311413
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 205544
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-08T19:03:59.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-023aaf24",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-023aaf24",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-023aaf24",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23023228,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-845c57a2",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-845c57a2",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-845c57a2",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 312352
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 205920
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-19T01:47:14.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-9a67fdbc",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-9a67fdbc",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-9a67fdbc",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23200284,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64352
+                },
+                "description": "vol-dd37d2e4",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-dd37d2e4",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "providerId": "vol-dd37d2e4",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 319218
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 208841
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-22T00:59:09.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-b0563096",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-b0563096",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-b0563096",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23297026,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64352
+                },
+                "description": "vol-dd37d2e4",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-dd37d2e4",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "providerId": "vol-dd37d2e4",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 319218
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 208841
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-26T23:16:45.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "16102-Services-/dev/sdh1",
+            "encrypted": false,
+            "label": null,
+            "name": "16102-Services-/dev/sdh1",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "owningGroups": [
+                {
+                    "customer": {
+                        "customerId": 12345
+                    },
+                    "description": "Default administrative group with full permissions.",
+                    "groupId": 9465,
+                    "name": "Admin",
+                    "status": "ACTIVE"
+                }
+            ],
+            "providerId": "snap-d2432df4",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 1,
+            "snapshotId": 23336930,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "16102-Services-/dev/sdh1",
+                "deviceId": "/dev/sdh",
+                "encrypted": false,
+                "name": "16102-Services-/dev/sdh1",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-44c52f7d",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": true,
+                "sizeInGb": 1,
+                "sizeString": "1GB",
+                "status": "INACTIVE",
+                "volumeId": 211152
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-28T21:43:18.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-24364202",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-24364202",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-24364202",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23368904,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-1eba4c27",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-1eba4c27",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-1eba4c27",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 324080
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 211966
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-11-29T19:57:28.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-a3ef9985",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-a3ef9985",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-a3ef9985",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23394023,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-3d12e304",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-3d12e304",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-3d12e304",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 324447
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 212123
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-04T20:53:12.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "16102-Services-/dev/sdh1",
+            "encrypted": false,
+            "label": null,
+            "name": "16102-Services-/dev/sdh1",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "owningGroups": [
+                {
+                    "customer": {
+                        "customerId": 12345
+                    },
+                    "description": "Default administrative group with full permissions.",
+                    "groupId": 9465,
+                    "name": "Admin",
+                    "status": "ACTIVE"
+                }
+            ],
+            "providerId": "snap-272b6b01",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 1,
+            "snapshotId": 23496433,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "16102-Services-/dev/sdh1",
+                "deviceId": "/dev/sdh",
+                "encrypted": false,
+                "name": "16102-Services-/dev/sdh1",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-f7d42cce",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": true,
+                "sizeInGb": 1,
+                "sizeString": "1GB",
+                "status": "INACTIVE",
+                "volumeId": 212633
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-06T23:07:59.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-afa6e889",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-afa6e889",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-afa6e889",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23549995,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-11884c28",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-11884c28",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-11884c28",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 326586
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213110
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-07T00:29:26.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-05db9523",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-05db9523",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-05db9523",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23552013,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-11884c28",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-11884c28",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-11884c28",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 326586
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213110
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-07T01:26:34.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-2efdb308",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-2efdb308",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-2efdb308",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23552035,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-11884c28",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-11884c28",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-11884c28",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 326586
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213110
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-09T23:21:22.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-52227374",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-52227374",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-52227374",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23560344,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-b13cfc88",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-b13cfc88",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "providerId": "vol-b13cfc88",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 327124
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213413
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-10T03:26:09.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "16406-Services-/dev/sdh1",
+            "encrypted": true,
+            "label": null,
+            "name": "16406-Services-/dev/sdh1",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "owningGroups": [
+                {
+                    "customer": {
+                        "customerId": 12345
+                    },
+                    "description": "Default administrative group with full permissions.",
+                    "groupId": 9465,
+                    "name": "Admin",
+                    "status": "ACTIVE"
+                }
+            ],
+            "providerId": "snap-a1a1f087",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 1,
+            "snapshotId": 23560345,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "16406-Services-/dev/sdh1",
+                "deviceId": "/dev/sdh",
+                "encrypted": true,
+                "name": "16406-Services-/dev/sdh1",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-e88340d1",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": true,
+                "sizeInGb": 1,
+                "sizeString": "1GB",
+                "status": "INACTIVE",
+                "volumeId": 213315
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-10T00:24:08.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-fc4617da",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-fc4617da",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-fc4617da",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23562281,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-11884c28",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-11884c28",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "owningGroups": [
+                    {
+                        "groupId": 9465
+                    }
+                ],
+                "owningUser": {
+                    "userId": 54321
+                },
+                "providerId": "vol-11884c28",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 326586
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213110
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-10T01:01:43.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-a27a2b84",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-a27a2b84",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-a27a2b84",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23562282,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-b13cfc88",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-b13cfc88",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "providerId": "vol-b13cfc88",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 327124
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213413
+            }
+        },
+        {
+            "available": true,
+            "budget": 10287,
+            "cloud": {
+                "cloudId": 1,
+                "cloudProviderConsoleURL": "http://aws.amazon.com",
+                "cloudProviderLogoURL": "/clouds/aws.gif",
+                "cloudProviderName": "Amazon",
+                "computeAccessKeyLabel": "AWS_ACCESS_KEY",
+                "computeAccountNumberLabel": "AWS_ACCOUNT_NUMBER",
+                "computeDelegate": "org.dasein.cloud.aws.AWSCloud",
+                "computeEndpoint": "https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com",
+                "computeSecretKeyLabel": "AWS_SECRET_ACCESS_KEY",
+                "computeX509CertLabel": "AWS_CERTIFICATE",
+                "computeX509KeyLabel": "AWS_PRIVATE_KEY",
+                "documentationLabel": null,
+                "name": "Amazon Web Services",
+                "privateCloud": false,
+                "status": "ACTIVE"
+            },
+            "createdTimestamp": "2012-12-10T01:59:13.000+0000",
+            "customer": {
+                "accountingCurrency": "USD",
+                "automatedExchangeRates": true,
+                "businessName": "CSE",
+                "created": "2012-11-07T16:38:26.885+0000",
+                "createdTimestamp": "2012-11-07T16:38:26.885+0000",
+                "customerId": 12345,
+                "status": "ACTIVE",
+                "timeZone": "UTC"
+            },
+            "description": "snap-e794c5c1",
+            "encrypted": false,
+            "label": null,
+            "name": "snap-e794c5c1",
+            "owningAccount": {
+                "accountId": 16000,
+                "alertConfiguration": {
+                    "alertIntervalInMinutes": 5,
+                    "allowIndividualEmailAlerts": true,
+                    "allowIndividualSmsAlerts": true,
+                    "globalEmailThreshold": 11,
+                    "globalSmsThreshold": 11,
+                    "stopAlertsAfterMinutes": 60
+                },
+                "billingSystemId": "16000",
+                "cloudSubscriptionId": {
+                    "accountNumber": "111111111111",
+                    "cloudId": 1,
+                    "cloudSubscriptionId": 12620,
+                    "storageAccountNumber": null
+                },
+                "configured": true,
+                "customer": {
+                    "customerId": 12345
+                },
+                "defaultBudget": 10287,
+                "name": "CSE",
+                "owner": {
+                    "userId": 54321
+                },
+                "planId": 2,
+                "provisioned": true,
+                "status": "ACTIVE",
+                "subscribed": true
+            },
+            "providerId": "snap-e794c5c1",
+            "region": {
+                "cloud": {
+                    "cloudId": 1
+                },
+                "customer": {
+                    "customerId": 12345
+                },
+                "description": "AWS Western United States (2)",
+                "jurisdiction": "US",
+                "name": "Oregon (us-west-2)",
+                "providerId": "us-west-2",
+                "regionId": 19344,
+                "status": "ACTIVE"
+            },
+            "removable": true,
+            "sharable": true,
+            "sizeInGb": 8,
+            "snapshotId": 23562283,
+            "status": "ACTIVE",
+            "volume": {
+                "available": false,
+                "budget": 10287,
+                "cloud": {
+                    "cloudId": 1
+                },
+                "creationTimestamp": "1970-01-01T00:00:00.000+0000",
+                "customer": {
+                    "customerId": 12345
+                },
+                "dataCenter": {
+                    "dataCenterId": 64351
+                },
+                "description": "vol-b13cfc88",
+                "deviceId": "/dev/sda1",
+                "encrypted": false,
+                "name": "vol-b13cfc88",
+                "owningAccount": {
+                    "accountId": 16000
+                },
+                "providerId": "vol-b13cfc88",
+                "region": {
+                    "regionId": 19344
+                },
+                "removable": false,
+                "server": {
+                    "serverId": 327124
+                },
+                "sizeInGb": 8,
+                "sizeString": "8GB",
+                "status": "INACTIVE",
+                "volumeId": 213413
+            }
+        }
+    ]
+}
