@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mixcoatl &mdash; mixcoatl 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.0 documentation" href="index.html" />
+    <link rel="next" title="mixcoatl Package" href="mixcoatl.html" />
+    <link rel="prev" title="Welcome to mixcoatl’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mixcoatl.html" title="mixcoatl Package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to mixcoatl’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">mixcoatl 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mixcoatl">
+<h1>Mixcoatl<a class="headerlink" href="#mixcoatl" title="Permalink to this headline">¶</a></h1>
+<p>Mixcoatl was the father of Quetzalcoatl. His name means &#8220;Cloud Serpent&#8221;. Fitting for a Python library for the enStratus API.</p>
+<div class="section" id="build-status">
+<h2>Build Status<a class="headerlink" href="#build-status" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="http://travis-ci.org/enStratus/mixcoatl"><img alt="https://secure.travis-ci.org/enStratus/mixcoatl.png" src="https://secure.travis-ci.org/enStratus/mixcoatl.png" /></a>
+<div class="section" id="word-of-warning">
+<h3>Word of warning<a class="headerlink" href="#word-of-warning" title="Permalink to this headline">¶</a></h3>
+<p>This repo is not feature complete. Preference is being given to API interactions that are most useful in conjuction with Fabric:</p>
+<ul class="simple">
+<li>Managing running instances</li>
+<li>Managing firewalls</li>
+<li>Interacting with Jobs</li>
+<li>Support for the above (budget codes, regions, datacenters)</li>
+</ul>
+<p>Also the final API is being fleshed out based on how it is being used. Currently everything except <tt class="docutils literal"><span class="pre">jobs</span></tt> returns a specific object type - i.e. <tt class="docutils literal"><span class="pre">Server</span></tt>, <tt class="docutils literal"><span class="pre">Firewall</span></tt>, <tt class="docutils literal"><span class="pre">FirewallRule</span></tt></p>
+<p>All objects support lazy loading as well as an <tt class="docutils literal"><span class="pre">.all()</span></tt> class method.</p>
+</div>
+</div>
+<div class="section" id="usage-notes">
+<h2>Usage notes<a class="headerlink" href="#usage-notes" title="Permalink to this headline">¶</a></h2>
+<p>At a minimum, the following environment variables will need to be set:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ES_SECRET_KEY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ES_ACCESS_KEY</span></tt></li>
+</ul>
+<p>By default, api calls will be made against the enStratus production SaaS and API version <tt class="docutils literal"><span class="pre">2012-06-15</span></tt>. These can be overridden with the following variables:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ES_ENDPOINT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ES_API_VERSION</span></tt></li>
+</ul>
+<p>When overriding the endpoint, it should be in the form of:</p>
+<p><tt class="docutils literal"><span class="pre">http[s]://api.endpoint.domain/api/enstratus/&lt;api</span> <span class="pre">version&gt;</span></tt></p>
+<p>Note that setting both <tt class="docutils literal"><span class="pre">ES_API_VERSION</span></tt> and <tt class="docutils literal"><span class="pre">ES_ENDPOINT</span></tt> is not cumulative. If you wish to use a private endpoint, it must include the version in the url.</p>
+<div class="section" id="es-dump-py">
+<h3><tt class="docutils literal"><span class="pre">es-dump.py</span></tt><a class="headerlink" href="#es-dump-py" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">mixcoatl</span></tt> also ships with a small script for querying arbitrary objects via the enStratus API called <tt class="docutils literal"><span class="pre">es-dump.py</span></tt>. It&#8217;s very minimal and only dumps the json results of your query:</p>
+<p>example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>es-dump.py admin/Job
+</pre></div>
+</div>
+<div class="highlight-yml"><pre>{
+  "jobs": []
+}</pre>
+</div>
+<p>It can also accept query params in the form of a python <tt class="docutils literal"><span class="pre">dict</span></tt> (the same format the <tt class="docutils literal"><span class="pre">requests</span></tt> library uses:</p>
+<div class="highlight-bash"><div class="highlight"><pre>es-dump.py geography/DataCenter <span class="s2">&quot;{&#39;regionId&#39;:19344}&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-yml"><pre>{
+  "dataCenters": [
+    {
+      "dataCenterId": 64351,
+      "description": "us-west-2a",
+      "name": "us-west-2a",
+      "providerId": "us-west-2a",
+      "region": {
+        "cloud": {
+          "cloudId": 1
+        },
+        "customer": {
+          "customerId": 14334
+        },
+        "description": "AWS Western United States (2)",
+        "jurisdiction": "US",
+        "name": "Oregon (us-west-2)",
+        "providerId": "us-west-2",
+        "regionId": 19344,
+        "status": "ACTIVE"
+      },
+      "status": "ACTIVE"
+    }
+  ]
+}</pre>
+</div>
+<p>You&#8217;ll need to set the environment variables as described above obviously.</p>
+</div>
+<div class="section" id="lazy-loading">
+<h3>Lazy loading<a class="headerlink" href="#lazy-loading" title="Permalink to this headline">¶</a></h3>
+<p>By default, any object you request by its id will not actually hit the endpoint. Only when you request the object in full or a specific attribute, will it actually make the API call. If the API call fails, the error will be returned to you. You can always check the object&#8217;s <tt class="docutils literal"><span class="pre">last_error</span></tt> attribute to determine if it failed or not.</p>
+<p>example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mixcoatl.geography.cloud</span> <span class="kn">import</span> <span class="n">Cloud</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cloud</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># returns immediately</span>
+<span class="n">c</span><span class="o">.</span><span class="n">cloud_id</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span>
+<span class="n">c</span><span class="o">.</span><span class="n">name</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># api call is made.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s">u&#39;Amazon Web Services&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="all">
+<h3><tt class="docutils literal"><span class="pre">.all()</span></tt><a class="headerlink" href="#all" title="Permalink to this headline">¶</a></h3>
+<p>All objects should support a call to return all resources of that type. This will actually return a list of objects. Note that calling <tt class="docutils literal"><span class="pre">.all()</span></tt> actually deferences the objects so an API call will be made for each object:</p>
+<p>example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mixcoatl.geography.cloud</span> <span class="kn">import</span> <span class="n">Cloud</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cloud</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># Initial call made for all Clouds</span>
+<span class="n">c</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># Delay while each cloud object is dereferenced</span>
+<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ACTIVE&#39;</span><span class="p">,</span> <span class="s">&#39;current_job&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;last_request&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;Response [200]&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Amazon Web Services&#39;</span><span class="p">,</span> <span class="s">&#39;last_error&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;cloud_provider_name&#39;</span><span class="p">:</span> <span class="s">&#39;Amazon&#39;</span><span class="p">,</span> <span class="s">&#39;cloud_provider_console_url&#39;</span><span class="p">:</span> <span class="s">&#39;http://aws.amazon.com&#39;</span><span class="p">,</span> <span class="s">&#39;cloud_provider_logo_url&#39;</span><span class="p">:</span> <span class="s">&#39;/clouds/aws.gif&#39;</span><span class="p">,</span> <span class="s">&#39;compute_endpoint&#39;</span><span class="p">:</span> <span class="s">&#39;https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com&#39;</span><span class="p">,</span> <span class="s">&#39;compute_secret_key_label&#39;</span><span class="p">:</span> <span class="s">&#39;AWS_SECRET_ACCESS_KEY&#39;</span><span class="p">,</span> <span class="s">&#39;documentation_label&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;compute_delegate&#39;</span><span class="p">:</span> <span class="s">&#39;org.dasein.cloud.aws.AWSCloud&#39;</span><span class="p">,</span> <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;geography/Cloud/1&#39;</span><span class="p">,</span> <span class="s">&#39;compute_account_number_label&#39;</span><span class="p">:</span> <span class="s">&#39;AWS_ACCOUNT_NUMBER&#39;</span><span class="p">,</span> <span class="s">&#39;private_cloud&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mixcoatl</span><span class="o">.</span><span class="n">geography</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">Cloud</span>
+<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s">&#39;Cloud&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pretty-printing">
+<h3>Pretty-printing<a class="headerlink" href="#pretty-printing" title="Permalink to this headline">¶</a></h3>
+<p>Every resource has a <tt class="docutils literal"><span class="pre">.pprint()</span></tt> function available which returns the prettyprinted object</p>
+<p>example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mixcoatl.geography.cloud</span> <span class="kn">import</span> <span class="n">Cloud</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cloud</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">c</span>
+<span class="n">c</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># pretty print representation</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-notes">
+<h3>Other notes<a class="headerlink" href="#other-notes" title="Permalink to this headline">¶</a></h3>
+<p>In general, most resources should support read-only access. If you know the id of an resource, you can simply request the resource by name with the id as a parameter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mixcoatl.infrastructure.server</span> <span class="kn">import</span> <span class="n">Server</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">s</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># server details returned</span>
+</pre></div>
+</div>
+<p>Importing resources generally follows the API directly i.e.:</p>
+<p><tt class="docutils literal"><span class="pre">from</span> <span class="pre">mixcoatl.scope.resource</span> <span class="pre">import</span> <span class="pre">ResourceName</span></tt></p>
+<p>so for firewalls:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mixcoatl.network.firewall</span> <span class="kn">import</span> <span class="n">Firewall</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Firewall</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">f</span>
+</pre></div>
+</div>
+<p>for servers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mixcoatl.infrastucture.server</span> <span class="kn">import</span> <span class="n">Server</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+<p>For specific examples per resource, see the <a class="reference external" href="https://github.com/enStratus/mixcoatl/wiki">wiki</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Mixcoatl</a><ul>
+<li><a class="reference internal" href="#build-status">Build Status</a><ul>
+<li><a class="reference internal" href="#word-of-warning">Word of warning</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage-notes">Usage notes</a><ul>
+<li><a class="reference internal" href="#es-dump-py"><tt class="docutils literal"><span class="pre">es-dump.py</span></tt></a></li>
+<li><a class="reference internal" href="#lazy-loading">Lazy loading</a></li>
+<li><a class="reference internal" href="#all"><tt class="docutils literal"><span class="pre">.all()</span></tt></a></li>
+<li><a class="reference internal" href="#pretty-printing">Pretty-printing</a></li>
+<li><a class="reference internal" href="#other-notes">Other notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to mixcoatl&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mixcoatl.html"
+                        title="next chapter">mixcoatl Package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/readme.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mixcoatl.html" title="mixcoatl Package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to mixcoatl’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">mixcoatl 0.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, John E. Vincent.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

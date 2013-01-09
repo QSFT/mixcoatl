@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mixcoatl.automation.configuration_management_account &mdash; mixcoatl 0.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mixcoatl.automation.configuration_management_account</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span>
+
+<div class="viewcode-block" id="ConfigurationManagementAccount"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationManagementAccount</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;automation/ConfigurationManagementAccount&#39;</span>
+    <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;cmAccounts&#39;</span>
+    <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;cm_account_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cm_account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cm_account_id</span> <span class="o">=</span> <span class="n">cm_account_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.cm_account_id"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.cm_account_id">[docs]</a>    <span class="k">def</span> <span class="nf">cm_account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cm_account_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.account_number"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.account_number">[docs]</a>    <span class="k">def</span> <span class="nf">account_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__account_number</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.budget"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.cm_service"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.cm_service">[docs]</a>    <span class="k">def</span> <span class="nf">cm_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cm_service</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.created_timestamp"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.created_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">created_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__created_timestamp</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.description"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.guid"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.guid">[docs]</a>    <span class="k">def</span> <span class="nf">guid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__guid</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.last_modified_timestamp"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.last_modified_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">last_modified_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__last_modified_timestamp</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.name"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.removable"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.removable">[docs]</a>    <span class="k">def</span> <span class="nf">removable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__removable</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.status"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.customer"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.label"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.all"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">&#39;details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;details&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">primary_key</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">last_error</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, John E. Vincent.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
