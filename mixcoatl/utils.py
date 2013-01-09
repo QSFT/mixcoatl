@@ -1,21 +1,21 @@
 import time
 
 # TODO: refactor this out as it creates a circular import issue
-def wait_for_job(job_id, status='COMPLETE'):
-    from mixcoatl.admin import job
-    j = job.get(job_id)
-    initial_status = j['status']
-    if initial_status == 'ERROR':
-        return False
-    while job.get(job_id)['status'] != status:
-        time.sleep(5)
-        j = job.get(job_id)
-        if j['status'] == 'ERROR':
-            return False
-        else:
-            continue
-
-    return True
+#def wait_for_job(job_id, status='COMPLETE'):
+#    from mixcoatl.admin import job
+#    j = job.get(job_id)
+#    initial_status = j['status']
+#    if initial_status == 'ERROR':
+#        return False
+#    while job.get(job_id)['status'] != status:
+#        time.sleep(5)
+#        j = job.get(job_id)
+#        if j['status'] == 'ERROR':
+#            return False
+#        else:
+#            continue
+#
+#    return True
 
 def uncamel(str):
     import re

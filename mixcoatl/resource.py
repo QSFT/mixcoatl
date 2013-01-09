@@ -114,11 +114,14 @@ class Resource(object):
         'Accept': 'application/json',
         'User-Agent': sig['ua']}
 
-        results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
+        #results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
+        results = r.request(method, url, headers=headers, **kwargs)
+        print results.text
 
         self.last_error = None
         self.last_request = results
         if results.status_code in failures:
+            print results.json()
             self.last_error = results.json()
             return self.last_error
 
@@ -160,21 +163,21 @@ class Resource(object):
         else:
             self.path = path
 
-    def get(self, path=None, *args, **kwargs):
+    def get(self, path=None, **kwargs):
         self.set_path(path)
-        return self.__doreq('GET', *args, **kwargs)
+        return self.__doreq('GET', **kwargs)
 
-    def post(self, path=None, *args, **kwargs):
+    def post(self, path=None, **kwargs):
         self.set_path(path)
-        return self.__doreq('POST', *args, **kwargs)
+        return self.__doreq('POST', **kwargs)
 
-    def put(self, path=None, *args, **kwargs):
+    def put(self, path=None, **kwargs):
         self.set_path(path)
-        return self.__doreq('PUT', *args, **kwargs)
+        return self.__doreq('PUT', **kwargs)
 
-    def delete(self, path=None, *args, **kwargs):
+    def delete(self, path=None, **kwargs):
         self.set_path(path)
-        return self.__doreq('DELETE', *args, **kwargs)
+        return self.__doreq('DELETE', **kwargs)
 
     def pprint(self):
         import pprint

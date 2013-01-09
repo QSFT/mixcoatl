@@ -1,6 +1,5 @@
 from mixcoatl.resource import Resource
-from mixcoatl.admin import job
-from mixcoatl.utils import wait_for_job
+from mixcoatl.admin.job import Job
 from mixcoatl.utils import camel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
@@ -13,7 +12,7 @@ class Server(Resource):
     collection_name = 'servers'
     primary_key = 'server_id'
 
-    def __init__(self, server_id = None, *args, **kwargs):
+    def __init__(self, server_id=None, *args, **kwargs):
         self.collection_name = self.__class__.collection_name
         Resource.__init__(self)
         self.__server_id = server_id
@@ -151,7 +150,7 @@ class Server(Resource):
         elif self.current_job is None:
             self.load()
         else:
-            if wait_for_job(self.current_job):
+            if Job.wait_for(self.current_job):
                 self.__server_id = job.get(self.current_job)['message']
                 self.load()
             else:
@@ -173,7 +172,8 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-    @required_attrs(['provider_product_id', 'machine_image', 'description', 'name','data_center'])
+    @required_attrs(['provider_product_id', 'machine_image', 'description',
+                    'name', 'data_center'])
     def launch(self, callback=None):
         optional_attrs = ['firewalls', 'keypair', 'label']
         if self.server_id is not None:
