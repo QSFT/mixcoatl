@@ -112,7 +112,8 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Job.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get all jobs</span>
-<span class="sd">        :returns: a list of ``Job`` objects</span>
+
+<span class="sd">        :returns: a list of :class:`Job`&#39;s</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
@@ -123,7 +124,8 @@
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Job.wait_for"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.wait_for">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">job_id</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s">&#39;COMPLETE&#39;</span><span class="p">,</span> <span class="n">callback</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Blocks execution until ``job_id`` returns ``status``</span>
+        <span class="sd">&quot;&quot;&quot;Blocks execution until :attr:`job_id` returns :attr:`status`</span>
+
 <span class="sd">        :param job_id: The ID of the job to wait on</span>
 <span class="sd">        :type job_id: int.</span>
 <span class="sd">        :param status: The status to expect before continuing</span>

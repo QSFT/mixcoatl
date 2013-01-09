@@ -74,18 +74,18 @@
 <em class="property">class </em><tt class="descclassname">mixcoatl.resource.</tt><tt class="descname">Resource</tt><big>(</big><em>base_path=None</em>, <em>request_details='extended'</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="attribute">
-<dt id="mixcoatl.resource.Resource.current_job">
-<tt class="descname">current_job</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.current_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.current_job" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.resource.Resource.request_details">
+<tt class="descname">request_details</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.request_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.request_details" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="mixcoatl.resource.Resource.delete">
-<tt class="descname">delete</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.delete" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="mixcoatl.resource.Resource.path">
+<tt class="descname">path</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="mixcoatl.resource.Resource.get">
-<tt class="descname">get</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.get" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="mixcoatl.resource.Resource.last_request">
+<tt class="descname">last_request</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.last_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.last_request" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -94,8 +94,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.resource.Resource.last_request">
-<tt class="descname">last_request</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.last_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.last_request" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.resource.Resource.current_job">
+<tt class="descname">current_job</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.current_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.current_job" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -103,9 +103,14 @@
 <tt class="descname">load</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="mixcoatl.resource.Resource.path">
-<tt class="descname">path</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.path" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="mixcoatl.resource.Resource.set_path">
+<tt class="descname">set_path</tt><big>(</big><em>path=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.set_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.set_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.resource.Resource.get">
+<tt class="descname">get</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -114,23 +119,18 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mixcoatl.resource.Resource.pprint">
-<tt class="descname">pprint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.pprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.pprint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="mixcoatl.resource.Resource.put">
 <tt class="descname">put</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.put" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="mixcoatl.resource.Resource.request_details">
-<tt class="descname">request_details</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.request_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.request_details" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="mixcoatl.resource.Resource.delete">
+<tt class="descname">delete</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="mixcoatl.resource.Resource.set_path">
-<tt class="descname">set_path</tt><big>(</big><em>path=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.set_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.set_path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.resource.Resource.pprint">
+<tt class="descname">pprint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.pprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.pprint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -149,8 +149,13 @@
 <div class="section" id="module-mixcoatl.utils">
 <span id="utils-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">utils</span></tt> Module<a class="headerlink" href="#module-mixcoatl.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="mixcoatl.utils.camel_keys">
-<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">camel_keys</tt><big>(</big><em>d1</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#camel_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.camel_keys" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.utils.uncamel">
+<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel</tt><big>(</big><em>str</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="mixcoatl.utils.uncamel_keys">
+<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel_keys</tt><big>(</big><em>d1</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel_keys" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -159,18 +164,13 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="mixcoatl.utils.camel_keys">
+<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">camel_keys</tt><big>(</big><em>d1</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#camel_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.camel_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="mixcoatl.utils.convert">
 <tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">convert</tt><big>(</big><em>input</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.convert" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="mixcoatl.utils.uncamel">
-<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel</tt><big>(</big><em>str</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="mixcoatl.utils.uncamel_keys">
-<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel_keys</tt><big>(</big><em>d1</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel_keys" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

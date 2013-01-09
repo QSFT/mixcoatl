@@ -67,9 +67,19 @@
 <dt id="mixcoatl.geography.cloud.Cloud">
 <em class="property">class </em><tt class="descclassname">mixcoatl.geography.cloud.</tt><tt class="descname">Cloud</tt><big>(</big><em>cloud_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="classmethod">
-<dt id="mixcoatl.geography.cloud.Cloud.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.all" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="mixcoatl.geography.cloud.Cloud.path">
+<tt class="descname">path</tt><em class="property"> = 'geography/Cloud'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.cloud.Cloud.collection_name">
+<tt class="descname">collection_name</tt><em class="property"> = 'clouds'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.collection_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.cloud.Cloud.primary_key">
+<tt class="descname">primary_key</tt><em class="property"> = 'cloud_id'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.primary_key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -93,8 +103,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'clouds'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.cloud.Cloud.compute_account_number_label">
+<tt class="descname">compute_account_number_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_account_number_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_account_number_label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -103,8 +113,13 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_account_number_label">
-<tt class="descname">compute_account_number_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_account_number_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_account_number_label" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.cloud.Cloud.compute_x509_cert_label">
+<tt class="descname">compute_x509_cert_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_x509_cert_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_x509_cert_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.cloud.Cloud.compute_x509_key_label">
+<tt class="descname">compute_x509_key_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_x509_key_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_x509_key_label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -123,16 +138,6 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_x509_cert_label">
-<tt class="descname">compute_x509_cert_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_x509_cert_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_x509_cert_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_x509_key_label">
-<tt class="descname">compute_x509_key_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_x509_key_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_x509_key_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="mixcoatl.geography.cloud.Cloud.documentation_label">
 <tt class="descname">documentation_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.documentation_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.documentation_label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -140,16 +145,6 @@
 <dl class="attribute">
 <dt id="mixcoatl.geography.cloud.Cloud.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.path">
-<tt class="descname">path</tt><em class="property"> = 'geography/Cloud'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'cloud_id'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.primary_key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -162,6 +157,11 @@
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="classmethod">
+<dt id="mixcoatl.geography.cloud.Cloud.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -171,14 +171,19 @@
 <dt id="mixcoatl.geography.datacenter.DataCenter">
 <em class="property">class </em><tt class="descclassname">mixcoatl.geography.datacenter.</tt><tt class="descname">DataCenter</tt><big>(</big><em>data_center_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="classmethod">
-<dt id="mixcoatl.geography.datacenter.DataCenter.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.all" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.path">
+<tt class="descname">path</tt><em class="property"> = 'geography/DataCenter'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.geography.datacenter.DataCenter.collection_name">
 <tt class="descname">collection_name</tt><em class="property"> = 'dataCenters'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.collection_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.primary_key">
+<tt class="descname">primary_key</tt><em class="property"> = 'data_center_id'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.primary_key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -197,16 +202,6 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.path">
-<tt class="descname">path</tt><em class="property"> = 'geography/DataCenter'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'data_center_id'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.primary_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="mixcoatl.geography.datacenter.DataCenter.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.provider_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -221,6 +216,11 @@
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="classmethod">
+<dt id="mixcoatl.geography.datacenter.DataCenter.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -230,14 +230,9 @@
 <dt id="mixcoatl.geography.region.Region">
 <em class="property">class </em><tt class="descclassname">mixcoatl.geography.region.</tt><tt class="descname">Region</tt><big>(</big><em>region_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="classmethod">
-<dt id="mixcoatl.geography.region.Region.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>deref=False</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.cloud">
-<tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.cloud" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.region.Region.path">
+<tt class="descname">path</tt><em class="property"> = 'geography/Region'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -246,13 +241,23 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.customer">
-<tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.customer" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.region.Region.primary_key">
+<tt class="descname">primary_key</tt><em class="property"> = 'region_id'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.primary_key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.description">
-<tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.description" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.region.Region.region_id">
+<tt class="descname">region_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.region_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.region_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.region.Region.cloud">
+<tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.region.Region.customer">
+<tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.customer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -266,28 +271,23 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.path">
-<tt class="descname">path</tt><em class="property"> = 'geography/Region'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'region_id'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.primary_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="mixcoatl.geography.region.Region.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.provider_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.region_id">
-<tt class="descname">region_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.region_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.region_id" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.region.Region.status">
+<tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.status">
-<tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.status" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.geography.region.Region.description">
+<tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.geography.region.Region.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>deref=False</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.all" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
