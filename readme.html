@@ -95,39 +95,41 @@
 <div class="highlight-bash"><div class="highlight"><pre>es-dump.py admin/Job
 </pre></div>
 </div>
-<div class="highlight-yml"><pre>{
-  "jobs": []
-}</pre>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">{</span>
+  <span class="s">&quot;jobs&quot;</span><span class="p-Indicator">:</span> <span class="p-Indicator">[]</span>
+<span class="p-Indicator">}</span>
+</pre></div>
 </div>
 <p>It can also accept query params in the form of a python <tt class="docutils literal"><span class="pre">dict</span></tt> (the same format the <tt class="docutils literal"><span class="pre">requests</span></tt> library uses:</p>
 <div class="highlight-bash"><div class="highlight"><pre>es-dump.py geography/DataCenter <span class="s2">&quot;{&#39;regionId&#39;:19344}&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-yml"><pre>{
-  "dataCenters": [
-    {
-      "dataCenterId": 64351,
-      "description": "us-west-2a",
-      "name": "us-west-2a",
-      "providerId": "us-west-2a",
-      "region": {
-        "cloud": {
-          "cloudId": 1
-        },
-        "customer": {
-          "customerId": 14334
-        },
-        "description": "AWS Western United States (2)",
-        "jurisdiction": "US",
-        "name": "Oregon (us-west-2)",
-        "providerId": "us-west-2",
-        "regionId": 19344,
-        "status": "ACTIVE"
-      },
-      "status": "ACTIVE"
-    }
-  ]
-}</pre>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">{</span>
+  <span class="s">&quot;dataCenters&quot;</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span>
+    <span class="p-Indicator">{</span>
+      <span class="s">&quot;dataCenterId&quot;</span><span class="p-Indicator">:</span> <span class="nv">64351</span><span class="p-Indicator">,</span>
+      <span class="s">&quot;description&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;us-west-2a&quot;</span><span class="p-Indicator">,</span>
+      <span class="s">&quot;name&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;us-west-2a&quot;</span><span class="p-Indicator">,</span>
+      <span class="s">&quot;providerId&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;us-west-2a&quot;</span><span class="p-Indicator">,</span>
+      <span class="s">&quot;region&quot;</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span>
+        <span class="s">&quot;cloud&quot;</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span>
+          <span class="s">&quot;cloudId&quot;</span><span class="p-Indicator">:</span> <span class="nv">1</span>
+        <span class="p-Indicator">},</span>
+        <span class="s">&quot;customer&quot;</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span>
+          <span class="s">&quot;customerId&quot;</span><span class="p-Indicator">:</span> <span class="nv">14334</span>
+        <span class="p-Indicator">},</span>
+        <span class="s">&quot;description&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;AWS</span><span class="nv"> </span><span class="s">Western</span><span class="nv"> </span><span class="s">United</span><span class="nv"> </span><span class="s">States</span><span class="nv"> </span><span class="s">(2)&quot;</span><span class="p-Indicator">,</span>
+        <span class="s">&quot;jurisdiction&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;US&quot;</span><span class="p-Indicator">,</span>
+        <span class="s">&quot;name&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;Oregon</span><span class="nv"> </span><span class="s">(us-west-2)&quot;</span><span class="p-Indicator">,</span>
+        <span class="s">&quot;providerId&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;us-west-2&quot;</span><span class="p-Indicator">,</span>
+        <span class="s">&quot;regionId&quot;</span><span class="p-Indicator">:</span> <span class="nv">19344</span><span class="p-Indicator">,</span>
+        <span class="s">&quot;status&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;ACTIVE&quot;</span>
+      <span class="p-Indicator">},</span>
+      <span class="s">&quot;status&quot;</span><span class="p-Indicator">:</span> <span class="s">&quot;ACTIVE&quot;</span>
+    <span class="p-Indicator">}</span>
+  <span class="p-Indicator">]</span>
+<span class="p-Indicator">}</span>
+</pre></div>
 </div>
 <p>You&#8217;ll need to set the environment variables as described above obviously.</p>
 </div>
