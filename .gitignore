@@ -11,3 +11,4 @@ run.py
 build/
 .autonose-depends.pickle
 dist/
+_build/
