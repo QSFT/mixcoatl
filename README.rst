@@ -17,7 +17,7 @@ This repo is not feature complete. Preference is being given to API interactions
 - Interacting with Jobs
 - Support for the above (budget codes, regions, datacenters)
 
-Also the final API is being fleshed out based on how it is being used. Currently everything except ``jobs`` returns a specific object type - i.e. ``Server``, ``Firewall``, ``FirewallRule``
+The API is largely fleshed out at this point. Most resources support read-only operations at this point.
 
 All objects support lazy loading as well as an ``.all()`` class method.
 
@@ -49,7 +49,7 @@ example:
 
         es-dump.py admin/Job
 
-.. code-block:: yml
+.. code-block:: yaml
 
         {
           "jobs": []
@@ -61,7 +61,7 @@ It can also accept query params in the form of a python ``dict`` (the same forma
 
         es-dump.py geography/DataCenter "{'regionId':19344}"
 
-.. code-block:: yml
+.. code-block:: yaml
 
         {
           "dataCenters": [
@@ -97,16 +97,14 @@ By default, any object you request by its id will not actually hit the endpoint.
 
 example:
 
-.. code-block:: python
-
-        from mixcoatl.geography.cloud import Cloud
-        c = Cloud(1)
-        >>> # returns immediately
-        c.cloud_id
-        >>> 1
-        c.name
-        >>> # api call is made.
-        >>> u'Amazon Web Services'
+>>> from mixcoatl.geography.cloud import Cloud
+>>> c = Cloud(1)
+>>> # returns immediately
+>>> c.cloud_id
+1
+>>> c.name
+>>> # api call is made.
+u'Amazon Web Services'
 
 ``.all()``
 ----------
@@ -114,19 +112,17 @@ All objects should support a call to return all resources of that type. This wil
 
 example:
 
-.. code-block:: python
-
-        from mixcoatl.geography.cloud import Cloud
-        c = Cloud.all()
-        >>> # Initial call made for all Clouds
-        c
-        >>> # Delay while each cloud object is dereferenced
-        c[0]
-        >>> {'status': 'ACTIVE', 'current_job': None, 'last_request': '<Response [200]>', 'name': 'Amazon Web Services', 'last_error': None, 'cloud_provider_name': 'Amazon', 'cloud_provider_console_url': 'http://aws.amazon.com', 'cloud_provider_logo_url': '/clouds/aws.gif', 'compute_endpoint': 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com', 'compute_secret_key_label': 'AWS_SECRET_ACCESS_KEY', 'documentation_label': None, 'compute_delegate': 'org.dasein.cloud.aws.AWSCloud', 'path': 'geography/Cloud/1', 'compute_account_number_label': 'AWS_ACCOUNT_NUMBER', 'private_cloud': False}
-        type(c[0])
-        >>> mixcoatl.geography.cloud.Cloud
-        c[0].__class__.__name__
-        >>> 'Cloud'
+>>> from mixcoatl.geography.cloud import Cloud
+>>> c = Cloud.all()
+>>> # Initial call made for all Clouds
+>>> c
+>>> # Delay while each cloud object is dereferenced
+>>> c[0]
+{'status': 'ACTIVE', 'current_job': None, 'last_request': '<Response [200]>', 'name': 'Amazon Web Services', 'last_error': None, 'cloud_provider_name': 'Amazon', 'cloud_provider_console_url': 'http://aws.amazon.com', 'cloud_provider_logo_url': '/clouds/aws.gif', 'compute_endpoint': 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com', 'compute_secret_key_label': 'AWS_SECRET_ACCESS_KEY', 'documentation_label': None, 'compute_delegate': 'org.dasein.cloud.aws.AWSCloud', 'path': 'geography/Cloud/1', 'compute_account_number_label': 'AWS_ACCOUNT_NUMBER', 'private_cloud': False}
+>>> type(c[0])
+mixcoatl.geography.cloud.Cloud
+>>> c[0].__class__.__name__
+'Cloud'
 
 Pretty-printing
 ---------------
@@ -134,43 +130,36 @@ Every resource has a ``.pprint()`` function available which returns the prettypr
 
 example:
 
-.. code-block:: python
-
-        from mixcoatl.geography.cloud import Cloud
-        c = Cloud(1)
-        c
-        c.pprint()
-        >>> # pretty print representation
+>>> from mixcoatl.geography.cloud import Cloud
+>>> c = Cloud(1)
+>>> c
+>>> c.pprint()
+>>> # pretty print representation
 
 Other notes
 -------------
 In general, most resources should support read-only access. If you know the id of an resource, you can simply request the resource by name with the id as a parameter:
 
-.. code-block:: python
 
-        from mixcoatl.infrastructure.server import Server
-        s = Server(12345)
-        s
-        >>> # server details returned
+>>> from mixcoatl.infrastructure.server import Server
+>>> s = Server(12345)
+>>> s
 
 Importing resources generally follows the API directly i.e.:
 
-``from mixcoatl.scope.resource import ResourceName``
+>> from mixcoatl.scope.resource import ResourceName
 
 so for firewalls:
 
-.. code-block:: python
-
-        from mixcoatl.network.firewall import Firewall
-        f = Firewall(12345)
-        f
+>>> from mixcoatl.network.firewall import Firewall
+>>> f = Firewall(12345)
+>>> f
 
 for servers:
 
-.. code-block:: python
 
-        from mixcoatl.infrastucture.server import Server
-        s = Server(12345)
-        s
+>>> from mixcoatl.infrastucture.server import Server
+>>> s = Server(12345)
+>>> s
 
-For specific examples per resource, see the `wiki <https://github.com/enStratus/mixcoatl/wiki>`_
+For specific examples per resource, see the `wiki <https://github.com/enStratus/mixcoatl/wiki>`_ or the `documentation <http://enstratus.github.com/mixcoatl>`_

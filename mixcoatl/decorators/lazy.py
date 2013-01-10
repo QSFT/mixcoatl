@@ -1,6 +1,24 @@
 class LazyPropertyException(BaseException): pass
+
 class lazy_property(object):
+    """decorator for marking an attribute as lazy loaded
+
+    When using the @lazy_property decorator, the subsequent function is
+    in essence made a property that is lazily loaded.
+
+    In practice, all attributes of a given resource should be lazy except
+    the resource's id. This ensures that simply instantiation a resource will
+    not cause an expensive API call to be made.
+
+    .. note::
+
+        * Once any lazy property is loaded, **ALL** lazy properties in the instance are loaded as a result of the API call.
+        * Once all lazy properties are loaded, no further API calls will be made for the current instance.
+
+    :raises: :class:`LazyPropertyException`
+    """
     def __init__(self, func=None):
+
         self._func = func
         self.__doc__ = func.__doc__
         self.__name__ = func.__name__

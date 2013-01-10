@@ -5,6 +5,11 @@ import hmac
 from mixcoatl.settings.load_settings import settings
 
 def get_sig(http_method, path):
+    """Return a signature valid for use in making enStratus API calls
+
+    :param http_method: The `http_method` used to make the API call
+    :param path: The `path` used in the API call
+    """
     timestamp = int(round(time.time() * 1000))
     signpath = settings.basepath+'/'+path
 

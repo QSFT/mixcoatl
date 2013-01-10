@@ -18,50 +18,39 @@ class Job(Resource):
 
     @property
     def job_id(self):
-        """
-        Return the job's ID. Immutable
-        """
+        """Return the job's ID. Immutable"""
         return self.__job_id
 
     @lazy_property
     def status(self):
-        """
-        Return the job's status. Immutable
-        """
+        """Return the job's status. Immutable"""
         return self.__status
 
     @lazy_property
     def description(self):
-        """
-        Return the job's description. Immutable
-        """
+        """Return the job's description. Immutable"""
         return self.__description
 
     @lazy_property
     def message(self):
-        """
-        Return the job's message. Immutable
-        """
+        """Return the job's message. Immutable"""
         return self.__message
 
     @lazy_property
     def start_date(self):
-        """
-        Return the job's start date. Immutable
-        """
+        """Return the job's start date. Immutable"""
         return self.__start_date
 
     @lazy_property
     def end_date(self):
-        """
-        Return the job's stop date. Immutable
-        """
+        """Return the job's stop date. Immutable"""
         return self.__end_date
 
     @classmethod
     def all(cls):
         """Get all jobs
-        :returns: a list of ``Job`` objects
+
+        :returns: a list of :class:`Job`'s
         """
         r = Resource(cls.path)
         x = r.get()
@@ -72,12 +61,13 @@ class Job(Resource):
 
     @classmethod
     def wait_for(cls, job_id, status='COMPLETE', callback = None):
-        """Blocks execution until ``job_id`` returns ``status``
+        """Blocks execution until :attr:`job_id` returns :attr:`status`
+
         :param job_id: The ID of the job to wait on
         :type job_id: int.
         :param status: The status to expect before continuing
         :type status: str.
-        :param callback: Optional callback to be passed the final ``Job`` when ``status`` is reached
+        :param callback: Optional callback to be called with the final ``Job`` when ``status`` is reached
         :type callback: func.
         """
         j = Job(job_id)

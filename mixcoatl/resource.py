@@ -4,6 +4,8 @@ import requests as r
 from mixcoatl.decorators.lazy import lazy_property
 
 class Resource(object):
+    """The base class for all resources returned from an enStratus API call
+    """
     def __init__(self, base_path=None, request_details = 'extended'):
         if base_path is None:
             try:
@@ -41,6 +43,7 @@ class Resource(object):
 
     @property
     def request_details(self):
+        """The level of detail used in the API call: `basic` or `extended`"""
         return self.__request_details
 
     @request_details.setter
@@ -49,6 +52,7 @@ class Resource(object):
 
     @property
     def path(self):
+        """The path used in the API request"""
         return self.__path
 
     @path.setter
@@ -57,6 +61,7 @@ class Resource(object):
 
     @property
     def last_request(self):
+        """The :class:`Request` object of the most recent API call"""
         return self.__last_request
 
     @last_request.setter
@@ -65,6 +70,7 @@ class Resource(object):
 
     @property
     def last_error(self):
+        """The last error message, if any, returned from the most recent API call"""
         return self.__last_error
 
     @last_error.setter
@@ -73,6 +79,7 @@ class Resource(object):
 
     @property
     def current_job(self):
+        """The current :class:`Job`, if any, of an asynchronous API call"""
         return self.__current_job
 
     @current_job.setter
@@ -80,6 +87,7 @@ class Resource(object):
         self.__current_job = cj
 
     def load(self):
+        """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
         reserved_words = ['type']
         p = self.path+"/"+str(getattr(self, self.__class__.primary_key))
@@ -164,26 +172,32 @@ class Resource(object):
             self.path = path
 
     def get(self, path=None, **kwargs):
+        """Perform an HTTP `GET` against the API endpoint for the current resource"""
         self.set_path(path)
         return self.__doreq('GET', **kwargs)
 
     def post(self, path=None, **kwargs):
+        """Perform an HTTP `POST` against the API endpoint for the current resource"""
         self.set_path(path)
         return self.__doreq('POST', **kwargs)
 
     def put(self, path=None, **kwargs):
+        """Perform an HTTP `PUT` against the API endpoint for the current resource"""
         self.set_path(path)
         return self.__doreq('PUT', **kwargs)
 
     def delete(self, path=None, **kwargs):
+        """Perform an HTTP `DELETE` against the API endpoint for the current resource"""
         self.set_path(path)
         return self.__doreq('DELETE', **kwargs)
 
     def pprint(self):
+        """The prettyprint formatted representation of the current resource"""
         import pprint
         pprint.pprint(eval(repr(self)))
 
     def to_dict(self):
+        """The `dict` representation of the current resource"""
         return eval(repr(self))
 
     def track_change(self, var, new_value):

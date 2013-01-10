@@ -1,28 +1,26 @@
-import time
-
-# TODO: refactor this out as it creates a circular import issue
-#def wait_for_job(job_id, status='COMPLETE'):
-#    from mixcoatl.admin import job
-#    j = job.get(job_id)
-#    initial_status = j['status']
-#    if initial_status == 'ERROR':
-#        return False
-#    while job.get(job_id)['status'] != status:
-#        time.sleep(5)
-#        j = job.get(job_id)
-#        if j['status'] == 'ERROR':
-#            return False
-#        else:
-#            continue
-#
-#    return True
+"""
+Common helper utilities for use with mixcoatl
+"""
 
 def uncamel(str):
+    """Return the snake case version of :attr:`str`
+
+    >>> uncamel('deviceId')
+    'device_id'
+    >>> uncamel('dataCenterName')
+    'data_center_name'
+    """
     import re
     s = lambda str: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
     return s(str)
 
 def uncamel_keys(d1):
+    """Return :attr:`d1` with all keys converted to snake case
+
+    >>> d = {'myThings':[{'thingId':1,'someThings':{'firstThing':'a_thing'}}]}
+    >>> uncamel_keys(d)
+    {'my_things': [{'thing_id': 1, 'some_things': {'first_thing': 'a_thing'}}]}
+    """
     d2 = dict()
     if not isinstance(d1, dict):
         return d1
@@ -37,10 +35,21 @@ def uncamel_keys(d1):
     return d2
 
 def camelize(str):
+    """Return the camel case version of a :attr:`str`
+
+    >>> camelize('this_is_a_thing')
+    'thisIsAThing'
+    """
     s = ''.join([t.title() for t in str.split('_')])
     return s[0].lower()+s[1:]
 
 def camel_keys(d1):
+    """Return :attr:`d1` with all keys converted to camel case
+
+    >>> b = {'my_things': [{'thing_id': 1, 'some_things': {'first_thing': 'a_thing'}}]}
+    >>> camel_keys(b)
+    {'myThings': [{'thingId': 1, 'someThings': {'firstThing': 'a_thing'}}]}
+    """
     d2 = dict()
     if not isinstance(d1, dict):
         return d1
@@ -55,6 +64,15 @@ def camel_keys(d1):
     return d2
 
 def convert(input):
+    """Return :attr:`input` converted from :class:`unicode` to :class:`str`
+
+    >>> convert(u'bob')
+    'bob'
+    >>> convert([u'foo', u'bar'])
+    ['foo', 'bar']
+    >>> convert({u'foo':u'bar'})
+    {'foo': 'bar'}
+    """
     if isinstance(input, dict):
         return dict((convert(key), convert(value)) for key, value in input.iteritems())
     elif isinstance(input, list):
