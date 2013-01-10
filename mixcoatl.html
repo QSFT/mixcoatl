@@ -64,7 +64,20 @@
 <dl class="function">
 <dt id="mixcoatl.auth.get_sig">
 <tt class="descclassname">mixcoatl.auth.</tt><tt class="descname">get_sig</tt><big>(</big><em>http_method</em>, <em>path</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/auth.html#get_sig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.auth.get_sig" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return a signature valid for use in making enStratus API calls</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>http_method</strong> &#8211; The <cite>http_method</cite> used to make the API call</li>
+<li><strong>path</strong> &#8211; The <cite>path</cite> used in the API call</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-mixcoatl.resource">
@@ -73,35 +86,42 @@
 <dt id="mixcoatl.resource.Resource">
 <em class="property">class </em><tt class="descclassname">mixcoatl.resource.</tt><tt class="descname">Resource</tt><big>(</big><em>base_path=None</em>, <em>request_details='extended'</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>The base class for all resources returned from an enStratus API call</p>
 <dl class="attribute">
 <dt id="mixcoatl.resource.Resource.request_details">
 <tt class="descname">request_details</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.request_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.request_details" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The level of detail used in the API call: <cite>basic</cite> or <cite>extended</cite></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.resource.Resource.path">
 <tt class="descname">path</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The path used in the API request</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.resource.Resource.last_request">
 <tt class="descname">last_request</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.last_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.last_request" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The <tt class="xref py py-class docutils literal"><span class="pre">Request</span></tt> object of the most recent API call</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.resource.Resource.last_error">
 <tt class="descname">last_error</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.last_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.last_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The last error message, if any, returned from the most recent API call</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.resource.Resource.current_job">
 <tt class="descname">current_job</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.current_job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.current_job" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The current <tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt>, if any, of an asynchronous API call</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.load">
 <tt class="descname">load</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.load" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>(Re)load the current object&#8217;s attributes from an API call</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.set_path">
@@ -111,32 +131,38 @@
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.get">
 <tt class="descname">get</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Perform an HTTP <cite>GET</cite> against the API endpoint for the current resource</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.post">
 <tt class="descname">post</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.post" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Perform an HTTP <cite>POST</cite> against the API endpoint for the current resource</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.put">
 <tt class="descname">put</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.put" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Perform an HTTP <cite>PUT</cite> against the API endpoint for the current resource</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.delete">
 <tt class="descname">delete</tt><big>(</big><em>path=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Perform an HTTP <cite>DELETE</cite> against the API endpoint for the current resource</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.pprint">
 <tt class="descname">pprint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.pprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.pprint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The prettyprint formatted representation of the current resource</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.to_dict">
 <tt class="descname">to_dict</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The <cite>dict</cite> representation of the current resource</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.track_change">
@@ -148,30 +174,64 @@
 </div>
 <div class="section" id="module-mixcoatl.utils">
 <span id="utils-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">utils</span></tt> Module<a class="headerlink" href="#module-mixcoatl.utils" title="Permalink to this headline">¶</a></h2>
+<p>Common helper utilities for use with mixcoatl</p>
 <dl class="function">
 <dt id="mixcoatl.utils.uncamel">
 <tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel</tt><big>(</big><em>str</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the snake case version of <tt class="xref py py-attr docutils literal"><span class="pre">str</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uncamel</span><span class="p">(</span><span class="s">&#39;deviceId&#39;</span><span class="p">)</span>
+<span class="go">&#39;device_id&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uncamel</span><span class="p">(</span><span class="s">&#39;dataCenterName&#39;</span><span class="p">)</span>
+<span class="go">&#39;data_center_name&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="mixcoatl.utils.uncamel_keys">
 <tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel_keys</tt><big>(</big><em>d1</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return <tt class="xref py py-attr docutils literal"><span class="pre">d1</span></tt> with all keys converted to snake case</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;myThings&#39;</span><span class="p">:[{</span><span class="s">&#39;thingId&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;someThings&#39;</span><span class="p">:{</span><span class="s">&#39;firstThing&#39;</span><span class="p">:</span><span class="s">&#39;a_thing&#39;</span><span class="p">}}]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uncamel_keys</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">{&#39;my_things&#39;: [{&#39;thing_id&#39;: 1, &#39;some_things&#39;: {&#39;first_thing&#39;: &#39;a_thing&#39;}}]}</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="mixcoatl.utils.camelize">
 <tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">camelize</tt><big>(</big><em>str</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#camelize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.camelize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the camel case version of a <tt class="xref py py-attr docutils literal"><span class="pre">str</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">camelize</span><span class="p">(</span><span class="s">&#39;this_is_a_thing&#39;</span><span class="p">)</span>
+<span class="go">&#39;thisIsAThing&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="mixcoatl.utils.camel_keys">
 <tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">camel_keys</tt><big>(</big><em>d1</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#camel_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.camel_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return <tt class="xref py py-attr docutils literal"><span class="pre">d1</span></tt> with all keys converted to camel case</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;my_things&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;thing_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;some_things&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;first_thing&#39;</span><span class="p">:</span> <span class="s">&#39;a_thing&#39;</span><span class="p">}}]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camel_keys</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="go">{&#39;myThings&#39;: [{&#39;thingId&#39;: 1, &#39;someThings&#39;: {&#39;firstThing&#39;: &#39;a_thing&#39;}}]}</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="mixcoatl.utils.convert">
 <tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">convert</tt><big>(</big><em>input</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.convert" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return <tt class="xref py py-attr docutils literal"><span class="pre">input</span></tt> converted from <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt> to <tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="s">u&#39;bob&#39;</span><span class="p">)</span>
+<span class="go">&#39;bob&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">([</span><span class="s">u&#39;foo&#39;</span><span class="p">,</span> <span class="s">u&#39;bar&#39;</span><span class="p">])</span>
+<span class="go">[&#39;foo&#39;, &#39;bar&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">({</span><span class="s">u&#39;foo&#39;</span><span class="p">:</span><span class="s">u&#39;bar&#39;</span><span class="p">})</span>
+<span class="go">{&#39;foo&#39;: &#39;bar&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </div>
 <div class="section" id="subpackages">

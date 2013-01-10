@@ -49,31 +49,29 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.utils</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="c"># TODO: refactor this out as it creates a circular import issue</span>
-<span class="c">#def wait_for_job(job_id, status=&#39;COMPLETE&#39;):</span>
-<span class="c">#    from mixcoatl.admin import job</span>
-<span class="c">#    j = job.get(job_id)</span>
-<span class="c">#    initial_status = j[&#39;status&#39;]</span>
-<span class="c">#    if initial_status == &#39;ERROR&#39;:</span>
-<span class="c">#        return False</span>
-<span class="c">#    while job.get(job_id)[&#39;status&#39;] != status:</span>
-<span class="c">#        time.sleep(5)</span>
-<span class="c">#        j = job.get(job_id)</span>
-<span class="c">#        if j[&#39;status&#39;] == &#39;ERROR&#39;:</span>
-<span class="c">#            return False</span>
-<span class="c">#        else:</span>
-<span class="c">#            continue</span>
-<span class="c">#</span>
-<span class="c">#    return True</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Common helper utilities for use with mixcoatl</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="uncamel"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.utils.uncamel">[docs]</a><span class="k">def</span> <span class="nf">uncamel</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the snake case version of :attr:`str`</span>
+
+<span class="sd">    &gt;&gt;&gt; uncamel(&#39;deviceId&#39;)</span>
+<span class="sd">    &#39;device_id&#39;</span>
+<span class="sd">    &gt;&gt;&gt; uncamel(&#39;dataCenterName&#39;)</span>
+<span class="sd">    &#39;data_center_name&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">re</span>
     <span class="n">s</span> <span class="o">=</span> <span class="k">lambda</span> <span class="nb">str</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;(((?&lt;=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))&#39;</span><span class="p">,</span> <span class="s">&#39;_</span><span class="se">\\</span><span class="s">1&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="uncamel_keys"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.utils.uncamel_keys">[docs]</a><span class="k">def</span> <span class="nf">uncamel_keys</span><span class="p">(</span><span class="n">d1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return :attr:`d1` with all keys converted to snake case</span>
+
+<span class="sd">    &gt;&gt;&gt; d = {&#39;myThings&#39;:[{&#39;thingId&#39;:1,&#39;someThings&#39;:{&#39;firstThing&#39;:&#39;a_thing&#39;}}]}</span>
+<span class="sd">    &gt;&gt;&gt; uncamel_keys(d)</span>
+<span class="sd">    {&#39;my_things&#39;: [{&#39;thing_id&#39;: 1, &#39;some_things&#39;: {&#39;first_thing&#39;: &#39;a_thing&#39;}}]}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">d2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">d1</span>
@@ -88,10 +86,21 @@
     <span class="k">return</span> <span class="n">d2</span>
 </div>
 <div class="viewcode-block" id="camelize"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.utils.camelize">[docs]</a><span class="k">def</span> <span class="nf">camelize</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the camel case version of a :attr:`str`</span>
+
+<span class="sd">    &gt;&gt;&gt; camelize(&#39;this_is_a_thing&#39;)</span>
+<span class="sd">    &#39;thisIsAThing&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">)])</span>
     <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 </div>
 <div class="viewcode-block" id="camel_keys"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.utils.camel_keys">[docs]</a><span class="k">def</span> <span class="nf">camel_keys</span><span class="p">(</span><span class="n">d1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return :attr:`d1` with all keys converted to camel case</span>
+
+<span class="sd">    &gt;&gt;&gt; b = {&#39;my_things&#39;: [{&#39;thing_id&#39;: 1, &#39;some_things&#39;: {&#39;first_thing&#39;: &#39;a_thing&#39;}}]}</span>
+<span class="sd">    &gt;&gt;&gt; camel_keys(b)</span>
+<span class="sd">    {&#39;myThings&#39;: [{&#39;thingId&#39;: 1, &#39;someThings&#39;: {&#39;firstThing&#39;: &#39;a_thing&#39;}}]}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">d2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">d1</span>
@@ -106,6 +115,15 @@
     <span class="k">return</span> <span class="n">d2</span>
 </div>
 <div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.utils.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return :attr:`input` converted from :class:`unicode` to :class:`str`</span>
+
+<span class="sd">    &gt;&gt;&gt; convert(u&#39;bob&#39;)</span>
+<span class="sd">    &#39;bob&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convert([u&#39;foo&#39;, u&#39;bar&#39;])</span>
+<span class="sd">    [&#39;foo&#39;, &#39;bar&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; convert({u&#39;foo&#39;:u&#39;bar&#39;})</span>
+<span class="sd">    {&#39;foo&#39;: &#39;bar&#39;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">convert</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">convert</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">input</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>

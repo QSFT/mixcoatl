@@ -72,7 +72,28 @@
 <dl class="attribute">
 <dt id="mixcoatl.decorators.lazy.lazy_property">
 <tt class="descclassname">mixcoatl.decorators.lazy.</tt><tt class="descname">lazy_property</tt><a class="reference internal" href="_modules/mixcoatl/decorators/lazy.html#lazy_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.decorators.lazy.lazy_property" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>decorator for marking an attribute as lazy loaded</p>
+<p>When using the &#64;lazy_property decorator, the subsequent function is
+in essence made a property that is lazily loaded.</p>
+<p>In practice, all attributes of a given resource should be lazy except
+the resource&#8217;s id. This ensures that simply instantiation a resource will
+not cause an expensive API call to be made.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Once any lazy property is loaded, <strong>ALL</strong> lazy properties in the instance are loaded as a result of the API call.</li>
+<li>Once all lazy properties are loaded, no further API calls will be made for the current instance.</li>
+</ul>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.decorators.lazy.LazyPropertyException" title="mixcoatl.decorators.lazy.LazyPropertyException"><tt class="xref py py-class docutils literal"><span class="pre">LazyPropertyException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-mixcoatl.decorators.validations">

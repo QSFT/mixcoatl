@@ -55,6 +55,8 @@
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 
 <div class="viewcode-block" id="Resource"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource">[docs]</a><span class="k">class</span> <span class="nc">Resource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base class for all resources returned from an enStratus API call</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;extended&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">base_path</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -92,6 +94,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">request_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The level of detail used in the API call: `basic` or `extended`&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__request_details</span>
 
     <span class="nd">@request_details.setter</span>
@@ -100,6 +103,7 @@
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The path used in the API request&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__path</span>
 
     <span class="nd">@path.setter</span>
@@ -108,6 +112,7 @@
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">last_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The :class:`Request` object of the most recent API call&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__last_request</span>
 
     <span class="nd">@last_request.setter</span>
@@ -116,6 +121,7 @@
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">last_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The last error message, if any, returned from the most recent API call&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__last_error</span>
 
     <span class="nd">@last_error.setter</span>
@@ -124,6 +130,7 @@
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_job</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The current :class:`Job`, if any, of an asynchronous API call&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__current_job</span>
 
     <span class="nd">@current_job.setter</span>
@@ -131,6 +138,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__current_job</span> <span class="o">=</span> <span class="n">cj</span>
 </div>
 <div class="viewcode-block" id="Resource.load"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;(Re)load the current object&#39;s attributes from an API call&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">uncamel_keys</span>
         <span class="n">reserved_words</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">primary_key</span><span class="p">))</span>
@@ -215,26 +223,32 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
 </div>
 <div class="viewcode-block" id="Resource.get"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform an HTTP `GET` against the API endpoint for the current resource&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__doreq</span><span class="p">(</span><span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Resource.post"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform an HTTP `POST` against the API endpoint for the current resource&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__doreq</span><span class="p">(</span><span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Resource.put"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform an HTTP `PUT` against the API endpoint for the current resource&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__doreq</span><span class="p">(</span><span class="s">&#39;PUT&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Resource.delete"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform an HTTP `DELETE` against the API endpoint for the current resource&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__doreq</span><span class="p">(</span><span class="s">&#39;DELETE&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Resource.pprint"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.pprint">[docs]</a>    <span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The prettyprint formatted representation of the current resource&quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">pprint</span>
         <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
 </div>
 <div class="viewcode-block" id="Resource.to_dict"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The `dict` representation of the current resource&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="Resource.track_change"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.track_change">[docs]</a>    <span class="k">def</span> <span class="nf">track_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
