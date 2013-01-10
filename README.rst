@@ -147,7 +147,7 @@ In general, most resources should support read-only access. If you know the id o
 
 Importing resources generally follows the API directly i.e.:
 
->> from mixcoatl.scope.resource import ResourceName
+>>> from mixcoatl.scope.resource import ResourceName
 
 so for firewalls:
 
