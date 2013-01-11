@@ -6,7 +6,7 @@ from mixcoatl.decorators.validations import required_attrs
 
 class ApiKey(Resource):
     """An API key is an access key and secret key that provide API access into enStratus."""
-    
+
     path = 'admin/ApiKey'
     collection_name = 'apiKeys'
     primary_key = 'access_key'
@@ -101,7 +101,7 @@ class ApiKey(Resource):
 
 
     @classmethod
-    def generate_api_key(obj, key_name, description, expiration=None):
+    def generate_api_key(cls, key_name, description, expiration=None):
         """Generates a new API key
 
         :param key_name: the name for the key
@@ -113,26 +113,30 @@ class ApiKey(Resource):
         :returns: :class:`ApiKey`
         :raises: :class:`ApiKeyGenerationException`
         """
-        a = obj()
+        a = cls()
         a.name = key_name
         a.description = description
         a.create()
         return a
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, keys_only=False, **kwargs):
         """Get all api keys
 
         The keys used to make the original request determine
         the visible results.
 
+        :param keys_only: Only return `access_key` instead of `ApiKey` objects
+        :type keys_only: bool.
         :param detail: The level of detail to return - `basic` or `extended`
         :type detail: str.
         :param account_id: Display all system keys belonging to `account_id`
         :type account_id: int.
         :param user_id: Display all keys belonging to `user_id`
         :type user_id: int.
+        :returns: `list` - List of `ApiKey` or `list` -- List of `access_key` 
         """
+
         r = Resource(cls.path)
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
@@ -148,9 +152,12 @@ class ApiKey(Resource):
 
         c = r.get(params=params)
         if r.last_error is None:
-            return [cls(i['accessKey']) for i in c[cls.collection_name]]
+            if keys_only is True:
+                return [i['accessKey'] for i in c[cls.collection_name]]
+            else:
+                return [cls(i['accessKey']) for i in c[cls.collection_name]]
         else:
-            return r.last_error
+            raise ApiKeyException(r.last_error['error']['message'])
 
 class ApiKeyException(BaseException): pass
 class ApiKeyGenerationException(ApiKeyException): pass
