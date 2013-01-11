@@ -67,10 +67,17 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.decorators.validations</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="ValidationException"><a class="viewcode-back" href="../../../mixcoatl.decorators.html#mixcoatl.decorators.validations.ValidationException">[docs]</a><span class="k">class</span> <span class="nc">ValidationException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span>
-</div>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
 <div class="viewcode-block" id="required_attrs"><a class="viewcode-back" href="../../../mixcoatl.decorators.html#mixcoatl.decorators.validations.required_attrs">[docs]</a><span class="k">def</span> <span class="nf">required_attrs</span><span class="p">(</span><span class="n">attrs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;decorator for marking a list of attributes required before calling a function</span>
+
+<span class="sd">    :param attrs: List of attributes that must be set</span>
+<span class="sd">    :type attrs: list.</span>
+<span class="sd">    :raises: `ValidationException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">ra</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
@@ -81,7 +88,9 @@
             <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">validate</span>
     <span class="k">return</span> <span class="n">wrapper</span>
-</pre></div></div>
+</div>
+<div class="viewcode-block" id="ValidationException"><a class="viewcode-back" href="../../../mixcoatl.decorators.html#mixcoatl.decorators.validations.ValidationException">[docs]</a><span class="k">class</span> <span class="nc">ValidationException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span></div>
+</pre></div>
 
           </div>
         </div>

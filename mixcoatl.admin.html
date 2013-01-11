@@ -106,6 +106,7 @@
 <dt id="mixcoatl.admin.api_key.ApiKey">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.api_key.</tt><tt class="descname">ApiKey</tt><big>(</big><em>access_key=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>An API key is an access key and secret key that provide API access into enStratus.</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.path">
 <tt class="descname">path</tt><em class="property"> = 'admin/ApiKey'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.path" title="Permalink to this definition">¶</a></dt>
@@ -124,63 +125,139 @@
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.access_key">
 <tt class="descname">access_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.access_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.access_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The primary identifier of the <cite>ApiKey</cite>. Same as <cite>ES_ACCESS_KEY</cite></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.account">
 <tt class="descname">account</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.account" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The account with which this API key is associated.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.activation">
 <tt class="descname">activation</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.activation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.activation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The date and time when this key was activated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.api_key.ApiKey.expiration">
+<tt class="descname">expiration</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.expiration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.expiration" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The date and time when this API key should automatically be made inactivate.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer to whom this API key belongs.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.customer_management_key">
 <tt class="descname">customer_management_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.customer_management_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.customer_management_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Identifies whether or not this key can be used across all customer accounts.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - A user-friendly description of this API key.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The user-friendly name used to identify the key.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.secret_key">
 <tt class="descname">secret_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.secret_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.secret_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The secret part of this API key.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.state">
 <tt class="descname">state</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.state" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The status of the key <em>(i.e. `ACTIVE`)</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.system_management_key">
 <tt class="descname">system_management_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.system_management_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.system_management_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Identifies if the key can be used for enStratus system management functions</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.api_key.ApiKey.user">
 <tt class="descname">user</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The user associated with this API key. Account-level keys return <cite>{&#8216;user_id&#8217;: -1}</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.admin.api_key.ApiKey.create">
+<tt class="descname">create</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the API to generate an API key from the current instance of <cite>ApiKey</cite></p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.admin.api_key.ApiKey.generate_api_key">
+<em class="property">classmethod </em><tt class="descname">generate_api_key</tt><big>(</big><em>obj</em>, <em>key_name</em>, <em>description</em>, <em>expiration=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.generate_api_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.generate_api_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a new API key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key_name</strong> (<em>str.</em>) &#8211; the name for the key</li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; the description for the key</li>
+<li><strong>expiration</strong> (<em>str.</em>) &#8211; <em>unused for now</em></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.admin.api_key.ApiKey" title="mixcoatl.admin.api_key.ApiKey"><tt class="xref py py-class docutils literal"><span class="pre">ApiKey</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.api_key.ApiKeyGenerationException" title="mixcoatl.admin.api_key.ApiKeyGenerationException"><tt class="xref py py-class docutils literal"><span class="pre">ApiKeyGenerationException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.api_key.ApiKey.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get all api keys</p>
+<p>The keys used to make the original request determine
+the visible results.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; Display all system keys belonging to <cite>account_id</cite></li>
+<li><strong>user_id</strong> (<em>int.</em>) &#8211; Display all keys belonging to <cite>user_id</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.api_key.ApiKeyException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.api_key.</tt><tt class="descname">ApiKeyException</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKeyException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKeyException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.api_key.ApiKeyGenerationException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.api_key.</tt><tt class="descname">ApiKeyGenerationException</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKeyGenerationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKeyGenerationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.api_key.ApiKeyException" title="mixcoatl.admin.api_key.ApiKeyException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.api_key.ApiKeyException</span></tt></a></p>
 </dd></dl>
 
 </div>
@@ -336,37 +413,37 @@
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.job_id">
 <tt class="descname">job_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.job_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.job_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s ID. Immutable</p>
+<dd><p>Return the job&#8217;s ID. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s status. Immutable</p>
+<dd><p>Return the job&#8217;s status. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.description" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s description. Immutable</p>
+<dd><p>Return the job&#8217;s description. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.message">
 <tt class="descname">message</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s message. Immutable</p>
+<dd><p>Return the job&#8217;s message. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.start_date">
 <tt class="descname">start_date</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.start_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s start date. Immutable</p>
+<dd><p>Return the job&#8217;s start date. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.end_date">
 <tt class="descname">end_date</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.end_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.end_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s stop date. Immutable</p>
+<dd><p>Return the job&#8217;s stop date. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -377,7 +454,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of <a class="reference internal" href="#mixcoatl.admin.job.Job" title="mixcoatl.admin.job.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a>&#8216;s</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list &#8211; a list of <a class="reference internal" href="#mixcoatl.admin.job.Job" title="mixcoatl.admin.job.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a>&#8216;s</td>
 </tr>
 </tbody>
 </table>

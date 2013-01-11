@@ -234,6 +234,7 @@
 <dt id="mixcoatl.infrastructure.server.Server">
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.server.</tt><tt class="descname">Server</tt><big>(</big><em>server_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A server is a virtual machine running within a data center.</p>
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.path">
 <tt class="descname">path</tt><em class="property"> = 'infrastructure/Server'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.path" title="Permalink to this definition">¶</a></dt>
@@ -252,130 +253,167 @@
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.server_id">
 <tt class="descname">server_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.server_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.server_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>The immutable enStratus ID of this server</p>
+<dd><p><cite>int</cite> - The enStratus ID of this server. <em>Immutable</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.agent_version">
 <tt class="descname">agent_version</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.agent_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.agent_version" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The version of the enStratus agent if installed. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.cloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>The id of the cloud where the instance is located</p>
+<dd><p><cite>dict</cite> - The cloud provided where the instance is located. _*Immutable*_</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.label">
 <tt class="descname">label</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The label assigned to the server</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer account for the server. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.data_center">
 <tt class="descname">data_center</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.data_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.data_center" title="Permalink to this definition">¶</a></dt>
-<dd><p>The id of the specific datacenter where the instance is located.</p>
+<dd><p><cite>dict</cite> - The specific datacenter where the instance is located.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The description of the server</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.machine_image">
 <tt class="descname">machine_image</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.machine_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.machine_image" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The machine image to use/used to provision the server</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.firewalls">
 <tt class="descname">firewalls</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.firewalls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.firewalls" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> - The firewalls to assign/assigned to the server</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The name assigned/to assign to the server</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.owning_groups">
 <tt class="descname">owning_groups</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.owning_groups" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> - The enStratus groups owning the server. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.owning_user">
 <tt class="descname">owning_user</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.owning_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The enStratus user owning the server. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.platform">
 <tt class="descname">platform</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.platform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.platform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The platform of the server <em>(i.e. `UBUNTU`)</em>. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.private_ip_addresses">
 <tt class="descname">private_ip_addresses</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.private_ip_addresses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.private_ip_addresses" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> - The private ip addresses assigned to the server. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.public_ip_address">
 <tt class="descname">public_ip_address</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.public_ip_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.public_ip_address" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The public ip address of the server. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.region">
 <tt class="descname">region</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The region where the server is located</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.provider_product_id">
 <tt class="descname">provider_product_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.provider_product_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.provider_product_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The provider&#8217;s product identifier for the server <em>(i.e. `m1.large`)</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The provider&#8217;s identifier for the server <em>(i.e. `i-abcdefg`)</em> <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.product">
 <tt class="descname">product</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.product"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.product" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The enStratus product record for the server</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.start_date">
 <tt class="descname">start_date</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.start_date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The date the server was started</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The status of the server <em>(i.e. `RUNNING` or `PAUSED`)</em>. <em>Immutable</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.budget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The budget code to apply/applied to the server.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.keypair">
 <tt class="descname">keypair</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.keypair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.keypair" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The keypair to assign</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">enStratus does not track keypairs used to launch servers.
+This attribute is used only in the <cite>launch()</cite> call.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.infrastructure.server.Server.reload">
 <tt class="descname">reload</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.reload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.reload" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Reload resource data from API calls</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.infrastructure.server.Server.destroy">
 <tt class="descname">destroy</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.destroy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Terminate server instance with reason <tt class="xref py py-attr docutils literal"><span class="pre">reason</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; The reason for terminating the server</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool &#8211; Result of API call</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.infrastructure.server.Server.pause">
@@ -385,17 +423,77 @@
 <dl class="method">
 <dt id="mixcoatl.infrastructure.server.Server.launch">
 <tt class="descname">launch</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.launch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.launch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Launches a server with the configured parameters</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cb</span><span class="p">(</span><span class="n">j</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">provider_product_id</span> <span class="o">=</span> <span class="s">&#39;m1.large&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">machine_image</span> <span class="o">=</span> <span class="mi">12345</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s">&#39;my first launch&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;server-1-test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">data_center</span> <span class="o">=</span> <span class="mi">54321</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">keypair</span> <span class="o">=</span> <span class="s">&#39;my-aws-keypair&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">cb</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to send the results of the API call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">int &#8211; The job id of the launch request</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.server.ServerLaunchException" title="mixcoatl.infrastructure.server.ServerLaunchException"><tt class="xref py py-class docutils literal"><span class="pre">ServerLaunchException</span></tt></a>, <a class="reference internal" href="mixcoatl.decorators.html#mixcoatl.decorators.validations.ValidationException" title="mixcoatl.decorators.validations.ValidationException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.decorators.validations.ValidationException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="mixcoatl.infrastructure.server.Server.duplicate">
 <tt class="descname">duplicate</tt><big>(</big><em>server</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.duplicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.duplicate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="mixcoatl.infrastructure.server.Server.wait_for">
+<tt class="descname">wait_for</tt><big>(</big><em>status='RUNNING'</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.wait_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.wait_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blocks execution until the current server has status of <a class="reference internal" href="#mixcoatl.infrastructure.server.Server.status" title="mixcoatl.infrastructure.server.Server.status"><tt class="xref py py-attr docutils literal"><span class="pre">status</span></tt></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>status</strong> (<em>str.</em>) &#8211; The status to expect before continuing <em>(i.e. `RUNNING` or `PAUSED`)</em></li>
+<li><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to be called with the final <tt class="xref py py-class docutils literal"><span class="pre">Server`</span></tt> when <tt class="docutils literal"><span class="pre">status</span></tt> is reached</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><cite>ServerException</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.server.Server.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get a list of all known servers</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Server</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="go">[{&#39;server_id&#39;:1,...},{&#39;server_id&#39;:2,...}]</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list &#8211; a list of <a class="reference internal" href="#mixcoatl.infrastructure.server.Server" title="mixcoatl.infrastructure.server.Server"><tt class="xref py py-class docutils literal"><span class="pre">Server</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body">ServerException</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

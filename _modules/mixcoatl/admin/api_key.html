@@ -67,10 +67,15 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.admin.api_key</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">json</span>
+
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
 
 <div class="viewcode-block" id="ApiKey"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey">[docs]</a><span class="k">class</span> <span class="nc">ApiKey</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An API key is an access key and secret key that provide API access into enStratus.&quot;&quot;&quot;</span>
+    
     <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;admin/ApiKey&#39;</span>
     <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;apiKeys&#39;</span>
     <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;access_key&#39;</span>
@@ -81,60 +86,143 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="ApiKey.access_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.access_key">[docs]</a>    <span class="k">def</span> <span class="nf">access_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The primary identifier of the `ApiKey`. Same as `ES_ACCESS_KEY`&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__access_key</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.account"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.account">[docs]</a>    <span class="k">def</span> <span class="nf">account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The account with which this API key is associated.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__account</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.activation"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.activation">[docs]</a>    <span class="k">def</span> <span class="nf">activation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The date and time when this key was activated.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__activation</span>
 </div>
     <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">expiration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The date and time when this API key should automatically be made inactivate.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__expiration</span>
+
+    <span class="nd">@expiration.setter</span>
+<div class="viewcode-block" id="ApiKey.expiration"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.expiration">[docs]</a>    <span class="k">def</span> <span class="nf">expiration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__expiration</span> <span class="o">=</span> <span class="n">e</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.customer"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The customer to whom this API key belongs.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.customer_management_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.customer_management_key">[docs]</a>    <span class="k">def</span> <span class="nf">customer_management_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - Identifies whether or not this key can be used across all customer accounts.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer_management_key</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="ApiKey.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A user-friendly description of this API key.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+
+    <span class="nd">@description.setter</span>
+<div class="viewcode-block" id="ApiKey.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">d</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="ApiKey.name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The user-friendly name used to identify the key.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="ApiKey.name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">n</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.secret_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.secret_key">[docs]</a>    <span class="k">def</span> <span class="nf">secret_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The secret part of this API key.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__secret_key</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.state"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.state">[docs]</a>    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The status of the key *(i.e. `ACTIVE`)*&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__state</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.system_management_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.system_management_key">[docs]</a>    <span class="k">def</span> <span class="nf">system_management_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - Identifies if the key can be used for enStratus system management functions&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__system_management_key</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ApiKey.user"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.user">[docs]</a>    <span class="k">def</span> <span class="nf">user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The user associated with this API key. Account-level keys return `{&#39;user_id&#39;: -1}`&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__user</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="ApiKey.create"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Call the API to generate an API key from the current instance of `ApiKey`&quot;&quot;&quot;</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;generateApiKey&#39;</span><span class="p">:[{</span><span class="s">&#39;description&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}]}</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__access_key</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;apiKeys&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;accessKey&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ApiKeyGenerationException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ApiKey.generate_api_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.generate_api_key">[docs]</a>    <span class="k">def</span> <span class="nf">generate_api_key</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">expiration</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates a new API key</span>
+
+<span class="sd">        :param key_name: the name for the key</span>
+<span class="sd">        :type key_name: str.</span>
+<span class="sd">        :param description: the description for the key</span>
+<span class="sd">        :type description: str.</span>
+<span class="sd">        :param expiration: *unused for now*</span>
+<span class="sd">        :type expiration: str.</span>
+<span class="sd">        :returns: :class:`ApiKey`</span>
+<span class="sd">        :raises: :class:`ApiKeyGenerationException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">obj</span><span class="p">()</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">key_name</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">a</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ApiKey.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all api keys</span>
+
+<span class="sd">        The keys used to make the original request determine</span>
+<span class="sd">        the visible results.</span>
+
+<span class="sd">        :param detail: The level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :param account_id: Display all system keys belonging to `account_id`</span>
+<span class="sd">        :type account_id: int.</span>
+<span class="sd">        :param user_id: Display all keys belonging to `user_id`</span>
+<span class="sd">        :type user_id: int.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="s">&#39;account_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;accountId&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;account_id&#39;</span><span class="p">]}</span>
+        <span class="k">elif</span> <span class="s">&#39;user_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;userId&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;accessKey&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span></div></div>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span>
+</div></div>
+<div class="viewcode-block" id="ApiKeyException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKeyException">[docs]</a><span class="k">class</span> <span class="nc">ApiKeyException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="ApiKeyGenerationException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKeyGenerationException">[docs]</a><span class="k">class</span> <span class="nc">ApiKeyGenerationException</span><span class="p">(</span><span class="n">ApiKeyException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>

@@ -87,39 +87,45 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Job.job_id"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.job_id">[docs]</a>    <span class="k">def</span> <span class="nf">job_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the job&#39;s ID. Immutable&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the job&#39;s ID. *Immutable*&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__job_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Job.status"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the job&#39;s status. Immutable&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the job&#39;s status. *Immutable*&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Job.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the job&#39;s description. Immutable&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the job&#39;s description. *Immutable*&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Job.message"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the job&#39;s message. Immutable&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the job&#39;s message. *Immutable*&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__message</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Job.start_date"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.start_date">[docs]</a>    <span class="k">def</span> <span class="nf">start_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the job&#39;s start date. Immutable&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the job&#39;s start date. *Immutable*&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start_date</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Job.end_date"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.end_date">[docs]</a>    <span class="k">def</span> <span class="nf">end_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the job&#39;s stop date. Immutable&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the job&#39;s stop date. *Immutable*&quot;&quot;&quot;</span>
+        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_date</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Job.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.job.Job.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get all jobs</span>
 
-<span class="sd">        :returns: a list of :class:`Job`&#39;s</span>
+<span class="sd">        :returns: list -- a list of :class:`Job`&#39;s</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>

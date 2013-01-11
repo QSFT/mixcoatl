@@ -74,7 +74,45 @@
 
 <div class="viewcode-block" id="Resource"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource">[docs]</a><span class="k">class</span> <span class="nc">Resource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The base class for all resources returned from an enStratus API call</span>
+<span class="sd">    By default all resources are largely represented as a `dict`-alike object</span>
+<span class="sd">    that mirrors the JSON response from the enStratus API with keys converted</span>
+<span class="sd">    from camel-case to snake-case.</span>
+
+<span class="sd">    For instance:</span>
+
+<span class="sd">        * The enStratus API JSON for a resource looks something like this:</span>
+
+<span class="sd">            .. code-block:: yaml</span>
+
+<span class="sd">                {</span>
+<span class="sd">                  &#39;someId&#39;:1,</span>
+<span class="sd">                  &#39;name&#39;:&#39;my-name&#39;,</span>
+<span class="sd">                  &#39;cloud&#39;:{&#39;cloudId&#39;:12345}</span>
+<span class="sd">                }</span>
+
+<span class="sd">        * All keys (nested or top-level) will be converted to snake-case:</span>
+<span class="sd">            - `someId` becomes `some_id`</span>
+<span class="sd">            - `cloudId` becomes `cloud_id`</span>
+<span class="sd">        * The top-level keys will be converted to getters (and in some cases - setters) on the Resource.</span>
+<span class="sd">            - `some_id` will now be the resource&#39;s primary identifier: `resource.some_id`</span>
+<span class="sd">            - `name` will likely be a getter and a setter as `name` is usually a mutable attributes</span>
+<span class="sd">            - `cloud` will be converted to a setter with a value of `{&#39;cloud_id&#39;:123345}`</span>
+<span class="sd">        * In cases where a setter would actually need to set a nested value, it will do so. However</span>
+<span class="sd">            the getter will still return the original data structure as appropriate</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            The Resource object, while looking much like a `dict`, is not a `dict` proper.</span>
+<span class="sd">            If you need an actual `dict`, call `to_dict()` on your instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c">#: The request path of the resource</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="c">#: The top-level grouping of a resource in the API response</span>
+    <span class="n">collection_name</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="c">#: The unique identifier of an individual resource</span>
+    <span class="n">primary_key</span> <span class="o">=</span> <span class="bp">None</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;extended&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">base_path</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -121,7 +159,7 @@
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The path used in the API request&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;The path used in the API request (e.g. ``admin/Job``)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__path</span>
 
     <span class="nd">@path.setter</span>
@@ -180,6 +218,13 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
 </div>
     <span class="k">def</span> <span class="nf">__doreq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Performs the actual API call</span>
+
+<span class="sd">        * calls `auth.get_sig` for signed headers</span>
+<span class="sd">        * issues the requested :attr:`method` against the API endpoint</span>
+<span class="sd">        * Handles requests appropriately based on sync/async nature of the call</span>
+<span class="sd">            based on enStratus API documentation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">failures</span> <span class="o">=</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">409</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">501</span><span class="p">,</span> <span class="mi">503</span><span class="p">]</span>
         <span class="n">sig</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">get_sig</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">endpoint</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span>
@@ -193,12 +238,10 @@
 
         <span class="c">#results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">print</span> <span class="n">results</span><span class="o">.</span><span class="n">text</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_request</span> <span class="o">=</span> <span class="n">results</span>
         <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="n">failures</span><span class="p">:</span>
-            <span class="k">print</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
 

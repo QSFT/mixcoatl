@@ -72,15 +72,17 @@
 <div class="viewcode-block" id="lazy_property"><a class="viewcode-back" href="../../../mixcoatl.decorators.html#mixcoatl.decorators.lazy.lazy_property">[docs]</a><span class="k">class</span> <span class="nc">lazy_property</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;decorator for marking an attribute as lazy loaded</span>
 
-<span class="sd">    When using the @lazy_property decorator, the subsequent function is</span>
+<span class="sd">    When using the `@lazy_property` decorator, the subsequent function is</span>
 <span class="sd">    in essence made a property that is lazily loaded.</span>
 
 <span class="sd">    In practice, all attributes of a given resource should be lazy except</span>
-<span class="sd">    the resource&#39;s id. This ensures that simply instantiation a resource will</span>
+<span class="sd">    the resource&#39;s id. This ensures that simply instantiating a resource will</span>
 <span class="sd">    not cause an expensive API call to be made.</span>
 
 <span class="sd">    .. note::</span>
 
+<span class="sd">        * lazy properties adhere to the descriptor protocol</span>
+<span class="sd">        * Classes with lazy properties will need to implement a `load()` function</span>
 <span class="sd">        * Once any lazy property is loaded, **ALL** lazy properties in the instance are loaded as a result of the API call.</span>
 <span class="sd">        * Once all lazy properties are loaded, no further API calls will be made for the current instance.</span>
 
