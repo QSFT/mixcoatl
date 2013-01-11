@@ -56,9 +56,10 @@ class Role(Resource):
         :type detail: str.
         :param account_id: List roles with mappings to groups in the specified account
         :type account_id: int.
-        :param group_id: Provides teh role associated with the specified group
+        :param group_id: Provides the role associated with the specified group
         :type group_id: int.
-        :returns: :class:`RoleException`
+        :returns: `list` of :attr:`role_id` or :class:`Role`
+        :raises: :class:`RoleException`
         """
         r = Resource(cls.path)
         params = {}
@@ -80,6 +81,6 @@ class Role(Resource):
             else:
                 return [cls(i['roleId']) for i in x[cls.collection_name]]
         else:
-            raise RoleException(x.last_error['error']['message'])
+            raise RoleException(r.last_error['error']['message'])
 
 class RoleException(BaseException): pass
