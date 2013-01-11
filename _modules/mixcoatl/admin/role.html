@@ -71,6 +71,8 @@
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 
 <div class="viewcode-block" id="Role"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role">[docs]</a><span class="k">class</span> <span class="nc">Role</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A role defines a common set of permissions that govern access into a given account&quot;&quot;&quot;</span>
+
     <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;admin/Role&#39;</span>
     <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;roles&#39;</span>
     <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;role_id&#39;</span>
@@ -81,41 +83,76 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Role.role_id"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.role_id">[docs]</a>    <span class="k">def</span> <span class="nf">role_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique id of the role&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__role_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.acl"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.acl">[docs]</a>    <span class="k">def</span> <span class="nf">acl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The access permissions associated with the role&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__acl</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A user-friendly description of the role&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.customer"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The customer to whom this role belongs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The name of the role&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.status"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The status of the role in enStratus&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Role.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Role.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all roles</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            The keys used to make the request determine results visibility</span>
+
+<span class="sd">        :param keys_only: Only return :attr:`role_id` instead of :class:`Group` objects</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: The level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :param account_id: List roles with mappings to groups in the specified account</span>
+<span class="sd">        :type account_id: int.</span>
+<span class="sd">        :param group_id: Provides the role associated with the specified group</span>
+<span class="sd">        :type group_id: int.</span>
+<span class="sd">        :returns: `list` of :attr:`role_id` or :class:`Role`</span>
+<span class="sd">        :raises: :class:`RoleException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="s">&#39;details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;details&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
 
-        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s">&#39;account_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;account_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;account_id&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s">&#39;group_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;group_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;group_id&#39;</span><span class="p">]</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;roleId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;roleId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;roleId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">last_error</span></div></div>
+            <span class="k">raise</span> <span class="n">RoleException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+</div></div>
+<div class="viewcode-block" id="RoleException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.RoleException">[docs]</a><span class="k">class</span> <span class="nc">RoleException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>

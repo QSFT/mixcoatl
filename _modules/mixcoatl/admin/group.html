@@ -81,37 +81,67 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Group.group_id"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.group_id">[docs]</a>    <span class="k">def</span> <span class="nf">group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique id of this group in enStratus&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__group_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Group.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The user-friendly description of this group&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Group.name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The name of the group&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Group.status"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The current status of the group in enStratus&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Group.customer"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The customer to who this group belongs.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.Group.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all groups</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            The keys used to make the request determine results visibility</span>
+
+<span class="sd">        :param keys_only: Only return `group_id` instead of `Group` objects</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: The level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: bool.</span>
+<span class="sd">        :param account_id: Restrict results to `account_id`</span>
+<span class="sd">        :type account_id: int.</span>
+<span class="sd">        :returns: `list` - List of :class:`Group` or :attr:`group_id`</span>
+<span class="sd">        :raises: :class:`GroupException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="k">if</span> <span class="s">&#39;details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;details&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
 
-        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;groupId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="s">&#39;account_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;accountId&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;account_id&#39;</span><span class="p">]}</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">last_error</span></div></div>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;groupId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;groupId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GroupException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+</div></div>
+<div class="viewcode-block" id="GroupException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.group.GroupException">[docs]</a><span class="k">class</span> <span class="nc">GroupException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>

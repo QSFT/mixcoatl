@@ -562,33 +562,68 @@ against which cloud resources may be provisioned and tracked.</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.group.Group.group_id">
 <tt class="descname">group_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.group_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.group_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The unique id of this group in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.group.Group.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The user-friendly description of this group</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.group.Group.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The name of the group</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.group.Group.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The current status of the group in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.group.Group.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer to who this group belongs.</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.group.Group.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all groups</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keys used to make the request determine results visibility</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <cite>group_id</cite> instead of <cite>Group</cite> objects</li>
+<li><strong>detail</strong> (<em>bool.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; Restrict results to <cite>account_id</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> - List of <a class="reference internal" href="#mixcoatl.admin.group.Group" title="mixcoatl.admin.group.Group"><tt class="xref py py-class docutils literal"><span class="pre">Group</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.group.Group.group_id" title="mixcoatl.admin.group.Group.group_id"><tt class="xref py py-attr docutils literal"><span class="pre">group_id</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.group.GroupException" title="mixcoatl.admin.group.GroupException"><tt class="xref py py-class docutils literal"><span class="pre">GroupException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.group.GroupException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.group.</tt><tt class="descname">GroupException</tt><a class="reference internal" href="_modules/mixcoatl/admin/group.html#GroupException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.GroupException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
 </dd></dl>
 
 </div>
@@ -691,6 +726,7 @@ against which cloud resources may be provisioned and tracked.</p>
 <dt id="mixcoatl.admin.role.Role">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">Role</tt><big>(</big><em>role_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A role defines a common set of permissions that govern access into a given account</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.path">
 <tt class="descname">path</tt><em class="property"> = 'admin/Role'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.path" title="Permalink to this definition">¶</a></dt>
@@ -709,38 +745,75 @@ against which cloud resources may be provisioned and tracked.</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.role_id">
 <tt class="descname">role_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.role_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.role_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The unique id of the role</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.acl">
 <tt class="descname">acl</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.acl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.acl" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The access permissions associated with the role</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - A user-friendly description of the role</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer to whom this role belongs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The name of the role</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.role.Role.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The status of the role in enStratus</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.role.Role.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all roles</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keys used to make the request determine results visibility</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <a class="reference internal" href="#mixcoatl.admin.role.Role.role_id" title="mixcoatl.admin.role.Role.role_id"><tt class="xref py py-attr docutils literal"><span class="pre">role_id</span></tt></a> instead of <tt class="xref py py-class docutils literal"><span class="pre">Group</span></tt> objects</li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; List roles with mappings to groups in the specified account</li>
+<li><strong>group_id</strong> (<em>int.</em>) &#8211; Provides the role associated with the specified group</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.admin.role.Role.role_id" title="mixcoatl.admin.role.Role.role_id"><tt class="xref py py-attr docutils literal"><span class="pre">role_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.role.Role" title="mixcoatl.admin.role.Role"><tt class="xref py py-class docutils literal"><span class="pre">Role</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.role.RoleException" title="mixcoatl.admin.role.RoleException"><tt class="xref py py-class docutils literal"><span class="pre">RoleException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.role.RoleException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">RoleException</tt><a class="reference internal" href="_modules/mixcoatl/admin/role.html#RoleException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.RoleException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
 </dd></dl>
 
 </div>
