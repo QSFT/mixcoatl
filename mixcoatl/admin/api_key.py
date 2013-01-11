@@ -104,6 +104,9 @@ class ApiKey(Resource):
     def generate_api_key(cls, key_name, description, expiration=None):
         """Generates a new API key
 
+        >>> ApiKey.generate_api_key('my-api-key', 'this is my api key')
+        {'access_key':'ABCDEFGHIJKL':....}
+
         :param key_name: the name for the key
         :type key_name: str.
         :param description: the description for the key
@@ -113,6 +116,7 @@ class ApiKey(Resource):
         :returns: :class:`ApiKey`
         :raises: :class:`ApiKeyGenerationException`
         """
+        
         a = cls()
         a.name = key_name
         a.description = description
