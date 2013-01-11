@@ -56,6 +56,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">admin Package</a><ul>
+<li><a class="reference internal" href="#module-mixcoatl.admin.account"><tt class="docutils literal"><span class="pre">account</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-mixcoatl.admin.api_key"><tt class="docutils literal"><span class="pre">api_key</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-mixcoatl.admin.billing_code"><tt class="docutils literal"><span class="pre">billing_code</span></tt> Module</a></li>
 <li><a class="reference internal" href="#module-mixcoatl.admin.group"><tt class="docutils literal"><span class="pre">group</span></tt> Module</a></li>
@@ -100,6 +101,148 @@
             
   <div class="section" id="admin-package">
 <h1>admin Package<a class="headerlink" href="#admin-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-mixcoatl.admin.account">
+<span id="account-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">account</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.account" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mixcoatl.admin.account.Account">
+<em class="property">class </em><tt class="descclassname">mixcoatl.admin.account.</tt><tt class="descname">Account</tt><big>(</big><em>account_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>An account object represents an enStratus account held by an enStratus customer.</p>
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.path">
+<tt class="descname">path</tt><em class="property"> = 'admin/Account'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.collection_name">
+<tt class="descname">collection_name</tt><em class="property"> = 'accounts'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.collection_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.primary_key">
+<tt class="descname">primary_key</tt><em class="property"> = 'account_id'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.primary_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.account_id">
+<tt class="descname">account_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.account_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.account_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The unique ID of this account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.alert_configuration">
+<tt class="descname">alert_configuration</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.alert_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.alert_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The configuration of alert preferences for this account.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.billing_system_id">
+<tt class="descname">billing_system_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.billing_system_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.billing_system_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The ID associated with this account that may appear on invoices.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.cloud_subscription">
+<tt class="descname">cloud_subscription</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.cloud_subscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.cloud_subscription" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> or <cite>None</cite> &#8211; Information about the cloud for this account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.configured">
+<tt class="descname">configured</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.configured"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.configured" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Has this account has been tied to an account with a cloud provider</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.customer">
+<tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The enStratus customer record to which this account belongs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.default_budget">
+<tt class="descname">default_budget</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.default_budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.default_budget" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique id of the billing code that is the default for discovered resources</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.name">
+<tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - User-friendly name used to identify the account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.owner">
+<tt class="descname">owner</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.owner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.owner" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - user who owns this account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.plan_id">
+<tt class="descname">plan_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.plan_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.plan_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - pricing plan associated with this account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.provisioned">
+<tt class="descname">provisioned</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.provisioned"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.provisioned" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Is this account in goodstanding and managed by enStratus</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.status">
+<tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.status" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The current account payment status</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.account.Account.subscribed">
+<tt class="descname">subscribed</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.subscribed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.subscribed" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - If the account is configured and the cloud account is working with enStratus</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.admin.account.Account.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all accounts</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Account</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">detail</span><span class="o">=</span><span class="s">&#39;basic&#39;</span><span class="p">)</span>
+<span class="go">[{&#39;account_id&#39;:12345,....}]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Account</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">keys_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">[12345]</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <cite>account_id</cite> instead of <cite>Account</cite> objects</li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>cloud_id</strong> (<em>int.</em>) &#8211; Only show accounts tied to the given cloud</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> - A list of <cite>Account</cite> or <cite>list</cite> &#8211; A list of <cite>account_id</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.account.AccountException" title="mixcoatl.admin.account.AccountException"><tt class="xref py py-class docutils literal"><span class="pre">AccountException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.account.AccountException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.account.</tt><tt class="descname">AccountException</tt><a class="reference internal" href="_modules/mixcoatl/admin/account.html#AccountException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.AccountException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-mixcoatl.admin.api_key">
 <span id="api-key-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">api_key</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.api_key" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
