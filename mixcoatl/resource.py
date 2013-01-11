@@ -5,7 +5,45 @@ from mixcoatl.decorators.lazy import lazy_property
 
 class Resource(object):
     """The base class for all resources returned from an enStratus API call
+    By default all resources are largely represented as a `dict`-alike object
+    that mirrors the JSON response from the enStratus API with keys converted
+    from camel-case to snake-case.
+
+    For instance:
+
+        * The enStratus API JSON for a resource looks something like this:
+
+            .. code-block:: yaml
+
+                {
+                  'someId':1,
+                  'name':'my-name',
+                  'cloud':{'cloudId':12345}
+                }
+
+        * All keys (nested or top-level) will be converted to snake-case:
+            - `someId` becomes `some_id`
+            - `cloudId` becomes `cloud_id`
+        * The top-level keys will be converted to getters (and in some cases - setters) on the Resource.
+            - `some_id` will now be the resource's primary identifier: `resource.some_id`
+            - `name` will likely be a getter and a setter as `name` is usually a mutable attributes
+            - `cloud` will be converted to a setter with a value of `{'cloud_id':123345}`
+        * In cases where a setter would actually need to set a nested value, it will do so. However
+            the getter will still return the original data structure as appropriate
+
+        .. warning::
+
+            The Resource object, while looking much like a `dict`, is not a `dict` proper.
+            If you need an actual `dict`, call `to_dict()` on your instance.
     """
+    
+    #: The request path of the resource
+    path = None
+    #: The top-level grouping of a resource in the API response
+    collection_name = None
+    #: The unique identifier of an individual resource
+    primary_key = None
+
     def __init__(self, base_path=None, request_details = 'extended'):
         if base_path is None:
             try:
@@ -52,7 +90,7 @@ class Resource(object):
 
     @property
     def path(self):
-        """The path used in the API request"""
+        """The path used in the API request (e.g. ``admin/Job``)"""
         return self.__path
 
     @path.setter
@@ -111,6 +149,13 @@ class Resource(object):
             return self.last_error
 
     def __doreq(self, method, *args, **kwargs):
+        """Performs the actual API call
+
+        * calls `auth.get_sig` for signed headers
+        * issues the requested :attr:`method` against the API endpoint
+        * Handles requests appropriately based on sync/async nature of the call
+            based on enStratus API documentation
+        """
         failures = [400, 403, 404, 409, 500, 501, 503]
         sig = auth.get_sig(method, self.path)
         url = settings.endpoint+'/'+self.path
@@ -124,12 +169,10 @@ class Resource(object):
 
         #results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
         results = r.request(method, url, headers=headers, **kwargs)
-        print results.text
 
         self.last_error = None
         self.last_request = results
         if results.status_code in failures:
-            print results.json()
             self.last_error = results.json()
             return self.last_error
 
