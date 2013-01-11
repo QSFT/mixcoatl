@@ -202,7 +202,7 @@
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.api_key.ApiKey.generate_api_key">
-<em class="property">classmethod </em><tt class="descname">generate_api_key</tt><big>(</big><em>obj</em>, <em>key_name</em>, <em>description</em>, <em>expiration=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.generate_api_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.generate_api_key" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">generate_api_key</tt><big>(</big><em>key_name</em>, <em>description</em>, <em>expiration=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.generate_api_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.generate_api_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a new API key</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -227,7 +227,7 @@
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.api_key.ApiKey.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.all" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all api keys</p>
 <p>The keys used to make the original request determine
 the visible results.</p>
@@ -235,11 +235,15 @@ the visible results.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <cite>access_key</cite> instead of <cite>ApiKey</cite> objects</li>
 <li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
 <li><strong>account_id</strong> (<em>int.</em>) &#8211; Display all system keys belonging to <cite>account_id</cite></li>
 <li><strong>user_id</strong> (<em>int.</em>) &#8211; Display all keys belonging to <cite>user_id</cite></li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>list</cite> - List of <cite>ApiKey</cite> or <cite>list</cite> &#8211; List of <cite>access_key</cite></p>
 </td>
 </tr>
 </tbody>
