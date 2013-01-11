@@ -18,34 +18,42 @@ class BillingCode(Resource):
     @lazy_property
     def budget_state(self):
         return self.__budget_state
-    
+
     @lazy_property
     def current_usage(self):
         return self.__current_usage
-    
+
     @lazy_property
     def customer(self):
         return self.__customer
-    
+
     @lazy_property
     def description(self):
         return self.__description
-    
+
     @lazy_property
     def finance_code(self):
         return self.__finance_code
-    
+
     @lazy_property
     def name(self):
-        return self.__name 
-    
+        return self.__name
+
     @lazy_property
     def projected_usage(self):
         return self.__projected_usage
-    
+
     @lazy_property
     def status(self):
         return self.__status
+
+    @lazy_property
+    def hard_quota(self):
+        return self.__hard_quota
+
+    @lazy_property
+    def soft_quota(self):
+        return self.__soft_quota
 
     @classmethod
     def all(cls, **kwargs):
