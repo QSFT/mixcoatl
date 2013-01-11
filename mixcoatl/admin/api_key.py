@@ -116,7 +116,7 @@ class ApiKey(Resource):
         :returns: :class:`ApiKey`
         :raises: :class:`ApiKeyGenerationException`
         """
-        
+
         a = cls()
         a.name = key_name
         a.description = description
@@ -146,7 +146,7 @@ class ApiKey(Resource):
             r.request_details = kwargs['detail']
         else:
             r.request_details = 'basic'
-        
+
         if 'account_id' in kwargs:
             params = {'accountId': kwargs['account_id']}
         elif 'user_id' in kwargs:
