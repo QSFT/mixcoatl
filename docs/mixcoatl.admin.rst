@@ -1,6 +1,14 @@
 admin Package
 =============
 
+:mod:`account` Module
+---------------------
+
+.. automodule:: mixcoatl.admin.account
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`api_key` Module
 ---------------------
 
