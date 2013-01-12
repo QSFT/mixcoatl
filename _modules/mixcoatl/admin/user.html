@@ -67,10 +67,18 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.admin.user</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">mixcoatl.admin.user</span>
+<span class="sd">-------------------</span>
+
+<span class="sd">Implements access to the enStratus User API</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 
 <div class="viewcode-block" id="User"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A user within the enStratus environment&quot;&quot;&quot;</span>
+
     <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;admin/User&#39;</span>
     <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;users&#39;</span>
     <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;user_id&#39;</span>
@@ -81,62 +89,141 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="User.user_id"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.user_id">[docs]</a>    <span class="k">def</span> <span class="nf">user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` The enStratus unique id of this user across all customer accounts&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__user_id</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.account"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.account">[docs]</a>    <span class="k">def</span> <span class="nf">account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` The enStratus account&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__account</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.account_user_id"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.account_user_id">[docs]</a>    <span class="k">def</span> <span class="nf">account_user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` or `None` A unique identifier to reference this user&#39;s access</span>
+<span class="sd">            to a specific account</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__account_user_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.alpha_name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.alpha_name">[docs]</a>    <span class="k">def</span> <span class="nf">alpha_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The user&#39;s full name in the form of `Last name, First name`&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alpha_name</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.billing_codes"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.billing_codes">[docs]</a>    <span class="k">def</span> <span class="nf">billing_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` The billing codes against which this user has provisioning rights</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            Only present when this user is queried in the context of an `account_id`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__billing_codes</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.cloud_console_password"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.cloud_console_password">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_console_password</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The encrypted password that the user can log into the underlying cloud with&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_console_password</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.cloud_api_public_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.cloud_api_public_key">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_api_public_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The encrypted public key the user can make API calls to the underlying cloud with&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_api_public_key</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.cloud_api_secret_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.cloud_api_secret_key">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_api_secret_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The encrypted secret key the user can make API calls to the underlying cloud with&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_api_secret_key</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.customer"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` The customer record to which this user belongs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.editable"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.editable">[docs]</a>    <span class="k">def</span> <span class="nf">editable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` Indicates if the core values of this user may be changed&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__editable</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.email"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.email">[docs]</a>    <span class="k">def</span> <span class="nf">email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` Email is a unique identifier that enables a given user to</span>
+<span class="sd">            identify themselves to enStratus</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__email</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.family_name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.family_name">[docs]</a>    <span class="k">def</span> <span class="nf">family_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The family name of the user&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__family_name</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.given_name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.given_name">[docs]</a>    <span class="k">def</span> <span class="nf">given_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The given name of the user&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__given_name</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.groups"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.groups">[docs]</a>    <span class="k">def</span> <span class="nf">groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` The group membership of this user idependent of any individual accounts&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__groups</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.has_cloud_api_access"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.has_cloud_api_access">[docs]</a>    <span class="k">def</span> <span class="nf">has_cloud_api_access</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` Indicates that the user has access to the underlying cloud API (i.e. AWS IAM)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__has_cloud_api_access</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.has_cloud_console_access"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.has_cloud_console_access">[docs]</a>    <span class="k">def</span> <span class="nf">has_cloud_console_access</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` Indicates that the user has access to the underlying cloud console (i.e. AWS IAM)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__has_cloud_console_access</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.notifications_targets"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.notifications_targets">[docs]</a>    <span class="k">def</span> <span class="nf">notifications_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` The various targets configured for delivery of notifications&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__notification_targets</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="User.notifications_settings"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.notifications_settings">[docs]</a>    <span class="k">def</span> <span class="nf">notifications_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` Notification settings configured for this user&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__notification_settings</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.status"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The current status of this user in enStratus&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.time_zone"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.time_zone">[docs]</a>    <span class="k">def</span> <span class="nf">time_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The timezone id for the user&#39;s prefered time zone&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__time_zone</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.vm_login_id"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.vm_login_id">[docs]</a>    <span class="k">def</span> <span class="nf">vm_login_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The username the user will use to login to cloud instances</span>
+<span class="sd">            for shell or remote desktop access</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vm_login_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="User.ssh_public_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.ssh_public_key">[docs]</a>    <span class="k">def</span> <span class="nf">ssh_public_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` The public key to grant the user access to Unix instances&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ssh_public_key</span>
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="User.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="User.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.User.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all users</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            The keys used to make the request determine results visibility</span>
+
+<span class="sd">        :param keys_only: Return :attr:`user_id` instead of :class:`User`</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: str. The level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :returns: `list` of :class:`User` or :attr:`user_id`</span>
+<span class="sd">        :raises: :class:`UserException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="k">if</span> <span class="s">&#39;details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;details&#39;</span><span class="p">]</span>
@@ -145,9 +232,14 @@
 
         <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;userId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;userId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">last_error</span></div></div>
+            <span class="k">raise</span> <span class="n">UserException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+</div></div>
+<div class="viewcode-block" id="UserException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.user.UserException">[docs]</a><span class="k">class</span> <span class="nc">UserException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>

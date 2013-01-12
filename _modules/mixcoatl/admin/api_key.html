@@ -67,11 +67,16 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.admin.api_key</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">json</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">mixcoatl.admin.api_key</span>
+<span class="sd">----------------------</span>
 
+<span class="sd">Implements access to the enStratus ApiKey API</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
 <div class="viewcode-block" id="ApiKey"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey">[docs]</a><span class="k">class</span> <span class="nc">ApiKey</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An API key is an access key and secret key that provide API access into enStratus.&quot;&quot;&quot;</span>
@@ -196,8 +201,9 @@
 <div class="viewcode-block" id="ApiKey.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get all api keys</span>
 
-<span class="sd">        The keys used to make the original request determine</span>
-<span class="sd">        the visible results.</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            The keys used to make the request determine results visibility</span>
 
 <span class="sd">        :param keys_only: Only return `access_key` instead of `ApiKey` objects</span>
 <span class="sd">        :type keys_only: bool.</span>
@@ -207,7 +213,7 @@
 <span class="sd">        :type account_id: int.</span>
 <span class="sd">        :param user_id: Display all keys belonging to `user_id`</span>
 <span class="sd">        :type user_id: int.</span>
-<span class="sd">        :returns: `list` - List of `ApiKey` or `list` -- List of `access_key` </span>
+<span class="sd">        :returns: `list` - of :class:`ApiKey` or :attr:`access_key`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>

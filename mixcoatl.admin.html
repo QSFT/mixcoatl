@@ -56,13 +56,31 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">admin Package</a><ul>
-<li><a class="reference internal" href="#module-mixcoatl.admin.account"><tt class="docutils literal"><span class="pre">account</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.admin.api_key"><tt class="docutils literal"><span class="pre">api_key</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.admin.billing_code"><tt class="docutils literal"><span class="pre">billing_code</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-mixcoatl.admin.account"><tt class="docutils literal"><span class="pre">account</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-admin-account">mixcoatl.admin.account</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-mixcoatl.admin.api_key"><tt class="docutils literal"><span class="pre">api_key</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-admin-api-key">mixcoatl.admin.api_key</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-mixcoatl.admin.billing_code"><tt class="docutils literal"><span class="pre">billing_code</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-admin-billing-code">mixcoatl.admin.billing_code</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-mixcoatl.admin.group"><tt class="docutils literal"><span class="pre">group</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.admin.job"><tt class="docutils literal"><span class="pre">job</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.admin.role"><tt class="docutils literal"><span class="pre">role</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.admin.user"><tt class="docutils literal"><span class="pre">user</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-mixcoatl.admin.job"><tt class="docutils literal"><span class="pre">job</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-admin-job">mixcoatl.admin.job</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-mixcoatl.admin.role"><tt class="docutils literal"><span class="pre">role</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-admin-role">mixcoatl.admin.role</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-mixcoatl.admin.user"><tt class="docutils literal"><span class="pre">user</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-admin-user">mixcoatl.admin.user</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -103,6 +121,9 @@
 <h1>admin Package<a class="headerlink" href="#admin-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-mixcoatl.admin.account">
 <span id="account-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">account</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.account" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-admin-account">
+<h3>mixcoatl.admin.account<a class="headerlink" href="#mixcoatl-admin-account" title="Permalink to this headline">¶</a></h3>
+<p>Implements access to the enStratus Account API</p>
 <dl class="class">
 <dt id="mixcoatl.admin.account.Account">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.account.</tt><tt class="descname">Account</tt><big>(</big><em>account_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/account.html#Account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.account.Account" title="Permalink to this definition">¶</a></dt>
@@ -224,7 +245,7 @@
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> - A list of <cite>Account</cite> or <cite>list</cite> &#8211; A list of <cite>account_id</cite></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.admin.account.Account" title="mixcoatl.admin.account.Account"><tt class="xref py py-class docutils literal"><span class="pre">Account</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.account.Account.account_id" title="mixcoatl.admin.account.Account.account_id"><tt class="xref py py-attr docutils literal"><span class="pre">account_id</span></tt></a></p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.account.AccountException" title="mixcoatl.admin.account.AccountException"><tt class="xref py py-class docutils literal"><span class="pre">AccountException</span></tt></a></p>
@@ -243,8 +264,12 @@
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-mixcoatl.admin.api_key">
 <span id="api-key-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">api_key</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.api_key" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-admin-api-key">
+<h3>mixcoatl.admin.api_key<a class="headerlink" href="#mixcoatl-admin-api-key" title="Permalink to this headline">¶</a></h3>
+<p>Implements access to the enStratus ApiKey API</p>
 <dl class="class">
 <dt id="mixcoatl.admin.api_key.ApiKey">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.api_key.</tt><tt class="descname">ApiKey</tt><big>(</big><em>access_key=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey" title="Permalink to this definition">¶</a></dt>
@@ -376,8 +401,10 @@
 <dt id="mixcoatl.admin.api_key.ApiKey.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all api keys</p>
-<p>The keys used to make the original request determine
-the visible results.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keys used to make the request determine results visibility</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -390,7 +417,7 @@ the visible results.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>list</cite> - List of <cite>ApiKey</cite> or <cite>list</cite> &#8211; List of <cite>access_key</cite></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>list</cite> - of <a class="reference internal" href="#mixcoatl.admin.api_key.ApiKey" title="mixcoatl.admin.api_key.ApiKey"><tt class="xref py py-class docutils literal"><span class="pre">ApiKey</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.api_key.ApiKey.access_key" title="mixcoatl.admin.api_key.ApiKey.access_key"><tt class="xref py py-attr docutils literal"><span class="pre">access_key</span></tt></a></p>
 </td>
 </tr>
 </tbody>
@@ -412,8 +439,12 @@ the visible results.</p>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-mixcoatl.admin.billing_code">
 <span id="billing-code-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">billing_code</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.billing_code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-admin-billing-code">
+<h3>mixcoatl.admin.billing_code<a class="headerlink" href="#mixcoatl-admin-billing-code" title="Permalink to this headline">¶</a></h3>
+<p>Implements access to the enStratus Billingcode API</p>
 <dl class="class">
 <dt id="mixcoatl.admin.billing_code.BillingCode">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.billing_code.</tt><tt class="descname">BillingCode</tt><big>(</big><em>billing_code_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/billing_code.html#BillingCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode" title="Permalink to this definition">¶</a></dt>
@@ -505,8 +536,8 @@ against which cloud resources may be provisioned and tracked.</p>
 <dt id="mixcoatl.admin.billing_code.BillingCode.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/billing_code.html#BillingCode.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all visible billing codes</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p class="last">The keys used to make the original request determine result visibility</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -519,7 +550,7 @@ against which cloud resources may be provisioned and tracked.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> - List of <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode" title="mixcoatl.admin.billing_code.BillingCode"><tt class="xref py py-class docutils literal"><span class="pre">BillingCode</span></tt></a> or <cite>list</cite> - List of <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode.billing_code_id" title="mixcoatl.admin.billing_code.BillingCode.billing_code_id"><tt class="xref py py-attr docutils literal"><span class="pre">billing_code_id</span></tt></a></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> - of <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode" title="mixcoatl.admin.billing_code.BillingCode"><tt class="xref py py-class docutils literal"><span class="pre">BillingCode</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode.billing_code_id" title="mixcoatl.admin.billing_code.BillingCode.billing_code_id"><tt class="xref py py-attr docutils literal"><span class="pre">billing_code_id</span></tt></a></p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCodeException" title="mixcoatl.admin.billing_code.BillingCodeException"><tt class="xref py py-class docutils literal"><span class="pre">BillingCodeException</span></tt></a></p>
@@ -537,6 +568,7 @@ against which cloud resources may be provisioned and tracked.</p>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
 </dd></dl>
 
+</div>
 </div>
 <div class="section" id="module-mixcoatl.admin.group">
 <span id="group-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">group</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.group" title="Permalink to this headline">¶</a></h2>
@@ -629,6 +661,9 @@ against which cloud resources may be provisioned and tracked.</p>
 </div>
 <div class="section" id="module-mixcoatl.admin.job">
 <span id="job-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">job</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.job" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-admin-job">
+<h3>mixcoatl.admin.job<a class="headerlink" href="#mixcoatl-admin-job" title="Permalink to this headline">¶</a></h3>
+<p>Implements access to the enStratus Job API</p>
 <dl class="class">
 <dt id="mixcoatl.admin.job.Job">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.job.</tt><tt class="descname">Job</tt><big>(</big><em>job_id=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job" title="Permalink to this definition">¶</a></dt>
@@ -651,48 +686,53 @@ against which cloud resources may be provisioned and tracked.</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.job_id">
 <tt class="descname">job_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.job_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.job_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s ID. <em>Immutable</em></p>
+<dd><p><cite>int</cite> The unique enStratus id for this job</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s status. <em>Immutable</em></p>
+<dd><p><cite>str</cite> The current status of this job</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.description" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s description. <em>Immutable</em></p>
+<dd><p><cite>str</cite> The description of the running job.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.message">
 <tt class="descname">message</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s message. <em>Immutable</em></p>
+<dd><p><cite>str</cite> A message describing the current disposition of the operation</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.start_date">
 <tt class="descname">start_date</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.start_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s start date. <em>Immutable</em></p>
+<dd><p><cite>str</cite> The date and time when the job was started</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.job.Job.end_date">
 <tt class="descname">end_date</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.end_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.end_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the job&#8217;s stop date. <em>Immutable</em></p>
+<dd><p><cite>str</cite> The data and time when the job was completed
+<cite>None</cite> if <tt class="xref py py-attr docutils literal"><span class="pre">status</span> <span class="pre">is</span> <span class="pre">`RUNNING</span></tt></p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.job.Job.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.all" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job.all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all jobs</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list &#8211; a list of <a class="reference internal" href="#mixcoatl.admin.job.Job" title="mixcoatl.admin.job.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a>&#8216;s</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <a class="reference internal" href="#mixcoatl.admin.job.Job.job_id" title="mixcoatl.admin.job.Job.job_id"><tt class="xref py py-attr docutils literal"><span class="pre">job_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.admin.job.Job" title="mixcoatl.admin.job.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.admin.job.Job" title="mixcoatl.admin.job.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.job.Job.job_id" title="mixcoatl.admin.job.Job.job_id"><tt class="xref py py-attr docutils literal"><span class="pre">job_id</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.admin.job.JobException" title="mixcoatl.admin.job.JobException"><tt class="xref py py-class docutils literal"><span class="pre">JobException</span></tt></a></td>
 </tr>
 </tbody>
 </table>
@@ -706,11 +746,18 @@ against which cloud resources may be provisioned and tracked.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>job_id</strong> (<em>int.</em>) &#8211; The ID of the job to wait on</li>
 <li><strong>status</strong> (<em>str.</em>) &#8211; The status to expect before continuing</li>
-<li><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to be called with the final <tt class="docutils literal"><span class="pre">Job</span></tt> when <tt class="docutils literal"><span class="pre">status</span></tt> is reached</li>
+<li><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to be called with the final <a class="reference internal" href="#mixcoatl.admin.job.Job" title="mixcoatl.admin.job.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a>
+when <a class="reference internal" href="#mixcoatl.admin.job.Job.status" title="mixcoatl.admin.job.Job.status"><tt class="xref py py-attr docutils literal"><span class="pre">status</span></tt></a> is reached</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>bool</cite> - Result of job exectution</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.job.JobException" title="mixcoatl.admin.job.JobException"><tt class="xref py py-class docutils literal"><span class="pre">JobException</span></tt></a></p>
 </td>
 </tr>
 </tbody>
@@ -719,9 +766,19 @@ against which cloud resources may be provisioned and tracked.</p>
 
 </dd></dl>
 
+<dl class="exception">
+<dt id="mixcoatl.admin.job.JobException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.job.</tt><tt class="descname">JobException</tt><a class="reference internal" href="_modules/mixcoatl/admin/job.html#JobException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.JobException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="module-mixcoatl.admin.role">
 <span id="role-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">role</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.role" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-admin-role">
+<h3>mixcoatl.admin.role<a class="headerlink" href="#mixcoatl-admin-role" title="Permalink to this headline">¶</a></h3>
+<p>Implements access to the enStratus Role API</p>
 <dl class="class">
 <dt id="mixcoatl.admin.role.Role">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">Role</tt><big>(</big><em>role_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/role.html#Role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role" title="Permalink to this definition">¶</a></dt>
@@ -817,12 +874,17 @@ against which cloud resources may be provisioned and tracked.</p>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-mixcoatl.admin.user">
 <span id="user-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">user</span></tt> Module<a class="headerlink" href="#module-mixcoatl.admin.user" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-admin-user">
+<h3>mixcoatl.admin.user<a class="headerlink" href="#mixcoatl-admin-user" title="Permalink to this headline">¶</a></h3>
+<p>Implements access to the enStratus User API</p>
 <dl class="class">
 <dt id="mixcoatl.admin.user.User">
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.user.</tt><tt class="descname">User</tt><big>(</big><em>user_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A user within the enStratus environment</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.path">
 <tt class="descname">path</tt><em class="property"> = 'admin/User'</em><a class="headerlink" href="#mixcoatl.admin.user.User.path" title="Permalink to this definition">¶</a></dt>
@@ -841,80 +903,179 @@ against which cloud resources may be provisioned and tracked.</p>
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.user_id">
 <tt class="descname">user_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.user_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.user_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> The enStratus unique id of this user across all customer accounts</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.account">
+<tt class="descname">account</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.account" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> The enStratus account</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.account_user_id">
+<tt class="descname">account_user_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.account_user_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.account_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> or <cite>None</cite> A unique identifier to reference this user&#8217;s access
+to a specific account</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.alpha_name">
 <tt class="descname">alpha_name</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.alpha_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.alpha_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The user&#8217;s full name in the form of <cite>Last name, First name</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.billing_codes">
+<tt class="descname">billing_codes</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.billing_codes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.billing_codes" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite> The billing codes against which this user has provisioning rights</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only present when this user is queried in the context of an <cite>account_id</cite></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.cloud_console_password">
+<tt class="descname">cloud_console_password</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.cloud_console_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.cloud_console_password" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> The encrypted password that the user can log into the underlying cloud with</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.cloud_api_public_key">
+<tt class="descname">cloud_api_public_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.cloud_api_public_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.cloud_api_public_key" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> The encrypted public key the user can make API calls to the underlying cloud with</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.cloud_api_secret_key">
+<tt class="descname">cloud_api_secret_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.cloud_api_secret_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.cloud_api_secret_key" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> The encrypted secret key the user can make API calls to the underlying cloud with</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> The customer record to which this user belongs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.editable">
 <tt class="descname">editable</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.editable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.editable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> Indicates if the core values of this user may be changed</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.email">
 <tt class="descname">email</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.email"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.email" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> Email is a unique identifier that enables a given user to
+identify themselves to enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.family_name">
 <tt class="descname">family_name</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.family_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.family_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The family name of the user</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.given_name">
 <tt class="descname">given_name</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.given_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.given_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The given name of the user</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.groups">
 <tt class="descname">groups</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.groups" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> The group membership of this user idependent of any individual accounts</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.has_cloud_api_access">
 <tt class="descname">has_cloud_api_access</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.has_cloud_api_access"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.has_cloud_api_access" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> Indicates that the user has access to the underlying cloud API (i.e. AWS IAM)</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.has_cloud_console_access">
 <tt class="descname">has_cloud_console_access</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.has_cloud_console_access"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.has_cloud_console_access" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> Indicates that the user has access to the underlying cloud console (i.e. AWS IAM)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.notifications_targets">
+<tt class="descname">notifications_targets</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.notifications_targets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.notifications_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> The various targets configured for delivery of notifications</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.user.User.notifications_settings">
+<tt class="descname">notifications_settings</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.notifications_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.notifications_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> Notification settings configured for this user</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The current status of this user in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.time_zone">
 <tt class="descname">time_zone</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.time_zone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.time_zone" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The timezone id for the user&#8217;s prefered time zone</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.vm_login_id">
 <tt class="descname">vm_login_id</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.vm_login_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.vm_login_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The username the user will use to login to cloud instances
+for shell or remote desktop access</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.admin.user.User.ssh_public_key">
 <tt class="descname">ssh_public_key</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.ssh_public_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.ssh_public_key" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> The public key to grant the user access to Unix instances</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.admin.user.User.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/user.html#User.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.User.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all users</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keys used to make the request determine results visibility</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.admin.user.User.user_id" title="mixcoatl.admin.user.User.user_id"><tt class="xref py py-attr docutils literal"><span class="pre">user_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.admin.user.User" title="mixcoatl.admin.user.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; str. The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.admin.user.User" title="mixcoatl.admin.user.User"><tt class="xref py py-class docutils literal"><span class="pre">User</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.user.User.user_id" title="mixcoatl.admin.user.User.user_id"><tt class="xref py py-attr docutils literal"><span class="pre">user_id</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.user.UserException" title="mixcoatl.admin.user.UserException"><tt class="xref py py-class docutils literal"><span class="pre">UserException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
+<dl class="exception">
+<dt id="mixcoatl.admin.user.UserException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.user.</tt><tt class="descname">UserException</tt><a class="reference internal" href="_modules/mixcoatl/admin/user.html#UserException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.user.UserException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+</div>
 </div>
 </div>
 

@@ -67,11 +67,16 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.admin.account</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">json</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">mixcoatl.admin.account</span>
+<span class="sd">----------------------</span>
 
+<span class="sd">Implements access to the enStratus Account API</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
 <div class="viewcode-block" id="Account"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.account.Account">[docs]</a><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An account object represents an enStratus account held by an enStratus customer.&quot;&quot;&quot;</span>
@@ -166,7 +171,7 @@
 <span class="sd">        :type detail: str.</span>
 <span class="sd">        :param cloud_id: Only show accounts tied to the given cloud</span>
 <span class="sd">        :type cloud_id: int.</span>
-<span class="sd">        :returns: `list` - A list of `Account` or `list` -- A list of `account_id`</span>
+<span class="sd">        :returns: `list` of :class:`Account` or :attr:`account_id`</span>
 <span class="sd">        :raises: :class:`AccountException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
