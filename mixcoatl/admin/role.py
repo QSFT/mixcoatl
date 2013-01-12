@@ -1,3 +1,10 @@
+"""
+mixcoatl.admin.role
+--------------------
+
+Implements access to the enStratus Role API
+
+"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 

@@ -1,8 +1,13 @@
-import json
+"""
+mixcoatl.admin.account
+----------------------
 
+Implements access to the enStratus Account API
+"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
+import json
 
 class Account(Resource):
     """An account object represents an enStratus account held by an enStratus customer."""
@@ -97,7 +102,7 @@ class Account(Resource):
         :type detail: str.
         :param cloud_id: Only show accounts tied to the given cloud
         :type cloud_id: int.
-        :returns: `list` - A list of `Account` or `list` -- A list of `account_id`
+        :returns: `list` of :class:`Account` or :attr:`account_id`
         :raises: :class:`AccountException`
         """
 

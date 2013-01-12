@@ -1,3 +1,9 @@
+"""
+mixcoatl.admin.billing_code
+---------------------------
+
+Implements access to the enStratus Billingcode API
+"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
@@ -72,7 +78,7 @@ class BillingCode(Resource):
     def all(cls, keys_only = False, **kwargs):
         """Get all visible billing codes
 
-        .. warning::
+        .. note::
 
             The keys used to make the original request determine result visibility
 
@@ -80,7 +86,7 @@ class BillingCode(Resource):
         :type keys_only: bool.
         :param detail: The level of detail to return - `basic` or `extended`
         :type detail: str.
-        :returns: `list` - List of :class:`BillingCode` or `list` - List of :attr:`billing_code_id`
+        :returns: `list` - of :class:`BillingCode` or :attr:`billing_code_id`
         :raises: :class:`BillingCodeException`
         """
         r = Resource(cls.path)

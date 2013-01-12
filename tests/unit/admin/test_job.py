@@ -65,7 +65,7 @@ class TestJob(unittest.TestCase):
 
     @httprettified
     def test_job_get_last_error(self):
-        '''test failure on job.get()'''
+        """test failure on job.get()"""
 
         pk = 5
         json_data = '{"error": {"message": "No such job ID: 5"}}'
@@ -82,7 +82,7 @@ class TestJob(unittest.TestCase):
 
     @httprettified
     def test_waiting_for_job(self):
-        '''test Job.wait_for(<id>) works'''
+        """test Job.wait_for(<id>) works"""
 
         with open(self.json_file) as f:
             running_data = json.load(f)
@@ -113,3 +113,5 @@ class TestJob(unittest.TestCase):
             assert x.message == '12345'
 
         y = self.cls.wait_for(4, callback=validate)
+        z = self.cls.wait_for(4)
+        assert z is True

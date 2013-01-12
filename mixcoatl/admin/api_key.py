@@ -1,8 +1,13 @@
-import json
+"""
+mixcoatl.admin.api_key
+----------------------
 
+Implements access to the enStratus ApiKey API
+"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
+import json
 
 class ApiKey(Resource):
     """An API key is an access key and secret key that provide API access into enStratus."""
@@ -127,8 +132,9 @@ class ApiKey(Resource):
     def all(cls, keys_only=False, **kwargs):
         """Get all api keys
 
-        The keys used to make the original request determine
-        the visible results.
+        .. note::
+
+            The keys used to make the request determine results visibility
 
         :param keys_only: Only return `access_key` instead of `ApiKey` objects
         :type keys_only: bool.
@@ -138,7 +144,7 @@ class ApiKey(Resource):
         :type account_id: int.
         :param user_id: Display all keys belonging to `user_id`
         :type user_id: int.
-        :returns: `list` - List of `ApiKey` or `list` -- List of `access_key` 
+        :returns: `list` - of :class:`ApiKey` or :attr:`access_key`
         """
 
         r = Resource(cls.path)
