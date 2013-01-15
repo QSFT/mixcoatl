@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mapping Patterns &mdash; mixcoatl 0.2.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/solar.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/clear-default-text.js"></script>
+    <script type="text/javascript" src="_static/util-functions.js"></script>
+    <link rel="top" title="mixcoatl 0.2.4 documentation" href="index.html" />
+    <link rel="next" title="mixcoatl Package" href="mixcoatl.html" />
+    <link rel="prev" title="Mixcoatl" href="readme.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="_static/solarized-dark.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mixcoatl.html" title="mixcoatl Package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="readme.html" title="Mixcoatl"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Mapping Patterns</a><ul>
+<li><a class="reference internal" href="#module-and-class-structure">Module and class structure</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="readme.html"
+                        title="previous chapter">Mixcoatl</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mixcoatl.html"
+                        title="next chapter">mixcoatl Package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/patterns.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mapping-patterns">
+<h1>Mapping Patterns<a class="headerlink" href="#mapping-patterns" title="Permalink to this headline">¶</a></h1>
+<p>This document covers common patterns, regardless of Resource type, that are implemented and other general commonalities for using mixcoatl.</p>
+<div class="section" id="module-and-class-structure">
+<h2>Module and class structure<a class="headerlink" href="#module-and-class-structure" title="Permalink to this headline">¶</a></h2>
+<p>The module structure largely follows the conventions of the enStratus API to minimize disconnect between the API docs. To be more <cite>pythonic</cite> certain conventions and transformations are done, however:</p>
+<ul class="simple">
+<li>camel-cased strings (such as attributes and query parameters) are replaced by snake-cased versions.</li>
+<li>attributes with nested structures are returned as dictionaries</li>
+<li>CRUD operations are implemented primarily as class methods and, where appropriate, return an instance of the given resource type. These operations are named as snake-cased versions of the operation (i.e. <cite>describeServer</cite> becomes <cite>describe_server()</cite>.</li>
+<li>All attributes are normally lazy loaded except for the enStratus unique identifier for a resource.</li>
+<li>All resources support calling <cite>.all()</cite></li>
+<li>Resources can be requested in <cite>basic</cite> or <cite>extended</cite> form</li>
+<li>By default, all resources are returned in <cite>extended</cite> form which is a much longer API call but reduces the need to requery the API endpoint to denormalize certain attributes. Greedy fetch if you will.</li>
+<li>Resources always return a resource-specific exception with any API call error messages as the error message when available</li>
+<li>Results from <cite>.all()</cite> support returning either a <cite>list</cite> of resource objects or the ids only (<cite>keys_only=True</cite> parameter)</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is worth noting that regardless of asking for keys only or full objects, the same amount of data is returned as there is no enStratus API mechanism for only returning ids. This is simply a convienience done on the python side.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Using the <cite>geography/DataCenter</cite> API for instance:</p>
+<ul class="simple">
+<li>import the module like so:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mixcoatl.geography.data_center</span> <span class="kn">import</span> <span class="n">DataCenter</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Return the details for a single data center</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span> <span class="o">=</span> <span class="n">DataCenter</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">data_center_id</span>
+<span class="go">12345</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At this point, an actual API call is made to the enStratus endpoints</p>
+</div>
+<ul class="simple">
+<li>Get a list of all data centers <em>(requires a `region_id`)</em></li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">DataCenter</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">region_id</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+<span class="go">[{&#39;data_center_id&#39;:1,...},{&#39;data_center_id&#39;:2,...}]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Get a list of all data centers with <cite>basic</cite> level of detail</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">DataCenter</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">region_id</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sb">`basic`</span><span class="p">)</span>
+<span class="go">[{&#39;data_center_id&#39;:1},{&#39;data_center_id&#39;:2}]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Get just the ids</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">DataCenter</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">region_id</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">keys_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4, 5]</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">Creating an api key</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this case, we show the classmethod <cite>generate_api_key</cite> which maps to the <cite>generateApiKey</cite> POST operation in the API.</p>
+</div>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mixcoatl.admin.api_key</span> <span class="kn">import</span> <span class="n">ApiKey</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ApiKey</span><span class="o">.</span><span class="n">generate_api_key</span><span class="p">(</span><span class="s">&#39;my-test-apikey&#39;</span><span class="p">,</span> <span class="s">&#39;a test api generated from mixcoatl&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">{&#39;access_key&#39;:&#39;ABCDEFGHIJKL&#39;,.....}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">__class__</span>
+<span class="go">mixcoatl.admin.api_key.ApiKey</span>
+</pre></div>
+</div>
+<p>Alternately, you can invoke this on an instance of <cite>ApiKey</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ApiKey</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;another-test-key&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s">&#39;this is a test key&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">{&#39;access_key&#39;:&#39;ABCDEFGHIKL&#39;,....}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mixcoatl.html" title="mixcoatl Package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="readme.html" title="Mixcoatl"
+             >previous</a> |</li>
+        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, John E. Vincent.
+    </div>
+  </body>
+</html>

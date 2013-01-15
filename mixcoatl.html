@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/util-functions.js"></script>
     <link rel="top" title="mixcoatl 0.2.4 documentation" href="index.html" />
     <link rel="next" title="admin Package" href="mixcoatl.admin.html" />
-    <link rel="prev" title="Mixcoatl" href="readme.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="prev" title="Mapping Patterns" href="patterns.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="mixcoatl.admin.html" title="admin Package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="readme.html" title="Mixcoatl"
+          <a href="patterns.html" title="Mapping Patterns"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li> 
       </ul>
@@ -56,7 +56,10 @@
 <li><a class="reference internal" href="#">mixcoatl Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">mixcoatl</span></tt> Package</a></li>
 <li><a class="reference internal" href="#module-mixcoatl.auth"><tt class="docutils literal"><span class="pre">auth</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.resource"><tt class="docutils literal"><span class="pre">resource</span></tt> Module</a></li>
+<li><a class="reference internal" href="#module-mixcoatl.resource"><tt class="docutils literal"><span class="pre">resource</span></tt> Module</a><ul>
+<li><a class="reference internal" href="#mixcoatl-resource">mixcoatl.resource</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-mixcoatl.utils"><tt class="docutils literal"><span class="pre">utils</span></tt> Module</a></li>
 <li><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 </ul>
@@ -66,8 +69,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="readme.html"
-                        title="previous chapter">Mixcoatl</a></p>
+  <p class="topless"><a href="patterns.html"
+                        title="previous chapter">Mapping Patterns</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="mixcoatl.admin.html"
                         title="next chapter">admin Package</a></p>
@@ -125,9 +128,11 @@
 </div>
 <div class="section" id="module-mixcoatl.resource">
 <span id="resource-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">resource</span></tt> Module<a class="headerlink" href="#module-mixcoatl.resource" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mixcoatl-resource">
+<h3>mixcoatl.resource<a class="headerlink" href="#mixcoatl-resource" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="mixcoatl.resource.Resource">
-<em class="property">class </em><tt class="descclassname">mixcoatl.resource.</tt><tt class="descname">Resource</tt><big>(</big><em>base_path=None</em>, <em>request_details='extended'</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">mixcoatl.resource.</tt><tt class="descname">Resource</tt><big>(</big><em>base_path=None</em>, <em>request_details='extended'</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>The base class for all resources returned from an enStratus API call
 By default all resources are largely represented as a <cite>dict</cite>-alike object
@@ -221,6 +226,11 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
 <dd><p>The current <tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt>, if any, of an asynchronous API call</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="mixcoatl.resource.Resource.params">
+<tt class="descname">params</tt><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="mixcoatl.resource.Resource.load">
 <tt class="descname">load</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/resource.html#Resource.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.resource.Resource.load" title="Permalink to this definition">¶</a></dt>
@@ -275,6 +285,7 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
 
 </dd></dl>
 
+</div>
 </div>
 <div class="section" id="module-mixcoatl.utils">
 <span id="utils-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">utils</span></tt> Module<a class="headerlink" href="#module-mixcoatl.utils" title="Permalink to this headline">¶</a></h2>
@@ -372,7 +383,10 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mixcoatl.analytics.html">analytics Package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="mixcoatl.analytics.html#id1"><tt class="docutils literal"><span class="pre">analytics</span></tt> Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mixcoatl.analytics.html#module-mixcoatl.analytics.server_analytics"><tt class="docutils literal"><span class="pre">server_analytics</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixcoatl.analytics.html#module-mixcoatl.analytics.server_analytics"><tt class="docutils literal"><span class="pre">server_analytics</span></tt> Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mixcoatl.analytics.html#mixcoatl-analytics-server-analytics">mixcoatl.analytics.server_analytics</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="mixcoatl.analytics.html#module-mixcoatl.analytics.tier_analytics"><tt class="docutils literal"><span class="pre">tier_analytics</span></tt> Module</a></li>
 </ul>
 </li>
@@ -446,7 +460,7 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
           <a href="mixcoatl.admin.html" title="admin Package"
              >next</a> |</li>
         <li class="right" >
-          <a href="readme.html" title="Mixcoatl"
+          <a href="patterns.html" title="Mapping Patterns"
              >previous</a> |</li>
         <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li> 
       </ul>

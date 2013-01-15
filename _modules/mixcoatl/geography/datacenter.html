@@ -67,10 +67,15 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.geography.datacenter</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;Implements the enStratus DataCenter API&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 
 <div class="viewcode-block" id="DataCenter"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter">[docs]</a><span class="k">class</span> <span class="nc">DataCenter</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data center is a part of a regional infrastructure that has some ability</span>
+<span class="sd">        to share resources with other data centers in the region</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;geography/DataCenter&#39;</span>
     <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;dataCenters&#39;</span>
     <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;data_center_id&#39;</span>
@@ -81,38 +86,72 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="DataCenter.data_center_id"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.data_center_id">[docs]</a>    <span class="k">def</span> <span class="nf">data_center_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique enStratus id for this data center&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_center_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="DataCenter.description"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A description of the data center&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="DataCenter.name"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A user-friendly name for the data center&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="DataCenter.provider_id"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The cloud provider&#39;s unique id for the data center&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="DataCenter.region"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` = The region to which this data center belongs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__region</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="DataCenter.status"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The current status of the data center&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DataCenter.all"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">region_id</span><span class="p">):</span>
+<div class="viewcode-block" id="DataCenter.all"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenter.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">region_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all data centers</span>
+
+<span class="sd">        :param region_id: Required. The region to query against</span>
+<span class="sd">        :type region_id: int.</span>
+<span class="sd">        :param keys_only: Return :attr:`data_center_id` instead of :class:`DataCenter`</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: The level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :returns: `list` of :class:`DataCenter` or :attr:`data_center_id`</span>
+<span class="sd">        :raises: :class:`DataCenterException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s">&#39;keys_only&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">keys_only</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;keys_only&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keys_only</span> <span class="o">=</span> <span class="bp">False</span>
+
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;regionId&#39;</span><span class="p">:</span><span class="n">region_id</span><span class="p">}</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;dataCenterId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
-            <span class="k">return</span> <span class="n">x</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">dcs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;dataCenterId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dcs</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]:</span>
+                    <span class="n">dc</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;dataCenterId&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">dc</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
+                    <span class="n">dc</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                    <span class="n">dcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dc</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dcs</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span></div></div>
+            <span class="k">raise</span> <span class="n">DataCenterException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+</div></div>
+<div class="viewcode-block" id="DataCenterException"><a class="viewcode-back" href="../../../mixcoatl.geography.html#mixcoatl.geography.datacenter.DataCenterException">[docs]</a><span class="k">class</span> <span class="nc">DataCenterException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>
