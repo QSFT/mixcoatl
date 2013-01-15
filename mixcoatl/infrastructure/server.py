@@ -5,6 +5,7 @@ from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 
 import json
+import time
 
 
 class Server(Resource):
@@ -311,7 +312,7 @@ class Server(Resource):
                 callback(self)
             else:
                 return self
-                
+
     @classmethod
     def all(cls):
         """Get a list of all known servers

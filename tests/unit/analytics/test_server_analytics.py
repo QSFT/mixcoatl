@@ -35,9 +35,7 @@ class TestServerAnalytics(unittest.TestCase):
             content_type="application/json")
 
         s = self.cls.all(331810)
-        assert len(s) == 1
-        for x in s:
-            assert isinstance(x, self.cls)
+        assert isinstance(s, self.cls)
 
     @httprettified
     def test_has_one(self):

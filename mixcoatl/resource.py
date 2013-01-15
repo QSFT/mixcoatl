@@ -1,7 +1,13 @@
+"""
+mixcoatl.resource
+------------------
+
+"""
 from mixcoatl.settings.load_settings import settings
 import mixcoatl.auth as auth
 import requests as r
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.utils import camel_keys
 
 class Resource(object):
     """The base class for all resources returned from an enStratus API call
@@ -36,7 +42,7 @@ class Resource(object):
             The Resource object, while looking much like a `dict`, is not a `dict` proper.
             If you need an actual `dict`, call `to_dict()` on your instance.
     """
-    
+
     #: The request path of the resource
     path = None
     #: The top-level grouping of a resource in the API response
@@ -44,7 +50,7 @@ class Resource(object):
     #: The unique identifier of an individual resource
     primary_key = None
 
-    def __init__(self, base_path=None, request_details = 'extended'):
+    def __init__(self, base_path=None, request_details = 'extended', **kwargs):
         if base_path is None:
             try:
                 self.__path = self.__class__.path
@@ -52,6 +58,17 @@ class Resource(object):
                 raise AttributeError('you must override base_path')
         else:
             self.__path = base_path
+
+        if 'request_details' in kwargs:
+            self.__request_details = kwargs['request_details']
+            del kwargs['request_details']
+        else:
+            self.__request_details = 'extended'
+
+        if 'params' in kwargs:
+            self.__params = kwargs['params']
+        else:
+            self.__params = {}
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
@@ -59,8 +76,9 @@ class Resource(object):
         self.pending_changes = {}
 
     def __props(self):
-        p = [k for k,v in self.__class__.__dict__.items() if type(v) in [lazy_property, property]]
-        rp = ['last_error', 'path', 'last_request', 'current_job']
+        """List of properties and lazy properties for a given resource"""
+        p = [k for k, v in self.__class__.__dict__.items() if type(v) in [lazy_property, property]]
+        rp = ['last_error', 'path', 'last_request', 'current_job', 'request_details']
         return p + rp
 
 
@@ -124,6 +142,14 @@ class Resource(object):
     def current_job(self, cj):
         self.__current_job = cj
 
+    @property
+    def params(self):
+        return self.__params
+
+    @params.setter
+    def params(self, p):
+        self.__params = p
+
     def load(self):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
@@ -131,7 +157,7 @@ class Resource(object):
         p = self.path+"/"+str(getattr(self, self.__class__.primary_key))
 
         #self.request_details = 'extended'
-        s = self.get(p)
+        s = self.get(p, params=camel_keys(self.params))
         if self.last_error is None:
             scope = uncamel_keys(s[self.__class__.collection_name][0])
             for k in scope.keys():
@@ -163,7 +189,7 @@ class Resource(object):
         headers = {'x-esauth-access': sig['access_key'],
         'x-esauth-timestamp': str(sig['timestamp']),
         'x-esauth-signature': str(sig['signature']),
-        'x-es-details': self.__request_details,
+        'x-es-details': self.request_details,
         'Accept': 'application/json',
         'User-Agent': sig['ua']}
 

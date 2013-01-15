@@ -92,4 +92,4 @@ class LoadBalancer(Resource):
         if r.last_error is None:
             return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
         else:
-            return x.last_error
+            return r.last_error

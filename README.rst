@@ -10,16 +10,9 @@ Build Status
 
 Word of warning
 ----------------
-This repo is not feature complete. Preference is being given to API interactions that are most useful in conjuction with Fabric:
+This repo is not feature complete in that not all operations are supported. At this point read access to all resources documented in the API doc are working.
 
-- Managing running instances
-- Managing firewalls
-- Interacting with Jobs
-- Support for the above (budget codes, regions, datacenters)
-
-The API is largely fleshed out at this point. Most resources support read-only operations at this point.
-
-All objects support lazy loading as well as an ``.all()`` class method.
+Support is now being added to each resource to implement write operations.
 
 Usage notes
 ~~~~~~~~~~~

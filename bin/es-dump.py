@@ -32,10 +32,11 @@ else:
 
 r = resource.Resource(basepath)
 r.request_details = details
-if params is None:
-    z = r.get()
+if params is not None:
+    qparms = params
 else:
-    z = r.get(params=params)
+    qparms = {}
+z = r.get(params=qparms)
 
 output = sys.stdout
 headers = r.last_request.headers
