@@ -4,9 +4,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
 class Cloud(Resource):
-    path = 'geography/Cloud'
-    collection_name = 'clouds'
-    primary_key = 'cloud_id'
+    PATH = 'geography/Cloud'
+    COLLECTION_NAME = 'clouds'
+    PRIMARY_KEY = 'cloud_id'
 
     def __init__(self, cloud_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -97,7 +97,7 @@ class Cloud(Resource):
         :type detail: str.
         :returns: `list` of :class:`Cloud` or :attr:`cloud_id`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         r.request_detail = 'basic'
         params = {}
 
@@ -110,10 +110,10 @@ class Cloud(Resource):
 
         if r.last_error is None:
             if keys_only is True:
-                return [i['cloudId'] for i in c[cls.collection_name]]
+                return [i['cloudId'] for i in c[cls.COLLECTION_NAME]]
             else:
                 clouds = []
-                for i in c[cls.collection_name]:
+                for i in c[cls.COLLECTION_NAME]:
                     cloud = cls(i['cloudId'])
                     if 'detail' in kwargs:
                         cloud.request_details = kwargs['detail']

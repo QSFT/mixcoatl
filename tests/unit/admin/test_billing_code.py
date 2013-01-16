@@ -18,7 +18,7 @@ from mixcoatl.settings.load_settings import settings
 
 class TestApiKey(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint + '/' + billing_code.BillingCode.path
+        self.es_url = settings.endpoint + '/' + billing_code.BillingCode.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):

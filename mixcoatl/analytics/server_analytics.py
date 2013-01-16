@@ -27,9 +27,10 @@ class ServerAnalytics(Resource):
     :param period_end: The end time in UNIX milliseconds for the last datapoint
     :param period_end: int.
     """
-    path = 'analytics/ServerAnalytics'
-    collection_name = 'analytics'
-    primary_key = 'server_id'
+
+    PATH = 'analytics/ServerAnalytics'
+    COLLECTION_NAME = 'analytics'
+    PRIMARY_KEY = 'server_id'
 
     def __init__(self, server_id=None, **kwargs):
         Resource.__init__(self, kwargs)

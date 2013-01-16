@@ -2,9 +2,9 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
 class Group(Resource):
-    path = 'admin/Group'
-    collection_name = 'groups'
-    primary_key = 'group_id'
+    PATH = 'admin/Group'
+    COLLECTION_NAME = 'groups'
+    PRIMARY_KEY = 'group_id'
 
     def __init__(self, group_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -52,7 +52,7 @@ class Group(Resource):
         :returns: `list` - List of :class:`Group` or :attr:`group_id`
         :raises: :class:`GroupException`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -66,9 +66,9 @@ class Group(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['groupId'] for i in x[cls.collection_name]]
+                return [i['groupId'] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['groupId']) for i in x[cls.collection_name]]
+                return [cls(i['groupId']) for i in x[cls.COLLECTION_NAME]]
         else:
             raise GroupException(r.last_error['error']['message'])
 

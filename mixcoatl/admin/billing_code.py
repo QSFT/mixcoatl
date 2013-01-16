@@ -11,9 +11,9 @@ class BillingCode(Resource):
     """A billing code is a budget item with optional hard and soft quotas
     against which cloud resources may be provisioned and tracked."""
 
-    path = 'admin/BillingCode'
-    collection_name = 'billingCodes'
-    primary_key = 'billing_code_id'
+    PATH = 'admin/BillingCode'
+    COLLECTION_NAME = 'billingCodes'
+    PRIMARY_KEY = 'billing_code_id'
 
     def __init__(self, billing_code_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -89,7 +89,7 @@ class BillingCode(Resource):
         :returns: `list` - of :class:`BillingCode` or :attr:`billing_code_id`
         :raises: :class:`BillingCodeException`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -98,9 +98,9 @@ class BillingCode(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i['billingCodeId'] for i in x[cls.collection_name]]
+                return [i['billingCodeId'] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['billingCodeId']) for i in x[cls.collection_name]]
+                return [cls(i['billingCodeId']) for i in x[cls.COLLECTION_NAME]]
         else:
             raise BillingCodeException(r.last_error['error']['message'])
 

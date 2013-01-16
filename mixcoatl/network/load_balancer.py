@@ -3,9 +3,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
 class LoadBalancer(Resource):
-    path = 'network/LoadBalancer'
-    collection_name = 'loadBalancers'
-    primary_key = 'load_balancer_id'
+    PATH = 'network/LoadBalancer'
+    COLLECTION_NAME = 'loadBalancers'
+    PRIMARY_KEY = 'load_balancer_id'
 
     def __init__(self, load_balancer_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -82,7 +82,7 @@ class LoadBalancer(Resource):
 
     @classmethod
     def all(cls, **kwargs):
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -90,6 +90,6 @@ class LoadBalancer(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
+            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
             return r.last_error

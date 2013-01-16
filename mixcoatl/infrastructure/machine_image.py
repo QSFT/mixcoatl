@@ -5,9 +5,9 @@ from mixcoatl.decorators.lazy import lazy_property
 # m = MachineImage(284555) redirect loop
 # m = MachineImage(284831) no loop
 class MachineImage(Resource):
-    path = 'infrastructure/MachineImage'
-    collection_name = 'images'
-    primary_key = 'machine_image_id'
+    PATH = 'infrastructure/MachineImage'
+    COLLECTION_NAME = 'images'
+    PRIMARY_KEY = 'machine_image_id'
 
     def __init__(self, machine_image_id = None, *args, **kwargs):
         Resource.__init__(self, request_details='basic')
@@ -16,7 +16,7 @@ class MachineImage(Resource):
     @property
     def machine_image_id(self):
         return self.__machine_image_id
-    
+
     @lazy_property
     def architecture(self):
         return self.__architecture
@@ -96,13 +96,10 @@ class MachineImage(Resource):
     @classmethod
     def all(cls, region_id):
         from mixcoatl.utils import uncamel_keys
-        r = Resource(cls.path, request_details='basic')
+        r = Resource(cls.PATH, request_details='basic')
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
-            #images = [i['machineImageId'] for i in c[cls.collection_name]]
-            #return images
-            return [cls(i['machineImageId']) for i in c[cls.collection_name]]
-            #return uncamel_keys(c)
+            return [cls(i['machineImageId']) for i in c[cls.COLLECTION_NAME]]
         else:
             return r.last_error

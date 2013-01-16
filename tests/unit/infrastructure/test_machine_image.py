@@ -13,7 +13,7 @@ from mixcoatl.settings.load_settings import settings
 class TestMachineImage(unittest.TestCase):
 
     def setUp(self):
-        self.es_url = settings.endpoint+'/'+mi.MachineImage.path
+        self.es_url = settings.endpoint+'/'+mi.MachineImage.PATH
 
 
     @httprettified

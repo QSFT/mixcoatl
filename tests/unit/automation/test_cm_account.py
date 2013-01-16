@@ -19,7 +19,7 @@ from mixcoatl.utils import camelize
 class TestConfigurationManagementAccount(unittest.TestCase):
     def setUp(self):
         self.cls = rsrc.ConfigurationManagementAccount
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.path)
+        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/automation/configuration_management_account.json'
 
     @httprettified
@@ -45,8 +45,8 @@ class TestConfigurationManagementAccount(unittest.TestCase):
         pk = 3610
         with open(self.json_file) as f:
             data = json.load(f)
-        data[self.cls.collection_name][:] = [d for d in data[self.cls.collection_name] if
-                                             d[camelize(self.cls.primary_key)] == pk]
+        data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
+                                             d[camelize(self.cls.PRIMARY_KEY)] == pk]
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url + '/' + str(pk),
             body=json.dumps(data),

@@ -11,12 +11,11 @@ import time
 class Server(Resource):
     """A server is a virtual machine running within a data center."""
 
-    path = 'infrastructure/Server'
-    collection_name = 'servers'
-    primary_key = 'server_id'
+    PATH = 'infrastructure/Server'
+    COLLECTION_NAME = 'servers'
+    PRIMARY_KEY = 'server_id'
 
     def __init__(self, server_id=None, *args, **kwargs):
-        self.collection_name = self.__class__.collection_name
         Resource.__init__(self)
         self.__server_id = server_id
 
@@ -217,13 +216,13 @@ class Server(Resource):
         :type reason: str.
         :returns: bool -- Result of API call
         """
-        p = self.path+"/"+str(self.server_id)
+        p = self.PATH+"/"+str(self.server_id)
         qopts = {'reason':reason}
         return self.delete(p, params=qopts)
 
     @required_attrs(['server_id'])
     def pause(self, reason=None):
-        p = '%s/%s' % (self.path, str(self.server_id))
+        p = '%s/%s' % (self.PATH, str(self.server_id))
         payload = {'pause':[{}]}
 
         if reason is not None:
@@ -323,11 +322,11 @@ class Server(Resource):
         :returns: list -- a list of :class:`Server`
         :raises: ServerException
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         r.request_details = 'basic'
         s = r.get()
         if r.last_error is None:
-            servers = [cls(server['serverId']) for server in s[cls.collection_name]]
+            servers = [cls(server['serverId']) for server in s[cls.COLLECTION_NAME]]
             return servers
         else:
             raise ServerException(r.last_error)

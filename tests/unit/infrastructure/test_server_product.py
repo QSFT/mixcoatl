@@ -13,7 +13,7 @@ from mixcoatl.settings.load_settings import settings
 class TestServerProduct(unittest.TestCase):
 
     def setUp(self):
-        self.es_url = settings.endpoint+'/'+sp.ServerProduct.path
+        self.es_url = settings.endpoint+'/'+sp.ServerProduct.PATH
 
     @httprettified
     def test_has_all_server_product_and_is_ServerProduct(self):

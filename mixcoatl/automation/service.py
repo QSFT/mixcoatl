@@ -3,9 +3,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
 class Service(Resource):
-    path = 'automation/Service'
-    collection_name = 'services'
-    primary_key = 'service_id'
+    PATH = 'automation/Service'
+    COLLECTION_NAME = 'services'
+    PRIMARY_KEY = 'service_id'
 
     def __init__(self, service_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -53,7 +53,7 @@ class Service(Resource):
 
     @classmethod
     def all(cls, **kwargs):
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -61,6 +61,6 @@ class Service(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
+            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
-            return x.last_error
+            return r.last_error

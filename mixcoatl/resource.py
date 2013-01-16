@@ -43,17 +43,18 @@ class Resource(object):
             If you need an actual `dict`, call `to_dict()` on your instance.
     """
 
-    #: The request path of the resource
-    path = None
+    #: The base request path of the resource
+    PATH = None
     #: The top-level grouping of a resource in the API response
-    collection_name = None
+    COLLECTION_NAME = None
     #: The unique identifier of an individual resource
-    primary_key = None
+    PRIMARY_KEY = None
 
     def __init__(self, base_path=None, request_details = 'extended', **kwargs):
+
         if base_path is None:
             try:
-                self.__path = self.__class__.path
+                self.__path = self.__class__.PATH
             except:
                 raise AttributeError('you must override base_path')
         else:
@@ -154,12 +155,12 @@ class Resource(object):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
         reserved_words = ['type']
-        p = self.path+"/"+str(getattr(self, self.__class__.primary_key))
+        p = self.PATH+"/"+str(getattr(self, self.__class__.PRIMARY_KEY))
 
         #self.request_details = 'extended'
         s = self.get(p, params=camel_keys(self.params))
         if self.last_error is None:
-            scope = uncamel_keys(s[self.__class__.collection_name][0])
+            scope = uncamel_keys(s[self.__class__.COLLECTION_NAME][0])
             for k in scope.keys():
                 if k in reserved_words:
                     the_key = 'e_'+k

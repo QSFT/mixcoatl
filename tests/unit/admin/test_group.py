@@ -17,7 +17,7 @@ from mixcoatl.settings.load_settings import settings
 
 class TestGroups(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint + '/' + grp.Group.path
+        self.es_url = settings.endpoint + '/' + grp.Group.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):
@@ -41,7 +41,7 @@ class TestGroups(unittest.TestCase):
         '''test Group(<id>) returns a valid resource'''
         with open('../../tests/data/unit/admin/group.json') as f:
             data = json.load(f)
-        data[grp.Group.collection_name][:] = [d for d in data[grp.Group.collection_name] if d['groupId'] == 9848]
+        data[grp.Group.COLLECTION_NAME][:] = [d for d in data[grp.Group.COLLECTION_NAME] if d['groupId'] == 9848]
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url + '/9848',
             body=json.dumps(data),

@@ -7,9 +7,9 @@ class DataCenter(Resource):
     A data center is a part of a regional infrastructure that has some ability
         to share resources with other data centers in the region
     """
-    path = 'geography/DataCenter'
-    collection_name = 'dataCenters'
-    primary_key = 'data_center_id'
+    PATH = 'geography/DataCenter'
+    COLLECTION_NAME = 'dataCenters'
+    PRIMARY_KEY = 'data_center_id'
 
     def __init__(self, data_center_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -63,16 +63,16 @@ class DataCenter(Resource):
         else:
             keys_only = False
 
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         r.request_details = 'basic'
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                dcs = [i['dataCenterId'] for i in c[cls.collection_name]]
+                dcs = [i['dataCenterId'] for i in c[cls.COLLECTION_NAME]]
             else:
                 dcs = []
-                for i in c[cls.collection_name]:
+                for i in c[cls.COLLECTION_NAME]:
                     dc = cls(i['dataCenterId'])
                     if 'detail' in kwargs:
                         dc.request_details = kwargs['detail']

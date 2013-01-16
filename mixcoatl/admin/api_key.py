@@ -12,9 +12,9 @@ import json
 class ApiKey(Resource):
     """An API key is an access key and secret key that provide API access into enStratus."""
 
-    path = 'admin/ApiKey'
-    collection_name = 'apiKeys'
-    primary_key = 'access_key'
+    PATH = 'admin/ApiKey'
+    COLLECTION_NAME = 'apiKeys'
+    PRIMARY_KEY = 'access_key'
 
     def __init__(self, access_key = None, *args, **kwargs):
         Resource.__init__(self)
@@ -104,6 +104,21 @@ class ApiKey(Resource):
         else:
             raise ApiKeyGenerationException(self.last_error)
 
+    def invalidate(self, reason='key deleted via mixcoatl'):
+        """Call the API to invalidate the current instance of `ApiKey`
+        This is the same as deleting the api key
+
+        :param reason: the reason for invalidating the key
+        :type reason: str.
+        :returns: True
+        :raises: :class:`ApiKeyInvalidationException`
+        """
+        params = {'reason': reason}
+        self.delete(params=params)
+        if self.last_error is None:
+            return True
+        else:
+            raise ApiKeyInvalidationException(self.last_error)
 
     @classmethod
     def generate_api_key(cls, key_name, description, expiration=None):
@@ -147,7 +162,7 @@ class ApiKey(Resource):
         :returns: `list` - of :class:`ApiKey` or :attr:`access_key`
         """
 
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:
@@ -163,11 +178,12 @@ class ApiKey(Resource):
         c = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['accessKey'] for i in c[cls.collection_name]]
+                return [i['accessKey'] for i in c[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['accessKey']) for i in c[cls.collection_name]]
+                return [cls(i['accessKey']) for i in c[cls.COLLECTION_NAME]]
         else:
             raise ApiKeyException(r.last_error['error']['message'])
 
 class ApiKeyException(BaseException): pass
 class ApiKeyGenerationException(ApiKeyException): pass
+class ApiKeyInvalidationException(ApiKeyException): pass

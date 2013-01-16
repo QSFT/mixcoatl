@@ -20,7 +20,7 @@ class TestJob(unittest.TestCase):
 
     def setUp(self):
         self.cls = rsrc.Job
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.path)
+        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/admin/job.json'
         with open(self.json_file) as f:
             self.data = f.read()
@@ -47,8 +47,8 @@ class TestJob(unittest.TestCase):
         pk = 2
         with open(self.json_file) as f:
             data = json.load(f)
-        data[self.cls.collection_name][:] = [d for d in data[self.cls.collection_name] if
-                                             d[camelize(self.cls.primary_key)] == pk]
+        data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
+                                             d[camelize(self.cls.PRIMARY_KEY)] == pk]
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url+'/'+str(pk),
             body=json.dumps(data),
@@ -90,14 +90,14 @@ class TestJob(unittest.TestCase):
         with open(self.json_file) as f:
             finished_data = json.load(f)
 
-        running_data[self.cls.collection_name][:] = [d for d in running_data[self.cls.collection_name] if
-                                                     d[camelize(self.cls.primary_key)] == 4]
+        running_data[self.cls.COLLECTION_NAME][:] = [d for d in running_data[self.cls.COLLECTION_NAME] if
+                                                     d[camelize(self.cls.PRIMARY_KEY)] == 4]
 
-        finished_data[self.cls.collection_name][:] = [d for d in finished_data[self.cls.collection_name] if
-                                                     d[camelize(self.cls.primary_key)] == 4]
+        finished_data[self.cls.COLLECTION_NAME][:] = [d for d in finished_data[self.cls.COLLECTION_NAME] if
+                                                     d[camelize(self.cls.PRIMARY_KEY)] == 4]
 
-        finished_data[self.cls.collection_name][0]['status'] = 'COMPLETE'
-        finished_data[self.cls.collection_name][0]['message'] = '12345'
+        finished_data[self.cls.COLLECTION_NAME][0]['status'] = 'COMPLETE'
+        finished_data[self.cls.COLLECTION_NAME][0]['message'] = '12345'
 
 
         HTTPretty.register_uri(HTTPretty.GET,

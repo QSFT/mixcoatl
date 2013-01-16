@@ -11,9 +11,9 @@ from mixcoatl.decorators.lazy import lazy_property
 class Role(Resource):
     """A role defines a common set of permissions that govern access into a given account"""
 
-    path = 'admin/Role'
-    collection_name = 'roles'
-    primary_key = 'role_id'
+    PATH = 'admin/Role'
+    COLLECTION_NAME = 'roles'
+    PRIMARY_KEY = 'role_id'
 
     def __init__(self, role_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -68,7 +68,7 @@ class Role(Resource):
         :returns: `list` of :attr:`role_id` or :class:`Role`
         :raises: :class:`RoleException`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         params = {}
         if 'details' in kwargs:
             r.request_details = kwargs['details']
@@ -84,9 +84,9 @@ class Role(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['roleId'] for i in x[cls.collection_name]]
+                return [i['roleId'] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['roleId']) for i in x[cls.collection_name]]
+                return [cls(i['roleId']) for i in x[cls.COLLECTION_NAME]]
         else:
             raise RoleException(r.last_error['error']['message'])
 

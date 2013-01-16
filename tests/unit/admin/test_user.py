@@ -18,7 +18,7 @@ from mixcoatl.settings.load_settings import settings
 class TestUser(unittest.TestCase):
     def setUp(self):
         self.cls = rsrc.User
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.path)
+        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/admin/user.json'
 
     @httprettified
@@ -44,7 +44,7 @@ class TestUser(unittest.TestCase):
         pk = 6789
         with open(self.json_file) as f:
             data = json.load(f)
-        data[self.cls.collection_name][:] = [d for d in data[self.cls.collection_name] if d['userId'] == pk]
+        data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if d['userId'] == pk]
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url + '/' + str(pk),
             body=json.dumps(data),

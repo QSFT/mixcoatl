@@ -5,9 +5,9 @@ from mixcoatl.utils import camelize
 
 class Region(Resource):
     """A region is a logical sub-infrastructure within a cloud"""
-    path = 'geography/Region'
-    collection_name = 'regions'
-    primary_key = 'region_id'
+    PATH = 'geography/Region'
+    COLLECTION_NAME = 'regions'
+    PRIMARY_KEY = 'region_id'
 
     def __init__(self, region_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -71,7 +71,7 @@ class Region(Resource):
         :returns: `list` of :class:`Region` or :attr:`region_id`
         :raises: :class:`RegionException`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         r.request_details = 'basic'
         params = {}
         if 'keys_only' in kwargs:
@@ -84,10 +84,10 @@ class Region(Resource):
         c = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                regions = [item['regionId'] for item in c[cls.collection_name]]
+                regions = [item['regionId'] for item in c[cls.COLLECTION_NAME]]
             else:
                 regions = []
-                for i in c[cls.collection_name]:
+                for i in c[cls.COLLECTION_NAME]:
                     region = cls(i['regionId'])
                     if 'detail' in kwargs:
                         region.request_details = kwargs['detail']

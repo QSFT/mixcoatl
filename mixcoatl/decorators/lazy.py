@@ -42,7 +42,7 @@ class lazy_property(object):
         elif myname in instance.__dict__:
             return self._func(instance)
         else:
-            if getattr(instance, instance.primary_key) is not None:
+            if getattr(instance, instance.PRIMARY_KEY) is not None:
                 try:
                     instance.load()
                 except AttributeError as detail:

@@ -10,9 +10,9 @@ from mixcoatl.decorators.lazy import lazy_property
 class User(Resource):
     """A user within the enStratus environment"""
 
-    path = 'admin/User'
-    collection_name = 'users'
-    primary_key = 'user_id'
+    PATH = 'admin/User'
+    COLLECTION_NAME = 'users'
+    PRIMARY_KEY = 'user_id'
 
     def __init__(self, user_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -155,7 +155,7 @@ class User(Resource):
         :returns: `list` of :class:`User` or :attr:`user_id`
         :raises: :class:`UserException`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -164,9 +164,9 @@ class User(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i['user_id'] for i in x[cls.collection_name]]
+                return [i['user_id'] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['userId']) for i in x[cls.collection_name]]
+                return [cls(i['userId']) for i in x[cls.COLLECTION_NAME]]
         else:
             raise UserException(r.last_error['error']['message'])
 

@@ -11,9 +11,9 @@ from mixcoatl.utils import camelize
 import time
 
 class Job(Resource):
-    path = 'admin/Job'
-    collection_name = 'jobs'
-    primary_key = 'job_id'
+    PATH = 'admin/Job'
+    COLLECTION_NAME = 'jobs'
+    PRIMARY_KEY = 'job_id'
 
     def __init__(self, job_id = None, **kwargs):
         Resource.__init__(self)
@@ -61,13 +61,13 @@ class Job(Resource):
         :returns: `list` of :class:`Job` or :attr:`job_id`
         :raises: :class:`JobException`
         """
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i[camelize(cls.primary_key)] for i in x[cls.collection_name]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
+                return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
             raise JobException(r.last_error['error']['message'])
 

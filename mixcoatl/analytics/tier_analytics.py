@@ -3,9 +3,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
 class TierAnalytics(Resource):
-    path = 'analytics/TierAnalytics'
-    collection_name = 'analytics'
-    primary_key = 'tier_id'
+    PATH = 'analytics/TierAnalytics'
+    COLLECTION_NAME = 'analytics'
+    PRIMARY_KEY = 'tier_id'
 
     def __init__(self, tier_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -33,7 +33,7 @@ class TierAnalytics(Resource):
 
     @classmethod
     def all(cls, tier_id, **kwargs):
-        r = Resource(cls.path+'/'+str(tier_id))
+        r = Resource(cls.PATH+'/'+str(tier_id))
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -41,6 +41,6 @@ class TierAnalytics(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
+            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
             return r.last_error

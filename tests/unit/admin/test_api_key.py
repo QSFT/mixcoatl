@@ -18,7 +18,7 @@ from mixcoatl.settings.load_settings import settings
 
 class TestApiKey(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint + '/' + api_key.ApiKey.path
+        self.es_url = settings.endpoint + '/' + api_key.ApiKey.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):
@@ -26,7 +26,6 @@ class TestApiKey(unittest.TestCase):
 
         with open('../../tests/data/unit/admin/apikey.json') as f:
             data = f.read()
-        print data
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url,
             body=data,

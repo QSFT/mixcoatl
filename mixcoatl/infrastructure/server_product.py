@@ -2,9 +2,9 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
 class ServerProduct(Resource):
-    path = 'infrastructure/ServerProduct'
-    collection_name = 'serverProducts'
-    primary_key = 'product_id'
+    PATH = 'infrastructure/ServerProduct'
+    COLLECTION_NAME = 'serverProducts'
+    PRIMARY_KEY = 'product_id'
 
     def __init__(self, product_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -13,7 +13,7 @@ class ServerProduct(Resource):
     @property
     def product_id(self):
         return self.__product_id
-        
+
     @lazy_property
     def cloud(self):
         return self.__cloud
@@ -73,10 +73,10 @@ class ServerProduct(Resource):
     @classmethod
     def all(cls, region_id):
         from mixcoatl.utils import uncamel_keys
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
-            return [cls(i['productId']) for i in c[cls.collection_name]]
+            return [cls(i['productId']) for i in c[cls.COLLECTION_NAME]]
         else:
             return r.last_error

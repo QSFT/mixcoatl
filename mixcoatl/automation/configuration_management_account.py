@@ -3,9 +3,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
 class ConfigurationManagementAccount(Resource):
-    path = 'automation/ConfigurationManagementAccount'
-    collection_name = 'cmAccounts'
-    primary_key = 'cm_account_id'
+    PATH = 'automation/ConfigurationManagementAccount'
+    COLLECTION_NAME = 'cmAccounts'
+    PRIMARY_KEY = 'cm_account_id'
 
     def __init__(self, cm_account_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -65,7 +65,7 @@ class ConfigurationManagementAccount(Resource):
 
     @classmethod
     def all(cls, **kwargs):
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -73,6 +73,6 @@ class ConfigurationManagementAccount(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
+            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
             return x.last_error

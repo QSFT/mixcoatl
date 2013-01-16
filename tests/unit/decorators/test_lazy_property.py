@@ -11,9 +11,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.resource import Resource
 
 class MockResource(Resource):
-    path = 'mock/Resource'
-    collection_name = 'resources'
-    primary_key = 'resource_id'
+    PATH = 'mock/Resource'
+    COLLECTION_NAME = 'resources'
+    PRIMARY_KEY = 'resource_id'
 
     def __init__(self, resource_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -41,9 +41,9 @@ class MockResource(Resource):
         self.__attr_b = bid
 
 class FailingMockResource(Resource):
-    path = 'mock/Resource'
-    collection_name = 'resources'
-    primary_key = 'resource_id'
+    PATH = 'mock/Resource'
+    COLLECTION_NAME = 'resources'
+    PRIMARY_KEY = 'resource_id'
 
     def __init__(self, resource_id = None, *args, **kwargs):
         Resource.__init__(self)

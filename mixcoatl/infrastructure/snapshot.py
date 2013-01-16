@@ -2,9 +2,9 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
 class Snapshot(Resource):
-    path = 'infrastructure/Snapshot'
-    collection_name = 'snapshots'
-    primary_key = 'snapshot_id'
+    PATH = 'infrastructure/Snapshot'
+    COLLECTION_NAME = 'snapshots'
+    PRIMARY_KEY = 'snapshot_id'
 
     def __init__(self, snapshot_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -100,13 +100,13 @@ class Snapshot(Resource):
 
     @classmethod
     def all(cls, region_id=None):
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if region_id is not None:
             params = {'regionId':region_id}
             c = r.get(params=params)
         else:
             c = r.get()
         if r.last_error is None:
-            return [cls(i['snapshotId']) for i in c[cls.collection_name]]
+            return [cls(i['snapshotId']) for i in c[cls.COLLECTION_NAME]]
         else:
             return r.last_error

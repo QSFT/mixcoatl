@@ -3,9 +3,9 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
 class Volume(Resource):
-    path = 'infrastructure/Volume'
-    collection_name = 'volumes'
-    primary_key = 'volume_id'
+    PATH = 'infrastructure/Volume'
+    COLLECTION_NAME = 'volumes'
+    PRIMARY_KEY = 'volume_id'
 
     def __init__(self, volume_id=None, *args, **kwargs):
         Resource.__init__(self)
@@ -97,7 +97,7 @@ class Volume(Resource):
 
     @classmethod
     def all(cls, **kwargs):
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -105,6 +105,6 @@ class Volume(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.primary_key)]) for i in x[cls.collection_name]]
+            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
             return r.last_error

@@ -12,9 +12,9 @@ import json
 class Account(Resource):
     """An account object represents an enStratus account held by an enStratus customer."""
 
-    path = 'admin/Account'
-    collection_name = 'accounts'
-    primary_key = 'account_id'
+    PATH = 'admin/Account'
+    COLLECTION_NAME = 'accounts'
+    PRIMARY_KEY = 'account_id'
 
     def __init__(self, account_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -106,7 +106,7 @@ class Account(Resource):
         :raises: :class:`AccountException`
         """
 
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:
@@ -120,9 +120,9 @@ class Account(Resource):
         c = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i[camelize(cls.primary_key)] for i in c[cls.collection_name]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in c[cls.COLLECTION_NAME]]
             else:
-                return [cls(i[camelize(cls.primary_key)]) for i in c[cls.collection_name]]
+                return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in c[cls.COLLECTION_NAME]]
         else:
             raise AccountException(r.last_error['error']['message'])
 

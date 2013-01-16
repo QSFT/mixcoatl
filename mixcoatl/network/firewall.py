@@ -2,9 +2,9 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
 class Firewall(Resource):
-    path = 'network/Firewall'
-    collection_name = 'firewalls'
-    primary_key = "firewall_id"
+    PATH = 'network/Firewall'
+    COLLECTION_NAME = 'firewalls'
+    PRIMARY_KEY = "firewall_id"
 
     def __init__(self, firewall_id = None, *args, **kwargs):
         Resource.__init__(self)
@@ -78,12 +78,12 @@ class Firewall(Resource):
     @classmethod
     def all(cls, region_id):
         from mixcoatl.utils import uncamel_keys
-        r = Resource(cls.path)
+        r = Resource(cls.PATH)
         r.request_details = 'extended'
         params = {'regionId':region_id}
         c = r.get(params=params)
         if r.last_error is None:
-            return [cls(i['firewallId']) for i in c[cls.collection_name]]
+            return [cls(i['firewallId']) for i in c[cls.COLLECTION_NAME]]
             #return uncamel_keys(c)
         else:
             return r.last_error
