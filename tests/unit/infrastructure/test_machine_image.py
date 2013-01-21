@@ -17,22 +17,45 @@ class TestMachineImage(unittest.TestCase):
 
 
     @httprettified
-    def test_has_all_machine_images_and_is_MachineImage(self):
+    def test_has_all_and_is_one(self):
 
-        data = mi_data.all_machine_images
+        data = mi_data.one_image
+        individual_url = self.es_url+'/284542'
+
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url,
             body = data,
             status = 200,
             content_type = "application/json")
 
+        HTTPretty.register_uri(HTTPretty.GET,
+            individual_url,
+            body = data,
+            status = 200,
+            content_type = "application/json")
+
         m = mi.MachineImage.all(19344)
-        assert len(m) == 17
+        assert len(m) == 1
         for x in m:
             assert isinstance(x, mi.MachineImage)
 
     @httprettified
-    def test_has_a_machine_image(self):
+    def test_all_keys_only(self):
+
+        data = mi_data.one_image
+
+        HTTPretty.register_uri(HTTPretty.GET,
+            self.es_url,
+            body = data,
+            status = 200,
+            content_type = "application/json")
+
+        m = mi.MachineImage.all(19344, keys_only=True)
+        assert len(m) == 1
+        assert m[0] == 284542
+
+    @httprettified
+    def test_has_one(self):
         url = self.es_url+'/284542'
         data = mi_data.one_image
         HTTPretty.register_uri(HTTPretty.GET,
