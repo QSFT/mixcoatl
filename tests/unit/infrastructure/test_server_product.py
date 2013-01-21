@@ -16,22 +16,49 @@ class TestServerProduct(unittest.TestCase):
         self.es_url = settings.endpoint+'/'+sp.ServerProduct.PATH
 
     @httprettified
-    def test_has_all_server_product_and_is_ServerProduct(self):
+    def test_has_all_and_is_one(self):
+        """Test ServerProduct.all() returns a list of ServerProduct"""
 
-        data = sp_data.all_products
+        data = sp_data.one_product
+        individual_url = self.es_url+'/693'
+
         HTTPretty.register_uri(HTTPretty.GET,
             self.es_url,
             body = data,
             status = 200,
             content_type = "application/json")
 
+        HTTPretty.register_uri(HTTPretty.GET,
+            individual_url,
+            body = data,
+            status = 200,
+            content_type = "application/json")
+
         s = sp.ServerProduct.all(19344)
-        assert len(s) == 26
+        assert len(s) == 1
         for x in s:
             assert isinstance(x, sp.ServerProduct)
 
     @httprettified
+    def test_has_all_keys_only(self):
+        """Test ServerProduct.all(keys_only=True) returns a list of keys"""
+
+        data = sp_data.one_product
+
+        HTTPretty.register_uri(HTTPretty.GET,
+            self.es_url,
+            body = data,
+            status = 200,
+            content_type = "application/json")
+
+        s = sp.ServerProduct.all(19344, keys_only=True)
+        assert len(s) == 1
+        assert s[0] == 693
+
+    @httprettified
     def test_has_a_server_product(self):
+        """Test ServerProduct(<id>) returns a valid resource"""
+
         url = self.es_url+'/693'
         data = sp_data.one_product
 
