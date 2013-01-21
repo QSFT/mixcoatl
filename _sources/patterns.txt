@@ -55,7 +55,7 @@ Using the `geography/DataCenter` API for instance:
 >>> DataCenter.all(region_id=12345, keys_only=True)
 [1, 2, 3, 4, 5]
 
-- Creating an api key
+- Creating a new resource
 
   .. note::
 

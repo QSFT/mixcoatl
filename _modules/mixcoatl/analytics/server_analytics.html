@@ -96,9 +96,10 @@
 <span class="sd">    :param period_end: The end time in UNIX milliseconds for the last datapoint</span>
 <span class="sd">    :param period_end: int.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;analytics/ServerAnalytics&#39;</span>
-    <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;analytics&#39;</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;server_id&#39;</span>
+
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;analytics/ServerAnalytics&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;analytics&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;server_id&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>

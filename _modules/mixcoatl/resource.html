@@ -112,17 +112,18 @@
 <span class="sd">            If you need an actual `dict`, call `to_dict()` on your instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c">#: The request path of the resource</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="c">#: The base request path of the resource</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="c">#: The top-level grouping of a resource in the API response</span>
-    <span class="n">collection_name</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="c">#: The unique identifier of an individual resource</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;extended&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
         <span class="k">if</span> <span class="n">base_path</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">PATH</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s">&#39;you must override base_path&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -223,12 +224,12 @@
         <span class="sd">&quot;&quot;&quot;(Re)load the current object&#39;s attributes from an API call&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">uncamel_keys</span>
         <span class="n">reserved_words</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">primary_key</span><span class="p">))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">))</span>
 
         <span class="c">#self.request_details = &#39;extended&#39;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">camel_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">scope</span> <span class="o">=</span> <span class="n">uncamel_keys</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">collection_name</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="n">uncamel_keys</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">scope</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">reserved_words</span><span class="p">:</span>
                     <span class="n">the_key</span> <span class="o">=</span> <span class="s">&#39;e_&#39;</span><span class="o">+</span><span class="n">k</span>

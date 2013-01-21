@@ -130,18 +130,18 @@
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <p>An account object represents an enStratus account held by an enStratus customer.</p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.account.Account.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/Account'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.account.Account.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/Account'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.account.Account.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'accounts'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.account.Account.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'accounts'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.account.Account.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'account_id'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.account.Account.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'account_id'</em><a class="headerlink" href="#mixcoatl.admin.account.Account.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -276,18 +276,18 @@
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <p>An API key is an access key and secret key that provide API access into enStratus.</p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.api_key.ApiKey.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/ApiKey'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.api_key.ApiKey.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/ApiKey'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.api_key.ApiKey.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'apiKeys'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.api_key.ApiKey.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'apiKeys'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.api_key.ApiKey.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'access_key'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.api_key.ApiKey.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'access_key'</em><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -368,6 +368,25 @@
 <dd><p>Call the API to generate an API key from the current instance of <cite>ApiKey</cite></p>
 </dd></dl>
 
+<dl class="method">
+<dt id="mixcoatl.admin.api_key.ApiKey.invalidate">
+<tt class="descname">invalidate</tt><big>(</big><em>reason='key deleted via mixcoatl'</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.invalidate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.invalidate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the API to invalidate the current instance of <cite>ApiKey</cite>
+This is the same as deleting the api key</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; the reason for invalidating the key</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.admin.api_key.ApiKeyInvalidationException" title="mixcoatl.admin.api_key.ApiKeyInvalidationException"><tt class="xref py py-class docutils literal"><span class="pre">ApiKeyInvalidationException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="mixcoatl.admin.api_key.ApiKey.generate_api_key">
 <em class="property">classmethod </em><tt class="descname">generate_api_key</tt><big>(</big><em>key_name</em>, <em>description</em>, <em>expiration=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKey.generate_api_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKey.generate_api_key" title="Permalink to this definition">¶</a></dt>
@@ -438,6 +457,12 @@
 <dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.api_key.ApiKeyException" title="mixcoatl.admin.api_key.ApiKeyException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.api_key.ApiKeyException</span></tt></a></p>
 </dd></dl>
 
+<dl class="exception">
+<dt id="mixcoatl.admin.api_key.ApiKeyInvalidationException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.api_key.</tt><tt class="descname">ApiKeyInvalidationException</tt><a class="reference internal" href="_modules/mixcoatl/admin/api_key.html#ApiKeyInvalidationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.api_key.ApiKeyInvalidationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.api_key.ApiKeyException" title="mixcoatl.admin.api_key.ApiKeyException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.api_key.ApiKeyException</span></tt></a></p>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="module-mixcoatl.admin.billing_code">
@@ -452,18 +477,18 @@
 <p>A billing code is a budget item with optional hard and soft quotas
 against which cloud resources may be provisioned and tracked.</p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.billing_code.BillingCode.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/BillingCode'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.billing_code.BillingCode.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/BillingCode'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.billing_code.BillingCode.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'billingCodes'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.billing_code.BillingCode.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'billingCodes'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.billing_code.BillingCode.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'billing_code_id'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.billing_code.BillingCode.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'billing_code_id'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -577,18 +602,18 @@ against which cloud resources may be provisioned and tracked.</p>
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.group.</tt><tt class="descname">Group</tt><big>(</big><em>group_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/group.html#Group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.group.Group.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/Group'</em><a class="headerlink" href="#mixcoatl.admin.group.Group.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.group.Group.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/Group'</em><a class="headerlink" href="#mixcoatl.admin.group.Group.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.group.Group.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'groups'</em><a class="headerlink" href="#mixcoatl.admin.group.Group.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.group.Group.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'groups'</em><a class="headerlink" href="#mixcoatl.admin.group.Group.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.group.Group.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'group_id'</em><a class="headerlink" href="#mixcoatl.admin.group.Group.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.group.Group.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'group_id'</em><a class="headerlink" href="#mixcoatl.admin.group.Group.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -669,18 +694,18 @@ against which cloud resources may be provisioned and tracked.</p>
 <em class="property">class </em><tt class="descclassname">mixcoatl.admin.job.</tt><tt class="descname">Job</tt><big>(</big><em>job_id=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/admin/job.html#Job"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.job.Job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.job.Job.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/Job'</em><a class="headerlink" href="#mixcoatl.admin.job.Job.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.job.Job.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/Job'</em><a class="headerlink" href="#mixcoatl.admin.job.Job.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.job.Job.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'jobs'</em><a class="headerlink" href="#mixcoatl.admin.job.Job.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.job.Job.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'jobs'</em><a class="headerlink" href="#mixcoatl.admin.job.Job.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.job.Job.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'job_id'</em><a class="headerlink" href="#mixcoatl.admin.job.Job.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.job.Job.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'job_id'</em><a class="headerlink" href="#mixcoatl.admin.job.Job.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -785,18 +810,18 @@ when <a class="reference internal" href="#mixcoatl.admin.job.Job.status" title="
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <p>A role defines a common set of permissions that govern access into a given account</p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.role.Role.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/Role'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.role.Role.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/Role'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.role.Role.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'roles'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.role.Role.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'roles'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.role.Role.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'role_id'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.role.Role.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'role_id'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -886,18 +911,18 @@ when <a class="reference internal" href="#mixcoatl.admin.job.Job.status" title="
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <p>A user within the enStratus environment</p>
 <dl class="attribute">
-<dt id="mixcoatl.admin.user.User.path">
-<tt class="descname">path</tt><em class="property"> = 'admin/User'</em><a class="headerlink" href="#mixcoatl.admin.user.User.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.user.User.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/User'</em><a class="headerlink" href="#mixcoatl.admin.user.User.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.user.User.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'users'</em><a class="headerlink" href="#mixcoatl.admin.user.User.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.user.User.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'users'</em><a class="headerlink" href="#mixcoatl.admin.user.User.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.admin.user.User.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'user_id'</em><a class="headerlink" href="#mixcoatl.admin.user.User.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.admin.user.User.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'user_id'</em><a class="headerlink" href="#mixcoatl.admin.user.User.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

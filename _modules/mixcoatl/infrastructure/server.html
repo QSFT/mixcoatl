@@ -80,37 +80,32 @@
 <div class="viewcode-block" id="Server"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A server is a virtual machine running within a data center.&quot;&quot;&quot;</span>
 
-    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;infrastructure/Server&#39;</span>
-    <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;servers&#39;</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;server_id&#39;</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;infrastructure/Server&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;servers&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;server_id&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">collection_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">collection_name</span>
         <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span> <span class="o">=</span> <span class="n">server_id</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Server.server_id"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.server_id">[docs]</a>    <span class="k">def</span> <span class="nf">server_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` - The enStratus ID of this server. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`int` - The enStratus ID of this server&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.agent_version"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.agent_version">[docs]</a>    <span class="k">def</span> <span class="nf">agent_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` - The version of the enStratus agent if installed. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`int` - The version of the enStratus agent if installed.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__agent_version</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.cloud"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` - The cloud provided where the instance is located. _*Immutable*_&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`dict` - The cloud provided where the instance is located.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud</span>
 </div>
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The label assigned to the server&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
 
     <span class="nd">@label.setter</span>
@@ -119,14 +114,12 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.customer"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` - The customer account for the server. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`dict` - The customer account for the server.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">data_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The specific datacenter where the instance is located.&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_center</span>
 
     <span class="nd">@data_center.setter</span>
@@ -136,7 +129,6 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The description of the server&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 
     <span class="nd">@description.setter</span>
@@ -146,7 +138,6 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">machine_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The machine image to use/used to provision the server&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__machine_image</span>
 
     <span class="nd">@machine_image.setter</span>
@@ -156,7 +147,6 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">firewalls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`list` - The firewalls to assign/assigned to the server&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewalls</span>
 
     <span class="nd">@firewalls.setter</span>
@@ -166,7 +156,6 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The name assigned/to assign to the server&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
 
     <span class="nd">@name.setter</span>
@@ -175,44 +164,38 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.owning_groups"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`list` - The enStratus groups owning the server. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`list` - The enStratus groups owning the server.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.owning_user"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus user owning the server. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus user owning the server.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.platform"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.platform">[docs]</a>    <span class="k">def</span> <span class="nf">platform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The platform of the server *(i.e. `UBUNTU`)*. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`str` - The platform of the server *(i.e. `UBUNTU`)*.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__platform</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.private_ip_addresses"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.private_ip_addresses">[docs]</a>    <span class="k">def</span> <span class="nf">private_ip_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`list` - The private ip addresses assigned to the server. *Immutable*&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The private ip addresses assigned to the server.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__private_ip_addresses</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.public_ip_address"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.public_ip_address">[docs]</a>    <span class="k">def</span> <span class="nf">public_ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The public ip address of the server. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`str` - The public ip address of the server.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__public_ip_address</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.region"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The region where the server is located&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__region</span>
 </div>
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">provider_product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The provider&#39;s product identifier for the server *(i.e. `m1.large`)*&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_product_id</span>
 
     <span class="nd">@provider_product_id.setter</span>
@@ -221,32 +204,27 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.provider_id"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The provider&#39;s identifier for the server *(i.e. `i-abcdefg`)* *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`str` - The provider&#39;s identifier for the server *(i.e. `i-abcdefg`)*&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_id</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.product"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.product">[docs]</a>    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;The enStratus product record for the server&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus product record for the server&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__product</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.start_date"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.start_date">[docs]</a>    <span class="k">def</span> <span class="nf">start_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The date the server was started&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start_date</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.status"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The status of the server *(i.e. `RUNNING` or `PAUSED`)*. *Immutable*&quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;`str` - The status of the server *(i.e. `RUNNING` or `PAUSED`)*.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.budget"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`int` - The budget code to apply/applied to the server.&quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
 </div>
     <span class="nd">@property</span>
@@ -257,7 +235,6 @@
 <span class="sd">                enStratus does not track keypairs used to launch servers.</span>
 <span class="sd">                This attribute is used only in the `launch()` call.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keypair</span>
 
     <span class="nd">@keypair.setter</span>
@@ -266,14 +243,14 @@
 </div>
 <div class="viewcode-block" id="Server.reload"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.reload">[docs]</a>    <span class="k">def</span> <span class="nf">reload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reload resource data from API calls&quot;&quot;&quot;</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">Job</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)[</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
+                <span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">message</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
@@ -286,13 +263,13 @@
 <span class="sd">        :type reason: str.</span>
 <span class="sd">        :returns: bool -- Result of API call</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">)</span>
         <span class="n">qopts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">qopts</span><span class="p">)</span>
 </div>
     <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;server_id&#39;</span><span class="p">])</span>
 <div class="viewcode-block" id="Server.pause"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">))</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;pause&#39;</span><span class="p">:[{}]}</span>
 
         <span class="k">if</span> <span class="n">reason</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -392,11 +369,11 @@
 <span class="sd">        :returns: list -- a list of :class:`Server`</span>
 <span class="sd">        :raises: ServerException</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
         <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">servers</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s">&#39;serverId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="n">servers</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s">&#39;serverId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
             <span class="k">return</span> <span class="n">servers</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ServerException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>

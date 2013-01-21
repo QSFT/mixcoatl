@@ -106,125 +106,183 @@
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.machine_image.</tt><tt class="descname">MachineImage</tt><big>(</big><em>machine_image_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.machine_image.MachineImage.path">
-<tt class="descname">path</tt><em class="property"> = 'infrastructure/MachineImage'</em><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.machine_image.MachineImage.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'infrastructure/MachineImage'</em><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.machine_image.MachineImage.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'images'</em><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.machine_image.MachineImage.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'images'</em><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.machine_image.MachineImage.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'machine_image_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.machine_image.MachineImage.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'machine_image_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.machine_image_id">
 <tt class="descname">machine_image_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.machine_image_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.machine_image_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The unique enStratus id for this machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.architecture">
 <tt class="descname">architecture</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.architecture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.architecture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The underlying CPU architecture of the virtual machine in question</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The cloud in which this machine image is installed</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.creation_timestamp">
 <tt class="descname">creation_timestamp</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.creation_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.creation_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The date and time this machine image was first created</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer in whose library this machine image record is being managed</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.budget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The id of the billing code against which costs associated are
+billed for this machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The description of the machine image established in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The user friendly name for the machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.owning_account">
 <tt class="descname">owning_account</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.owning_account" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The enStratus cloud account that is the account under which
+the machine image is registered</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.owning_cloud_account_number">
 <tt class="descname">owning_cloud_account_number</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.owning_cloud_account_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.owning_cloud_account_number" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The enstratus cloud account that is the account under which
+the machine image is registered.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.owning_user">
 <tt class="descname">owning_user</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.owning_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The user who is the owner of record of this machine image.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.machine_image.MachineImage.owning_groups">
+<tt class="descname">owning_groups</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.owning_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite> - The groups who have ownership over this machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.platform">
 <tt class="descname">platform</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.platform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.platform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The operating system bundled into the machine image/template</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for the machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.region">
 <tt class="descname">region</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The region in which this machine image is available</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.removable">
 <tt class="descname">removable</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.removable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.removable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Whether or not this machine image can be deleted</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.sharable">
 <tt class="descname">sharable</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.sharable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.sharable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Whether or not this image can be shared</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The current status of this machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.label">
 <tt class="descname">label</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - A color label assigned to this machine image</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.products">
 <tt class="descname">products</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.products"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.products" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> - The server products that can be used to provision a virtual
+machine based on this machine image/template</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.agent_version">
 <tt class="descname">agent_version</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.agent_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.agent_version" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The version of the enStratus agent if installed on the machine image</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all machine images</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; The region to search for machine images</li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.infrastructure.machine_image.MachineImage.machine_image_id" title="mixcoatl.infrastructure.machine_image.MachineImage.machine_image_id"><tt class="xref py py-attr docutils literal"><span class="pre">machine_image_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.infrastructure.machine_image.MachineImage" title="mixcoatl.infrastructure.machine_image.MachineImage"><tt class="xref py py-class docutils literal"><span class="pre">MachineImage</span></tt></a></li>
+<li><strong>available</strong> (<em>str.</em>) &#8211; Return only available images. Default is <cite>true</cite></li>
+<li><strong>registered</strong> (<em>str.</em>) &#8211; Return only images with the enStratus agent installed. Default is <cite>false</cite></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.infrastructure.machine_image.MachineImage" title="mixcoatl.infrastructure.machine_image.MachineImage"><tt class="xref py py-class docutils literal"><span class="pre">MachineImage</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.machine_image.MachineImage.machine_image_id" title="mixcoatl.infrastructure.machine_image.MachineImage.machine_image_id"><tt class="xref py py-attr docutils literal"><span class="pre">machine_image_id</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.machine_image.MachineImageException" title="mixcoatl.infrastructure.machine_image.MachineImageException"><tt class="xref py py-class docutils literal"><span class="pre">MachineImageException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.machine_image.MachineImageException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.machine_image.</tt><tt class="descname">MachineImageException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/machine_image.html#MachineImageException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImageException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
 </dd></dl>
 
 </div>
@@ -236,36 +294,36 @@
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <p>A server is a virtual machine running within a data center.</p>
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.server.Server.path">
-<tt class="descname">path</tt><em class="property"> = 'infrastructure/Server'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.server.Server.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'infrastructure/Server'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.server.Server.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'server_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.server.Server.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'servers'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.server.Server.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'servers'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.server.Server.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'server_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.server_id">
 <tt class="descname">server_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.server_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.server_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The enStratus ID of this server. <em>Immutable</em></p>
+<dd><p><cite>int</cite> - The enStratus ID of this server</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.agent_version">
 <tt class="descname">agent_version</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.agent_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.agent_version" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The version of the enStratus agent if installed. <em>Immutable</em></p>
+<dd><p><cite>int</cite> - The version of the enStratus agent if installed.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.cloud" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The cloud provided where the instance is located. _*Immutable*_</p>
+<dd><p><cite>dict</cite> - The cloud provided where the instance is located.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -277,7 +335,7 @@
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.customer" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The customer account for the server. <em>Immutable</em></p>
+<dd><p><cite>dict</cite> - The customer account for the server.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -313,31 +371,31 @@
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.owning_groups">
 <tt class="descname">owning_groups</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.owning_groups" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>list</cite> - The enStratus groups owning the server. <em>Immutable</em></p>
+<dd><p><cite>list</cite> - The enStratus groups owning the server.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.owning_user">
 <tt class="descname">owning_user</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.owning_user" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The enStratus user owning the server. <em>Immutable</em></p>
+<dd><p><cite>dict</cite> - The enStratus user owning the server.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.platform">
 <tt class="descname">platform</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.platform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.platform" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The platform of the server <em>(i.e. `UBUNTU`)</em>. <em>Immutable</em></p>
+<dd><p><cite>str</cite> - The platform of the server <em>(i.e. `UBUNTU`)</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.private_ip_addresses">
 <tt class="descname">private_ip_addresses</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.private_ip_addresses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.private_ip_addresses" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>list</cite> - The private ip addresses assigned to the server. <em>Immutable</em></p>
+<dd><p><cite>list</cite> - The private ip addresses assigned to the server.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.public_ip_address">
 <tt class="descname">public_ip_address</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.public_ip_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.public_ip_address" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The public ip address of the server. <em>Immutable</em></p>
+<dd><p><cite>str</cite> - The public ip address of the server.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -355,13 +413,13 @@
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The provider&#8217;s identifier for the server <em>(i.e. `i-abcdefg`)</em> <em>Immutable</em></p>
+<dd><p><cite>str</cite> - The provider&#8217;s identifier for the server <em>(i.e. `i-abcdefg`)</em></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.product">
 <tt class="descname">product</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.product"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.product" title="Permalink to this definition">¶</a></dt>
-<dd><p>The enStratus product record for the server</p>
+<dd><p><cite>dict</cite> - The enStratus product record for the server</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -373,7 +431,7 @@
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.status" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The status of the server <em>(i.e. `RUNNING` or `PAUSED`)</em>. <em>Immutable</em></p>
+<dd><p><cite>str</cite> - The status of the server <em>(i.e. `RUNNING` or `PAUSED`)</em>.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -512,148 +570,195 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.server_product">
 <span id="server-product-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server_product</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.server_product" title="Permalink to this headline">¶</a></h2>
+<p>Implements the enStratus ServerProduct API</p>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct">
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.server_product.</tt><tt class="descname">ServerProduct</tt><big>(</big><em>product_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.server_product.ServerProduct.path">
-<tt class="descname">path</tt><em class="property"> = 'infrastructure/ServerProduct'</em><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.server_product.ServerProduct.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'infrastructure/ServerProduct'</em><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.server_product.ServerProduct.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'serverProducts'</em><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.server_product.ServerProduct.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'serverProducts'</em><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.server_product.ServerProduct.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'product_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.server_product.ServerProduct.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'product_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.product_id">
 <tt class="descname">product_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.product_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.product_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The unique enStratus id for this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The cloud in which this server product is valid</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.architecture">
 <tt class="descname">architecture</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.architecture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.architecture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The CPU architecture of the underlying vCPUs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.cpu_count">
 <tt class="descname">cpu_count</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.cpu_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.cpu_count" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The number of vCPUs for this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.cpu_speed_in_mhz">
 <tt class="descname">cpu_speed_in_mhz</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.cpu_speed_in_mhz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.cpu_speed_in_mhz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The speed of the vCPUs for this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.currency">
 <tt class="descname">currency</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.currency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.currency" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The currenct in which the associated costs are charged</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - A detailed description of what this product represents</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.disk_size_in_gb">
 <tt class="descname">disk_size_in_gb</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.disk_size_in_gb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.disk_size_in_gb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The size of the root volume in GB</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.hourly_rate">
 <tt class="descname">hourly_rate</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.hourly_rate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.hourly_rate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The hourly rate for usage of this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The user-friendly name of this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.platform">
 <tt class="descname">platform</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.platform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.platform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The operating system for this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.provider_product_id">
 <tt class="descname">provider_product_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.provider_product_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.provider_product_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for this product</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.provider_region_id">
 <tt class="descname">provider_region_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.provider_region_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.provider_region_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The cloud provider region id where this product is valid</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.ram_in_mb">
 <tt class="descname">ram_in_mb</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.ram_in_mb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.ram_in_mb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The memory size for this product in MB</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.software">
 <tt class="descname">software</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.software"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.software" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - Any additional software installed on this product</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProduct.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProduct.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all server products</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; The region id to search in</li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.infrastructure.server_product.ServerProduct.product_id" title="mixcoatl.infrastructure.server_product.ServerProduct.product_id"><tt class="xref py py-attr docutils literal"><span class="pre">product_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.server_product.ServerProduct" title="mixcoatl.infrastructure.server_product.ServerProduct"><tt class="xref py py-class docutils literal"><span class="pre">ServerProduct</span></tt></a></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; Level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.infrastructure.server_product.ServerProduct.product_id" title="mixcoatl.infrastructure.server_product.ServerProduct.product_id"><tt class="xref py py-attr docutils literal"><span class="pre">product_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.server_product.ServerProduct" title="mixcoatl.infrastructure.server_product.ServerProduct"><tt class="xref py py-class docutils literal"><span class="pre">ServerProduct</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.server_product.ServerProductException" title="mixcoatl.infrastructure.server_product.ServerProductException"><tt class="xref py py-class docutils literal"><span class="pre">ServerProductException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.server_product.ServerProductException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.server_product.</tt><tt class="descname">ServerProductException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server_product.html#ServerProductException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server_product.ServerProductException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.snapshot">
 <span id="snapshot-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">snapshot</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.snapshot" title="Permalink to this headline">¶</a></h2>
+<p>Implements access to the enStratus Snapshot API</p>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot">
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.snapshot.</tt><tt class="descname">Snapshot</tt><big>(</big><em>snapshot_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.snapshot.Snapshot.path">
-<tt class="descname">path</tt><em class="property"> = 'infrastructure/Snapshot'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'infrastructure/Snapshot'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.snapshot.Snapshot.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'snapshots'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'snapshots'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.snapshot.Snapshot.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'snapshot_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'snapshot_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id">
 <tt class="descname">snapshot_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.snapshot_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The unique enStratus id for this snapshot</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.available">
 <tt class="descname">available</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.available" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Identifies if the snapshot is available for creating volumes</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.budget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The id of the billing code against which costs will be associated</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The cloud in which this snapshot is stored</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.created_timestamp">
@@ -663,73 +768,120 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer to which the snapshot belongs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The description of the snapshot established in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.encrypted">
 <tt class="descname">encrypted</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.encrypted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.encrypted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Is the snapshot known to be encrypted by enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The user-friendly name of the snapshot</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.label">
 <tt class="descname">label</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The label assigned to the snapshot</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_account">
 <tt class="descname">owning_account</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_account" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus account where the snapshot is registered</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_groups">
+<tt class="descname">owning_groups</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The enStratus groups who have ownership of this snapshot</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for the snapshot</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.region">
 <tt class="descname">region</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The cloud region where the snapshot is stored</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.removable">
 <tt class="descname">removable</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.removable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.removable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Indicates if this snapshot can be removed</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.sharable">
 <tt class="descname">sharable</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.sharable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.sharable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Indicates if this snapshot can be shared</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.size_in_gb">
 <tt class="descname">size_in_gb</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.size_in_gb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.size_in_gb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The size of the snapshot in GB</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The enStratus status of the snapshot <em>(`ACTIVE`|`INACTIVE`)</em></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.volume">
 <tt class="descname">volume</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.volume" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The volume, if known, from which the snapshot was created</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of snapshots</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; Restrict to snapshots owned by <cite>account_id</cite></li>
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; Restrict to snapshots based on <cite>volume_id</cite></li>
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; Restrict to snapshots in <cite>region_id</cite></li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id"><tt class="xref py py-attr docutils literal"><span class="pre">snapshot_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; Level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id"><tt class="xref py py-attr docutils literal"><span class="pre">snapshot_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.snapshot.SnapshotException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.snapshot.</tt><tt class="descname">SnapshotException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#SnapshotException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
 </dd></dl>
 
 </div>
@@ -740,18 +892,18 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">Volume</tt><big>(</big><em>volume_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.volume.Volume.path">
-<tt class="descname">path</tt><em class="property"> = 'infrastructure/Volume'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.path" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.volume.Volume.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'infrastructure/Volume'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.volume.Volume.collection_name">
-<tt class="descname">collection_name</tt><em class="property"> = 'volumes'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.collection_name" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.volume.Volume.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'volumes'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.infrastructure.volume.Volume.primary_key">
-<tt class="descname">primary_key</tt><em class="property"> = 'volume_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.primary_key" title="Permalink to this definition">¶</a></dt>
+<dt id="mixcoatl.infrastructure.volume.Volume.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'volume_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

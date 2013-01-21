@@ -71,9 +71,9 @@
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 
 <div class="viewcode-block" id="FirewallRule"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall_rule.FirewallRule">[docs]</a><span class="k">class</span> <span class="nc">FirewallRule</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;network/FirewallRule&#39;</span>
-    <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;rules&#39;</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;firewall_rule_id&#39;</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;network/FirewallRule&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;rules&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;firewall_rule_id&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firewall_rule_id</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -82,7 +82,7 @@
     <span class="nd">@property</span>
 <div class="viewcode-block" id="FirewallRule.firewall_rule_id"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id">[docs]</a>    <span class="k">def</span> <span class="nf">firewall_rule_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewall_rule_id</span>
-    </div>
+</div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="FirewallRule.direction"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall_rule.FirewallRule.direction">[docs]</a>    <span class="k">def</span> <span class="nf">direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__direction</span>
@@ -102,12 +102,12 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="FirewallRule.all"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall_rule.FirewallRule.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">firewall_id</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">uncamel_keys</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
         <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;extended&#39;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;firewallId&#39;</span><span class="p">:</span><span class="n">firewall_id</span><span class="p">}</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">rules</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;firewallRuleId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+            <span class="n">rules</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;firewallRuleId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span> <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span></div></div>

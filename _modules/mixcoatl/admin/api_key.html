@@ -81,9 +81,9 @@
 <div class="viewcode-block" id="ApiKey"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey">[docs]</a><span class="k">class</span> <span class="nc">ApiKey</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An API key is an access key and secret key that provide API access into enStratus.&quot;&quot;&quot;</span>
 
-    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;admin/ApiKey&#39;</span>
-    <span class="n">collection_name</span> <span class="o">=</span> <span class="s">&#39;apiKeys&#39;</span>
-    <span class="n">primary_key</span> <span class="o">=</span> <span class="s">&#39;access_key&#39;</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;admin/ApiKey&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;apiKeys&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;access_key&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_key</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -172,7 +172,22 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ApiKeyGenerationException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ApiKey.invalidate"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.invalidate">[docs]</a>    <span class="k">def</span> <span class="nf">invalidate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s">&#39;key deleted via mixcoatl&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Call the API to invalidate the current instance of `ApiKey`</span>
+<span class="sd">        This is the same as deleting the api key</span>
 
+<span class="sd">        :param reason: the reason for invalidating the key</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :returns: True</span>
+<span class="sd">        :raises: :class:`ApiKeyInvalidationException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span> <span class="n">reason</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ApiKeyInvalidationException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ApiKey.generate_api_key"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKey.generate_api_key">[docs]</a>    <span class="k">def</span> <span class="nf">generate_api_key</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">expiration</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -216,7 +231,7 @@
 <span class="sd">        :returns: `list` - of :class:`ApiKey` or :attr:`access_key`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
         <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -232,14 +247,15 @@
         <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;accessKey&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;accessKey&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;accessKey&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">collection_name</span><span class="p">]]</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;accessKey&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ApiKeyException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
 </div></div>
 <div class="viewcode-block" id="ApiKeyException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKeyException">[docs]</a><span class="k">class</span> <span class="nc">ApiKeyException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
 <div class="viewcode-block" id="ApiKeyGenerationException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKeyGenerationException">[docs]</a><span class="k">class</span> <span class="nc">ApiKeyGenerationException</span><span class="p">(</span><span class="n">ApiKeyException</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="ApiKeyInvalidationException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.api_key.ApiKeyInvalidationException">[docs]</a><span class="k">class</span> <span class="nc">ApiKeyInvalidationException</span><span class="p">(</span><span class="n">ApiKeyException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>
