@@ -1,3 +1,4 @@
+"""Implements the enStratus ServerProduct API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
@@ -88,6 +89,7 @@ class ServerProduct(Resource):
     @classmethod
     def all(cls, region_id, **kwargs):
         """Return all server products
+
         :param region_id: The region id to search in
         :type region_id: int.
         :param keys_only: Return :attr:`product_id` or :class:`ServerProduct`

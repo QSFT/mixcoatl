@@ -25,7 +25,7 @@ class TestSnapshot(unittest.TestCase):
 
     @httprettified
     def test_has_all_and_is_one(self):
-        '''test all() returns a list of Snapshot'''
+        """test Snapshot.all() returns a list of Snapshot"""
 
         with open(self.json_file) as f:
             data = f.read()
@@ -35,14 +35,51 @@ class TestSnapshot(unittest.TestCase):
             status=200,
             content_type="application/json")
 
+        loaded_data = json.loads(data)
+        for d in loaded_data[self.cls.COLLECTION_NAME]:
+            rec = {'snapshots':[d]}
+            u = self.es_url+'/'+str(d['snapshotId'])
+            HTTPretty.register_uri(HTTPretty.GET,
+                    u,
+                    body=json.dumps(rec),
+                    status=200,
+                    content_type="application/json")
+
         s = self.cls.all()
         assert len(s) == 19
         for x in s:
             assert isinstance(x, self.cls)
 
     @httprettified
+    def test_has_all_keys_only(self):
+        """test Snapshot.all(keys_only=True) returns a list of keys"""
+
+        with open(self.json_file) as f:
+            data = f.read()
+        HTTPretty.register_uri(HTTPretty.GET,
+            self.es_url,
+            body=data,
+            status=200,
+            content_type="application/json")
+
+        loaded_data = json.loads(data)
+
+        for d in loaded_data[self.cls.COLLECTION_NAME]:
+            rec = {'snapshots':[d]}
+            u = self.es_url+'/'+str(d['snapshotId'])
+            HTTPretty.register_uri(HTTPretty.GET,
+                    u,
+                    body=json.dumps(rec),
+                    status=200,
+                    content_type="application/json")
+
+        s = self.cls.all(keys_only=True)
+        assert len(s) == 19
+        [self.assertIsInstance(x, int) for x in s]
+
+    @httprettified
     def test_has_one(self):
-        '''test Snapshot(<id>) returns a valid resource'''
+        """test Snapshot(<id>) returns a valid resource"""
         pk = 23237460
         with open(self.json_file) as f:
             data = json.load(f)

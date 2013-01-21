@@ -11,6 +11,7 @@ from httpretty import httprettified
 from mixcoatl.settings.load_settings import settings
 
 class TestServerProduct(unittest.TestCase):
+    """Test ServerProduct API"""
 
     def setUp(self):
         self.es_url = settings.endpoint+'/'+sp.ServerProduct.PATH
