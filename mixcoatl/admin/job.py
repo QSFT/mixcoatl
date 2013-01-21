@@ -86,7 +86,7 @@ class Job(Resource):
         :raises: :class:`JobException`
         """
         j = Job(job_id)
-        j.load() 
+        j.load()
         if j.last_error is not None:
             raise JobException(j.last_error['error']['message'])
         else:

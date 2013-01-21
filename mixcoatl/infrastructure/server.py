@@ -21,26 +21,22 @@ class Server(Resource):
 
     @property
     def server_id(self):
-        """`int` - The enStratus ID of this server. *Immutable*"""
-
+        """`int` - The enStratus ID of this server"""
         return self.__server_id
 
     @lazy_property
     def agent_version(self):
-        """`int` - The version of the enStratus agent if installed. *Immutable*"""
-
+        """`int` - The version of the enStratus agent if installed."""
         return self.__agent_version
 
     @lazy_property
     def cloud(self):
-        """`dict` - The cloud provided where the instance is located. _*Immutable*_"""
-
+        """`dict` - The cloud provided where the instance is located."""
         return self.__cloud
 
     @lazy_property
     def label(self):
         """`str` - The label assigned to the server"""
-
         return self.__label
 
     @label.setter
@@ -49,14 +45,12 @@ class Server(Resource):
 
     @lazy_property
     def customer(self):
-        """`dict` - The customer account for the server. *Immutable*"""
-
+        """`dict` - The customer account for the server."""
         return self.__customer
 
     @lazy_property
     def data_center(self):
         """`dict` - The specific datacenter where the instance is located."""
-
         return self.__data_center
 
     @data_center.setter
@@ -66,7 +60,6 @@ class Server(Resource):
     @lazy_property
     def description(self):
         """The description of the server"""
-
         return self.__description
 
     @description.setter
@@ -76,7 +69,6 @@ class Server(Resource):
     @lazy_property
     def machine_image(self):
         """`dict` - The machine image to use/used to provision the server"""
-
         return self.__machine_image
 
     @machine_image.setter
@@ -86,7 +78,6 @@ class Server(Resource):
     @lazy_property
     def firewalls(self):
         """`list` - The firewalls to assign/assigned to the server"""
-
         return self.__firewalls
 
     @firewalls.setter
@@ -96,7 +87,6 @@ class Server(Resource):
     @lazy_property
     def name(self):
         """`str` - The name assigned/to assign to the server"""
-
         return self.__name
 
     @name.setter
@@ -105,44 +95,38 @@ class Server(Resource):
 
     @lazy_property
     def owning_groups(self):
-        """`list` - The enStratus groups owning the server. *Immutable*"""
-
+        """`list` - The enStratus groups owning the server."""
         return self.__owning_groups
 
     @lazy_property
     def owning_user(self):
-        """`dict` - The enStratus user owning the server. *Immutable*"""
-
+        """`dict` - The enStratus user owning the server."""
         return self.__owning_user
 
     @lazy_property
     def platform(self):
-        """`str` - The platform of the server *(i.e. `UBUNTU`)*. *Immutable*"""
-
+        """`str` - The platform of the server *(i.e. `UBUNTU`)*."""
         return self.__platform
 
     @lazy_property
     def private_ip_addresses(self):
-        """`list` - The private ip addresses assigned to the server. *Immutable*"""
+        """`list` - The private ip addresses assigned to the server."""
 
         return self.__private_ip_addresses
 
     @lazy_property
     def public_ip_address(self):
-        """`str` - The public ip address of the server. *Immutable*"""
-
+        """`str` - The public ip address of the server."""
         return self.__public_ip_address
 
     @lazy_property
     def region(self):
         """`dict` - The region where the server is located"""
-
         return self.__region
 
     @lazy_property
     def provider_product_id(self):
         """`str` - The provider's product identifier for the server *(i.e. `m1.large`)*"""
-
         return self.__provider_product_id
 
     @provider_product_id.setter
@@ -151,32 +135,27 @@ class Server(Resource):
 
     @lazy_property
     def provider_id(self):
-        """`str` - The provider's identifier for the server *(i.e. `i-abcdefg`)* *Immutable*"""
-
+        """`str` - The provider's identifier for the server *(i.e. `i-abcdefg`)*"""
         return self.__provider_id
 
     @lazy_property
     def product(self):
-        """The enStratus product record for the server"""
-
+        """`dict` - The enStratus product record for the server"""
         return self.__product
 
     @lazy_property
     def start_date(self):
         """`str` - The date the server was started"""
-
         return self.__start_date
 
     @lazy_property
     def status(self):
-        """`str` - The status of the server *(i.e. `RUNNING` or `PAUSED`)*. *Immutable*"""
-
+        """`str` - The status of the server *(i.e. `RUNNING` or `PAUSED`)*."""
         return self.__status
 
     @lazy_property
     def budget(self):
         """`int` - The budget code to apply/applied to the server."""
-
         return self.__budget
 
     @property
@@ -187,7 +166,6 @@ class Server(Resource):
                 enStratus does not track keypairs used to launch servers.
                 This attribute is used only in the `launch()` call.
         """
-
         return self.__keypair
 
     @keypair.setter
@@ -196,14 +174,14 @@ class Server(Resource):
 
     def reload(self):
         """Reload resource data from API calls"""
-
         if self.server_id is not None:
             self.load()
         elif self.current_job is None:
             self.load()
         else:
             if Job.wait_for(self.current_job):
-                self.__server_id = job.get(self.current_job)['message']
+                job = Job(self.current_job)
+                self.__server_id = job.message
                 self.load()
             else:
                 return self.last_error
