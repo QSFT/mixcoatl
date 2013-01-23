@@ -282,7 +282,10 @@
                 <span class="k">return</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;DELETE&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span><span class="mi">204</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">content</span>
                 <span class="k">return</span> <span class="bp">False</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">True</span>
@@ -294,7 +297,7 @@
                 <span class="k">return</span> <span class="bp">True</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
+                <span class="k">return</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">201</span><span class="p">,</span><span class="mi">202</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">202</span><span class="p">:</span>
@@ -339,9 +342,11 @@
         <span class="sd">&quot;&quot;&quot;The `dict` representation of the current resource&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 </div>
-<div class="viewcode-block" id="Resource.track_change"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.track_change">[docs]</a>    <span class="k">def</span> <span class="nf">track_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
-        <span class="n">prev</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;old&#39;</span><span class="p">:</span> <span class="n">prev</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">:</span><span class="n">new_value</span><span class="p">}</span></div></div>
+<div class="viewcode-block" id="Resource.track_change"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.track_change">[docs]</a>    <span class="k">def</span> <span class="nf">track_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">prev</span> <span class="o">==</span> <span class="n">new</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;old&#39;</span><span class="p">:</span> <span class="n">prev</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">:</span><span class="n">new</span><span class="p">}</span></div></div>
 </pre></div>
 
           </div>

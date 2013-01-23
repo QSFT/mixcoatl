@@ -849,6 +849,56 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 <dd><p><cite>dict</cite> or <cite>None</cite> - The volume, if known, from which the snapshot was created</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.destroy">
+<tt class="descname">destroy</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; A reason for deleting the snapshot</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>bool</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a snapshot with changed values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.create">
+<tt class="descname">create</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.all" title="Permalink to this definition">¶</a></dt>
@@ -867,6 +917,91 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id"><tt class="xref py py-attr docutils literal"><span class="pre">snapshot_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot">
+<em class="property">classmethod </em><tt class="descname">describe_snapshot</tt><big>(</big><em>id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.describe_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the basic metadata for a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>int.</em>) &#8211; The snapshot to modify</li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; Change the description.</li>
+<li><strong>name</strong> (<em>str.</em>) &#8211; Change the name.</li>
+<li><strong>label</strong> (<em>str.</em>) &#8211; Change the label. To remove the label, set to <cite>None</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.delete_snapshot">
+<em class="property">classmethod </em><tt class="descname">delete_snapshot</tt><big>(</big><em>snapshot_id</em>, <em>reason</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.delete_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.delete_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>snapshot_id</strong> (<em>int</em>) &#8211; The enStratus snapshot id</li>
+<li><strong>reason</strong> (<em>str.</em>) &#8211; A reason for deleting the snapshot</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>bool</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.add_snapshot">
+<em class="property">classmethod </em><tt class="descname">add_snapshot</tt><big>(</big><em>volume_id</em>, <em>name</em>, <em>description</em>, <em>budget</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.add_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.add_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a snapshot from <cite>volume_id</cite></p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Snapshot creation is an asynchronous task.
+Specifying a callback will cause a blocking operation while the snapshot completes.
+When using the callback, execution could block for a <strong>VERY</strong> long time depending on the time it takes to make the snapshot.</p>
+</div>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume to snapshot</li>
+<li><strong>name</strong> (<em>str.</em>) &#8211; The name for the snapshot</li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; Description of the snapshot</li>
+<li><strong>budget</strong> (<em>int.</em>) &#8211; The billing code for the snapshot</li>
+<li><strong>callback</strong> (<em>func.</em>) &#8211; An optional callback to send the final <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
