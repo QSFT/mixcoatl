@@ -21,10 +21,12 @@ class TestVolume(unittest.TestCase):
         self.cls = rsrc.Volume
         self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/infrastructure/volume.json'
+        with open(self.json_file) as f:
+            self.raw_data = json.load(f)
 
     @httprettified
     def test_has_all_and_is_one(self):
-        '''test all() returns a list of Volume'''
+        '''Volume.all() returns a list of Volume'''
 
         with open(self.json_file) as f:
             data = f.read()
@@ -34,10 +36,44 @@ class TestVolume(unittest.TestCase):
             status=200,
             content_type="application/json")
 
+        for d in self.raw_data[self.cls.COLLECTION_NAME]:
+            rec = {self.cls.COLLECTION_NAME:[d]}
+            u = self.es_url+'/'+str(d['volumeId'])
+            HTTPretty.register_uri(HTTPretty.GET,
+                    u,
+                    body=json.dumps(rec),
+                    status=200,
+                    content_type="application/json")
+
         s = self.cls.all()
         assert len(s) == 17
         for x in s:
             assert isinstance(x, self.cls)
+
+    @httprettified
+    def test_has_all_keys_only(self):
+        '''Volume.all(keys_only=True) returns a list of keys'''
+
+        with open(self.json_file) as f:
+            data = f.read()
+        HTTPretty.register_uri(HTTPretty.GET,
+            self.es_url,
+            body=data,
+            status=200,
+            content_type="application/json")
+
+        for d in self.raw_data[self.cls.COLLECTION_NAME]:
+            rec = {self.cls.COLLECTION_NAME:[d]}
+            u = self.es_url+'/'+str(d['volumeId'])
+            HTTPretty.register_uri(HTTPretty.GET,
+                    u,
+                    body=json.dumps(rec),
+                    status=200,
+                    content_type="application/json")
+
+        s = self.cls.all(keys_only=True)
+        assert len(s) == 17
+        [self.assertIsInstance(x, int) for x in s]
 
     @httprettified
     def test_has_one(self):
