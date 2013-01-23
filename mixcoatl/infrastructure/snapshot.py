@@ -2,18 +2,19 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import uncamel_keys
 from mixcoatl.utils import camel_keys
 from mixcoatl.admin.job import Job
 
 import json
 
 class Snapshot(Resource):
+    """A snapshot is a point-in-time snapshot of a volume"""
     PATH = 'infrastructure/Snapshot'
     COLLECTION_NAME = 'snapshots'
     PRIMARY_KEY = 'snapshot_id'
 
     def __init__(self, snapshot_id = None, *args, **kwargs):
+        # pylint: disable-msg=W0613
         Resource.__init__(self)
         self.__snapshot_id = snapshot_id
 
@@ -30,10 +31,12 @@ class Snapshot(Resource):
     @lazy_property
     def budget(self):
         """`int` - The id of the billing code against which costs will be associated"""
+        # pylint: disable-msg=E0202
         return self.__budget
 
     @budget.setter
     def budget(self, budget):
+        # pylint: disable-msg=C0111
         self.__budget = budget
 
     @lazy_property
@@ -43,6 +46,7 @@ class Snapshot(Resource):
 
     @lazy_property
     def created_timestamp(self):
+        """`str` - The timestamp when the snapshot was created"""
         return self.__created_timestamp
 
     @lazy_property
@@ -53,10 +57,12 @@ class Snapshot(Resource):
     @lazy_property
     def description(self):
         """`str` - The description of the snapshot established in enStratus"""
+        # pylint: disable-msg=E0202
         return self.__description
 
     @description.setter
     def description(self, desc):
+        # pylint: disable-msg=C0111,W0201
         self.__description = desc
 
     @lazy_property
@@ -67,10 +73,12 @@ class Snapshot(Resource):
     @lazy_property
     def name(self):
         """`str` - The user-friendly name of the snapshot"""
+        # pylint: disable-msg=E0202
         return self.__name
 
     @name.setter
     def name(self, name):
+        # pylint: disable-msg=C0111,W0201
         self.__name = name
 
     @lazy_property
@@ -80,6 +88,7 @@ class Snapshot(Resource):
 
     @label.setter
     def label(self, label):
+        # pylint: disable-msg=C0111,W0201
         self.__label = label
 
     @lazy_property
@@ -125,10 +134,12 @@ class Snapshot(Resource):
     @lazy_property
     def volume(self):
         """`dict` or `None` - The volume, if known, from which the snapshot was created"""
+        # pylint: disable-msg=E0202
         return self.__volume
 
     @volume.setter
     def volume(self, volume_id):
+        # pylint: disable-msg=C0111,W0201
         self.__volume = {'volume_id': volume_id}
 
     @required_attrs(['snapshot_id'])
@@ -140,7 +151,7 @@ class Snapshot(Resource):
         :returns: `bool`
         :raises: :class:`SnapshotException`
         """
-        params={'reason':reason}
+        params = {'reason':reason}
 
         try:
             return self.delete(self.PATH+'/'+str(self.snapshot_id), params=params)
