@@ -255,7 +255,7 @@ class Snapshot(Resource):
             raise SnapshotException(r.last_error['error']['message'])
 
     @classmethod
-    def describe_snapshot(cls, id, **kwargs):
+    def describe_snapshot(cls, snapshot_id, **kwargs):
         """Changes the basic metadata for a snapshot
 
         :param id: The snapshot to modify
@@ -269,7 +269,7 @@ class Snapshot(Resource):
         :returns: :class:`Snapshot`
         :raises: :class:`SnapshotException`
         """
-        s = cls(id)
+        s = cls(snapshot_id)
         for x in ['name', 'description', 'label']:
             if x in kwargs:
                 setattr(s, x, kwargs[x])
