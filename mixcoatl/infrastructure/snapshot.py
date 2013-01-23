@@ -36,7 +36,7 @@ class Snapshot(Resource):
 
     @budget.setter
     def budget(self, budget):
-        # pylint: disable-msg=C0111
+        # pylint: disable-msg=C0111,W0201
         self.__budget = budget
 
     @lazy_property
@@ -347,4 +347,6 @@ class Snapshot(Resource):
             else:
                 return s
 
-class SnapshotException(BaseException): pass
+class SnapshotException(BaseException):
+    """Generic exception for Snapshots"""
+    pass
