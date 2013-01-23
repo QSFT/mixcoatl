@@ -251,12 +251,12 @@ class Server(Resource):
             except AttributeError:
                 pass
 
-        s = self.post(data=json.dumps(payload))
+        self.post(data=json.dumps(payload))
         if self.last_error is None:
             if callback is not None:
-                callback(s)
+                callback(self.current_job)
             else:
-                return s
+                return self.current_job
         else:
             raise ServerLaunchException(self.last_error)
 

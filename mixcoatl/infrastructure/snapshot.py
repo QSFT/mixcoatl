@@ -1,6 +1,12 @@
 """Implements access to the enStratus Snapshot API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.utils import uncamel_keys
+from mixcoatl.utils import camel_keys
+from mixcoatl.admin.job import Job
+
+import json
 
 class Snapshot(Resource):
     PATH = 'infrastructure/Snapshot'
@@ -28,7 +34,7 @@ class Snapshot(Resource):
 
     @budget.setter
     def budget(self, budget):
-        self.__budget == budget
+        self.__budget = budget
 
     @lazy_property
     def cloud(self):
@@ -121,6 +127,87 @@ class Snapshot(Resource):
         """`dict` or `None` - The volume, if known, from which the snapshot was created"""
         return self.__volume
 
+    @volume.setter
+    def volume(self, volume_id):
+        self.__volume = {'volume_id': volume_id}
+
+    @required_attrs(['snapshot_id'])
+    def destroy(self, reason='No reason given'):
+        """delete a snapshot
+
+        :param reason: A reason for deleting the snapshot
+        :type reason: str.
+        :returns: `bool`
+        :raises: :class:`SnapshotException`
+        """
+        params={'reason':reason}
+
+        try:
+            return self.delete(self.PATH+'/'+str(self.snapshot_id), params=params)
+        except:
+            raise SnapshotException(self.last_error['error']['message'])
+
+    def update(self):
+        """Updates a snapshot with changed values
+
+        :returns: :class:`Snapshot`
+        :raises: :class:`SnapshotException`
+        """
+
+        if self.pending_changes is None:
+            pass
+        else:
+            payload = {'describeSnapshot':[{}]}
+            for x in ['name', 'description', 'label']:
+                if x in self.pending_changes:
+                    new_val = self.pending_changes[x]['new']
+                    payload['describeSnapshot'][0][camel_keys(x)] = new_val
+                    self.pending_changes.pop(x, None)
+            if len(payload['describeSnapshot'][0]) == 0:
+                pass
+            else:
+                self.put(self.PATH+'/'+str(self.snapshot_id), data=json.dumps(payload))
+
+            if self.last_error is None:
+                self.load()
+                return self
+            else:
+                raise SnapshotException(self.last_error['error']['message'])
+
+    @required_attrs(['volume', 'name', 'description', 'budget'])
+    def create(self, callback=None):
+        """Creates a snapshot
+
+        :returns: :class:`Snapshot`
+        :raises: :class:`SnapshotException`
+        """
+
+        if self.snapshot_id is not None:
+            raise SnapshotException('Cannot snapshot a snapshot: %s' % self.snapshot_id)
+
+        payload = {'addSnapshot':[{}]}
+        payload['addSnapshot'][0]['volume'] = camel_keys(self.volume)
+        payload['addSnapshot'][0]['name'] = self.name
+        payload['addSnapshot'][0]['description'] = self.description
+        payload['addSnapshot'][0]['budget'] = self.budget
+        optional_attrs = ['label']
+
+        for oa in optional_attrs:
+            try:
+                if getattr(self, oa) is not None:
+                    payload['addSnapshot'][0].update(camel_keys({oa:getattr(self, oa)}))
+            except AttributeError:
+                # We did say optional....
+                pass
+        self.post(self.PATH, data=json.dumps(payload))
+        if self.last_error is None:
+            if callback is not None:
+                callback(self)
+            else:
+                return self
+        else:
+            raise SnapshotException(self.last_error['error']['message'])
+
     @classmethod
     def all(cls, **kwargs):
         """Return a list of snapshots
@@ -166,5 +253,87 @@ class Snapshot(Resource):
             return snapshots
         else:
             raise SnapshotException(r.last_error['error']['message'])
+
+    @classmethod
+    def describe_snapshot(cls, id, **kwargs):
+        """Changes the basic metadata for a snapshot
+
+        :param id: The snapshot to modify
+        :type id: int.
+        :param description: Change the description.
+        :type description: str.
+        :param name: Change the name.
+        :type name: str.
+        :param label: Change the label. To remove the label, set to `None`
+        :type label: str.
+        :returns: :class:`Snapshot`
+        :raises: :class:`SnapshotException`
+        """
+        s = cls(id)
+        for x in ['name', 'description', 'label']:
+            if x in kwargs:
+                setattr(s, x, kwargs[x])
+        s.update()
+        return s
+
+    @classmethod
+    def delete_snapshot(cls, snapshot_id, reason):
+        """delete a snapshot
+
+        :param snapshot_id: The enStratus snapshot id
+        :type snapshot_id: int
+        :param reason: A reason for deleting the snapshot
+        :type reason: str.
+        :returns: `bool`
+        :raises: :class:`SnapshotException`
+        """
+        s = cls(snapshot_id)
+        return s.destroy(reason=reason)
+
+    @classmethod
+    def add_snapshot(cls, volume_id, name, description, budget, callback=None):
+        """Creates a snapshot from `volume_id`
+
+            .. warning::
+
+                Snapshot creation is an asynchronous task.
+                Specifying a callback will cause a blocking operation while the snapshot completes.
+                When using the callback, execution could block for a **VERY** long time depending on the time it takes to make the snapshot.
+
+        :param volume_id: The volume to snapshot
+        :type volume_id: int.
+        :param name: The name for the snapshot
+        :type name: str.
+        :param description: Description of the snapshot
+        :type description: str.
+        :param budget: The billing code for the snapshot
+        :type budget: int.
+        :param callback: An optional callback to send the final :class:`Snapshot`.
+        :type callback: func.
+        :returns: :class:`Snapshot`
+        :raises: :class:`SnapshotException`
+        """
+
+        s = cls()
+        s.volume = volume_id
+        s.name = name
+        s.budget = budget
+        s.description = description
+        s.create()
+        if s.current_job is None:
+            raise SnapshotException('No job found. This is...odd')
+        else:
+            if callback is not None:
+                job = Job.wait_for(s.current_job)
+                if job is True:
+                    try:
+                        j = Job(s.current_job)
+                        snapshot = cls(j.message)
+                        snapshot.load()
+                        callback(snapshot)
+                    except:
+                        raise SnapshotException("Unhandled error in callback")
+            else:
+                return s
 
 class SnapshotException(BaseException): pass

@@ -213,7 +213,10 @@ class Resource(object):
                 return False
         if method == 'DELETE':
             if results.status_code !=204:
-                self.last_error = results.json()
+                try:
+                    self.last_error = results.json()
+                except ValueError:
+                    self.last_error = results.content
                 return False
             else:
                 return True
@@ -225,7 +228,7 @@ class Resource(object):
                 return True
             else:
                 self.last_error = results.json()
-                return self.last_error
+                return False
         if method == 'POST':
             if results.status_code in [201,202]:
                 if results.status_code == 202:
@@ -270,6 +273,8 @@ class Resource(object):
         """The `dict` representation of the current resource"""
         return eval(repr(self))
 
-    def track_change(self, var, new_value):
-        prev = getattr(self, var)
-        self.pending_changes[var] = {'old': prev, 'new':new_value}
+    def track_change(self, var, prev, new):
+        if prev == new:
+            pass
+        else:
+            self.pending_changes[var] = {'old': prev, 'new':new}

@@ -57,6 +57,13 @@ class lazy_property(object):
         if self._sfunc is None:
             raise TypeError, "immutable attribute: %s" % self.__name__
         else:
+            try:
+                old_val = getattr(instance, self.__name__)
+            except AttributeError:
+                # This is okay in cases where we're instantiating a new resource
+                old_val = None
+
+            instance.track_change(self.__name__, old_val, value)
             self._sfunc(instance, value)
 
     def setter(self, sfunc):
