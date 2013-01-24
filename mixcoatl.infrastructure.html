@@ -721,6 +721,7 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot">
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.snapshot.</tt><tt class="descname">Snapshot</tt><big>(</big><em>snapshot_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A snapshot is a point-in-time snapshot of a volume</p>
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.PATH">
 <tt class="descname">PATH</tt><em class="property"> = 'infrastructure/Snapshot'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.PATH" title="Permalink to this definition">¶</a></dt>
@@ -763,7 +764,8 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.created_timestamp">
 <tt class="descname">created_timestamp</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.created_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.created_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The timestamp when the snapshot was created</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.customer">
@@ -928,7 +930,7 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot">
-<em class="property">classmethod </em><tt class="descname">describe_snapshot</tt><big>(</big><em>id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.describe_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">describe_snapshot</tt><big>(</big><em>snapshot_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.describe_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes the basic metadata for a snapshot</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1017,15 +1019,18 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 <dt id="mixcoatl.infrastructure.snapshot.SnapshotException">
 <em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.snapshot.</tt><tt class="descname">SnapshotException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#SnapshotException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+<p>Generic exception for Snapshots</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.volume">
 <span id="volume-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">volume</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.volume" title="Permalink to this headline">¶</a></h2>
+<p>Implements the enStratus Volume API</p>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.volume.Volume">
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">Volume</tt><big>(</big><em>volume_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A volume is a block storage device that may be mounted by servers</p>
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.PATH">
 <tt class="descname">PATH</tt><em class="property"> = 'infrastructure/Volume'</em><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.PATH" title="Permalink to this definition">¶</a></dt>
@@ -1044,113 +1049,350 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.volume_id">
 <tt class="descname">volume_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.volume_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.volume_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The unique enStratus id of the volume</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.volume.Volume.array">
+<tt class="descname">array</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.array" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The array, if any, that this volume belongs to</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.available">
 <tt class="descname">available</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.available" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Indicates if this volume is available for attachment</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The customer to which this volume belongs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The unique cloud provider ID for this volume</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.size_string">
 <tt class="descname">size_string</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.size_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.size_string" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - User-friendly string representing the size of the volume</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - A user-friendly name for the volume</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.volume.Volume.label">
+<tt class="descname">label</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.label" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - A user-friendly label for the volume</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.encrypted">
 <tt class="descname">encrypted</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.encrypted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.encrypted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Indicates if the volume is known by enStratus as encrypted</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.region">
 <tt class="descname">region</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The region in which this volume is stored</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.budget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The ID of the billing code against which costs are billed</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.server">
 <tt class="descname">server</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.server" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The server to which this volume is attached if any</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.owning_groups">
 <tt class="descname">owning_groups</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.owning_groups" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> - The groups who have ownership of this volume in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.size_in_gb">
 <tt class="descname">size_in_gb</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.size_in_gb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.size_in_gb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The size of the volume if reported by the cloud provider</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The status of the volume in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.removable">
 <tt class="descname">removable</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.removable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.removable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - If this volume is removable or not</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.data_center">
 <tt class="descname">data_center</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.data_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.data_center" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The data center where this volume is stored</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.owning_account">
 <tt class="descname">owning_account</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.owning_account" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - the enStratus account under which this volume is registered</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.device_id">
 <tt class="descname">device_id</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.device_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.device_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> or <cite>None</cite> - The OS device id of this volume if attached</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.creation_timestamp">
 <tt class="descname">creation_timestamp</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.creation_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.creation_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The timestamp when this volume was created</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.owning_user">
 <tt class="descname">owning_user</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.owning_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The enStratus user who is the owner of this volume</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The cloud where this volume is stored</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.volume.Volume.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The description of the volume in enStratus</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.volume.Volume.snapshot">
+<tt class="descname">snapshot</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a snapshot from a volume</p>
+<p><em>This is not a part of the enStratus API for Volume resources.
+It is a convenience wrapper around the Snapshot API from the
+perspective of an individual :class:`Volume`</em></p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Snapshot creation is an asynchronous task.
+Specifying a callback will cause a blocking operation while the snapshot completes
+When using the callback, execution could block for a <strong>VERY</strong> long time.</p>
+</div>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str.</em>) &#8211; The name to assign the Snapshot. Default: <cite>snap-&lt;volume_id&gt;-timestamp</cite></li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; Description of the snapshot. Default: <cite>mixcoatl snapshot</cite></li>
+<li><strong>budget</strong> (<em>int.</em>) &#8211; Budget to assign the snapshot. Default: <a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume.budget" title="mixcoatl.infrastructure.volume.Volume.budget"><tt class="xref py py-attr docutils literal"><span class="pre">budget</span></tt></a> of the current <a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></li>
+<li><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to return the results.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeSnapshotException" title="mixcoatl.infrastructure.volume.VolumeSnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeSnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.infrastructure.volume.Volume.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>List all volumes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; Restrict to volumes owned by <cite>account_id</cite></li>
+<li><strong>datacenter_id</strong> (<em>int.</em>) &#8211; Restrict to volumes based in <cite>datacenter_id</cite></li>
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; Restrict to volumes in <cite>region_id</cite></li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <tt class="xref py py-attr docutils literal"><span class="pre">snapshot_id</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; Level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume.volume_id" title="mixcoatl.infrastructure.volume.Volume.volume_id"><tt class="xref py py-attr docutils literal"><span class="pre">volume_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.volume.Volume.assign_budget">
+<em class="property">classmethod </em><tt class="descname">assign_budget</tt><big>(</big><em>volume_id</em>, <em>budget</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.assign_budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.assign_budget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the budget associated with a volume</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume id to work with</li>
+<li><strong>budget</strong> (<em>int.</em>) &#8211; The budget code to assign</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>bool</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.volume.Volume.assign_groups">
+<em class="property">classmethod </em><tt class="descname">assign_groups</tt><big>(</big><em>volume_id</em>, <em>group_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.assign_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.assign_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the group ownership of a volume</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume id to work with</li>
+<li><strong>group_id</strong> (<em>int.</em>) &#8211; The group id to assign</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">bool.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.volume.Volume.attach">
+<em class="property">classmethod </em><tt class="descname">attach</tt><big>(</big><em>volume_id</em>, <em>server_id</em>, <em>device_id=None</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.attach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.attach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a volume to a server</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Attaching a volume is an asynchronous task.</p>
+</div>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume id to work with</li>
+<li><strong>server_id</strong> (<em>int.</em>) &#8211; The server to attach the volume</li>
+<li><strong>device_id</strong> (<em>str.</em>) &#8211; The device id to assign the volume on the system</li>
+<li><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to call with the results</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.volume.Volume.describe_volume">
+<em class="property">classmethod </em><tt class="descname">describe_volume</tt><big>(</big><em>volume_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.describe_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.describe_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the enStratus meta-data of a volume</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume to modify</li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; Change the description</li>
+<li><strong>name</strong> (<em>str.</em>) &#8211; Change the name</li>
+<li><strong>label</strong> (<em>str.</em>) &#8211; Change the label. To remove the label, set to <cite>None</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.volume.Volume.detach">
+<em class="property">classmethod </em><tt class="descname">detach</tt><big>(</big><em>volume_id</em>, <em>reason</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.detach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.detach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detach a volume from a server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume to detach</li>
+<li><strong>reason</strong> (<em>str.</em>) &#8211; The reason for detaching.</li>
+<li><strong>callback</strong> &#8211; Optional callback to send the results</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.volume.VolumeException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">VolumeException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#VolumeException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.VolumeException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+<p>Generic Volume Exception</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.volume.VolumeSnapshotException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">VolumeSnapshotException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#VolumeSnapshotException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.VolumeSnapshotException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.infrastructure.volume.VolumeException</span></tt></a></p>
+<p>Volume Snapshot Exception</p>
 </dd></dl>
 
 </div>

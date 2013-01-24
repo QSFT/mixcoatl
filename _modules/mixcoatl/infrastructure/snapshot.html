@@ -71,18 +71,19 @@
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
-<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">uncamel_keys</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camel_keys</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 
 <div class="viewcode-block" id="Snapshot"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot">[docs]</a><span class="k">class</span> <span class="nc">Snapshot</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A snapshot is a point-in-time snapshot of a volume&quot;&quot;&quot;</span>
     <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;infrastructure/Snapshot&#39;</span>
     <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;snapshots&#39;</span>
     <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;snapshot_id&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">snapshot_id</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=W0613</span>
         <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__snapshot_id</span> <span class="o">=</span> <span class="n">snapshot_id</span>
 
@@ -99,10 +100,12 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`int` - The id of the billing code against which costs will be associated&quot;&quot;&quot;</span>
+        <span class="c"># pylint: disable-msg=E0202</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
 
     <span class="nd">@budget.setter</span>
 <div class="viewcode-block" id="Snapshot.budget"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">budget</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">budget</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -112,6 +115,7 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Snapshot.created_timestamp"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.created_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">created_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The timestamp when the snapshot was created&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__created_timestamp</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -122,10 +126,12 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The description of the snapshot established in enStratus&quot;&quot;&quot;</span>
+        <span class="c"># pylint: disable-msg=E0202</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 
     <span class="nd">@description.setter</span>
 <div class="viewcode-block" id="Snapshot.description"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desc</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">desc</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -136,10 +142,12 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The user-friendly name of the snapshot&quot;&quot;&quot;</span>
+        <span class="c"># pylint: disable-msg=E0202</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
 
     <span class="nd">@name.setter</span>
 <div class="viewcode-block" id="Snapshot.name"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -149,6 +157,7 @@
 
     <span class="nd">@label.setter</span>
 <div class="viewcode-block" id="Snapshot.label"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">label</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -194,10 +203,12 @@
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` or `None` - The volume, if known, from which the snapshot was created&quot;&quot;&quot;</span>
+        <span class="c"># pylint: disable-msg=E0202</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__volume</span>
 
     <span class="nd">@volume.setter</span>
 <div class="viewcode-block" id="Snapshot.volume"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.volume">[docs]</a>    <span class="k">def</span> <span class="nf">volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volume_id</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__volume</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;volume_id&#39;</span><span class="p">:</span> <span class="n">volume_id</span><span class="p">}</span>
 </div>
     <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;snapshot_id&#39;</span><span class="p">])</span>
@@ -209,7 +220,7 @@
 <span class="sd">        :returns: `bool`</span>
 <span class="sd">        :raises: :class:`SnapshotException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">}</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">}</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">snapshot_id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -235,7 +246,7 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s">&#39;describeSnapshot&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">snapshot_id</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
@@ -268,7 +279,7 @@
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="c"># We did say optional....</span>
                 <span class="k">pass</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -324,7 +335,7 @@
             <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Snapshot.describe_snapshot"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot">[docs]</a>    <span class="k">def</span> <span class="nf">describe_snapshot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Snapshot.describe_snapshot"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot">[docs]</a>    <span class="k">def</span> <span class="nf">describe_snapshot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">snapshot_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Changes the basic metadata for a snapshot</span>
 
 <span class="sd">        :param id: The snapshot to modify</span>
@@ -338,7 +349,7 @@
 <span class="sd">        :returns: :class:`Snapshot`</span>
 <span class="sd">        :raises: :class:`SnapshotException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">snapshot_id</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
@@ -405,7 +416,9 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">s</span>
 </div></div>
-<div class="viewcode-block" id="SnapshotException"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.SnapshotException">[docs]</a><span class="k">class</span> <span class="nc">SnapshotException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="SnapshotException"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.SnapshotException">[docs]</a><span class="k">class</span> <span class="nc">SnapshotException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic exception for Snapshots&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
 </pre></div>
 
           </div>
