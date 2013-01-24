@@ -1,6 +1,5 @@
-"""
-Common helper utilities for use with mixcoatl
-"""
+"""Common helper utilities for use with mixcoatl"""
+from multiprocessing import Process, Queue
 
 def uncamel(str):
     """Return the snake case version of :attr:`str`

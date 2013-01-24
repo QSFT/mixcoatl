@@ -2,6 +2,10 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
+from mixcoatl.infrastructure.snapshot import Snapshot
+from mixcoatl.infrastructure.snapshot import SnapshotException
+
+import time
 
 class Volume(Resource):
     """A volume is a block storage device that may be mounted by servers"""
@@ -12,6 +16,8 @@ class Volume(Resource):
     def __init__(self, volume_id=None, *args, **kwargs):
         # pylint: disable-msg=W0613
         Resource.__init__(self)
+        if 'detail' in kwargs:
+            self.request_details = kwargs['detail']
         self.__volume_id = volume_id
 
     @property
@@ -49,6 +55,21 @@ class Volume(Resource):
         """`str` - A user-friendly name for the volume"""
         return self.__name
 
+    @name.setter
+    def name(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__name = b
+
+    @lazy_property
+    def label(self):
+        """`str` - A user-friendly label for the volume"""
+        return self.__label
+
+    @label.setter
+    def label(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__label = b
+
     @lazy_property
     def encrypted(self):
         """`bool` - Indicates if the volume is known by enStratus as encrypted"""
@@ -64,6 +85,11 @@ class Volume(Resource):
         """`int` - The ID of the billing code against which costs are billed"""
         return self.__budget
 
+    @budget.setter
+    def budget(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__budget = b
+
     @lazy_property
     def server(self):
         """`dict` or `None` - The server to which this volume is attached if any"""
@@ -73,6 +99,11 @@ class Volume(Resource):
     def owning_groups(self):
         """`list` - The groups who have ownership of this volume in enStratus"""
         return self.__owning_groups
+
+    @owning_groups.setter
+    def owning_groups(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__owning_groups = [{'group_id': b}]
 
     @lazy_property
     def size_in_gb(self):
@@ -124,6 +155,65 @@ class Volume(Resource):
         """`str` - The description of the volume in enStratus"""
         return self.__description
 
+    @description.setter
+    def description(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__description = b
+
+    def snapshot(self, **kwargs):
+        """Make a snapshot from a volume
+        *This is not a part of the enStratus API for Volume resources.
+        It is a convenience wrapper around the Snapshot API from the
+            perspective of an individual :class:`Volume`
+
+            .. warning::
+
+                Snapshot creation is an asynchronous task.
+                Specifying a callback will cause a blocking operation while the snapshot completes
+                When using the callback, execution could block for a **VERY** long time.
+
+        :param name: The name to assign the Snapshot.
+            Default: `snap-<volume_id>-timestamp`
+        :type name: str.
+        :param description: Description of the snapshot.
+            Default: `mixcoatl snapshot`
+        :type description: str.
+        :param budget: Budget to assign the snapshot.
+            Default: :attr:`budget` of the current :class:`Volume`
+        :type budget: int.
+        :param callback: Optional callback to return the results.
+        :type callback: func.
+        :returns: :class:`Snapshot`
+        :raises: :class:`VolumeSnapshotException`
+        """
+
+        tstamp = str(int(time.time()))
+        if 'name' in kwargs:
+            name = kwargs['name']
+        else:
+            name = 'snap-%s-%s' % (self.volume_id, tstamp)
+        if 'description' in kwargs:
+            description = kwargs['description']
+        else:
+            description = 'mixcoat snapshot'
+        if 'budget' in kwargs:
+            budget = kwargs['budget']
+        else:
+            budget = self.budget
+        if 'callback' in kwargs:
+            callback = kwargs['callback']
+        else:
+            callback = None
+        try:
+            s = Snapshot.add_snapshot(self.volume_id,
+                                    name,
+                                    description,
+                                    budget,
+                                    callback=callback)
+            return s
+        except SnapshotException, e:
+            raise VolumeSnapshotException(str(e))
+
     @classmethod
     def all(cls, **kwargs):
         """List all volumes
@@ -143,7 +233,7 @@ class Volume(Resource):
         """
         params = {}
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
+        r.request_details = 'none'
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
@@ -163,12 +253,14 @@ class Volume(Resource):
 
         x = r.get(params=params)
         if r.last_error is None:
+            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
-                volumes = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                volumes = keys
             else:
                 volumes = []
                 for i in x[cls.COLLECTION_NAME]:
-                    volume = cls(i[camelize(cls.PRIMARY_KEY)])
+                    key = i[camelize(cls.PRIMARY_KEY)]
+                    volume = cls(key)
                     volume.request_details = request_details
                     volume.load()
                     volumes.append(volume)
@@ -178,29 +270,86 @@ class Volume(Resource):
 
     @classmethod
     def assign_budget(cls, volume_id, budget, callback=None):
-        """Change the budget associated with a volume"""
+        """Change the budget associated with a volume
+
+        :param volume_id: The volume id to work with
+        :type volume_id: int.
+        :param budget: The budget code to assign
+        :type budget: int.
+        :returns: `bool`
+        :raises: :class:`VolumeException`
+        """
         pass
 
     @classmethod
     def assign_groups(cls, volume_id, group_id):
-        """Change the group ownership of a volume"""
+        """Change the group ownership of a volume
+
+        :param volume_id: The volume id to work with
+        :type volume_id: int.
+        :param group_id: The group id to assign
+        :type group_id: int.
+        :returns: bool.
+        :raises: :class:`VolumeException`
+        """
         pass
 
     @classmethod
-    def attach(cls, volume_id, server_id, device_id=None):
-        """Attach a volume to a server"""
+    def attach(cls, volume_id, server_id, device_id=None, callback=None):
+        """Attach a volume to a server
+
+            .. note::
+
+                Attaching a volume is an asynchronous task.
+
+        :param volume_id: The volume id to work with
+        :type volume_id: int.
+        :param server_id: The server to attach the volume
+        :type server_id: int.
+        :param device_id: The device id to assign the volume on the system
+        :type device_id: str.
+        :param callback: Optional callback to call with the results
+        :type callback: func.
+        :returns: :class:`Job`
+        :raises: :class:`VolumeException`
+        """
         pass
 
     @classmethod
     def describe_volume(cls, volume_id, **kwargs):
-        """Change the enStratus meta-data of a volume"""
+        """Change the enStratus meta-data of a volume
+
+        :param volume_id: The volume to modify
+        :type volume_id: int.
+        :param description: Change the description
+        :type description: str.
+        :param name: Change the name
+        :type name: str.
+        :param label: Change the label. To remove the label, set to `None`
+        :type label: str.
+        :returns: :class:`Volume`
+        :raises: :class:`VolumeException`
+        """
         pass
 
     @classmethod
-    def detach(cls, volume_id, reason):
-        """Detach a volume from a server"""
+    def detach(cls, volume_id, reason, callback=None):
+        """Detach a volume from a server
+
+        :param volume_id: The volume to detach
+        :type volume_id: int.
+        :param reason: The reason for detaching.
+        :type reason: str.
+        :param callback: Optional callback to send the results
+        :returns: :class:`Volume`
+        :raises: :class:`VolumeException`
+        """
         pass
 
 class VolumeException(BaseException):
     """Generic Volume Exception"""
+    pass
+
+class VolumeSnapshotException(VolumeException):
+    """Volume Snapshot Exception"""
     pass
