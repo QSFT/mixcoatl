@@ -80,6 +80,6 @@ class DataCenter(Resource):
                     dcs.append(dc)
             return dcs
         else:
-            raise DataCenterException(r.last_error['error']['message'])
+            raise DataCenterException(r.last_error)
 
 class DataCenterException(BaseException): pass

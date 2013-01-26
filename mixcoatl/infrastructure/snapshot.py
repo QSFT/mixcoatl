@@ -156,7 +156,7 @@ class Snapshot(Resource):
         try:
             return self.delete(self.PATH+'/'+str(self.snapshot_id), params=params)
         except:
-            raise SnapshotException(self.last_error['error']['message'])
+            raise SnapshotException(self.last_error)
 
     def update(self):
         """Updates a snapshot with changed values
@@ -183,7 +183,7 @@ class Snapshot(Resource):
                 self.load()
                 return self
             else:
-                raise SnapshotException(self.last_error['error']['message'])
+                raise SnapshotException(self.last_error)
 
     @required_attrs(['volume', 'name', 'description', 'budget'])
     def create(self, callback=None):
@@ -217,7 +217,7 @@ class Snapshot(Resource):
             else:
                 return self
         else:
-            raise SnapshotException(self.last_error['error']['message'])
+            raise SnapshotException(self.last_error)
 
     @classmethod
     def all(cls, **kwargs):
@@ -263,7 +263,7 @@ class Snapshot(Resource):
                     snapshots.append(snapshot)
             return snapshots
         else:
-            raise SnapshotException(r.last_error['error']['message'])
+            raise SnapshotException(r.last_error)
 
     @classmethod
     def describe_snapshot(cls, snapshot_id, **kwargs):

@@ -88,6 +88,6 @@ class Role(Resource):
             else:
                 return [cls(i['roleId']) for i in x[cls.COLLECTION_NAME]]
         else:
-            raise RoleException(r.last_error['error']['message'])
+            raise RoleException(r.last_error)
 
 class RoleException(BaseException): pass

@@ -182,7 +182,7 @@ class ApiKey(Resource):
             else:
                 return [cls(i['accessKey']) for i in c[cls.COLLECTION_NAME]]
         else:
-            raise ApiKeyException(r.last_error['error']['message'])
+            raise ApiKeyException(r.last_error)
 
 class ApiKeyException(BaseException): pass
 class ApiKeyGenerationException(ApiKeyException): pass

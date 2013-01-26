@@ -168,6 +168,6 @@ class User(Resource):
             else:
                 return [cls(i['userId']) for i in x[cls.COLLECTION_NAME]]
         else:
-            raise UserException(r.last_error['error']['message'])
+            raise UserException(r.last_error)
 
 class UserException(BaseException): pass

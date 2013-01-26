@@ -20,7 +20,6 @@ class lazy_property(object):
     :raises: :class:`LazyPropertyException`
     """
     def __init__(self, func=None):
-
         self._func = func
         self.__doc__ = func.__doc__
         self.__name__ = func.__name__
@@ -62,7 +61,6 @@ class lazy_property(object):
             except AttributeError:
                 # This is okay in cases where we're instantiating a new resource
                 old_val = None
-
             instance.track_change(self.__name__, old_val, value)
             self._sfunc(instance, value)
 

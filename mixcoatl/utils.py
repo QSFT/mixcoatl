@@ -1,7 +1,6 @@
 """Common helper utilities for use with mixcoatl"""
-from multiprocessing import Process, Queue
 
-def uncamel(str):
+def uncamel(val):
     """Return the snake case version of :attr:`str`
 
     >>> uncamel('deviceId')
@@ -10,8 +9,8 @@ def uncamel(str):
     'data_center_name'
     """
     import re
-    s = lambda str: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
-    return s(str)
+    s = lambda val: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', val).lower().strip('_')
+    return s(val)
 
 def uncamel_keys(d1):
     """Return :attr:`d1` with all keys converted to snake case
@@ -23,7 +22,7 @@ def uncamel_keys(d1):
     d2 = dict()
     if not isinstance(d1, dict):
         return d1
-    for k,v in d1.iteritems():
+    for k, v in d1.iteritems():
         new_key = uncamel(k)
         if isinstance(v, dict):
             d2[new_key] = uncamel_keys(v)
@@ -33,13 +32,13 @@ def uncamel_keys(d1):
             d2[new_key] = v
     return d2
 
-def camelize(str):
+def camelize(val):
     """Return the camel case version of a :attr:`str`
 
     >>> camelize('this_is_a_thing')
     'thisIsAThing'
     """
-    s = ''.join([t.title() for t in str.split('_')])
+    s = ''.join([t.title() for t in val.split('_')])
     return s[0].lower()+s[1:]
 
 def camel_keys(d1):
@@ -62,7 +61,7 @@ def camel_keys(d1):
             d2[new_key] = v
     return d2
 
-def convert(input):
+def convert(val):
     """Return :attr:`input` converted from :class:`unicode` to :class:`str`
 
     >>> convert(u'bob')
@@ -72,11 +71,11 @@ def convert(input):
     >>> convert({u'foo':u'bar'})
     {'foo': 'bar'}
     """
-    if isinstance(input, dict):
-        return dict((convert(key), convert(value)) for key, value in input.iteritems())
-    elif isinstance(input, list):
-        return [convert(element) for element in input]
-    elif isinstance(input, unicode):
-        return input.encode('utf-8')
+    if isinstance(val, dict):
+        return dict((convert(key), convert(value)) for key, value in val.iteritems())
+    elif isinstance(val, list):
+        return [convert(element) for element in val]
+    elif isinstance(val, unicode):
+        return val.encode('utf-8')
     else:
-        return input
+        return val

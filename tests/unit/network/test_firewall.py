@@ -14,7 +14,7 @@ import tests.data.firewall as fw_data
 class TestFirewall(unittest.TestCase):
 
     def setUp(self):
-        self.last_error = '{"error":{"message":"job terminated unexpectedly"}}'
+        self.last_error = 'job terminated unexpectedly'
 
     def test_has_all_fwalls_and_is_Firewall(self, mock_data):
         '''test all() returns a list of Firewall'''

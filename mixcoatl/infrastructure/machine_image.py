@@ -195,6 +195,6 @@ class MachineImage(Resource):
                     images.append(image)
             return images
         else:
-            raise MachineImageException(r.last_error['error']['message'])
+            raise MachineImageException(r.last_error)
 
 class MachineImageException(BaseException): pass

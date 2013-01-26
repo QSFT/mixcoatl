@@ -95,6 +95,6 @@ class Region(Resource):
                     regions.append(region)
             return regions
         else:
-            raise RegionException(r.last_error['error']['message'])
+            raise RegionException(r.last_error)
 
 class RegionException(BaseException): pass

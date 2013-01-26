@@ -200,7 +200,11 @@ class Resource(object):
         self.last_error = None
         self.last_request = results
         if results.status_code in failures:
-            self.last_error = results.json()
+            try:
+                err = results.json()
+                self.last_error = err['error']['message']
+            except ValueError:
+                self.last_error = results.content
             return self.last_error
 
         if method == 'GET':
@@ -209,12 +213,17 @@ class Resource(object):
                 self.last_error = None
                 return results.json()
             except r.exceptions.HTTPError:
-                self.last_error = results.json()
+                try:
+                    err = results.json()
+                    self.last_error = err['error']['message']
+                except ValueError:
+                    self.last_error = results.content
                 return False
         if method == 'DELETE':
-            if results.status_code !=204:
+            if results.status_code != 204:
                 try:
-                    self.last_error = results.json()
+                    err = results.json()
+                    self.last_error = err['error']['message']
                 except ValueError:
                     self.last_error = results.content
                 return False
@@ -227,15 +236,23 @@ class Resource(object):
             elif results.status_code == 204:
                 return True
             else:
-                self.last_error = results.json()
+                try:
+                    err = results.json()
+                    self.last_error = err['error']['message']
+                except ValueError:
+                    self.last_error = results.content
                 return False
         if method == 'POST':
-            if results.status_code in [201,202]:
+            if results.status_code in [201, 202]:
                 if results.status_code == 202:
                     self.current_job = results.json()['jobs'][0]['jobId']
                 return results.json()
             else:
-                self.last_error = results.json()
+                try:
+                    err = results.json()
+                    self.last_error = err['error']['message']
+                except ValueError:
+                    self.last_error = results.content
                 return False
 
     def set_path(self, path=None):

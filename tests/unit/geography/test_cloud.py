@@ -13,7 +13,7 @@ import tests.data.cloud as cloud_data
 class TestClouds(unittest.TestCase):
 
     def setUp(self):
-        self.last_error = '{"error":{"message":"job terminated unexpectedly"}}'
+        self.last_error = 'job terminated unexpectedly'
 
     def test_has_all_clouds_and_is_Cloud(self, mock_data):
         '''test all() returns a list of Cloud'''

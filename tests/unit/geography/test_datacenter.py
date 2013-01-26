@@ -13,7 +13,7 @@ import tests.data.datacenter as dc_data
 class TestDataCenters(unittest.TestCase):
 
     def setUp(self):
-        self.last_error = '{"error":{"message":"job terminated unexpectedly"}}'
+        self.last_error = 'job terminated unexpectedly'
 
     def test_has_all_dcs_and_is_DataCenter(self, mock_data):
         '''test all() returns a list of DataCenter'''

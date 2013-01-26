@@ -13,7 +13,7 @@ import tests.data.region as region_data
 class TestRegions(unittest.TestCase):
 
     def setUp(self):
-        self.last_error = '{"error":{"message":"job terminated unexpectedly"}}'
+        self.last_error = 'job terminated unexpectedly'
 
     def test_has_all_regions_and_is_Region(self, mock_data):
         '''test all() returns a list of Region'''

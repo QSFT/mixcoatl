@@ -124,6 +124,6 @@ class Account(Resource):
             else:
                 return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in c[cls.COLLECTION_NAME]]
         else:
-            raise AccountException(r.last_error['error']['message'])
+            raise AccountException(r.last_error)
 
 class AccountException(BaseException): pass

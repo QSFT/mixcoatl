@@ -78,7 +78,7 @@ class TestJob(unittest.TestCase):
         j = self.cls(pk)
         j.load()
 
-        assert j.last_error == json.loads(json_data)
+        assert j.last_error == 'No such job ID: 5'
 
     @httprettified
     def test_waiting_for_job(self):

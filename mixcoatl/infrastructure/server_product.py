@@ -122,6 +122,6 @@ class ServerProduct(Resource):
                     products.append(product)
             return products
         else:
-            raise ServerProductException(r.last_error['error']['message'])
+            raise ServerProductException(r.last_error)
 
 class ServerProductException(BaseException): pass

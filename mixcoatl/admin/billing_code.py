@@ -102,6 +102,6 @@ class BillingCode(Resource):
             else:
                 return [cls(i['billingCodeId']) for i in x[cls.COLLECTION_NAME]]
         else:
-            raise BillingCodeException(r.last_error['error']['message'])
+            raise BillingCodeException(r.last_error)
 
 class BillingCodeException(BaseException): pass

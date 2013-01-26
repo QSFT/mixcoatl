@@ -70,6 +70,6 @@ class Group(Resource):
             else:
                 return [cls(i['groupId']) for i in x[cls.COLLECTION_NAME]]
         else:
-            raise GroupException(r.last_error['error']['message'])
+            raise GroupException(r.last_error)
 
 class GroupException(BaseException): pass

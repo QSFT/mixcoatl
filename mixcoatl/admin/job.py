@@ -69,7 +69,7 @@ class Job(Resource):
             else:
                 return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
-            raise JobException(r.last_error['error']['message'])
+            raise JobException(r.last_error)
 
     @classmethod
     def wait_for(cls, job_id, status='COMPLETE', callback = None):
@@ -88,7 +88,7 @@ class Job(Resource):
         j = Job(job_id)
         j.load()
         if j.last_error is not None:
-            raise JobException(j.last_error['error']['message'])
+            raise JobException(j.last_error)
         else:
             while j.status != status:
                 time.sleep(5)

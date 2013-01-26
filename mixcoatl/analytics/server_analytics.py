@@ -100,6 +100,6 @@ class ServerAnalytics(Resource):
             else:
                 return s
         else:
-            raise ServerAnalyticsException(s.last_error['error']['message'])
+            raise ServerAnalyticsException(s.last_error)
 
 class ServerAnalyticsException(BaseException): pass
