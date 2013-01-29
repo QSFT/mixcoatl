@@ -114,6 +114,11 @@ class Server(Resource):
         return self.__platform
 
     @lazy_property
+    def personalities(self):
+        """`dict` - The personalities associated with the server"""
+        return self.__personalities
+
+    @lazy_property
     def private_ip_addresses(self):
         """`list` - The private ip addresses assigned to the server."""
 
