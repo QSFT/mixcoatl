@@ -149,6 +149,11 @@ class Server(Resource):
         return self.__start_date
 
     @lazy_property
+    def stop_date(self):
+        """`str` - The date the server was stopped"""
+        return self.__stop_date
+
+    @lazy_property
     def status(self):
         """`str` - The status of the server *(i.e. `RUNNING` or `PAUSED`)*."""
         return self.__status

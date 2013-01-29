@@ -272,6 +272,17 @@ class Volume(Resource):
         else:
             self._change_metadata()
 
+    def destroy(self,reason=None):
+        """Deletes the volume
+
+        :param reason: Reason for removing the volume
+        :type reason: str.
+        :returns: `bool`
+        :raises: :class:`VolumeException`
+        """
+
+        pass
+
     def _change_metadata(self):
         """Changes metadata"""
         new_vals = {}
@@ -420,7 +431,7 @@ def assign_budget(volume_id, budget):
     :type volume_id: int.
     :param budget: The budget code to assign
     :type budget: int.
-    :returns: `bool` 
+    :returns: `bool`
     :raises: :class:`VolumeException`
     """
     v = Volume(volume_id)
