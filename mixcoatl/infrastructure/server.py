@@ -49,6 +49,11 @@ class Server(Resource):
         return self.__customer
 
     @lazy_property
+    def cm_account(self):
+        """`dict` - The configuration management account for the server."""
+        return self.__cm_account
+
+    @lazy_property
     def data_center(self):
         """`dict` - The specific datacenter where the instance is located."""
         return self.__data_center
