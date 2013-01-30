@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mixcoatl.infrastructure.server &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>mixcoatl.infrastructure.server &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="../../../_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="../../../index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>
@@ -118,6 +118,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.cm_account"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.cm_account">[docs]</a>    <span class="k">def</span> <span class="nf">cm_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The configuration management account for the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cm_account</span>
+</div>
+    <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">data_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The specific datacenter where the instance is located.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_center</span>
@@ -178,6 +183,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__platform</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.personalities"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.personalities">[docs]</a>    <span class="k">def</span> <span class="nf">personalities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The personalities associated with the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__personalities</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.private_ip_addresses"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.private_ip_addresses">[docs]</a>    <span class="k">def</span> <span class="nf">private_ip_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`list` - The private ip addresses assigned to the server.&quot;&quot;&quot;</span>
 
@@ -216,6 +226,11 @@
 <div class="viewcode-block" id="Server.start_date"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.start_date">[docs]</a>    <span class="k">def</span> <span class="nf">start_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The date the server was started&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start_date</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.stop_date"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.stop_date">[docs]</a>    <span class="k">def</span> <span class="nf">stop_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The date the server was stopped&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stop_date</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Server.status"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -396,7 +411,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

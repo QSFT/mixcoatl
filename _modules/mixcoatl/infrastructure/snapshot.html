@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mixcoatl.infrastructure.snapshot &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>mixcoatl.infrastructure.snapshot &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="../../../_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="../../../index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>
@@ -225,7 +225,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">snapshot_id</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Snapshot.update"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates a snapshot with changed values</span>
@@ -252,7 +252,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
                 <span class="k">return</span> <span class="bp">self</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+                <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div>
     <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;volume&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;budget&#39;</span><span class="p">])</span>
 <div class="viewcode-block" id="Snapshot.create"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -286,7 +286,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Snapshot.all"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -332,7 +332,7 @@
                     <span class="n">snapshots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">snapshot</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">snapshots</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="n">SnapshotException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Snapshot.describe_snapshot"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot">[docs]</a>    <span class="k">def</span> <span class="nf">describe_snapshot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">snapshot_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -435,7 +435,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>infrastructure Package &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>infrastructure Package &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="index.html" />
     <link rel="up" title="mixcoatl Package" href="mixcoatl.html" />
     <link rel="next" title="network Package" href="mixcoatl.network.html" />
     <link rel="prev" title="geography Package" href="mixcoatl.geography.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -47,7 +47,7 @@
         <li class="right" >
           <a href="mixcoatl.geography.html" title="geography Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" accesskey="U">mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -339,6 +339,12 @@ machine based on this machine image/template</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.cm_account">
+<tt class="descname">cm_account</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.cm_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.cm_account" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The configuration management account for the server.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.data_center">
 <tt class="descname">data_center</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.data_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.data_center" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>dict</cite> - The specific datacenter where the instance is located.</p>
@@ -387,6 +393,12 @@ machine based on this machine image/template</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.personalities">
+<tt class="descname">personalities</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.personalities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.personalities" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The personalities associated with the server</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.private_ip_addresses">
 <tt class="descname">private_ip_addresses</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.private_ip_addresses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.private_ip_addresses" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>list</cite> - The private ip addresses assigned to the server.</p>
@@ -426,6 +438,12 @@ machine based on this machine image/template</p>
 <dt id="mixcoatl.infrastructure.server.Server.start_date">
 <tt class="descname">start_date</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.start_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.start_date" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>str</cite> - The date the server was started</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.stop_date">
+<tt class="descname">stop_date</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.stop_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.stop_date" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The date the server was stopped</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1185,12 +1203,106 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </dd></dl>
 
 <dl class="method">
+<dt id="mixcoatl.infrastructure.volume.Volume.attach">
+<tt class="descname">attach</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.attach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.attach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a volume to a server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server_id</strong> (<em>int.</em>) &#8211; Server to attach the volume</li>
+<li><strong>callback</strong> &#8211; Optional callback to send the results</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.volume.Volume.detach">
+<tt class="descname">detach</tt><big>(</big><em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.detach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.detach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detach a volume from a server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callback</strong> &#8211; Optional callback to send the results</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.volume.Volume.create">
+<tt class="descname">create</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new volume</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to send the resulting <tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeCreationException" title="mixcoatl.infrastructure.volume.VolumeCreationException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeCreationException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.volume.Volume.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a volume with changed values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>bool</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.volume.Volume.destroy">
+<tt class="descname">destroy</tt><big>(</big><em>reason=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the volume</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; Reason for removing the volume</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>bool</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="mixcoatl.infrastructure.volume.Volume.snapshot">
 <tt class="descname">snapshot</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a snapshot from a volume</p>
 <p><em>This is not a part of the enStratus API for Volume resources.
 It is a convenience wrapper around the Snapshot API from the
-perspective of an individual :class:`Volume`</em></p>
+perspective of an individual</em> <a class="reference internal" href="#mixcoatl.infrastructure.volume.Volume" title="mixcoatl.infrastructure.volume.Volume"><tt class="xref py py-class docutils literal"><span class="pre">Volume</span></tt></a></p>
 <blockquote>
 <div><div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -1248,9 +1360,11 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="mixcoatl.infrastructure.volume.Volume.assign_budget">
-<em class="property">classmethod </em><tt class="descname">assign_budget</tt><big>(</big><em>volume_id</em>, <em>budget</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.assign_budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.assign_budget" title="Permalink to this definition">¶</a></dt>
+</dd></dl>
+
+<dl class="function">
+<dt id="mixcoatl.infrastructure.volume.assign_budget">
+<tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">assign_budget</tt><big>(</big><em>volume_id</em>, <em>budget</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#assign_budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.assign_budget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the budget associated with a volume</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1272,9 +1386,9 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="mixcoatl.infrastructure.volume.Volume.assign_groups">
-<em class="property">classmethod </em><tt class="descname">assign_groups</tt><big>(</big><em>volume_id</em>, <em>group_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.assign_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.assign_groups" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="mixcoatl.infrastructure.volume.assign_groups">
+<tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">assign_groups</tt><big>(</big><em>volume_id</em>, <em>group_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#assign_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.assign_groups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the group ownership of a volume</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1296,9 +1410,9 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="mixcoatl.infrastructure.volume.Volume.attach">
-<em class="property">classmethod </em><tt class="descname">attach</tt><big>(</big><em>volume_id</em>, <em>server_id</em>, <em>device_id=None</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.attach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.attach" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="mixcoatl.infrastructure.volume.attach_volume">
+<tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">attach_volume</tt><big>(</big><em>volume_id</em>, <em>server_id</em>, <em>device_id=None</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#attach_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.attach_volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attach a volume to a server</p>
 <blockquote>
 <div><div class="admonition note">
@@ -1313,7 +1427,7 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume id to work with</li>
 <li><strong>server_id</strong> (<em>int.</em>) &#8211; The server to attach the volume</li>
-<li><strong>device_id</strong> (<em>str.</em>) &#8211; The device id to assign the volume on the system</li>
+<li><strong>device_id</strong> (<em>str.</em>) &#8211; Optional device id to assign the volume on the system</li>
 <li><strong>callback</strong> (<em>func.</em>) &#8211; Optional callback to call with the results</li>
 </ul>
 </td>
@@ -1328,9 +1442,9 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="mixcoatl.infrastructure.volume.Volume.describe_volume">
-<em class="property">classmethod </em><tt class="descname">describe_volume</tt><big>(</big><em>volume_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.describe_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.describe_volume" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="mixcoatl.infrastructure.volume.describe_volume">
+<tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">describe_volume</tt><big>(</big><em>volume_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#describe_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.describe_volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the enStratus meta-data of a volume</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1354,9 +1468,37 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="mixcoatl.infrastructure.volume.Volume.detach">
-<em class="property">classmethod </em><tt class="descname">detach</tt><big>(</big><em>volume_id</em>, <em>reason</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#Volume.detach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.Volume.detach" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="mixcoatl.infrastructure.volume.add_volume">
+<tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">add_volume</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#add_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.add_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new volume</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; The name of the new volume</li>
+<li><strong>size_in_gb</strong> &#8211; The size for the new volume</li>
+<li><strong>data_center</strong> &#8211; The location of the new volume</li>
+<li><strong>budget</strong> &#8211; The budget code for the new volume</li>
+<li><strong>description</strong> &#8211; The description of the new volume</li>
+<li><strong>callback</strong> &#8211; Optional callback to recieve the created Job</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeCreationException" title="mixcoatl.infrastructure.volume.VolumeCreationException"><tt class="xref py py-class docutils literal"><span class="pre">VolumeCreationException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mixcoatl.infrastructure.volume.detach_volume">
+<tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">detach_volume</tt><big>(</big><em>volume_id</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#detach_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.detach_volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detach a volume from a server</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1364,7 +1506,6 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume to detach</li>
-<li><strong>reason</strong> (<em>str.</em>) &#8211; The reason for detaching.</li>
 <li><strong>callback</strong> &#8211; Optional callback to send the results</li>
 </ul>
 </td>
@@ -1379,8 +1520,6 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 </table>
 </dd></dl>
 
-</dd></dl>
-
 <dl class="exception">
 <dt id="mixcoatl.infrastructure.volume.VolumeException">
 <em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">VolumeException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#VolumeException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.VolumeException" title="Permalink to this definition">¶</a></dt>
@@ -1393,6 +1532,13 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 <em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">VolumeSnapshotException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#VolumeSnapshotException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.VolumeSnapshotException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.infrastructure.volume.VolumeException</span></tt></a></p>
 <p>Volume Snapshot Exception</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.volume.VolumeCreationException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.volume.</tt><tt class="descname">VolumeCreationException</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/volume.html#VolumeCreationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.volume.VolumeCreationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.infrastructure.volume.VolumeException" title="mixcoatl.infrastructure.volume.VolumeException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.infrastructure.volume.VolumeException</span></tt></a></p>
+<p>Volume Creation Exception</p>
 </dd></dl>
 
 </div>
@@ -1419,7 +1565,7 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
         <li class="right" >
           <a href="mixcoatl.geography.html" title="geography Package"
              >previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" >mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>

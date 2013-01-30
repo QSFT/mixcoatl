@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mixcoatl Package &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>mixcoatl Package &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="index.html" />
     <link rel="next" title="admin Package" href="mixcoatl.admin.html" />
     <link rel="prev" title="Mapping Patterns" href="patterns.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="_static/solarized-dark.css" rel="stylesheet">
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="patterns.html" title="Mapping Patterns"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -298,7 +298,7 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
 <p>Common helper utilities for use with mixcoatl</p>
 <dl class="function">
 <dt id="mixcoatl.utils.uncamel">
-<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel</tt><big>(</big><em>str</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">uncamel</tt><big>(</big><em>val</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#uncamel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.uncamel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the snake case version of <tt class="xref py py-attr docutils literal"><span class="pre">str</span></tt></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uncamel</span><span class="p">(</span><span class="s">&#39;deviceId&#39;</span><span class="p">)</span>
 <span class="go">&#39;device_id&#39;</span>
@@ -321,7 +321,7 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
 
 <dl class="function">
 <dt id="mixcoatl.utils.camelize">
-<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">camelize</tt><big>(</big><em>str</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#camelize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.camelize" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">camelize</tt><big>(</big><em>val</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#camelize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.camelize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the camel case version of a <tt class="xref py py-attr docutils literal"><span class="pre">str</span></tt></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">camelize</span><span class="p">(</span><span class="s">&#39;this_is_a_thing&#39;</span><span class="p">)</span>
 <span class="go">&#39;thisIsAThing&#39;</span>
@@ -342,7 +342,7 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
 
 <dl class="function">
 <dt id="mixcoatl.utils.convert">
-<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">convert</tt><big>(</big><em>input</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.convert" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mixcoatl.utils.</tt><tt class="descname">convert</tt><big>(</big><em>val</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/utils.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.utils.convert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return <tt class="xref py py-attr docutils literal"><span class="pre">input</span></tt> converted from <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt> to <tt class="xref py py-class docutils literal"><span class="pre">str</span></tt></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="s">u&#39;bob&#39;</span><span class="p">)</span>
 <span class="go">&#39;bob&#39;</span>
@@ -468,7 +468,7 @@ If you need an actual <cite>dict</cite>, call <cite>to_dict()</cite> on your ins
         <li class="right" >
           <a href="patterns.html" title="Mapping Patterns"
              >previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

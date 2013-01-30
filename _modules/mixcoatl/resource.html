@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mixcoatl.resource &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>mixcoatl.resource &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="../../_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="../../index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>
@@ -269,7 +269,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_request</span> <span class="o">=</span> <span class="n">results</span>
         <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="n">failures</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">err</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">content</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
 
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
@@ -278,12 +282,17 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="bp">None</span>
                 <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
             <span class="k">except</span> <span class="n">r</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">err</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">err</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">content</span>
                 <span class="k">return</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;DELETE&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span><span class="mi">204</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">204</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="n">err</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">err</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
                 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">content</span>
                 <span class="k">return</span> <span class="bp">False</span>
@@ -296,15 +305,23 @@
             <span class="k">elif</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">True</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">err</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">err</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">content</span>
                 <span class="k">return</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">201</span><span class="p">,</span><span class="mi">202</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">201</span><span class="p">,</span> <span class="mi">202</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">202</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&#39;jobs&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;jobId&#39;</span><span class="p">]</span>
                 <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">err</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">err</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">][</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">content</span>
                 <span class="k">return</span> <span class="bp">False</span>
 
 <div class="viewcode-block" id="Resource.set_path"><a class="viewcode-back" href="../../mixcoatl.html#mixcoatl.resource.Resource.set_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -363,7 +380,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

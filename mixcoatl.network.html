@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>network Package &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>network Package &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="index.html" />
     <link rel="up" title="mixcoatl Package" href="mixcoatl.html" />
     <link rel="next" title="settings Package" href="mixcoatl.settings.html" />
     <link rel="prev" title="infrastructure Package" href="mixcoatl.infrastructure.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -47,7 +47,7 @@
         <li class="right" >
           <a href="mixcoatl.infrastructure.html" title="infrastructure Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" accesskey="U">mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -99,6 +99,7 @@
 <h1>network Package<a class="headerlink" href="#network-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-mixcoatl.network.firewall">
 <span id="firewall-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">firewall</span></tt> Module<a class="headerlink" href="#module-mixcoatl.network.firewall" title="Permalink to this headline">¶</a></h2>
+<p>Implements the enStratus Firewall API</p>
 <dl class="class">
 <dt id="mixcoatl.network.firewall.Firewall">
 <em class="property">class </em><tt class="descclassname">mixcoatl.network.firewall.</tt><tt class="descname">Firewall</tt><big>(</big><em>firewall_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall" title="Permalink to this definition">¶</a></dt>
@@ -121,78 +122,119 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.firewall_id">
 <tt class="descname">firewall_id</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.firewall_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.firewall_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The unique enStratus ID for this firewall</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.status">
 <tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The status of this firewall</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.label">
 <tt class="descname">label</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - A color label assigned to this firewall</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.owning_account">
 <tt class="descname">owning_account</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.owning_account" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The enStratus account under which this firewall is registered</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.name">
 <tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The user-friendly name for this firewall</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.owning_user">
 <tt class="descname">owning_user</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.owning_user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus owner of record for this firewall</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.description">
 <tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The description of this firewall in enStratus</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The enStratus cloud account in which this firewall lives</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.provider_id">
 <tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The cloud provider unique id for this firewall</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.region">
 <tt class="descname">region</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.region" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The region in which this firewall operates</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.removable">
 <tt class="descname">removable</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.removable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.removable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>bool</cite> - Indicates if this firewall can be removed</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.budget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The enStratus billing code costs are associated with</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.customer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The enStratus customer to which this firewall belongs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.rules">
 <tt class="descname">rules</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.rules" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>list</cite> - The firewall rules associated with this firewall</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.network.firewall.Firewall.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#Firewall.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all firewalls in <cite>region_id</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; The region to list firewalls for</li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; Level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return only <a class="reference internal" href="#mixcoatl.network.firewall.Firewall.firewall_id" title="mixcoatl.network.firewall.Firewall.firewall_id"><tt class="xref py py-attr docutils literal"><span class="pre">firewall_id</span></tt></a> in results</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.network.firewall.Firewall.firewall_id" title="mixcoatl.network.firewall.Firewall.firewall_id"><tt class="xref py py-attr docutils literal"><span class="pre">firewall_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.network.firewall.Firewall" title="mixcoatl.network.firewall.Firewall"><tt class="xref py py-class docutils literal"><span class="pre">Firewall</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.network.firewall.FirewallException" title="mixcoatl.network.firewall.FirewallException"><tt class="xref py py-class docutils literal"><span class="pre">FirewallException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.network.firewall.FirewallException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.network.firewall.</tt><tt class="descname">FirewallException</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall.html#FirewallException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.FirewallException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+<p>Generic Firewall Exception</p>
 </dd></dl>
 
 </div>
@@ -220,33 +262,152 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id">
 <tt class="descname">firewall_rule_id</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.firewall_rule_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>int</cite> - The unique enStratus id for this rule</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.direction">
 <tt class="descname">direction</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.direction" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The direction of the rule: <cite>ingress</cite> or <cite>egress</cite></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.firewall">
 <tt class="descname">firewall</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>dict</cite> - The firewall to which this rule belongs</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.network_address">
 <tt class="descname">network_address</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.network_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.network_address" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The CIDR for the source or destination of traffic</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.protocol">
 <tt class="descname">protocol</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.protocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.protocol" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><cite>str</cite> - The network protocol for this rule</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.start_port">
+<tt class="descname">start_port</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.start_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.start_port" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> or <cite>None</cite> - The start port for this rule</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.end_port">
+<tt class="descname">end_port</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.end_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.end_port" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> or <cite>None</cite> - The end port for this rule</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.create">
+<tt class="descname">create</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new firewall rule</p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Does not currently support adding ICMP rules</p>
+</div>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; Reason for the new rule</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>bool</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="mixcoatl.network.firewall_rule.FirewallRuleException"><tt class="xref py py-class docutils literal"><span class="pre">FirewallRuleException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.remove">
+<tt class="descname">remove</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a firewall rule</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; Reason for removing the rule</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>bool</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="mixcoatl.network.firewall_rule.FirewallRuleException"><tt class="xref py py-class docutils literal"><span class="pre">FirewallRuleException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>firewall_id</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>firewall_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRule.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all rules for <cite>firewall_id</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>firewall_id</strong> (<em>int.</em>) &#8211; The id of the firewall to list rules for</li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; Level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return only <a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id" title="mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id"><tt class="xref py py-attr docutils literal"><span class="pre">firewall_rule_id</span></tt></a> in results</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id" title="mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id"><tt class="xref py py-attr docutils literal"><span class="pre">firewall_rule_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRule" title="mixcoatl.network.firewall_rule.FirewallRule"><tt class="xref py py-class docutils literal"><span class="pre">FirewallRule</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="mixcoatl.network.firewall_rule.FirewallRuleException"><tt class="xref py py-class docutils literal"><span class="pre">FirewallRuleException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="mixcoatl.network.firewall_rule.add_rule">
+<tt class="descclassname">mixcoatl.network.firewall_rule.</tt><tt class="descname">add_rule</tt><big>(</big><em>firewall_id</em>, <em>network</em>, <em>proto</em>, <em>direction</em>, <em>start</em>, <em>end</em>, <em>reason</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#add_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.add_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a firewall rule to a firewall</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">add_rule</span><span class="p">(</span><span class="mi">136663</span><span class="p">,</span> <span class="s">&#39;10.1.1.1/32&#39;</span><span class="p">,</span> <span class="s">&#39;TCP&#39;</span><span class="p">,</span> <span class="s">&#39;INGRESS&#39;</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="s">&#39;inbound api&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="mixcoatl.network.firewall_rule.delete_rule">
+<tt class="descclassname">mixcoatl.network.firewall_rule.</tt><tt class="descname">delete_rule</tt><big>(</big><em>rule_id</em>, <em>reason='rule removed by mixcoatl'</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#delete_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.delete_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a firewall rule</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rule_id</strong> (<em>int.</em>) &#8211; The id of the firewall rule to remove</li>
+<li><strong>reason</strong> (<em>string</em>) &#8211; The reason for removing the rule</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>bool</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="mixcoatl.network.firewall_rule.FirewallRuleException"><tt class="xref py py-class docutils literal"><span class="pre">FirewallRuleException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.network.firewall_rule.FirewallRuleException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.network.firewall_rule.</tt><tt class="descname">FirewallRuleException</tt><a class="reference internal" href="_modules/mixcoatl/network/firewall_rule.html#FirewallRuleException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+<p>Generic Exception for FirewallRules</p>
 </dd></dl>
 
 </div>
@@ -387,7 +548,7 @@
         <li class="right" >
           <a href="mixcoatl.infrastructure.html" title="infrastructure Package"
              >previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" >mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>

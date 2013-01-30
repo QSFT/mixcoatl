@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mixcoatl.decorators.lazy &mdash; mixcoatl 0.2.4 documentation</title>
+    <title>mixcoatl.decorators.lazy &mdash; mixcoatl 0.2.6 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2.4',
+        VERSION:     '0.2.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="../../../_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.4 documentation" href="../../../index.html" />
+    <link rel="top" title="mixcoatl 0.2.6 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
 <link href="../../../_static/solarized-dark.css" rel="stylesheet">
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>
@@ -89,7 +89,6 @@
 <span class="sd">    :raises: :class:`LazyPropertyException`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_func</span> <span class="o">=</span> <span class="n">func</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">__name__</span>
@@ -131,7 +130,6 @@
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="c"># This is okay in cases where we&#39;re instantiating a new resource</span>
                 <span class="n">old_val</span> <span class="o">=</span> <span class="bp">None</span>
-
             <span class="n">instance</span><span class="o">.</span><span class="n">track_change</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">old_val</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sfunc</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
@@ -154,7 +152,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">mixcoatl 0.2.4 documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
