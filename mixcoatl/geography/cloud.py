@@ -98,7 +98,7 @@ class Cloud(Resource):
         :returns: `list` of :class:`Cloud` or :attr:`cloud_id`
         """
         r = Resource(cls.PATH)
-        r.request_detail = 'basic'
+        r.request_details = 'basic'
         params = {}
 
         if 'public_only' in kwargs:

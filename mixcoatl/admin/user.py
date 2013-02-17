@@ -150,14 +150,14 @@ class User(Resource):
 
         :param keys_only: Return :attr:`user_id` instead of :class:`User`
         :type keys_only: bool.
-        :param details: str. The level of detail to return - `basic` or `extended`
-        :type details: str.
+        :param detail: str. The level of detail to return - `basic` or `extended`
+        :type detail: str.
         :returns: `list` of :class:`User` or :attr:`user_id`
         :raises: :class:`UserException`
         """
         r = Resource(cls.PATH)
-        if 'details' in kwargs:
-            r.request_details = kwargs['details']
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
         else:
             r.request_details = 'basic'
 
