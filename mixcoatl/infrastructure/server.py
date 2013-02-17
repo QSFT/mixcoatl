@@ -173,6 +173,16 @@ class Server(Resource):
         """`int` - The budget code to apply/applied to the server."""
         return self.__budget
 
+    @lazy_property
+    def scripts(self):
+        """`list` - The list of configuration management scripts of the server."""
+        return self.__scripts
+
+    @lazy_property
+    def architecture(self):
+        """`str` - The architecture type of the server."""
+        return self.__architecture
+
     @property
     def keypair(self):
         """`str` - The keypair to assign

@@ -150,8 +150,8 @@ class User(Resource):
 
         :param keys_only: Return :attr:`user_id` instead of :class:`User`
         :type keys_only: bool.
-        :param detail: str. The level of detail to return - `basic` or `extended`
-        :type detail: str.
+        :param details: str. The level of detail to return - `basic` or `extended`
+        :type details: str.
         :returns: `list` of :class:`User` or :attr:`user_id`
         :raises: :class:`UserException`
         """
@@ -164,7 +164,7 @@ class User(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i['user_id'] for i in x[cls.COLLECTION_NAME]]
+                return [i['userId'] for i in x[cls.COLLECTION_NAME]]
             else:
                 return [cls(i['userId']) for i in x[cls.COLLECTION_NAME]]
         else:

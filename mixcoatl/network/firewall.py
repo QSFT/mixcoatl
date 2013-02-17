@@ -48,6 +48,11 @@ class Firewall(Resource):
         return self.__owning_user
 
     @lazy_property
+    def owning_groups(self):
+        """`list` - The enStratus groups that have ownership of this firewall"""
+        return self.__owning_groups
+
+    @lazy_property
     def description(self):
         """`str` - The description of this firewall in enStratus"""
         return self.__description
