@@ -175,8 +175,13 @@ class Server(Resource):
 
     @lazy_property
     def scripts(self):
-        """`list` - The list of configuration management scripts of the server."""
+        """`list` - The list of configuration management scripts of the server.(Chef?)"""
         return self.__scripts
+
+    @lazy_property
+    def run_list(self):
+        """`list` - The list of configuration management scripts of the server.(Puppet?)"""
+        return self.__run_list
 
     @lazy_property
     def architecture(self):
