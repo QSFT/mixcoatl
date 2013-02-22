@@ -183,6 +183,11 @@ class Server(Resource):
         """`str` - The architecture type of the server."""
         return self.__architecture
 
+    @lazy_property
+    def terminate_after(self):
+        """`str` - The time the server automatically shuts down."""
+        return self.__terminate_after
+
     @property
     def keypair(self):
         """`str` - The keypair to assign
