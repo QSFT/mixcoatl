@@ -193,6 +193,11 @@ class Server(Resource):
         """`str` - The time the server automatically shuts down."""
         return self.__terminate_after
 
+    @lazy_property
+    def pause_after(self):
+        """`str` - The time the server automatically pauses."""
+        return self.__pause_after
+
     @property
     def keypair(self):
         """`str` - The keypair to assign
