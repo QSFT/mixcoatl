@@ -1,8 +1,12 @@
 """Implements the enStratus Firewall API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.network.firewall_rule import FirewallRule
 from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.admin.job import Job
+
+import json
 
 class Firewall(Resource):
     PATH = 'network/Firewall'
@@ -32,6 +36,10 @@ class Firewall(Resource):
         """`str` - A color label assigned to this firewall"""
         return self.__label
 
+    @label.setter
+    def label(self, l):
+        self.__label = l
+
     @lazy_property
     def owning_account(self):
         """`dict` - The enStratus account under which this firewall is registered"""
@@ -42,6 +50,10 @@ class Firewall(Resource):
         """`str` - The user-friendly name for this firewall"""
         return self.__name
 
+    @name.setter
+    def name(self, n):
+        self.__name = n
+
     @lazy_property
     def owning_user(self):
         """`dict` or `None` - The enStratus owner of record for this firewall"""
@@ -51,6 +63,10 @@ class Firewall(Resource):
     def description(self):
         """`str` - The description of this firewall in enStratus"""
         return self.__description
+
+    @description.setter
+    def description(self, d):
+        self.__description = d
 
     @lazy_property
     def cloud(self):
@@ -67,6 +83,10 @@ class Firewall(Resource):
         """`dict` - The region in which this firewall operates"""
         return self.__region
 
+    @region.setter
+    def region(self, r):
+        self.__region = {'region_id': r}
+
     @lazy_property
     def removable(self):
         """`bool` - Indicates if this firewall can be removed"""
@@ -77,6 +97,10 @@ class Firewall(Resource):
         """`int` - The enStratus billing code costs are associated with"""
         return self.__budget
 
+    @budget.setter
+    def budget(self, b):
+        self.__budget = b
+
     @lazy_property
     def customer(self):
         """`dict` - The enStratus customer to which this firewall belongs"""
@@ -85,22 +109,68 @@ class Firewall(Resource):
     @property
     def rules(self):
         """`list` - The firewall rules associated with this firewall"""
+        if self.__firewall_id is None:
+            self.__rules = []
+            return []
         try:
             return self.__rules
         except AttributeError:
-            rls = FirewallRule.all(self.__firewall_id)
+            rls = FirewallRule.all(self.__firewall_id, detail=self.request_details)
             if len(rls) < 1:
                 self.__rules = []
             else:
                 self.__rules = rls
             return rls
 
+    @required_attrs(['budget', 'region', 'name', 'description'])
+    def create(self, **kwargs):
+        """Create a new firewall
+
+        :param label: Optional label to assign the firewall
+        :type label: str.
+        :param callback: Optional callback to call with resulting :class:`Firewall`
+        :type callback: func.
+        :returns: :class:`Firewall`
+        :raises: :class:`FirewallException`
+        """
+
+        payload = {'add_firewall':[{
+            'budget': self.budget,
+            'region': self.region,
+            'name': self.name,
+            'description': self.description
+            }]}
+
+        if 'label' in kwargs:
+            payload['add_firewall'][0]['label'] = kwargs['label']
+
+        callback = kwargs.get('callback', None)
+
+        self.post(self.PATH, data=json.dumps(camel_keys(payload)))
+
+        if self.last_error is None:
+            if callback is None:
+                return self
+            else:
+                if Job.wait_for(self.current_job) is True:
+                    j = Job(self.current_job)
+                    self.__firewall_id = j.message
+                    self.load()
+                    return self
+                else:
+                    raise FirewallException(j.last_error)
+        else:
+            raise FirewallException(self.last_error)
+
+
     @classmethod
-    def all(cls, region_id, **kwargs):
+    def all(cls, **kwargs):
         """List all firewalls in `region_id`
 
-        :param region_id: The region to list firewalls for
+        :param region_id: Limit results to `region_id`
         :type region_id: int.
+        :param account_id: limit results to `account_id`
+        :type account_id: int.
         :param detail: Level of detail to return - `basic` or `extended`
         :type detail: str.
         :param keys_only: Return only :attr:`firewall_id` in results
@@ -123,18 +193,21 @@ class Firewall(Resource):
         else:
             keys_only = False
 
-        params['regionId'] = region_id
+        if 'region_id' in kwargs:
+            params['regionId'] = kwargs['region_id']
+
+        if 'account_id' in kwargs:
+            params['accountId'] = kwargs['account_id']
+
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
+            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
                 firewalls = keys
             else:
                 firewalls = []
-                for i in x[cls.COLLECTION_NAME]:
-                    key = i[camelize(cls.PRIMARY_KEY)]
-                    fw = cls(key)
-                    fw.request_details = request_details
+                for key in keys:
+                    fw = cls(key, detail=request_details)
                     fw.load()
                     firewalls.append(fw)
             return firewalls
