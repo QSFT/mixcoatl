@@ -1,5 +1,14 @@
+"""Implements the enStratus Group API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.infrastructure.snapshot import Snapshot
+from mixcoatl.infrastructure.snapshot import SnapshotException
+from mixcoatl.admin.job import Job
+
+import json
+import time
 
 class Group(Resource):
     PATH = 'admin/Group'
@@ -20,10 +29,20 @@ class Group(Resource):
         """`str` - The user-friendly description of this group"""
         return self.__description
 
+    @description.setter
+    def description(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__description = b
+
     @lazy_property
     def name(self):
         """`str` - The name of the group"""
         return self.__name
+
+    @name.setter
+    def name(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__name = b
 
     @lazy_property
     def status(self):
@@ -72,4 +91,28 @@ class Group(Resource):
         else:
             raise GroupException(r.last_error)
 
+    @required_attrs(['name', 'description'])
+    def create(self, callback=None):
+        """Creates a new group
+
+        :param callback: Optional callback to send the resulting :class:`Job`
+        :raises: :class:`GroupCreationException`
+        """
+
+        parms = {'group': {'name': self.name,
+                    'description': self.description}}
+
+        payload = {'addGroup':camel_keys(parms)}
+
+        print json.dumps(payload)
+        self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+        else:
+            raise GroupCreationException(self.last_error)
+
 class GroupException(BaseException): pass
+
+class GroupCreationException(GroupException):
+    """Group Creation Exception"""
+    pass
