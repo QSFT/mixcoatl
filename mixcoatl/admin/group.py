@@ -91,6 +91,47 @@ class Group(Resource):
         else:
             raise GroupException(r.last_error)
 
+    @required_attrs(['group_id'])
+    def setRole(self, role_id, account_id):
+
+        """Updates the role applied to the group specified by group_id.
+           account_id is technically optional, but we're making it required
+           here because making it optional may result in user problems.
+
+           It's complicated.
+
+           If you don't specify an account then it'll find an account associated with the billing
+           credentials for the given user."""
+
+        p = '%s/%s' % (self.PATH, str(self.group_id))
+        payload = {'setRole':{'group':{'role':{'roleId':role_id},'account':{'accountId':account_id}}}}
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['group_id','name','description'])
+    def update(self, name, description):
+        """Updates the group name and description."""
+        p = '%s/%s' % (self.PATH, str(self.group_id))
+        payload = {'describeGroup':{'group':{'name':str(name),'description':str(description)}}}
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['group_id','name'])
+    def updateName(self, name):
+        """Updates the group name. An update to one parameter requires both arguments."""
+        p = '%s/%s' % (self.PATH, str(self.group_id))
+        payload = {'describeGroup':{'group':{'name':str(name),'description':self.description}}}
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['group_id','description'])
+    def updateDescription(self, description):
+        """Updates the group description. An update to one parameter requires both arguments."""
+        p = '%s/%s' % (self.PATH, str(self.group_id))
+        payload = {'describeGroup':{'group':{'name':self.name,'description':str(description)}}}
+
+        return self.put(p, data=json.dumps(payload))
+
     @required_attrs(['name', 'description'])
     def create(self, callback=None):
         """Creates a new group
