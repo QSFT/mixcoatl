@@ -7,6 +7,14 @@ Implements access to the enStratus Role API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.infrastructure.snapshot import Snapshot
+from mixcoatl.infrastructure.snapshot import SnapshotException
+from mixcoatl.admin.job import Job
+
+import json
+import time
 
 class Role(Resource):
     """A role defines a common set of permissions that govern access into a given account"""
@@ -34,6 +42,11 @@ class Role(Resource):
         """`str` - A user-friendly description of the role"""
         return self.__description
 
+    @description.setter
+    def description(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__description = b
+
     @lazy_property
     def customer(self):
         """`dict` - The customer to whom this role belongs"""
@@ -44,10 +57,31 @@ class Role(Resource):
         """`str` - The name of the role"""
         return self.__name
 
+    @name.setter
+    def name(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__name = b
+
     @lazy_property
     def status(self):
         """`str` - The status of the role in enStratus"""
         return self.__status
+
+    @required_attrs(['name', 'description'])
+    def create(self):
+        """Creates a new role. Status is hard-coded to ACTIVE for now. """
+
+        parms = [{'status': "ACTIVE",
+                    'name':self.name,
+                    'description': self.description}]
+
+        payload = {'addRole':camel_keys(parms)}
+
+        self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+        else:
+            raise RoleCreationException(self.last_error)
 
     @classmethod
     def all(cls, keys_only = False, **kwargs):
@@ -91,3 +125,7 @@ class Role(Resource):
             raise RoleException(r.last_error)
 
 class RoleException(BaseException): pass
+
+class RoleCreationException(RoleException):
+    """Role Creation Exception"""
+    pass
