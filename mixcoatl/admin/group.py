@@ -148,6 +148,7 @@ class Group(Resource):
         print json.dumps(payload)
         self.post(data=json.dumps(payload))
         if self.last_error is None:
+            print self.description
             self.load()
         else:
             raise GroupCreationException(self.last_error)

@@ -67,6 +67,25 @@ class Role(Resource):
         """`str` - The status of the role in enStratus"""
         return self.__status
 
+    @required_attrs(['role_id'])
+    def grant(self,role_id,resource_type, action, qualifier):
+        """Adds a new ACL to a role."""
+
+        parms = [{'acl': [{'resourceType' : resource_type,
+                    'action' : action,
+                    'qualifier' : qualifier}]}]
+
+        p = '%s/%s' % (self.PATH, str(self.role_id))
+
+        payload = {'grant':camel_keys(parms)}
+        print payload
+
+        return self.put(p, data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+        else:
+            raise setACLException(self.last_error)
+
     @required_attrs(['name', 'description'])
     def create(self):
         """Creates a new role. Status is hard-coded to ACTIVE for now. """
@@ -125,6 +144,10 @@ class Role(Resource):
             raise RoleException(r.last_error)
 
 class RoleException(BaseException): pass
+
+class setACLException(RoleException):
+    """Role Creation Exception"""
+    pass
 
 class RoleCreationException(RoleException):
     """Role Creation Exception"""
