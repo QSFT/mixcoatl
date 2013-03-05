@@ -46,15 +46,15 @@ class Group(Resource):
         :param keys_only: Only return `group_id` instead of `Group` objects
         :type keys_only: bool.
         :param detail: The level of detail to return - `basic` or `extended`
-        :type detail: bool.
+        :type detail: str.
         :param account_id: Restrict results to `account_id`
         :type account_id: int.
         :returns: `list` - List of :class:`Group` or :attr:`group_id`
         :raises: :class:`GroupException`
         """
         r = Resource(cls.PATH)
-        if 'details' in kwargs:
-            r.request_details = kwargs['details']
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
         else:
             r.request_details = 'basic'
 

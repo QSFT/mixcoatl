@@ -173,6 +173,31 @@ class Server(Resource):
         """`int` - The budget code to apply/applied to the server."""
         return self.__budget
 
+    @lazy_property
+    def scripts(self):
+        """`list` - The list of configuration management scripts of the server.(Chef?)"""
+        return self.__scripts
+
+    @lazy_property
+    def run_list(self):
+        """`list` - The list of configuration management scripts of the server.(Puppet?)"""
+        return self.__run_list
+
+    @lazy_property
+    def architecture(self):
+        """`str` - The architecture type of the server."""
+        return self.__architecture
+
+    @lazy_property
+    def terminate_after(self):
+        """`str` - The time the server automatically shuts down."""
+        return self.__terminate_after
+
+    @lazy_property
+    def pause_after(self):
+        """`str` - The time the server automatically pauses."""
+        return self.__pause_after
+
     @property
     def keypair(self):
         """`str` - The keypair to assign
