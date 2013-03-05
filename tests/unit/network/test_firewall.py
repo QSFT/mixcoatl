@@ -20,7 +20,7 @@ class TestFirewall(unittest.TestCase):
         '''test all() returns a list of Firewall'''
         mock_data.return_value = fw_data.all_firewalls
 
-        f = firewall.Firewall.all(19344)
+        f = firewall.Firewall.all(region_id=19344)
         assert len(f) == 8
         for x in f:
             assert isinstance(x, firewall.Firewall), '%s must be an instance of Firewall' % x

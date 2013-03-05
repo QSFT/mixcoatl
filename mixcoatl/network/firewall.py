@@ -162,6 +162,9 @@ class Firewall(Resource):
         else:
             raise FirewallException(self.last_error)
 
+    def describe(self):
+        """Describe a firewall"""
+
 
     @classmethod
     def all(cls, **kwargs):
@@ -213,6 +216,32 @@ class Firewall(Resource):
             return firewalls
         else:
             raise FirewallException(r.last_error)
+
+def describe_firewall(firewall_id, **kwargs):
+    """Changes the basic meta-data for a firewall
+
+    :param firewall_id: The id of the firewall to modify
+    :type firewall_id: int.
+    :param description: The description of the firewall
+    :type description: string.
+    :param label: The label to assign the firewall.
+    :type label: string.
+    :param name: The name to give the firewall.
+    :type name: string.
+    :returns: `bool`
+    :raises: :class:`FirewallException`
+    """
+
+    if kwargs:
+        f = Firewall(firewall_id)
+        f.label = kwargs.get('label', None)
+        f.description = kwargs.get('name', None)
+        f.label = kwargs.get('label', None)
+        return f.describe()
+    else:
+        raise FirewallException("No attributes were specified to change")
+
+
 
 class FirewallException(BaseException):
     """Generic Firewall Exception"""
