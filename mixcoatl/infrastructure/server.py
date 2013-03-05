@@ -170,8 +170,13 @@ class Server(Resource):
 
     @lazy_property
     def budget(self):
-        """`int` - The budget code to apply/applied to the server."""
+        """`int` - The budget code applied to the server."""
         return self.__budget
+
+    @budget.setter
+    def budget(self, b):
+        """`int` - The budget code to apply to the server."""
+        self.__budget=b
 
     @property
     def keypair(self):
