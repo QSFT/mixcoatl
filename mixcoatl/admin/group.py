@@ -92,7 +92,7 @@ class Group(Resource):
             raise GroupException(r.last_error)
 
     @required_attrs(['group_id'])
-    def setRole(self, role_id, account_id):
+    def set_role(self, role_id, account_id):
 
         """Updates the role applied to the group specified by group_id.
            account_id is technically optional, but we're making it required
@@ -117,7 +117,7 @@ class Group(Resource):
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['group_id','name'])
-    def updateName(self, name):
+    def update_name(self, name):
         """Updates the group name. An update to one parameter requires both arguments."""
         p = '%s/%s' % (self.PATH, str(self.group_id))
         payload = {'describeGroup':{'group':{'name':str(name),'description':self.description}}}
@@ -125,7 +125,7 @@ class Group(Resource):
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['group_id','description'])
-    def updateDescription(self, description):
+    def update_description(self, description):
         """Updates the group description. An update to one parameter requires both arguments."""
         p = '%s/%s' % (self.PATH, str(self.group_id))
         payload = {'describeGroup':{'group':{'name':self.name,'description':str(description)}}}
