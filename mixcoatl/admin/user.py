@@ -156,15 +156,15 @@ class User(Resource):
         :raises: :class:`UserException`
         """
         r = Resource(cls.PATH)
-        if 'details' in kwargs:
-            r.request_details = kwargs['details']
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
         else:
             r.request_details = 'basic'
 
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i['user_id'] for i in x[cls.COLLECTION_NAME]]
+                return [i['userId'] for i in x[cls.COLLECTION_NAME]]
             else:
                 return [cls(i['userId']) for i in x[cls.COLLECTION_NAME]]
         else:

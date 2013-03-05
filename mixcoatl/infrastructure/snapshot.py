@@ -97,6 +97,11 @@ class Snapshot(Resource):
         return self.__owning_account
 
     @lazy_property
+    def owning_user(self):
+        """`dict` or `None` - The enStratus user who has ownership of this snapshot"""
+        return self.__owning_user
+
+    @lazy_property
     def owning_groups(self):
         """`dict` - The enStratus groups who have ownership of this snapshot"""
         return self.__owning_groups

@@ -70,8 +70,8 @@ class Role(Resource):
         """
         r = Resource(cls.PATH)
         params = {}
-        if 'details' in kwargs:
-            r.request_details = kwargs['details']
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
         else:
             r.request_details = 'basic'
 
