@@ -147,7 +147,6 @@ class Group(Resource):
 
         response=self.post(data=json.dumps(payload))
         if self.last_error is None:
-            print self.description
             self.load()
             return response
         else:
