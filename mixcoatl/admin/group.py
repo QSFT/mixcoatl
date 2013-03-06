@@ -145,9 +145,10 @@ class Group(Resource):
 
         payload = {'addGroup':camel_keys(parms)}
 
-        self.post(data=json.dumps(payload))
+        response=self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
+            return response
         else:
             raise GroupCreationException(self.last_error)
 
