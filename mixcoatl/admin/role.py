@@ -78,7 +78,6 @@ class Role(Resource):
         p = '%s/%s' % (self.PATH, str(self.role_id))
 
         payload = {'grant':camel_keys(parms)}
-        print payload
 
         return self.put(p, data=json.dumps(payload))
         if self.last_error is None:
