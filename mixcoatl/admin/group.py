@@ -145,7 +145,6 @@ class Group(Resource):
 
         payload = {'addGroup':camel_keys(parms)}
 
-        print json.dumps(payload)
         self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
