@@ -96,9 +96,10 @@ class Role(Resource):
 
         payload = {'addRole':camel_keys(parms)}
 
-        self.post(data=json.dumps(payload))
+        response=self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
+            return response
         else:
             raise RoleCreationException(self.last_error)
 
