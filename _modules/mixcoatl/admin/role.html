@@ -76,6 +76,14 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span><span class="p">,</span> <span class="n">camel_keys</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.infrastructure.snapshot</span> <span class="kn">import</span> <span class="n">Snapshot</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.infrastructure.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotException</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <div class="viewcode-block" id="Role"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role">[docs]</a><span class="k">class</span> <span class="nc">Role</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A role defines a common set of permissions that govern access into a given account&quot;&quot;&quot;</span>
@@ -99,9 +107,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__acl</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Role.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - A user-friendly description of the role&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+
+    <span class="nd">@description.setter</span>
+<div class="viewcode-block" id="Role.description"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">b</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.customer"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -109,14 +122,54 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Role.name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The name of the role&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="Role.name"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">b</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Role.status"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The status of the role in enStratus&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;role_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Role.grant"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.grant">[docs]</a>    <span class="k">def</span> <span class="nf">grant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">role_id</span><span class="p">,</span><span class="n">resource_type</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">qualifier</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a new ACL to a role.&quot;&quot;&quot;</span>
+
+        <span class="n">parms</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;acl&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;resourceType&#39;</span> <span class="p">:</span> <span class="n">resource_type</span><span class="p">,</span>
+                    <span class="s">&#39;action&#39;</span> <span class="p">:</span> <span class="n">action</span><span class="p">,</span>
+                    <span class="s">&#39;qualifier&#39;</span> <span class="p">:</span> <span class="n">qualifier</span><span class="p">}]}]</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">role_id</span><span class="p">))</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;grant&#39;</span><span class="p">:</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">parms</span><span class="p">)}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">setACLException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Role.create"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new role. Status is hard-coded to ACTIVE for now. &quot;&quot;&quot;</span>
+
+        <span class="n">parms</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&quot;ACTIVE&quot;</span><span class="p">,</span>
+                    <span class="s">&#39;name&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">}]</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;addRole&#39;</span><span class="p">:</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">parms</span><span class="p">)}</span>
+
+        <span class="n">response</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RoleCreationException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Role.all"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.Role.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -139,8 +192,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s">&#39;details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;details&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
 
@@ -159,7 +212,15 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RoleException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div></div>
-<div class="viewcode-block" id="RoleException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.RoleException">[docs]</a><span class="k">class</span> <span class="nc">RoleException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="RoleException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.RoleException">[docs]</a><span class="k">class</span> <span class="nc">RoleException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="setACLException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.setACLException">[docs]</a><span class="k">class</span> <span class="nc">setACLException</span><span class="p">(</span><span class="n">RoleException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Role Creation Exception&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="RoleCreationException"><a class="viewcode-back" href="../../../mixcoatl.admin.html#mixcoatl.admin.role.RoleCreationException">[docs]</a><span class="k">class</span> <span class="nc">RoleCreationException</span><span class="p">(</span><span class="n">RoleException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Role Creation Exception&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
 </pre></div>
 
           </div>

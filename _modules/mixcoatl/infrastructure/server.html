@@ -238,9 +238,39 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Server.budget"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` - The budget code to apply/applied to the server.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The budget code applied to the server.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
+
+    <span class="nd">@budget.setter</span>
+<div class="viewcode-block" id="Server.budget"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The budget code to apply to the server.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.scripts"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.scripts">[docs]</a>    <span class="k">def</span> <span class="nf">scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The list of configuration management scripts of the server.(Chef?)&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__scripts</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.run_list"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.run_list">[docs]</a>    <span class="k">def</span> <span class="nf">run_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The list of configuration management scripts of the server.(Puppet?)&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__run_list</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.architecture"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.architecture">[docs]</a>    <span class="k">def</span> <span class="nf">architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The architecture type of the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__architecture</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.terminate_after"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.terminate_after">[docs]</a>    <span class="k">def</span> <span class="nf">terminate_after</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The time the server automatically shuts down.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__terminate_after</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.pause_after"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.server.Server.pause_after">[docs]</a>    <span class="k">def</span> <span class="nf">pause_after</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The time the server automatically pauses.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pause_after</span>
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">keypair</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

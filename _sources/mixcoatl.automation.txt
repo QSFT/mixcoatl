@@ -1,5 +1,9 @@
+.. _mixcoatl_automation:
+
 automation Package
 ==================
+
+.. _mixcoatl_automation_configuration_management_account:
 
 :mod:`configuration_management_account` Module
 ----------------------------------------------
@@ -9,6 +13,8 @@ automation Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_automation_deployment:
+
 :mod:`deployment` Module
 ------------------------
 
@@ -17,6 +23,8 @@ automation Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_automation_service:
+
 :mod:`service` Module
 ---------------------
 
@@ -24,6 +32,8 @@ automation Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_automation_tier:
 
 :mod:`tier` Module
 ------------------

@@ -1,3 +1,5 @@
+.. _mixcoatl_infrastructure:
+
 infrastructure Package
 ======================
 
@@ -9,6 +11,8 @@ infrastructure Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_infrastructure_server:
+
 :mod:`server` Module
 --------------------
 
@@ -16,6 +20,8 @@ infrastructure Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_infrastructure_server_product:
 
 :mod:`server_product` Module
 ----------------------------
@@ -25,6 +31,8 @@ infrastructure Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_infrastructure_snapshot:
+
 :mod:`snapshot` Module
 ----------------------
 
@@ -32,6 +40,8 @@ infrastructure Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_infrastructure_volume:
 
 :mod:`volume` Module
 --------------------

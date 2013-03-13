@@ -166,6 +166,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_account</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Snapshot.owning_user"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` or `None` - The enStratus user who has ownership of this snapshot&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Snapshot.owning_groups"><a class="viewcode-back" href="../../../mixcoatl.infrastructure.html#mixcoatl.infrastructure.snapshot.Snapshot.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The enStratus groups who have ownership of this snapshot&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>

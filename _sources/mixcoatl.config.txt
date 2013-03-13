@@ -1,5 +1,9 @@
+.. _mixcoatl_package:
+
 config Package
 ==============
+
+.. _mixcoatl_package_config:
 
 :mod:`config` Package
 ---------------------

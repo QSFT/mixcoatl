@@ -98,7 +98,7 @@
           <div class="body">
             
   <div class="section" id="infrastructure-package">
-<h1>infrastructure Package<a class="headerlink" href="#infrastructure-package" title="Permalink to this headline">¶</a></h1>
+<span id="mixcoatl-infrastructure"></span><h1>infrastructure Package<a class="headerlink" href="#infrastructure-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-mixcoatl.infrastructure.machine_image">
 <span id="machine-image-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">machine_image</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.machine_image" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -287,7 +287,7 @@ machine based on this machine image/template</p>
 
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.server">
-<span id="server-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.server" title="Permalink to this headline">¶</a></h2>
+<span id="server-module"></span><span id="mixcoatl-infrastructure-server"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.server" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.server.Server">
 <em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.server.</tt><tt class="descname">Server</tt><big>(</big><em>server_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server" title="Permalink to this definition">¶</a></dt>
@@ -455,7 +455,37 @@ machine based on this machine image/template</p>
 <dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.budget" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The budget code to apply/applied to the server.</p>
+<dd><p><cite>int</cite> - The budget code applied to the server.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.scripts">
+<tt class="descname">scripts</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.scripts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.scripts" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite> - The list of configuration management scripts of the server.(Chef?)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.run_list">
+<tt class="descname">run_list</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.run_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.run_list" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite> - The list of configuration management scripts of the server.(Puppet?)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.architecture">
+<tt class="descname">architecture</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.architecture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.architecture" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The architecture type of the server.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.terminate_after">
+<tt class="descname">terminate_after</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.terminate_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.terminate_after" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The time the server automatically shuts down.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.pause_after">
+<tt class="descname">pause_after</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/server.html#Server.pause_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.pause_after" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The time the server automatically pauses.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -587,7 +617,7 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.server_product">
-<span id="server-product-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server_product</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.server_product" title="Permalink to this headline">¶</a></h2>
+<span id="server-product-module"></span><span id="mixcoatl-infrastructure-server-product"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server_product</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.server_product" title="Permalink to this headline">¶</a></h2>
 <p>Implements the enStratus ServerProduct API</p>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.server_product.ServerProduct">
@@ -733,7 +763,7 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.snapshot">
-<span id="snapshot-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">snapshot</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.snapshot" title="Permalink to this headline">¶</a></h2>
+<span id="snapshot-module"></span><span id="mixcoatl-infrastructure-snapshot"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">snapshot</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.snapshot" title="Permalink to this headline">¶</a></h2>
 <p>Implements access to the enStratus Snapshot API</p>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot">
@@ -819,6 +849,12 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
 <dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_account">
 <tt class="descname">owning_account</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_account" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus account where the snapshot is registered</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_user">
+<tt class="descname">owning_user</tt><a class="reference internal" href="_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_user" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus user who has ownership of this snapshot</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1042,7 +1078,7 @@ When using the callback, execution could block for a <strong>VERY</strong> long 
 
 </div>
 <div class="section" id="module-mixcoatl.infrastructure.volume">
-<span id="volume-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">volume</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.volume" title="Permalink to this headline">¶</a></h2>
+<span id="volume-module"></span><span id="mixcoatl-infrastructure-volume"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">volume</span></tt> Module<a class="headerlink" href="#module-mixcoatl.infrastructure.volume" title="Permalink to this headline">¶</a></h2>
 <p>Implements the enStratus Volume API</p>
 <dl class="class">
 <dt id="mixcoatl.infrastructure.volume.Volume">

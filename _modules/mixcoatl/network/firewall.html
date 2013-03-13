@@ -70,8 +70,12 @@
 <span class="sd">&quot;&quot;&quot;Implements the enStratus Firewall API&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.network.firewall_rule</span> <span class="kn">import</span> <span class="n">FirewallRule</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span><span class="p">,</span> <span class="n">camel_keys</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
 
 <div class="viewcode-block" id="Firewall"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall">[docs]</a><span class="k">class</span> <span class="nc">Firewall</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;network/Firewall&#39;</span>
@@ -97,9 +101,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Firewall.label"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - A color label assigned to this firewall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
+
+    <span class="nd">@label.setter</span>
+<div class="viewcode-block" id="Firewall.label"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">l</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.owning_account"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.owning_account">[docs]</a>    <span class="k">def</span> <span class="nf">owning_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -107,9 +115,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_account</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Firewall.name"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The user-friendly name for this firewall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="Firewall.name"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">n</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.owning_user"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -117,9 +129,18 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Firewall.description"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Firewall.owning_groups"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The enStratus groups that have ownership of this firewall&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The description of this firewall in enStratus&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+
+    <span class="nd">@description.setter</span>
+<div class="viewcode-block" id="Firewall.description"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">d</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.cloud"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -132,9 +153,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_id</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Firewall.region"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The region in which this firewall operates&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__region</span>
+
+    <span class="nd">@region.setter</span>
+<div class="viewcode-block" id="Firewall.region"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__region</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;region_id&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">}</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.removable"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.removable">[docs]</a>    <span class="k">def</span> <span class="nf">removable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -142,9 +167,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__removable</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Firewall.budget"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`int` - The enStratus billing code costs are associated with&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
+
+    <span class="nd">@budget.setter</span>
+<div class="viewcode-block" id="Firewall.budget"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">b</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.customer"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -154,22 +183,71 @@
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Firewall.rules"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.rules">[docs]</a>    <span class="k">def</span> <span class="nf">rules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`list` - The firewall rules associated with this firewall&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewall_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__rules</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rules</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">rls</span> <span class="o">=</span> <span class="n">FirewallRule</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__firewall_id</span><span class="p">)</span>
+            <span class="n">rls</span> <span class="o">=</span> <span class="n">FirewallRule</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__firewall_id</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_details</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rls</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__rules</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__rules</span> <span class="o">=</span> <span class="n">rls</span>
             <span class="k">return</span> <span class="n">rls</span>
 </div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;budget&#39;</span><span class="p">,</span> <span class="s">&#39;region&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Firewall.create"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a new firewall</span>
+
+<span class="sd">        :param label: Optional label to assign the firewall</span>
+<span class="sd">        :type label: str.</span>
+<span class="sd">        :param callback: Optional callback to call with resulting :class:`Firewall`</span>
+<span class="sd">        :type callback: func.</span>
+<span class="sd">        :returns: :class:`Firewall`</span>
+<span class="sd">        :raises: :class:`FirewallException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;add_firewall&#39;</span><span class="p">:[{</span>
+            <span class="s">&#39;budget&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span>
+            <span class="s">&#39;region&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+            <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span>
+            <span class="p">}]}</span>
+
+        <span class="k">if</span> <span class="s">&#39;label&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;add_firewall&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;label&#39;</span><span class="p">]</span>
+
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;callback&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">payload</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">Job</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="n">j</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__firewall_id</span> <span class="o">=</span> <span class="n">j</span><span class="o">.</span><span class="n">message</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="bp">self</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">FirewallException</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">FirewallException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Firewall.describe"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.describe">[docs]</a>    <span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Describe a firewall&quot;&quot;&quot;</span>
+
+</div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Firewall.all"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">region_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Firewall.all"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.Firewall.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;List all firewalls in `region_id`</span>
 
-<span class="sd">        :param region_id: The region to list firewalls for</span>
+<span class="sd">        :param region_id: Limit results to `region_id`</span>
 <span class="sd">        :type region_id: int.</span>
+<span class="sd">        :param account_id: limit results to `account_id`</span>
+<span class="sd">        :type account_id: int.</span>
 <span class="sd">        :param detail: Level of detail to return - `basic` or `extended`</span>
 <span class="sd">        :type detail: str.</span>
 <span class="sd">        :param keys_only: Return only :attr:`firewall_id` in results</span>
@@ -192,24 +270,53 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">keys_only</span> <span class="o">=</span> <span class="bp">False</span>
 
-        <span class="n">params</span><span class="p">[</span><span class="s">&#39;regionId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">region_id</span>
+        <span class="k">if</span> <span class="s">&#39;region_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;regionId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;region_id&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s">&#39;account_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;accountId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;account_id&#39;</span><span class="p">]</span>
+
         <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
             <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
                 <span class="n">firewalls</span> <span class="o">=</span> <span class="n">keys</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">firewalls</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]:</span>
-                    <span class="n">key</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)]</span>
-                    <span class="n">fw</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-                    <span class="n">fw</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">request_details</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                    <span class="n">fw</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">request_details</span><span class="p">)</span>
                     <span class="n">fw</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
                     <span class="n">firewalls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">firewalls</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">FirewallException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div></div>
+<div class="viewcode-block" id="describe_firewall"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.describe_firewall">[docs]</a><span class="k">def</span> <span class="nf">describe_firewall</span><span class="p">(</span><span class="n">firewall_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Changes the basic meta-data for a firewall</span>
+
+<span class="sd">    :param firewall_id: The id of the firewall to modify</span>
+<span class="sd">    :type firewall_id: int.</span>
+<span class="sd">    :param description: The description of the firewall</span>
+<span class="sd">    :type description: string.</span>
+<span class="sd">    :param label: The label to assign the firewall.</span>
+<span class="sd">    :type label: string.</span>
+<span class="sd">    :param name: The name to give the firewall.</span>
+<span class="sd">    :type name: string.</span>
+<span class="sd">    :returns: `bool`</span>
+<span class="sd">    :raises: :class:`FirewallException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">Firewall</span><span class="p">(</span><span class="n">firewall_id</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FirewallException</span><span class="p">(</span><span class="s">&quot;No attributes were specified to change&quot;</span><span class="p">)</span>
+
+
+</div>
 <div class="viewcode-block" id="FirewallException"><a class="viewcode-back" href="../../../mixcoatl.network.html#mixcoatl.network.firewall.FirewallException">[docs]</a><span class="k">class</span> <span class="nc">FirewallException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generic Firewall Exception&quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
