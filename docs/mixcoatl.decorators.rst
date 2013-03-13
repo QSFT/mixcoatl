@@ -1,3 +1,5 @@
+.. _mixcoatl_decorators:
+
 decorators Package
 ==================
 
@@ -9,6 +11,8 @@ decorators Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_decorators_lazy:
+
 :mod:`lazy` Module
 ------------------
 
@@ -16,6 +20,8 @@ decorators Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_decorators_validations:
 
 :mod:`validations` Module
 -------------------------
