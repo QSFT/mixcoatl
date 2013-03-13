@@ -1,5 +1,9 @@
+.. _mixcoatl_network:
+
 network Package
 ===============
+
+.. _mixcoatl_network_firewall:
 
 :mod:`firewall` Module
 ----------------------
@@ -9,6 +13,8 @@ network Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_network_firewall_rule:
+
 :mod:`firewall_rule` Module
 ---------------------------
 
@@ -17,6 +23,8 @@ network Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_network_load_balancer:
+
 :mod:`load_balancer` Module
 ---------------------------
 
@@ -24,4 +32,3 @@ network Package
     :members:
     :undoc-members:
     :show-inheritance:
-

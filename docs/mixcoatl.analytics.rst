@@ -1,3 +1,5 @@
+.. _mixcoatl_analytics:
+
 analytics Package
 =================
 
@@ -9,6 +11,8 @@ analytics Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_analytics_server:
+
 :mod:`server_analytics` Module
 ------------------------------
 
@@ -16,6 +20,8 @@ analytics Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_analytics_tier:
 
 :mod:`tier_analytics` Module
 ----------------------------
