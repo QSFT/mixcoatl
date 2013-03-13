@@ -1,5 +1,9 @@
+.. _mixcoatl_settings:
+
 settings Package
 ================
+
+.. _mixcoatl_settings_load_settings:
 
 :mod:`load_settings` Module
 ---------------------------

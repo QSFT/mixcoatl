@@ -1,3 +1,5 @@
+.. _mixcoatl_exceptions:
+
 exceptions Package
 ==================
 

@@ -1,5 +1,9 @@
+.. _mixcoatl_admin:
+
 admin Package
 =============
+
+.. _mixcoatl_admin_account:
 
 :mod:`account` Module
 ---------------------
@@ -9,6 +13,8 @@ admin Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_admin_api_key:
+
 :mod:`api_key` Module
 ---------------------
 
@@ -16,6 +22,8 @@ admin Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_admin_billing_code:
 
 :mod:`billing_code` Module
 --------------------------
@@ -25,6 +33,8 @@ admin Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_admin_group:
+
 :mod:`group` Module
 -------------------
 
@@ -32,6 +42,8 @@ admin Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_admin_job:
 
 :mod:`job` Module
 -----------------
@@ -41,6 +53,8 @@ admin Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_admin_role:
+
 :mod:`role` Module
 ------------------
 
@@ -48,6 +62,8 @@ admin Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_admin_user:
 
 :mod:`user` Module
 ------------------

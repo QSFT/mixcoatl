@@ -1,3 +1,5 @@
+.. _mixcoatl_geography:
+
 geography Package
 =================
 
@@ -9,6 +11,8 @@ geography Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_cloud:
+
 :mod:`cloud` Module
 -------------------
 
@@ -17,6 +21,8 @@ geography Package
     :undoc-members:
     :show-inheritance:
 
+.. _mixcoatl_datacenter:
+
 :mod:`datacenter` Module
 ------------------------
 
@@ -24,6 +30,8 @@ geography Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. _mixcoatl_region:
 
 :mod:`region` Module
 --------------------
