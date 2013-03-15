@@ -93,6 +93,7 @@ class TestServer(unittest.TestCase):
         s.description = 'unit test server'
         s.name = 'my-test-server'
         s.data_center = 64716
+        s.budget = 10287
         s.launch()
         assert s.last_error is None
         assert s.current_job == 84322
@@ -112,6 +113,7 @@ class TestServer(unittest.TestCase):
         s.description = 'unit test server'
         s.name = 'my-test-server'
         s.data_center = 64716
+        s.budget = 10287
         s.keypair = 'test-kp-uswest2'
         s.launch()
         assert s.keypair == 'test-kp-uswest2'
