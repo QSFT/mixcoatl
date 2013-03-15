@@ -257,7 +257,7 @@ class Server(Resource):
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
     @required_attrs(['provider_product_id', 'machine_image', 'description',
-                    'name', 'data_center'])
+                    'name', 'data_center', 'budget'])
     def launch(self, callback=None):
         """Launches a server with the configured parameters
 
@@ -283,6 +283,7 @@ class Server(Resource):
         payload = {'launch':
                     [{
                         'productId': self.provider_product_id,
+                        'budget': self.budget,
                         'machineImage': camel_keys(self.machine_image),
                         'description': self.description,
                         'name': self.name,
