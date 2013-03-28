@@ -30,6 +30,11 @@ class Server(Resource):
         return self.__agent_version
 
     @lazy_property
+    def environment(self):
+        """`int` - The environment of the server."""
+        return self.__environment
+
+    @lazy_property
     def cloud(self):
         """`dict` - The cloud provided where the instance is located."""
         return self.__cloud
