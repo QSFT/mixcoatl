@@ -1,6 +1,12 @@
+"""Implements the enStratus Deployment API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
+from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.admin.job import Job
+
+import json
+import time
 
 class Deployment(Resource):
     PATH = 'automation/Deployment'
@@ -23,6 +29,11 @@ class Deployment(Resource):
     def budget(self):
         return self.__budget
 
+    @budget.setter
+    def budget(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__budget = b
+
     @lazy_property
     def label(self):
         return self.__label
@@ -38,6 +49,11 @@ class Deployment(Resource):
     @lazy_property
     def description(self):
         return self.__description
+
+    @description.setter
+    def description(self, d):
+        # pylint: disable-msg=C0111,W0201
+        self.__description = d
 
     @lazy_property
     def for_service_catalog(self):
@@ -55,6 +71,11 @@ class Deployment(Resource):
     def name(self):
         return self.__name
 
+    @name.setter
+    def name(self, n):
+        # pylint: disable-msg=C0111,W0201
+        self.__name = n
+
     @lazy_property
     def owning_groups(self):
         return self.__owning_groups
@@ -66,6 +87,11 @@ class Deployment(Resource):
     @lazy_property
     def regions(self):
         return self.__regions
+
+    @regions.setter
+    def regions(self, r):
+        # pylint: disable-msg=C0111,W0201
+        self.__regions = r
 
     @lazy_property
     def removable(self):
@@ -92,3 +118,32 @@ class Deployment(Resource):
             return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
         else:
             return r.last_error
+
+    @required_attrs(['name', 'description','budget','region'])
+    def create(self, callback=None):
+        """Creates a new deployment
+
+        :param callback: Optional callback to send the resulting :class:`Job`
+        :raises: :class:`DeploymentCreationException`
+        """
+
+        parms = [{'budget': self.budget,
+                    'regionId': self.region,
+                    'description': self.description,
+										'name': self.name}]
+
+
+        payload = {'addDeployment':camel_keys(parms)}
+
+        response=self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+            return response
+        else:
+            raise DeploymentCreationException(self.last_error)
+
+class DeploymentException(BaseException): pass
+
+class DeploymentCreationException(DeploymentException):
+    """Deployment Creation Exception"""
+    pass
