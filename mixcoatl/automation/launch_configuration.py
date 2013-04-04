@@ -9,7 +9,7 @@ import time
 
 class LaunchConfiguration(Resource):
     PATH = 'automation/LaunchConfiguration'
-    COLLECTION_NAME = 'launch_configurations'
+    COLLECTION_NAME = 'launchConfigurations'
     PRIMARY_KEY = 'launch_configuration_id'
 
     def __init__(self, launch_configuration_id=None, *args, **kwargs):
@@ -19,6 +19,18 @@ class LaunchConfiguration(Resource):
     @property
     def launch_configuration_id(self):
         return self.__launch_configuration_id
+
+    @property
+    def deployment(self):
+        return self.__deployment
+
+    @property
+    def array_volume_capacity(self):
+        return self.__array_volume_capacity
+
+    @property
+    def array_volume_count(self):
+        return self.__array_volume_count
 
     @lazy_property
     def label(self):
@@ -30,11 +42,24 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def customer(self):
-        return self.__customer
+        return self.__customer['customer_id']
 
     @lazy_property
+    def created_timestamp(self):
+        return self.__created_timestamp
+
+    @lazy_property
+    def created(self):
+        return self.__created
+
+    @lazy_property
+    def cm_account(self):
+        return self.__cm_account
+
+    # To do: multiple firewalls
+    @lazy_property
     def firewalls(self):
-        return self.__label
+        return self.__firewalls[0]['firewall_id']
 
     @firewalls.setter
     def firewalls(self, f):
@@ -58,7 +83,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def primary_machine_image(self):
-        return self.__primary_machine_image
+        return self.__primary_machine_image['machine_image_id']
 
     @primary_machine_image.setter
     def primary_machine_image(self, p):
@@ -66,7 +91,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def primary_product(self):
-        return self.__primary_product
+        return self.__primary_product['product_id']
 
     @primary_product.setter
     def primary_product(self, p):
@@ -90,7 +115,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def region(self):
-        return self.__region
+        return self.__region['region_id']
 
     @region.setter
     def region(self, r):
@@ -106,7 +131,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def secondary_machine_image(self):
-        return self.__secondary_machine_image
+        return self.__secondary_machine_image['machine_image_id']
 
     @secondary_machine_image.setter
     def secondary_machine_image(self, s):
@@ -114,7 +139,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def secondary_product(self):
-        return self.__secondary_product
+        return self.__secondary_product['product_id']
 
     @secondary_product.setter
     def secondary_product(self, s):

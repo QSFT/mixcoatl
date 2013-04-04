@@ -24,33 +24,27 @@ class TestLaunchConfiguration(unittest.TestCase):
 
     @httprettified
     def test_has_one(self):
-        '''test Tier(<id>) returns a valid resource'''
-        pk = 10433
+        '''test LaunchConfiguration(<id>) returns a valid resource'''
+        pk = 16415
         with open(self.json_file) as f:
             data = json.load(f)
+
         data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
                                              d[camelize(self.cls.PRIMARY_KEY)] == pk]
-        #HTTPretty.register_uri(HTTPretty.GET,
-        #    self.es_url + '/?tierId=' + str(pk),
-        #    body=json.dumps(data),
-        #    status=200,
-        #    content_type="application/json")
-        #s = self.cls(pk)
-        #assert s.launch_configuration_id == 16415
-        #assert s.tier_id == pk
-        #assert s.breach_increment == 1
-        #assert s.breach_period_in_minutes == 5
-        #assert s.cooldown_period_in_minutes == 5
-        #assert s.deployment['deployment_id'] == 13607
-        #assert s.description == 'This is what we call a tier.'
-        #assert s.last_breach_change_timestamp == '2012-12-18T18:42:06.160+0000'
-        #assert s.lower_cpu_threshold == 25
-        #assert s.lower_ram_threshold == 25
-        #assert s.maximum_servers == 1
-        #assert s.minimum_servers == 1
-        #assert s.name == 'Sample Tier'
-        #assert s.removable is False
-        #assert s.scaling_rules == 'BASIC'
-        #assert s.status == 'BREACH_LOWER'
-        #assert s.upper_cpu_threshold == 75
-        #assert s.upper_ram_threshold == 75
+        HTTPretty.register_uri(HTTPretty.GET,
+            self.es_url + '/' + str(pk),
+            body=json.dumps(data),
+            status=200,
+            content_type="application/json")
+        s = self.cls(pk)
+        assert s.launch_configuration_id == 16415
+        assert s.primary_product == 'm1.medium'
+        assert s.secondary_product == 'm1.medium'
+        assert s.primary_machine_image == 281731
+        assert s.secondary_machine_image == 281731
+        assert s.server_name_template == '{group}-{role}-{count}-{timestamp}'
+        assert s.firewalls == 116387
+        assert s.array_volume_capacity == 0
+        assert s.array_volume_count == 0
+        assert s.customer == 12345
+        assert s.region == 19344
