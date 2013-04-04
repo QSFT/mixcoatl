@@ -38,20 +38,20 @@ class Tier(Resource):
         self.__breach_increment = b
 
     @lazy_property
-    def breach_period(self):
-        return self.__breach_period
+    def breach_period_in_minutes(self):
+        return self.__breach_period_in_minutes
 
-    @breach_period.setter
-    def breach_period(self,b):
-        self.__breach_period = b
+    @breach_period_in_minutes.setter
+    def breach_period_in_minutes(self,b):
+        self.__breach_period_in_minutes = b
 
     @lazy_property
-    def cooldown_period(self):
-        return self.__cooldown_period
+    def cooldown_period_in_minutes(self):
+        return self.__cooldown_period_in_minutes
 
-    @cooldown_period.setter
-    def cooldown_period_in_minutes(self, m):
-        self.__cooldown_period = m
+    @cooldown_period_in_minutes.setter
+    def cooldown_period_in_minutes_in_minutes(self, m):
+        self.__cooldown_period_in_minutes = m
 
     @lazy_property
     def deployment(self):
@@ -172,8 +172,8 @@ class Tier(Resource):
 										 'deployment',
 										 'minimum_servers',
 										 'maximum_servers',
-										 'breach_period',
-										 'cooldown_period',
+										 'breach_period_in_minutes',
+										 'cooldown_period_in_minutes',
 										 'lower_cpu_threshold',
 										 'upper_cpu_threshold',
 										 'lower_ram_threshold',
@@ -193,8 +193,8 @@ class Tier(Resource):
                     'minimumServers': self.minimum_servers,
                     'maximumServers': self.maximum_servers,
                     'breachIncrement': self.breach_increment,
-                    'breachPeriodInMinutes': self.breach_period,
-                    'cooldownPeriodInMinutes': self.cooldown_period,
+                    'breachPeriodInMinutes': self.breach_period_in_minutes,
+                    'cooldownPeriodInMinutes': self.cooldown_period_in_minutes,
                     'lowerCpuThreshold': self.lower_cpu_threshold,
                     'upperCpuThreshold': self.upper_cpu_threshold,
                     'lowerRamThreshold': self.lower_ram_threshold,
