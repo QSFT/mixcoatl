@@ -201,7 +201,6 @@ class Tier(Resource):
                     'upperRamThreshold': self.upper_ram_threshold}]
 
         payload = {'addTier':camel_keys(parms)}
-        print payload
 
         response=self.post(data=json.dumps(payload))
         if self.last_error is None:

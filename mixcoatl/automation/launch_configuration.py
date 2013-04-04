@@ -42,7 +42,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def customer(self):
-        return self.__customer['customer_id']
+        return self.__customer
 
     @lazy_property
     def created_timestamp(self):
@@ -56,10 +56,9 @@ class LaunchConfiguration(Resource):
     def cm_account(self):
         return self.__cm_account
 
-    # To do: multiple firewalls
     @lazy_property
     def firewalls(self):
-        return self.__firewalls[0]['firewall_id']
+        return self.__firewalls
 
     @firewalls.setter
     def firewalls(self, f):
@@ -83,7 +82,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def primary_machine_image(self):
-        return self.__primary_machine_image['machine_image_id']
+        return self.__primary_machine_image
 
     @primary_machine_image.setter
     def primary_machine_image(self, p):
@@ -91,7 +90,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def primary_product(self):
-        return self.__primary_product['product_id']
+        return self.__primary_product
 
     @primary_product.setter
     def primary_product(self, p):
@@ -115,7 +114,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def region(self):
-        return self.__region['region_id']
+        return self.__region
 
     @region.setter
     def region(self, r):
@@ -131,7 +130,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def secondary_machine_image(self):
-        return self.__secondary_machine_image['machine_image_id']
+        return self.__secondary_machine_image
 
     @secondary_machine_image.setter
     def secondary_machine_image(self, s):
@@ -139,7 +138,7 @@ class LaunchConfiguration(Resource):
 
     @lazy_property
     def secondary_product(self):
-        return self.__secondary_product['product_id']
+        return self.__secondary_product
 
     @secondary_product.setter
     def secondary_product(self, s):
@@ -249,15 +248,15 @@ class LaunchConfiguration(Resource):
         parms = [{'tier':{'tierId':self.tier},
                  'primaryMachineImage':{'machineImageId':self.primary_machine_image},
                  'primaryProduct':{'productId':self.primary_product_id},
-                 'firewalls':[{'firewallId':self.firewall}],
+                 'firewalls':[{'firewallId':self.firewalls}],
                  'region':{'regionId':self.region}}]
 
         payload = {'addLaunchConfiguration':camel_keys(parms)}
-        print json.dumps(payload)
 
         response=self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
+            print response
             return response
         else:
             raise LaunchConfigurationCreationException(self.last_error)
