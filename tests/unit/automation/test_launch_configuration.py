@@ -38,13 +38,13 @@ class TestLaunchConfiguration(unittest.TestCase):
             content_type="application/json")
         s = self.cls(pk)
         assert s.launch_configuration_id == 16415
-        assert s.primary_product == 'm1.medium'
-        assert s.secondary_product == 'm1.medium'
-        assert s.primary_machine_image == 281731
-        assert s.secondary_machine_image == 281731
+        assert s.primary_product['product_id'] == 'm1.medium'
+        assert s.secondary_product['product_id'] == 'm1.medium'
+        assert s.primary_machine_image['machine_image_id'] == 281731
+        assert s.secondary_machine_image['machine_image_id'] == 281731
         assert s.server_name_template == '{group}-{role}-{count}-{timestamp}'
-        assert s.firewalls == 116387
+        assert s.firewalls[0]['firewall_id'] == 116387
         assert s.array_volume_capacity == 0
         assert s.array_volume_count == 0
-        assert s.customer == 12345
-        assert s.region == 19344
+        assert s.customer['customer_id'] == 12345
+        assert s.region['region_id'] == 19344
