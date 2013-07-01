@@ -10,6 +10,8 @@ except ImportError:
 packages = [
     'mixcoatl',
     'mixcoatl.admin',
+    'mixcoatl.analytics',
+    'mixcoatl.automation',
     'mixcoatl.config',
     'mixcoatl.decorators',
     'mixcoatl.exceptions',
