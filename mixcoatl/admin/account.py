@@ -56,6 +56,11 @@ class Account(Resource):
         return self.__default_budget
 
     @lazy_property
+    def dns_automation(self):
+        """Does this account subscribe to dns_automation?"""
+        return self.__dns_automation
+
+    @lazy_property
     def name(self):
         """`str` - User-friendly name used to identify the account"""
         return self.__name
