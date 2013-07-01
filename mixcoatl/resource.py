@@ -220,7 +220,10 @@ class Resource(object):
                     self.last_error = results.content
                 return False
         if method == 'DELETE':
-            if results.status_code != 204:
+            if results.status_code == 202:
+                self.current_job = results.json()['jobs'][0]['jobId']
+                return results.json()
+            elif results.status_code != 204:
                 try:
                     err = results.json()
                     self.last_error = err['error']['message']
