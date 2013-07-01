@@ -195,7 +195,7 @@ class Resource(object):
         'User-Agent': sig['ua']}
 
         #results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
-        results = r.request(method, url, verify=False, headers=headers, **kwargs)
+        results = r.request(method, url, headers=headers, **kwargs)
 
         self.last_error = None
         self.last_request = results
