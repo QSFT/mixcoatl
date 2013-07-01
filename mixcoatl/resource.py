@@ -195,7 +195,7 @@ class Resource(object):
         'User-Agent': sig['ua']}
 
         #results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
-        results = r.request(method, url, headers=headers, **kwargs)
+        results = r.request(method, url, verify=False, headers=headers, **kwargs)
 
         self.last_error = None
         self.last_request = results
@@ -220,7 +220,10 @@ class Resource(object):
                     self.last_error = results.content
                 return False
         if method == 'DELETE':
-            if results.status_code != 204:
+            if results.status_code == 202:
+                self.current_job = results.json()['jobs'][0]['jobId']
+                return results.json()
+            elif results.status_code != 204:
                 try:
                     err = results.json()
                     self.last_error = err['error']['message']
