@@ -86,6 +86,15 @@ class Server(Resource):
         self.__machine_image = {u'machine_image_id': m}
 
     @lazy_property
+    def vlan(self):
+        """`list` - The vlan to assign/assigned to the server"""
+        return self.__vlan
+
+    @vlan.setter
+    def vlan(self, v):
+        self.__vlan = {u'vlan_id': v}
+
+    @lazy_property
     def firewalls(self):
         """`list` - The firewalls to assign/assigned to the server"""
         return self.__firewalls
@@ -281,7 +290,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['firewalls', 'keypair', 'label']
+        optional_attrs = ['vlan','firewalls', 'keypair', 'label']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
@@ -292,6 +301,7 @@ class Server(Resource):
                         'machineImage': camel_keys(self.machine_image),
                         'description': self.description,
                         'name': self.name,
+                        'vlan': camel_keys(self.vlan),
                         'dataCenter': camel_keys(self.data_center)
                     }]}
 

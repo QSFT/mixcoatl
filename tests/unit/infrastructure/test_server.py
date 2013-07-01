@@ -77,6 +77,7 @@ class TestServer(unittest.TestCase):
         assert s.machine_image['machine_image_id'] == 281535
         assert s.description == 'Sample-Tier-independent-node-0'
         assert s.product['product_id'] == 652
+        assert s.vlan['vlan_id'] == 2600
 
     @httprettified
     def test_launch_basic(self):
@@ -90,6 +91,7 @@ class TestServer(unittest.TestCase):
         s = self.cls()
         s.provider_product_id = 'm1.xlarge'
         s.machine_image = 284831
+        s.vlan = 2600
         s.description = 'unit test server'
         s.name = 'my-test-server'
         s.data_center = 64716
@@ -110,6 +112,7 @@ class TestServer(unittest.TestCase):
         s = self.cls()
         s.provider_product_id = 'm1.xlarge'
         s.machine_image = 284831
+        s.vlan = 2600
         s.description = 'unit test server'
         s.name = 'my-test-server'
         s.data_center = 64716
