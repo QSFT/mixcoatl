@@ -72,6 +72,14 @@ class Deployment(Resource):
         return self.__removable
 
     @lazy_property
+    def load_balancers(self):
+        return self.__load_balancers
+
+    @lazy_property
+    def reason_not_removable(self):
+        return self.__reason_not_removable
+
+    @lazy_property
     def status(self):
         return self.__status
 
