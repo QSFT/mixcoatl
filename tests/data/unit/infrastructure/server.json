@@ -2017,7 +2017,10 @@
         "providerId": "us-west-2", 
         "regionId": 19344, 
         "status": "ACTIVE"
-      }, 
+      },
+      "vlan": {
+        "vlanId": 2600
+      },
       "serverId": 331810, 
       "startDate": "2012-12-18T18:31:26.000+0000", 
       "status": "RUNNING"
