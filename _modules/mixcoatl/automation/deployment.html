@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -67,9 +66,15 @@
           <div class="body">
             
   <h1>Source code for mixcoatl.automation.deployment</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;Implements the enStratus Deployment API&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
-<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span><span class="p">,</span> <span class="n">camel_keys</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <div class="viewcode-block" id="Deployment"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment">[docs]</a><span class="k">class</span> <span class="nc">Deployment</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
     <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;automation/Deployment&#39;</span>
@@ -89,8 +94,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__backup_window</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Deployment.budget"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
+
+    <span class="nd">@budget.setter</span>
+<div class="viewcode-block" id="Deployment.budget"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">b</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Deployment.label"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -105,8 +115,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Deployment.description"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+
+    <span class="nd">@description.setter</span>
+<div class="viewcode-block" id="Deployment.description"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">d</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Deployment.for_service_catalog"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.for_service_catalog">[docs]</a>    <span class="k">def</span> <span class="nf">for_service_catalog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -121,8 +136,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__maintenance_window</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Deployment.name"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="Deployment.name"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">n</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Deployment.owning_groups"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -133,12 +153,25 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
 </div>
     <span class="nd">@lazy_property</span>
-<div class="viewcode-block" id="Deployment.regions"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.regions">[docs]</a>    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span>
+
+    <span class="nd">@regions.setter</span>
+<div class="viewcode-block" id="Deployment.regions"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.regions">[docs]</a>    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span> <span class="o">=</span> <span class="n">r</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Deployment.removable"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.removable">[docs]</a>    <span class="k">def</span> <span class="nf">removable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__removable</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Deployment.load_balancers"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.load_balancers">[docs]</a>    <span class="k">def</span> <span class="nf">load_balancers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__load_balancers</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Deployment.reason_not_removable"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.reason_not_removable">[docs]</a>    <span class="k">def</span> <span class="nf">reason_not_removable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reason_not_removable</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Deployment.status"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -160,7 +193,36 @@
         <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span></div></div>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span><span class="s">&#39;budget&#39;</span><span class="p">,</span><span class="s">&#39;region&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Deployment.create"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.Deployment.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new deployment</span>
+
+<span class="sd">        :param callback: Optional callback to send the resulting :class:`Job`</span>
+<span class="sd">        :raises: :class:`DeploymentCreationException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">parms</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;budget&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span>
+                    <span class="s">&#39;regionId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+                    <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+										<span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}]</span>
+
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;addDeployment&#39;</span><span class="p">:</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">parms</span><span class="p">)}</span>
+
+        <span class="n">response</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeploymentCreationException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="DeploymentException"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.DeploymentException">[docs]</a><span class="k">class</span> <span class="nc">DeploymentException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="DeploymentCreationException"><a class="viewcode-back" href="../../../mixcoatl.automation.html#mixcoatl.automation.deployment.DeploymentCreationException">[docs]</a><span class="k">class</span> <span class="nc">DeploymentCreationException</span><span class="p">(</span><span class="n">DeploymentException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Deployment Creation Exception&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
 </pre></div>
 
           </div>
