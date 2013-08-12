@@ -53,7 +53,7 @@ class Network(Resource):
         """`str` - The description of this network"""
         return self.__description
 
-    @name.setter
+    @description.setter
     def description(self, d):
         self.__description = d
 
@@ -81,6 +81,10 @@ class Network(Resource):
     def region(self):
         """`dict` - The region in which this network operates"""
         return self.__region
+
+    @region.setter
+    def region(self, r):
+        self.__region = {'region_id': r}
 
     @lazy_property
     def removable(self):
@@ -146,6 +150,10 @@ class Network(Resource):
         """`str` - An IPv4 CIDR representing the block of IP addresses hosted in this network."""
         return self.__network_address
 
+    @network_address.setter
+    def network_address(self, n):
+        self.__network_address = n
+
     @lazy_property
     def network_type(self):
         """`str` - Identifies what kind of network is represented by this resource."""
@@ -166,7 +174,7 @@ class Network(Resource):
         """`list` - A list of DNS servers configured for this network."""
         return self.__dns_servers
 
-    @required_attrs(['budget', 'name', 'network_address'])
+    @required_attrs(['budget', 'name', 'network_address', 'region'])
     def create(self, **kwargs):
         """Create a new network
 
@@ -181,7 +189,8 @@ class Network(Resource):
         payload = {'add_network':[{
             'budget': self.budget,
             'name': self.name,
-            'network_address': self.network_address
+            'network_address': self.network_address,
+            'region': self.region
             }]}
 
         if 'label' in kwargs:
@@ -211,11 +220,15 @@ class Network(Resource):
 
         :param region_id: Limit results to `region_id`
         :type region_id: int.
+        :param data_center_id: Limit results to `data_center_id`
+        :type region_id: int.
         :param account_id: limit results to `account_id`
         :type account_id: int.
         :param detail: Level of detail to return - `basic` or `extended`
         :type detail: str.
         :param keys_only: Return only :attr:`network_id` in results
+        :type keys_only: bool.
+        :param active_only: Limits the list of networks to only active networks if true. Default is True.
         :type keys_only: bool.
         :returns: `list` of :attr:`network_id` or :class:`Network`
         :raises: :class:`NetworkException`
@@ -238,8 +251,16 @@ class Network(Resource):
         if 'region_id' in kwargs:
             params['regionId'] = kwargs['region_id']
 
+        if 'data_center_id' in kwargs:
+            params['dataCenterId'] = kwargs['data_center_id']
+
         if 'account_id' in kwargs:
             params['accountId'] = kwargs['account_id']
+
+        if 'active_only' in kwargs:
+            params['activeOnly'] = kwargs['active_only']
+        else:
+            params['activeOnly'] = True
 
         x = r.get(params=params)
         if r.last_error is None:
