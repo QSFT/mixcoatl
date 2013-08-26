@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>analytics Package &mdash; mixcoatl 0.2.6 documentation</title>
+    <title>analytics Package &mdash; mixcoatl 0.2.8 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.6',
+        VERSION:     '0.2.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.6 documentation" href="index.html" />
+    <link rel="top" title="mixcoatl 0.2.8 documentation" href="index.html" />
     <link rel="up" title="mixcoatl Package" href="mixcoatl.html" />
     <link rel="next" title="automation Package" href="mixcoatl.automation.html" />
     <link rel="prev" title="admin Package" href="mixcoatl.admin.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="mixcoatl.admin.html" title="admin Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.8 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" accesskey="U">mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -56,11 +56,8 @@
   <ul>
 <li><a class="reference internal" href="#">analytics Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">analytics</span></tt> Package</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.analytics.server_analytics"><tt class="docutils literal"><span class="pre">server_analytics</span></tt> Module</a><ul>
-<li><a class="reference internal" href="#mixcoatl-analytics-server-analytics">mixcoatl.analytics.server_analytics</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-mixcoatl.analytics.tier_analytics"><tt class="docutils literal"><span class="pre">tier_analytics</span></tt> Module</a></li>
+<li><a class="reference internal" href="#server-analytics-module"><tt class="docutils literal"><span class="pre">server_analytics</span></tt> Module</a></li>
+<li><a class="reference internal" href="#tier-analytics-module"><tt class="docutils literal"><span class="pre">tier_analytics</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -102,175 +99,11 @@
 <div class="section" id="id1">
 <h2><tt class="xref py py-mod docutils literal"><span class="pre">analytics</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-mixcoatl.analytics"></span></div>
-<div class="section" id="module-mixcoatl.analytics.server_analytics">
-<span id="server-analytics-module"></span><span id="mixcoatl-analytics-server"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server_analytics</span></tt> Module<a class="headerlink" href="#module-mixcoatl.analytics.server_analytics" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="mixcoatl-analytics-server-analytics">
-<h3>mixcoatl.analytics.server_analytics<a class="headerlink" href="#mixcoatl-analytics-server-analytics" title="Permalink to this headline">¶</a></h3>
-<p>Implements access to the enStratus ServerAnalytics API</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Unlike other objects, ServerAnalytics only applies to a single server.
-There is no concept of &#8216;all analytics across all servers&#8217;</p>
+<div class="section" id="server-analytics-module">
+<span id="mixcoatl-analytics-server"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">server_analytics</span></tt> Module<a class="headerlink" href="#server-analytics-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<dl class="class">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics">
-<em class="property">class </em><tt class="descclassname">mixcoatl.analytics.server_analytics.</tt><tt class="descname">ServerAnalytics</tt><big>(</big><em>server_id=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="docutils">
-<dt>Server analytics represent the performance of an individual server over</dt>
-<dd>a specified period of time</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>server_id</strong> (<em>int.</em>) &#8211; The server represented in the analytics</li>
-<li><strong>interval</strong> (<em>int.</em>) &#8211; The interval in minutes for the requested data points</li>
-<li><strong>period_start</strong> &#8211; The start time in UNIX milliseconds for the first datapoint</li>
-<li><strong>period_start</strong> &#8211; int.</li>
-<li><strong>period_end</strong> &#8211; The end time in UNIX milliseconds for the last datapoint</li>
-<li><strong>period_end</strong> &#8211; int.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.PATH">
-<tt class="descname">PATH</tt><em class="property"> = 'analytics/ServerAnalytics'</em><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.COLLECTION_NAME">
-<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'analytics'</em><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.PRIMARY_KEY">
-<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'server_id'</em><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.server_id">
-<tt class="descname">server_id</tt><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics.server_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.server_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> The unique enStratus id for the server in the request</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.data_points">
-<tt class="descname">data_points</tt><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics.data_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.data_points" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>list</cite> Data points representing a snapshot of the server&#8217;s state
-at a given interval point</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.period_start">
-<tt class="descname">period_start</tt><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics.period_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.period_start" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> The actual date and time when the data set begins</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.period_end">
-<tt class="descname">period_end</tt><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics.period_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.period_end" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> The date and time for the last data point in the response</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.interval_in_minutes">
-<tt class="descname">interval_in_minutes</tt><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics.interval_in_minutes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.interval_in_minutes" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> The interval between data points in minutes delivered in this response</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalytics.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>server_id</em>, <em>data_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalytics.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all analytics for <cite>server_id</cite></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>server_id</strong> (<em>int.</em>) &#8211; The server represented in the analytics</li>
-<li><strong>data_only</strong> (<em>bool.</em>) &#8211; Return only the datapoints</li>
-<li><strong>interval</strong> (<em>int.</em>) &#8211; The interval in minutes for the requested data points</li>
-<li><strong>period_start</strong> &#8211; The start time in UNIX milliseconds for the first datapoint</li>
-<li><strong>period_start</strong> &#8211; int.</li>
-<li><strong>period_end</strong> &#8211; The end time in UNIX milliseconds for the last datapoint</li>
-<li><strong>period_end</strong> &#8211; int.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.analytics.server_analytics.ServerAnalytics" title="mixcoatl.analytics.server_analytics.ServerAnalytics"><tt class="xref py py-class docutils literal"><span class="pre">ServerAnalytics</span></tt></a> or <cite>list</cite> of <a class="reference internal" href="#mixcoatl.analytics.server_analytics.ServerAnalytics.data_points" title="mixcoatl.analytics.server_analytics.ServerAnalytics.data_points"><tt class="xref py py-attr docutils literal"><span class="pre">data_points</span></tt></a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="exception">
-<dt id="mixcoatl.analytics.server_analytics.ServerAnalyticsException">
-<em class="property">exception </em><tt class="descclassname">mixcoatl.analytics.server_analytics.</tt><tt class="descname">ServerAnalyticsException</tt><a class="reference internal" href="_modules/mixcoatl/analytics/server_analytics.html#ServerAnalyticsException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.server_analytics.ServerAnalyticsException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
-</dd></dl>
-
-</div>
-</div>
-<div class="section" id="module-mixcoatl.analytics.tier_analytics">
-<span id="tier-analytics-module"></span><span id="mixcoatl-analytics-tier"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tier_analytics</span></tt> Module<a class="headerlink" href="#module-mixcoatl.analytics.tier_analytics" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics">
-<em class="property">class </em><tt class="descclassname">mixcoatl.analytics.tier_analytics.</tt><tt class="descname">TierAnalytics</tt><big>(</big><em>tier_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.PATH">
-<tt class="descname">PATH</tt><em class="property"> = 'analytics/TierAnalytics'</em><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.COLLECTION_NAME">
-<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'analytics'</em><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.PRIMARY_KEY">
-<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'tier_id'</em><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.tier_id">
-<tt class="descname">tier_id</tt><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics.tier_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.tier_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.data_points">
-<tt class="descname">data_points</tt><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics.data_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.data_points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.period_start">
-<tt class="descname">period_start</tt><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics.period_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.period_start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.period_end">
-<tt class="descname">period_end</tt><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics.period_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.period_end" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.interval_in_minutes">
-<tt class="descname">interval_in_minutes</tt><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics.interval_in_minutes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.interval_in_minutes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="mixcoatl.analytics.tier_analytics.TierAnalytics.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>tier_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/analytics/tier_analytics.html#TierAnalytics.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.analytics.tier_analytics.TierAnalytics.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="tier-analytics-module">
+<span id="mixcoatl-analytics-tier"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tier_analytics</span></tt> Module<a class="headerlink" href="#tier-analytics-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -295,7 +128,7 @@ at a given interval point</p>
         <li class="right" >
           <a href="mixcoatl.admin.html" title="admin Package"
              >previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.8 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" >mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>

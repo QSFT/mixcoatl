@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>geography Package &mdash; mixcoatl 0.2.6 documentation</title>
+    <title>geography Package &mdash; mixcoatl 0.2.8 documentation</title>
     
     <link rel="stylesheet" href="_static/solar.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.6',
+        VERSION:     '0.2.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/clear-default-text.js"></script>
     <script type="text/javascript" src="_static/util-functions.js"></script>
-    <link rel="top" title="mixcoatl 0.2.6 documentation" href="index.html" />
+    <link rel="top" title="mixcoatl 0.2.8 documentation" href="index.html" />
     <link rel="up" title="mixcoatl Package" href="mixcoatl.html" />
     <link rel="next" title="infrastructure Package" href="mixcoatl.infrastructure.html" />
     <link rel="prev" title="exceptions Package" href="mixcoatl.exceptions.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="mixcoatl.exceptions.html" title="exceptions Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.8 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" accesskey="U">mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>
@@ -56,9 +56,9 @@
   <ul>
 <li><a class="reference internal" href="#">geography Package</a><ul>
 <li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">geography</span></tt> Package</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.geography.cloud"><tt class="docutils literal"><span class="pre">cloud</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.geography.datacenter"><tt class="docutils literal"><span class="pre">datacenter</span></tt> Module</a></li>
-<li><a class="reference internal" href="#module-mixcoatl.geography.region"><tt class="docutils literal"><span class="pre">region</span></tt> Module</a></li>
+<li><a class="reference internal" href="#cloud-module"><tt class="docutils literal"><span class="pre">cloud</span></tt> Module</a></li>
+<li><a class="reference internal" href="#datacenter-module"><tt class="docutils literal"><span class="pre">datacenter</span></tt> Module</a></li>
+<li><a class="reference internal" href="#region-module"><tt class="docutils literal"><span class="pre">region</span></tt> Module</a></li>
 </ul>
 </li>
 </ul>
@@ -100,345 +100,14 @@
 <div class="section" id="id1">
 <h2><tt class="xref py py-mod docutils literal"><span class="pre">geography</span></tt> Package<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-mixcoatl.geography"></span></div>
-<div class="section" id="module-mixcoatl.geography.cloud">
-<span id="cloud-module"></span><span id="mixcoatl-cloud"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cloud</span></tt> Module<a class="headerlink" href="#module-mixcoatl.geography.cloud" title="Permalink to this headline">¶</a></h2>
-<p>Implements the enStratus Cloud API</p>
-<dl class="class">
-<dt id="mixcoatl.geography.cloud.Cloud">
-<em class="property">class </em><tt class="descclassname">mixcoatl.geography.cloud.</tt><tt class="descname">Cloud</tt><big>(</big><em>cloud_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.PATH">
-<tt class="descname">PATH</tt><em class="property"> = 'geography/Cloud'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.COLLECTION_NAME">
-<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'clouds'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.PRIMARY_KEY">
-<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'cloud_id'</em><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.cloud_id">
-<tt class="descname">cloud_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.cloud_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.cloud_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The unique enStratus id for this cloud</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.cloud_provider_console_url">
-<tt class="descname">cloud_provider_console_url</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.cloud_provider_console_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.cloud_provider_console_url" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - URL of the cloud provider&#8217;s own console</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.cloud_provider_logo_url">
-<tt class="descname">cloud_provider_logo_url</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.cloud_provider_logo_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.cloud_provider_logo_url" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus installation URL to this cloud&#8217;s logo</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.cloud_provider_name">
-<tt class="descname">cloud_provider_name</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.cloud_provider_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.cloud_provider_name" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The name of the vendor providing the cloud</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_account_number_label">
-<tt class="descname">compute_account_number_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_account_number_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_account_number_label" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus localized label key for the cloud&#8217;s user account number</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_access_key_label">
-<tt class="descname">compute_access_key_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_access_key_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_access_key_label" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus localized label key for the cloud&#8217;s API key</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_x509_cert_label">
-<tt class="descname">compute_x509_cert_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_x509_cert_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_x509_cert_label" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus localized label key for the cloud&#8217;s X509 certificate</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_x509_key_label">
-<tt class="descname">compute_x509_key_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_x509_key_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_x509_key_label" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus localized label key for the cloud&#8217;s X509 key</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_delegate">
-<tt class="descname">compute_delegate</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_delegate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_delegate" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - Dasein Cloud API Java class for interacting with this cloud</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_endpoint">
-<tt class="descname">compute_endpoint</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_endpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - Comma-separated list of cloud API endpoints</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.compute_secret_key_label">
-<tt class="descname">compute_secret_key_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.compute_secret_key_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.compute_secret_key_label" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus localized label key for the cloud&#8217;s API secret key</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.documentation_label">
-<tt class="descname">documentation_label</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.documentation_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.documentation_label" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - enStratus localized label key</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.name">
-<tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.name" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The enStratus name of the cloud</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.private_cloud">
-<tt class="descname">private_cloud</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.private_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.private_cloud" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>bool</cite> - If the cloud is a private cloud or not</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.cloud.Cloud.status">
-<tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.status" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - Status of the cloud in enStratus</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="mixcoatl.geography.cloud.Cloud.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/cloud.html#Cloud.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.cloud.Cloud.all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all clouds</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.geography.cloud.Cloud.cloud_id" title="mixcoatl.geography.cloud.Cloud.cloud_id"><tt class="xref py py-attr docutils literal"><span class="pre">cloud_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.geography.cloud.Cloud" title="mixcoatl.geography.cloud.Cloud"><tt class="xref py py-class docutils literal"><span class="pre">Cloud</span></tt></a></li>
-<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.geography.cloud.Cloud" title="mixcoatl.geography.cloud.Cloud"><tt class="xref py py-class docutils literal"><span class="pre">Cloud</span></tt></a> or <a class="reference internal" href="#mixcoatl.geography.cloud.Cloud.cloud_id" title="mixcoatl.geography.cloud.Cloud.cloud_id"><tt class="xref py py-attr docutils literal"><span class="pre">cloud_id</span></tt></a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="cloud-module">
+<span id="mixcoatl-cloud"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cloud</span></tt> Module<a class="headerlink" href="#cloud-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-mixcoatl.geography.datacenter">
-<span id="datacenter-module"></span><span id="mixcoatl-datacenter"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">datacenter</span></tt> Module<a class="headerlink" href="#module-mixcoatl.geography.datacenter" title="Permalink to this headline">¶</a></h2>
-<p>Implements the enStratus DataCenter API</p>
-<dl class="class">
-<dt id="mixcoatl.geography.datacenter.DataCenter">
-<em class="property">class </em><tt class="descclassname">mixcoatl.geography.datacenter.</tt><tt class="descname">DataCenter</tt><big>(</big><em>data_center_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<dl class="docutils">
-<dt>A data center is a part of a regional infrastructure that has some ability</dt>
-<dd>to share resources with other data centers in the region</dd>
-</dl>
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.PATH">
-<tt class="descname">PATH</tt><em class="property"> = 'geography/DataCenter'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.COLLECTION_NAME">
-<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'dataCenters'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.PRIMARY_KEY">
-<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'data_center_id'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.data_center_id">
-<tt class="descname">data_center_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.data_center_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.data_center_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The unique enStratus id for this data center</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.description">
-<tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.description" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - A description of the data center</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.name">
-<tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.name" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - A user-friendly name for the data center</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.provider_id">
-<tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for the data center</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.region">
-<tt class="descname">region</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.region" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> = The region to which this data center belongs</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.datacenter.DataCenter.status">
-<tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.status" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The current status of the data center</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="mixcoatl.geography.datacenter.DataCenter.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenter.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all data centers</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>region_id</strong> (<em>int.</em>) &#8211; Required. The region to query against</li>
-<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter.data_center_id" title="mixcoatl.geography.datacenter.DataCenter.data_center_id"><tt class="xref py py-attr docutils literal"><span class="pre">data_center_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter" title="mixcoatl.geography.datacenter.DataCenter"><tt class="xref py py-class docutils literal"><span class="pre">DataCenter</span></tt></a></li>
-<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter" title="mixcoatl.geography.datacenter.DataCenter"><tt class="xref py py-class docutils literal"><span class="pre">DataCenter</span></tt></a> or <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter.data_center_id" title="mixcoatl.geography.datacenter.DataCenter.data_center_id"><tt class="xref py py-attr docutils literal"><span class="pre">data_center_id</span></tt></a></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenterException" title="mixcoatl.geography.datacenter.DataCenterException"><tt class="xref py py-class docutils literal"><span class="pre">DataCenterException</span></tt></a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="exception">
-<dt id="mixcoatl.geography.datacenter.DataCenterException">
-<em class="property">exception </em><tt class="descclassname">mixcoatl.geography.datacenter.</tt><tt class="descname">DataCenterException</tt><a class="reference internal" href="_modules/mixcoatl/geography/datacenter.html#DataCenterException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenterException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
-</dd></dl>
-
+<div class="section" id="datacenter-module">
+<span id="mixcoatl-datacenter"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">datacenter</span></tt> Module<a class="headerlink" href="#datacenter-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-mixcoatl.geography.region">
-<span id="region-module"></span><span id="mixcoatl-region"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">region</span></tt> Module<a class="headerlink" href="#module-mixcoatl.geography.region" title="Permalink to this headline">¶</a></h2>
-<p>Implements the enStratus Region API</p>
-<dl class="class">
-<dt id="mixcoatl.geography.region.Region">
-<em class="property">class </em><tt class="descclassname">mixcoatl.geography.region.</tt><tt class="descname">Region</tt><big>(</big><em>region_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="mixcoatl.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
-<p>A region is a logical sub-infrastructure within a cloud</p>
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.PATH">
-<tt class="descname">PATH</tt><em class="property"> = 'geography/Region'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.PATH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.COLLECTION_NAME">
-<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'regions'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.PRIMARY_KEY">
-<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'region_id'</em><a class="headerlink" href="#mixcoatl.geography.region.Region.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.region_id">
-<tt class="descname">region_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.region_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.region_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The unique enStratus id for this region</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.cloud">
-<tt class="descname">cloud</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.cloud" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The cloud to which this region belongs</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.customer">
-<tt class="descname">customer</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.customer" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The customer to whom this region belongs</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.jurisdiction">
-<tt class="descname">jurisdiction</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.jurisdiction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.jurisdiction" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The legal context in which the region operates</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.name">
-<tt class="descname">name</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.name" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The user-friendly name for the region</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.provider_id">
-<tt class="descname">provider_id</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.provider_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for the region</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.status">
-<tt class="descname">status</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.status" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The current status of the region</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mixcoatl.geography.region.Region.description">
-<tt class="descname">description</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.description" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The description of the region</p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="mixcoatl.geography.region.Region.all">
-<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/mixcoatl/geography/region.html#Region.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.Region.all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return all regions</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>account_id</strong> (<em>int.</em>) &#8211; Limit results to regions with the specified account</li>
-<li><strong>jurisdiction</strong> (<em>str.</em>) &#8211; Limit results to the specified jurisdiction</li>
-<li><strong>scope</strong> (<em>str.</em>) &#8211; Limit results to <cite>all</cite> (Default - cross-cloud)
-or <cite>account</cite> (cloud-specific)</li>
-<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.geography.region.Region.region_id" title="mixcoatl.geography.region.Region.region_id"><tt class="xref py py-attr docutils literal"><span class="pre">region_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.geography.region.Region" title="mixcoatl.geography.region.Region"><tt class="xref py py-class docutils literal"><span class="pre">Region</span></tt></a></li>
-<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.geography.region.Region" title="mixcoatl.geography.region.Region"><tt class="xref py py-class docutils literal"><span class="pre">Region</span></tt></a> or <a class="reference internal" href="#mixcoatl.geography.region.Region.region_id" title="mixcoatl.geography.region.Region.region_id"><tt class="xref py py-attr docutils literal"><span class="pre">region_id</span></tt></a></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.geography.region.RegionException" title="mixcoatl.geography.region.RegionException"><tt class="xref py py-class docutils literal"><span class="pre">RegionException</span></tt></a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="exception">
-<dt id="mixcoatl.geography.region.RegionException">
-<em class="property">exception </em><tt class="descclassname">mixcoatl.geography.region.</tt><tt class="descname">RegionException</tt><a class="reference internal" href="_modules/mixcoatl/geography/region.html#RegionException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.region.RegionException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
-</dd></dl>
-
+<div class="section" id="region-module">
+<span id="mixcoatl-region"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">region</span></tt> Module<a class="headerlink" href="#region-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -463,7 +132,7 @@ or <cite>account</cite> (cloud-specific)</li>
         <li class="right" >
           <a href="mixcoatl.exceptions.html" title="exceptions Package"
              >previous</a> |</li>
-        <li><a href="index.html">mixcoatl 0.2.6 documentation</a> &raquo;</li>
+        <li><a href="index.html">mixcoatl 0.2.8 documentation</a> &raquo;</li>
           <li><a href="mixcoatl.html" >mixcoatl Package</a> &raquo;</li> 
       </ul>
     </div>
