@@ -187,15 +187,14 @@ class User(Resource):
                   'billingCodes':[{'billingCodeId':self.billing_codes}]}]
 
         payload = {'addUser':camel_keys(parms)}
-        print payload
+        #print payload
 
         response=self.post(data=json.dumps(payload))
-        print response
-        #if self.last_error is None:
-        #    self.load()
-        #    return response
-        #else:
-        #    raise UserCreationException(self.last_error)
+        if self.last_error is None:
+            self.load()
+            return response
+        else:
+            raise UserCreationException(self.last_error)
 
     @classmethod
     def all(cls, keys_only=False, **kwargs):
