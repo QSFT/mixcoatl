@@ -6,6 +6,10 @@ Implements access to the enStratus User API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.utils import camelize, camel_keys
+import json
+import time
 
 class User(Resource):
     """A user within the enStratus environment"""
@@ -27,6 +31,11 @@ class User(Resource):
     def account(self):
         """`dict` The enStratus account"""
         return self.__account
+
+    @account.setter
+    def account(self, a):
+        # pylint: disable-msg=C0111,W0201
+        self.__account = a
 
     @lazy_property
     def account_user_id(self):
@@ -50,6 +59,11 @@ class User(Resource):
 
         """
         return self.__billing_codes
+
+    @billing_codes.setter
+    def billing_codes(self, b):
+        # pylint: disable-msg=C0111,W0201
+        self.__billing_codes = b
 
     @lazy_property
     def cloud_console_password(self):
@@ -83,20 +97,40 @@ class User(Resource):
         """
         return self.__email
 
+    @email.setter
+    def email(self, e):
+        # pylint: disable-msg=C0111,W0201
+        self.__email = e
+
     @lazy_property
     def family_name(self):
         """`str` The family name of the user"""
         return self.__family_name
+
+    @family_name.setter
+    def family_name(self, f):
+        # pylint: disable-msg=C0111,W0201
+        self.__family_name = f
 
     @lazy_property
     def given_name(self):
         """`str` The given name of the user"""
         return self.__given_name
 
+    @given_name.setter
+    def given_name(self, g):
+        # pylint: disable-msg=C0111,W0201
+        self.__given_name = g
+
     @lazy_property
     def groups(self):
         """`list` The group membership of this user idependent of any individual accounts"""
         return self.__groups
+
+    @groups.setter
+    def groups(self, g):
+        # pylint: disable-msg=C0111,W0201
+        self.__groups = g
 
     @lazy_property
     def has_cloud_api_access(self):
@@ -140,6 +174,28 @@ class User(Resource):
         """`str` The public key to grant the user access to Unix instances"""
         return self.__ssh_public_key
 
+    @required_attrs(['account', 'given_name', 'family_name', 'email', 'groups','billing_codes'])
+    def create(self):
+        """Creates a new user."""
+
+        parms = [{'givenName':self.given_name,
+                  'familyName': self.family_name,
+                  'account': self.account,
+                  'email': self.email,
+                  'groups': [{'groupId':self.groups}],
+                  'account': {'accountId':self.account},
+                  'billingCodes':[{'billingCodeId':self.billing_codes}]}]
+
+        payload = {'addUser':camel_keys(parms)}
+        #print payload
+
+        response=self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+            return response
+        else:
+            raise UserCreationException(self.last_error)
+
     @classmethod
     def all(cls, keys_only=False, **kwargs):
         """Return all users
@@ -171,3 +227,7 @@ class User(Resource):
             raise UserException(r.last_error)
 
 class UserException(BaseException): pass
+
+class UserCreationException(UserException):
+    """User Creation Exception"""
+    pass

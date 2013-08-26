@@ -9,12 +9,8 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import camelize, camel_keys
-from mixcoatl.infrastructure.snapshot import Snapshot
-from mixcoatl.infrastructure.snapshot import SnapshotException
-from mixcoatl.admin.job import Job
 
 import json
-import time
 
 class Role(Resource):
     """A role defines a common set of permissions that govern access into a given account"""
