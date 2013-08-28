@@ -192,7 +192,7 @@ class Network(Resource):
 
         :param callback: Optional callback to call with resulting :class:`Network`
         :type callback: func.
-        :returns: :class:`Network`
+        :returns: :class:`Job`
         :raises: :class:`NetworkException`
         """
 
