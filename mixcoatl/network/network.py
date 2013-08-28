@@ -214,6 +214,18 @@ class Network(Resource):
         else:
             raise NetworkException(self.last_error)
 
+    @required_attrs(['network_id'])
+    def destroy(self, reason='no reason provided'):
+        """Destroy network with reason :attr:`reason`
+
+        :param reason: The reason for terminating the server
+        :type reason: str.
+        :returns: bool -- Result of API call
+        """
+        p = self.PATH+"/"+str(self.network_id)
+        qopts = {'reason':reason}
+        return self.delete(p, params=qopts)
+
     @classmethod
     def all(cls, **kwargs):
         """List all networks in `region_id`
