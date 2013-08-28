@@ -67,6 +67,10 @@ class Network(Resource):
         """`list` - The enStratus groups that have ownership of this network"""
         return self.__owning_groups
 
+    @owning_groups.setter
+    def owning_groups(self, g):
+        self.__owning_groups = [{'group_id': g}]
+
     @lazy_property
     def cloud(self):
         """`dict` - The enStratus cloud account in which this network lives"""
@@ -164,6 +168,10 @@ class Network(Resource):
         """`list` - A list of NTP servers configured for this network."""
         return self.__ntp_servers
 
+    @ntp_servers.setter
+    def ntp_servers(self, n):
+        self.__ntp_servers = [n]
+
     @lazy_property
     def subnets(self):
         """`list` - The list of subnets associated with this network."""
@@ -174,31 +182,42 @@ class Network(Resource):
         """`list` - A list of DNS servers configured for this network."""
         return self.__dns_servers
 
-    @required_attrs(['budget', 'name', 'network_address', 'region'])
+    @dns_servers.setter
+    def dns_servers(self, d):
+        self.__dns_servers = [d]
+
+    @required_attrs(['budget', 'name', 'network_address', 'region', 'description'])
     def create(self, **kwargs):
         """Create a new network
 
-        :param label: Optional label to assign the network
-        :type label: str.
         :param callback: Optional callback to call with resulting :class:`Network`
         :type callback: func.
         :returns: :class:`Network`
         :raises: :class:`NetworkException`
         """
 
+        optional_attrs = ['owning_groups','ntp_servers', 'dns_servers', 'label']
         payload = {'add_network':[{
-            'budget': self.budget,
-            'name': self.name,
-            'network_address': self.network_address,
-            'region': self.region
-            }]}
+                   'budget': self.budget,
+                   'name': self.name,
+                   'network_address': self.network_address,
+                   'description': self.description,
+                   'region': self.region }]}
 
         if 'label' in kwargs:
             payload['add_network'][0]['label'] = kwargs['label']
 
         callback = kwargs.get('callback', None)
 
+        for oa in optional_attrs:
+            try:
+                if getattr(self, oa) is not None:
+                    payload['add_network'][0].update({oa:getattr(self, oa)})
+            except AttributeError:
+                pass
+
         self.post(self.PATH, data=json.dumps(camel_keys(payload)))
+        print(camel_keys(payload))
 
         if self.last_error is None:
             if callback is None:
