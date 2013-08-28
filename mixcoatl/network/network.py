@@ -217,19 +217,14 @@ class Network(Resource):
                 pass
 
         self.post(self.PATH, data=json.dumps(camel_keys(payload)))
-        print(camel_keys(payload))
 
         if self.last_error is None:
-            if callback is None:
-                return self
+            j = Job(self.current_job)
+            j.load()
+            if callback is not None:
+                callback(j)
             else:
-                if Job.wait_for(self.current_job) is True:
-                    j = Job(self.current_job)
-                    self.__network_id = j.message
-                    self.load()
-                    return self
-                else:
-                    raise NetworkException(j.last_error)
+                return j
         else:
             raise NetworkException(self.last_error)
 
