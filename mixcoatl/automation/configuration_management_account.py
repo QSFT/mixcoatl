@@ -63,6 +63,10 @@ class ConfigurationManagementAccount(Resource):
     def label(self):
         return self.__label
 
+    @lazy_property
+    def owning_groups(self):
+        return self.__owning_groups
+        
     @classmethod
     def all(cls, **kwargs):
         r = Resource(cls.PATH)
