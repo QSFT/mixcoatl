@@ -272,6 +272,16 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
+    @required_attrs(['server_id'])
+    def start(self, reason=None):
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        payload = {'start':[{}]}
+
+        if reason is not None:
+            payload['start'][0].update({'reason':reason})
+
+        return self.put(p, data=json.dumps(payload))
+
     # TODO: Refactor this a bit. We should be raising exceptions instead of 
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
