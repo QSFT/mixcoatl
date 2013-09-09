@@ -264,6 +264,12 @@ class Server(Resource):
 
     @required_attrs(['server_id'])
     def pause(self, reason=None):
+        """Pause the server instance with reason :attr:`reason`
+
+        :param reason: The reason for pausing the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
         p = '%s/%s' % (self.PATH, str(self.server_id))
         payload = {'pause':[{}]}
 
@@ -274,6 +280,12 @@ class Server(Resource):
 
     @required_attrs(['server_id'])
     def start(self, reason=None):
+        """Start the paused server instance with reason :attr:`reason`
+
+        :param reason: The reason for starting the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
         p = '%s/%s' % (self.PATH, str(self.server_id))
         payload = {'start':[{}]}
 
@@ -284,6 +296,12 @@ class Server(Resource):
 
     @required_attrs(['server_id'])
     def stop(self, reason=None):
+        """Stop the server instance with reason :attr:`reason`
+
+        :param reason: The reason for stopping the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
         p = '%s/%s' % (self.PATH, str(self.server_id))
         payload = {'stop':[{}]}
 
