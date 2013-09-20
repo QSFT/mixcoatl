@@ -174,6 +174,25 @@ class User(Resource):
         """`str` The public key to grant the user access to Unix instances"""
         return self.__ssh_public_key
 
+    @required_attrs(['user_id'])
+    def grant(self, account_id, group_id, billing_code):
+        """Grants the user access to the specified account. :attr:`reason`
+
+        :param account_id: Account ID of the account to grant access.
+        :type account_id: int.
+        :param group_id: Group ID the user will belong to.
+        :type group_id: int.
+        :param billing_code: Billing Code the user will use.
+        :type billing_code: int.
+        :returns: bool -- Result of API call
+        """
+        p = '%s/%s' % (self.PATH, str(self.user_id))
+        payload = {"grant":[{"account": {"accountId": account_id},
+                             "groups": [{"groupId": group_id}],
+                             "billingCodes":[{"billingCodeId":billing_code}]}]}
+
+        return self.put(p, data=json.dumps(payload))
+
     @required_attrs(['account', 'given_name', 'family_name', 'email', 'groups','billing_codes'])
     def create(self):
         """Creates a new user."""
