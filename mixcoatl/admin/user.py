@@ -175,21 +175,29 @@ class User(Resource):
         return self.__ssh_public_key
 
     @required_attrs(['user_id'])
-    def grant(self, account_id, group_id, billing_code):
+    def grant(self, account_id, groups, billing_codes):
         """Grants the user access to the specified account. :attr:`reason`
 
         :param account_id: Account ID of the account to grant access.
         :type account_id: int.
-        :param group_id: Group ID the user will belong to.
-        :type group_id: int.
-        :param billing_code: Billing Code the user will use.
-        :type billing_code: int.
+        :param groups: List of group ID the user will belong to.
+        :type groups: list.
+        :param billing_codes: List of billing code the user will use.
+        :type billing_codes: list.
         :returns: bool -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.user_id))
+
+        group_list = []
+        billing_code_list = []
+        for group in groups:
+            group_list.append({"groupId": group})
+        for billing_code in billing_codes:
+            billing_code_list.append({"billingCodeId": billing_code})
+
         payload = {"grant":[{"account": {"accountId": account_id},
-                             "groups": [{"groupId": group_id}],
-                             "billingCodes":[{"billingCodeId":billing_code}]}]}
+                             "groups": group_list,
+                             "billingCodes": billing_code_list}]}
 
         return self.put(p, data=json.dumps(payload))
 
