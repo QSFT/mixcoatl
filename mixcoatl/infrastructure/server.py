@@ -211,6 +211,10 @@ class Server(Resource):
     def terminate_after(self):
         """`str` - The time the server automatically shuts down."""
         return self.__terminate_after
+    
+    @terminate_after.setter
+    def terminate_after(self, t):
+	    self.__terminate_after = t
 
     @lazy_property
     def pause_after(self):
@@ -221,7 +225,7 @@ class Server(Resource):
     def environment(self):
         """`str` - The environment. Possibly related to configuration management."""
         return self.__environment
-
+       
     @property
     def keypair(self):
         """`str` - The keypair to assign
@@ -272,6 +276,12 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
+    @required_attrs(['server_id'])
+    def extend_terminate(self, extend):
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        qopts = {'terminateAfter':extend}
+        return self.delete(p, params=qopts)
+        
     # TODO: Refactor this a bit. We should be raising exceptions instead of 
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
