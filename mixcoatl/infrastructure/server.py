@@ -268,6 +268,12 @@ class Server(Resource):
 
     @required_attrs(['server_id'])
     def pause(self, reason=None):
+        """Pause the server instance with reason :attr:`reason`
+
+        :param reason: The reason for pausing the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
         p = '%s/%s' % (self.PATH, str(self.server_id))
         payload = {'pause':[{}]}
 
@@ -276,13 +282,44 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-	# TODO: extend could be set to 0 or negative number which would immediately terminate the server.
-	# Should we disallow/ignore any operation with extend < 1?
     @required_attrs(['server_id'])
     def extend_terminate(self, extend):
         p = '%s/%s' % (self.PATH, str(self.server_id))
         qopts = {'terminateAfter':extend}
         return self.delete(p, params=qopts)
+
+    @required_attrs(['server_id'])
+    def start(self, reason=None):
+        """Start the paused server instance with reason :attr:`reason`
+
+        :param reason: The reason for starting the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        payload = {'start':[{}]}
+
+        if reason is not None:
+            payload['start'][0].update({'reason':reason})
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['server_id'])
+    def stop(self, reason=None):
+        """Stop the server instance with reason :attr:`reason`
+
+        :param reason: The reason for stopping the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        payload = {'stop':[{}]}
+
+        if reason is not None:
+            payload['stop'][0].update({'reason':reason})
+
+        return self.put(p, data=json.dumps(payload))
+>>>>>>> master
 
     # TODO: Refactor this a bit. We should be raising exceptions instead of 
     # this madness of returning the last error. Makes no sense. I should have
