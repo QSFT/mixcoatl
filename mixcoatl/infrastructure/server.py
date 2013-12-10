@@ -211,7 +211,7 @@ class Server(Resource):
     def terminate_after(self):
         """`str` - The time the server automatically shuts down."""
         return self.__terminate_after
-    
+
     @terminate_after.setter
     def terminate_after(self, t):
 	    self.__terminate_after = t
@@ -225,7 +225,7 @@ class Server(Resource):
     def environment(self):
         """`str` - The environment. Possibly related to configuration management."""
         return self.__environment
-       
+
     @property
     def keypair(self):
         """`str` - The keypair to assign
