@@ -276,6 +276,8 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
+	# TODO: extend could be set to 0 or negative number which would immediately terminate the server.
+	# Should we disallow/ignore any operation with extend < 1?
     @required_attrs(['server_id'])
     def extend_terminate(self, extend):
         p = '%s/%s' % (self.PATH, str(self.server_id))
