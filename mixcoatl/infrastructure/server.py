@@ -283,7 +283,7 @@ class Server(Resource):
         p = '%s/%s' % (self.PATH, str(self.server_id))
         qopts = {'terminateAfter':extend}
         return self.delete(p, params=qopts)
-        
+
     # TODO: Refactor this a bit. We should be raising exceptions instead of 
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
