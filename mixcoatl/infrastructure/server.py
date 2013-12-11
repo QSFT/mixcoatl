@@ -319,7 +319,6 @@ class Server(Resource):
             payload['stop'][0].update({'reason':reason})
 
         return self.put(p, data=json.dumps(payload))
->>>>>>> master
 
     # TODO: Refactor this a bit. We should be raising exceptions instead of 
     # this madness of returning the last error. Makes no sense. I should have
