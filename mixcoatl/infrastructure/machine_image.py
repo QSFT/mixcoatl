@@ -172,6 +172,18 @@ class MachineImage(Resource):
     def budget(self, b):
         self.__budget = b
 
+    @required_attrs(['machine_image_id'])
+    def destroy(self, reason='no reason provided'):
+        """Deletes machine image with reason :attr:`reason`
+
+        :param reason: The reason for removing the image
+        :type reason: str.
+        :returns: bool -- Result of API call
+        """
+        p = self.PATH+"/"+str(self.machine_image_id)
+        qopts = {'reason':reason}
+        return self.delete(p, params=qopts)
+
     @required_attrs(['server_id', 'name', 'budget'])
     def create(self, callback=None):
         """Creates a machine image from server_id
