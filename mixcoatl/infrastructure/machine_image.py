@@ -30,6 +30,10 @@ class MachineImage(Resource):
         return self.__architecture
 
     @lazy_property
+    def legacy_owner_id(self):
+        return self.__legacy_owner_id
+
+    @lazy_property
     def cloud(self):
         """`dict` - The cloud in which this machine image is installed"""
         return self.__cloud
