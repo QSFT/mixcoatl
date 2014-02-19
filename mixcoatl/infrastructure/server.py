@@ -4,9 +4,7 @@ from mixcoatl.utils import camel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 
-import json
-import time
-
+import json, sys, time
 
 class Server(Resource):
     """A server is a virtual machine running within a data center."""
@@ -66,6 +64,27 @@ class Server(Resource):
     @data_center.setter
     def data_center(self, d):
         self.__data_center = {u'data_center_id': d}
+
+    @lazy_property
+    def cmAccount(self):
+        return self.__cmAccount
+
+    @cmAccount.setter
+    def cm_account_id(self, c):
+        self.__cmAccount = {u'cmAccountId': c}
+
+    @lazy_property
+    def cm_scripts(self):
+        return self.__cm_scripts
+
+    @cm_scripts.setter
+    def cm_scripts(self, c):
+    	s = c.split(",")
+    	sc = []
+    	for cm in s:
+    		sc.append({u'sharedScriptCode': cm})
+
+        self.__cm_scripts = sc
 
     @lazy_property
     def description(self):
@@ -343,7 +362,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan','firewalls', 'keypair', 'label']
+        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'cm_scripts']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
@@ -354,16 +373,21 @@ class Server(Resource):
                         'machineImage': camel_keys(self.machine_image),
                         'description': self.description,
                         'name': self.name,
-                        'vlan': camel_keys(self.vlan),
                         'dataCenter': camel_keys(self.data_center)
                     }]}
 
         for oa in optional_attrs:
-            try:
-                if getattr(self, oa) is not None:
-                    payload['launch'][0].update(camel_keys({oa:getattr(self, oa)}))
-            except AttributeError:
-                pass
+			try:
+				if getattr(self, oa) is not None:
+					if oa == 'cm_scripts':
+						payload['launch'][0].update({'scripts':getattr(self, oa)})
+					else:
+						payload['launch'][0].update({oa:getattr(self, oa)})
+			except AttributeError:
+				pass
+
+        #print json.dumps(payload)
+        #sys.exit(1)
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
