@@ -87,6 +87,19 @@ class Server(Resource):
         self.__cm_scripts = sc
 
     @lazy_property
+    def p_scripts(self):
+        return self.__p_scripts
+
+    @p_scripts.setter
+    def p_scripts(self, c):
+    	s = c.split(",")
+    	p = []
+    	for cm in s:
+    		p.append({'sharedPersonalityCode': cm})
+
+        self.__p_scripts = p
+
+    @lazy_property
     def description(self):
         """The description of the server"""
         return self.__description
@@ -362,7 +375,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'cm_scripts']
+        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'cm_scripts', 'p_scripts']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
@@ -381,13 +394,12 @@ class Server(Resource):
 				if getattr(self, oa) is not None:
 					if oa == 'cm_scripts':
 						payload['launch'][0].update({'scripts':getattr(self, oa)})
+					elif oa == 'p_scripts':
+						payload['launch'][0].update({'personalities':getattr(self, oa)})
 					else:
 						payload['launch'][0].update({oa:getattr(self, oa)})
 			except AttributeError:
 				pass
-
-        #print json.dumps(payload)
-        #sys.exit(1)
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
