@@ -176,6 +176,11 @@ class Server(Resource):
         return self.__public_ip_address
 
     @lazy_property
+    def public_ip_addresses(self):
+        """`list` - The list of public ip addresses of the server."""
+        return self.__public_ip_addresses
+
+    @lazy_property
     def region(self):
         """`dict` - The region where the server is located"""
         return self.__region
