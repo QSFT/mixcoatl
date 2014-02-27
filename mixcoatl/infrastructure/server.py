@@ -177,7 +177,7 @@ class Server(Resource):
 
     @lazy_property
     def public_ip_addresses(self):
-        """`str` - The public ip address of the server."""
+        """`list` - The list of public ip addresses of the server."""
         return self.__public_ip_addresses
 
     @lazy_property

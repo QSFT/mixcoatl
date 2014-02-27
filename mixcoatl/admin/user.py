@@ -141,8 +141,10 @@ class User(Resource):
     def has_cloud_console_access(self):
         """`bool` Indicates that the user has access to the underlying cloud console (i.e. AWS IAM)"""
         return self.__has_cloud_console_access
+
     @lazy_property
     def legacy_user_id(self):
+        """`int` The legacy user id"""
         return self.__legacy_user_id
 
     @lazy_property
