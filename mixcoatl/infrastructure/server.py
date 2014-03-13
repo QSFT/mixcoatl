@@ -441,7 +441,7 @@ class Server(Resource):
                 return self
 
     @classmethod
-    def all(cls):
+    def all(cls, active_only = 'true', **kwargs):
         """Get a list of all known servers
 
         >>> Server.all()
@@ -452,7 +452,9 @@ class Server(Resource):
         """
         r = Resource(cls.PATH)
         r.request_details = 'basic'
-        s = r.get()
+        params = {}
+    	params['activeOnly'] = active_only
+        s = r.get(params=params)
         if r.last_error is None:
             servers = [cls(server['serverId']) for server in s[cls.COLLECTION_NAME]]
             return servers
