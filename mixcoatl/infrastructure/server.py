@@ -28,11 +28,6 @@ class Server(Resource):
         return self.__agent_version
 
     @lazy_property
-    def environment(self):
-        """`int` - The environment of the server."""
-        return self.__environment
-
-    @lazy_property
     def cloud(self):
         """`dict` - The cloud provided where the instance is located."""
         return self.__cloud
@@ -68,6 +63,14 @@ class Server(Resource):
     @lazy_property
     def cmAccount(self):
         return self.__cmAccount
+
+    @lazy_property
+    def environment(self):
+        return self.__environment
+
+    @environment.setter
+    def environment(self, c):
+        self.__environment = {u'sharedEnvironmentCode': c}
 
     @cmAccount.setter
     def cm_account_id(self, c):
@@ -258,10 +261,7 @@ class Server(Resource):
         """`str` - The time the server automatically pauses."""
         return self.__pause_after
 
-    @lazy_property
-    def environment(self):
-        """`str` - The environment. Possibly related to configuration management."""
-        return self.__environment
+
 
     @property
     def keypair(self):
@@ -357,7 +357,7 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-    # TODO: Refactor this a bit. We should be raising exceptions instead of 
+    # TODO: Refactor this a bit. We should be raising exceptions instead of
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
     @required_attrs(['provider_product_id', 'machine_image', 'description',
@@ -380,7 +380,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'cm_scripts', 'p_scripts']
+        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
