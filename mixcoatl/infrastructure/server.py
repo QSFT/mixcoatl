@@ -28,11 +28,6 @@ class Server(Resource):
         return self.__agent_version
 
     @lazy_property
-    def environment(self):
-        """`int` - The environment of the server."""
-        return self.__environment
-
-    @lazy_property
     def cloud(self):
         """`dict` - The cloud provided where the instance is located."""
         return self.__cloud
@@ -72,6 +67,14 @@ class Server(Resource):
     @cmAccount.setter
     def cm_account_id(self, c):
         self.__cmAccount = {u'cmAccountId': c}
+
+    @lazy_property
+    def environment(self):
+        return self.__environment
+
+    @environment.setter
+    def environment(self, c):
+        self.__environment = {u'sharedEnvironmentCode': c}
 
     @lazy_property
     def cm_scripts(self):
@@ -258,11 +261,6 @@ class Server(Resource):
         """`str` - The time the server automatically pauses."""
         return self.__pause_after
 
-    @lazy_property
-    def environment(self):
-        """`str` - The environment. Possibly related to configuration management."""
-        return self.__environment
-
     @property
     def keypair(self):
         """`str` - The keypair to assign
@@ -380,7 +378,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'cm_scripts', 'p_scripts']
+        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
@@ -405,6 +403,9 @@ class Server(Resource):
 						payload['launch'][0].update({oa:getattr(self, oa)})
 			except AttributeError:
 				pass
+
+		print payload
+		sys.exit(1)
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
