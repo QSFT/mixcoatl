@@ -64,10 +64,6 @@ class Server(Resource):
     def cmAccount(self):
         return self.__cmAccount
 
-    @cmAccount.setter
-    def cm_account_id(self, c):
-        self.__cmAccount = {u'cmAccountId': c}
-
     @lazy_property
     def environment(self):
         return self.__environment
@@ -75,6 +71,10 @@ class Server(Resource):
     @environment.setter
     def environment(self, c):
         self.__environment = {u'sharedEnvironmentCode': c}
+
+    @cmAccount.setter
+    def cm_account_id(self, c):
+        self.__cmAccount = {u'cmAccountId': c}
 
     @lazy_property
     def cm_scripts(self):
@@ -261,6 +261,8 @@ class Server(Resource):
         """`str` - The time the server automatically pauses."""
         return self.__pause_after
 
+
+
     @property
     def keypair(self):
         """`str` - The keypair to assign
@@ -355,7 +357,7 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-    # TODO: Refactor this a bit. We should be raising exceptions instead of 
+    # TODO: Refactor this a bit. We should be raising exceptions instead of
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
     @required_attrs(['provider_product_id', 'machine_image', 'description',
@@ -403,9 +405,6 @@ class Server(Resource):
 						payload['launch'][0].update({oa:getattr(self, oa)})
 			except AttributeError:
 				pass
-
-		print payload
-		sys.exit(1)
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
