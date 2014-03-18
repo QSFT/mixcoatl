@@ -20,8 +20,7 @@ class Environment(Resource):
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
-            r.request_details = 'basic'
-
+	        r.request_details = 'basic'
 		params = {'cmAccountId':cmAccountId}
 		x = r.get(params=params)
 		if r.last_error is None:
