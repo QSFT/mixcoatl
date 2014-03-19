@@ -402,14 +402,12 @@ class Server(Resource):
 					elif oa == 'p_scripts':
 						payload['launch'][0].update({'personalities':getattr(self, oa)})
 					elif oa == 'volumeConfiguration':
-						payload['launch'][0].update({'volumeConfiguration': [{u'raidlevel':'RAID0', u'volumecount':1, u'volumesize':2}]})
+						payload['launch'][0].update({'volumeConfiguration':{u'raidlevel':'RAID0', u'volumeCount':1, u'volumeSize':2, u'fileSystem':'ext3', u'mountPoint':'/mnt/data'}})
 					else:
 						payload['launch'][0].update({oa:getattr(self, oa)})
 			except AttributeError:
 				pass
 
-        print json.dumps(payload)
-        #sys.exit(1)
         self.post(data=json.dumps(payload))
         if self.last_error is None:
             if callback is not None:
