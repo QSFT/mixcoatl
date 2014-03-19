@@ -380,7 +380,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts']
+        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
@@ -401,6 +401,8 @@ class Server(Resource):
 						payload['launch'][0].update({'scripts':getattr(self, oa)})
 					elif oa == 'p_scripts':
 						payload['launch'][0].update({'personalities':getattr(self, oa)})
+					elif oa == 'volumeConfiguration':
+						payload['launch'][0].update({'volumeConfiguration':{u'raidlevel':'RAID0', u'volumeCount':1, u'volumeSize':2, u'fileSystem':'ext3', u'mountPoint':'/mnt/data'}})
 					else:
 						payload['launch'][0].update({oa:getattr(self, oa)})
 			except AttributeError:
