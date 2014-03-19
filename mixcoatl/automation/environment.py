@@ -17,16 +17,12 @@ class Environment(Resource):
     @classmethod
     def all(cls, cmAccountId, **kwargs):
         r = Resource(cls.PATH)
-        if 'details' in kwargs:
-            r.request_details = kwargs['details']
+        r.request_details = 'basic'
+        params = {'cmAccountId':cmAccountId}
+        x = r.get(params=params)
+        if r.last_error is None:
+        	return x[cls.COLLECTION_NAME]
         else:
-            r.request_details = 'basic'
-
-		params = {'cmAccountId':cmAccountId}
-		x = r.get(params=params)
-		if r.last_error is None:
-			return x[cls.COLLECTION_NAME]
-		else:
-			return r.last_error
+        	return r.last_error
 
 class EnvironmentException(BaseException): pass
