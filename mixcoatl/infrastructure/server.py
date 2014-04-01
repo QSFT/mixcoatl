@@ -395,18 +395,20 @@ class Server(Resource):
                     }]}
 
         for oa in optional_attrs:
-			try:
-				if getattr(self, oa) is not None:
-					if oa == 'cm_scripts':
-						payload['launch'][0].update({'scripts':getattr(self, oa)})
-					elif oa == 'p_scripts':
-						payload['launch'][0].update({'personalities':getattr(self, oa)})
-					elif oa == 'volumeConfiguration':
-						payload['launch'][0].update({'volumeConfiguration':{u'raidlevel':'RAID0', u'volumeCount':1, u'volumeSize':2, u'fileSystem':'ext3', u'mountPoint':'/mnt/data'}})
-					else:
-						payload['launch'][0].update({oa:getattr(self, oa)})
-			except AttributeError:
-				pass
+            try:
+                if getattr(self, oa) is not None:
+                    if oa == 'cm_scripts':
+                        payload['launch'][0].update({'scripts':getattr(self, oa)})
+                    elif oa == 'p_scripts':
+                        payload['launch'][0].update({'personalities':getattr(self, oa)})
+                    elif oa == 'volumeConfiguration':
+                        payload['launch'][0].update({'volumeConfiguration':{u'raidlevel':'RAID0', u'volumeCount':1, u'volumeSize':2, u'fileSystem':'ext3', u'mountPoint':'/mnt/data'}})
+                    elif oa == 'vlan':
+                        payload['launch'][0].update({'vlan':camel_keys(getattr(self, oa))})
+                    else:
+                        payload['launch'][0].update({oa:getattr(self, oa)})
+            except AttributeError:
+                pass
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
