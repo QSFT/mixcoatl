@@ -156,6 +156,7 @@ class Account(Resource):
                                'apiKeySecret': api_key_secret }}}}
         self.put(p, data=json.dumps(payload))
         if self.last_error is None:
+            self.load()
             return self.cloud_subscription['cloud_subscription_id']
         else:
             raise AssignCloudException(self.last_error)
