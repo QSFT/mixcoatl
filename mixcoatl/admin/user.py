@@ -143,6 +143,11 @@ class User(Resource):
         return self.__has_cloud_console_access
 
     @lazy_property
+    def legacy_user_id(self):
+        """`int` The legacy user id"""
+        return self.__legacy_user_id
+
+    @lazy_property
     def notifications_targets(self):
         """`dict` The various targets configured for delivery of notifications"""
         return self.__notification_targets

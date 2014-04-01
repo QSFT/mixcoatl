@@ -4,9 +4,7 @@ from mixcoatl.utils import camel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 
-import json
-import time
-
+import json, sys, time
 
 class Server(Resource):
     """A server is a virtual machine running within a data center."""
@@ -28,11 +26,6 @@ class Server(Resource):
     def agent_version(self):
         """`int` - The version of the enStratus agent if installed."""
         return self.__agent_version
-
-    @lazy_property
-    def environment(self):
-        """`int` - The environment of the server."""
-        return self.__environment
 
     @lazy_property
     def cloud(self):
@@ -66,6 +59,48 @@ class Server(Resource):
     @data_center.setter
     def data_center(self, d):
         self.__data_center = {u'data_center_id': d}
+
+    @lazy_property
+    def cmAccount(self):
+        return self.__cmAccount
+
+    @lazy_property
+    def environment(self):
+        return self.__environment
+
+    @environment.setter
+    def environment(self, c):
+        self.__environment = {u'sharedEnvironmentCode': c}
+
+    @cmAccount.setter
+    def cm_account_id(self, c):
+        self.__cmAccount = {u'cmAccountId': c}
+
+    @lazy_property
+    def cm_scripts(self):
+        return self.__cm_scripts
+
+    @cm_scripts.setter
+    def cm_scripts(self, c):
+    	s = c.split(",")
+    	sc = []
+    	for cm in s:
+    		sc.append({u'sharedScriptCode': cm})
+
+        self.__cm_scripts = sc
+
+    @lazy_property
+    def p_scripts(self):
+        return self.__p_scripts
+
+    @p_scripts.setter
+    def p_scripts(self, c):
+    	s = c.split(",")
+    	p = []
+    	for cm in s:
+    		p.append({'sharedPersonalityCode': cm})
+
+        self.__p_scripts = p
 
     @lazy_property
     def description(self):
@@ -144,6 +179,11 @@ class Server(Resource):
         return self.__public_ip_address
 
     @lazy_property
+    def public_ip_addresses(self):
+        """`list` - The list of public ip addresses of the server."""
+        return self.__public_ip_addresses
+
+    @lazy_property
     def region(self):
         """`dict` - The region where the server is located"""
         return self.__region
@@ -212,15 +252,16 @@ class Server(Resource):
         """`str` - The time the server automatically shuts down."""
         return self.__terminate_after
 
+    @terminate_after.setter
+    def terminate_after(self, t):
+	    self.__terminate_after = t
+
     @lazy_property
     def pause_after(self):
         """`str` - The time the server automatically pauses."""
         return self.__pause_after
 
-    @lazy_property
-    def environment(self):
-        """`str` - The environment. Possibly related to configuration management."""
-        return self.__environment
+
 
     @property
     def keypair(self):
@@ -279,6 +320,12 @@ class Server(Resource):
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
+    def extend_terminate(self, extend):
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        qopts = {'terminateAfter':extend}
+        return self.delete(p, params=qopts)
+
+    @required_attrs(['server_id'])
     def start(self, reason=None):
         """Start the paused server instance with reason :attr:`reason`
 
@@ -310,7 +357,7 @@ class Server(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-    # TODO: Refactor this a bit. We should be raising exceptions instead of 
+    # TODO: Refactor this a bit. We should be raising exceptions instead of
     # this madness of returning the last error. Makes no sense. I should have
     # never done it.
     @required_attrs(['provider_product_id', 'machine_image', 'description',
@@ -333,7 +380,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan','firewalls', 'keypair', 'label']
+        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
@@ -344,16 +391,22 @@ class Server(Resource):
                         'machineImage': camel_keys(self.machine_image),
                         'description': self.description,
                         'name': self.name,
-                        'vlan': camel_keys(self.vlan),
                         'dataCenter': camel_keys(self.data_center)
                     }]}
 
         for oa in optional_attrs:
-            try:
-                if getattr(self, oa) is not None:
-                    payload['launch'][0].update(camel_keys({oa:getattr(self, oa)}))
-            except AttributeError:
-                pass
+			try:
+				if getattr(self, oa) is not None:
+					if oa == 'cm_scripts':
+						payload['launch'][0].update({'scripts':getattr(self, oa)})
+					elif oa == 'p_scripts':
+						payload['launch'][0].update({'personalities':getattr(self, oa)})
+					elif oa == 'volumeConfiguration':
+						payload['launch'][0].update({'volumeConfiguration':{u'raidlevel':'RAID0', u'volumeCount':1, u'volumeSize':2, u'fileSystem':'ext3', u'mountPoint':'/mnt/data'}})
+					else:
+						payload['launch'][0].update({oa:getattr(self, oa)})
+			except AttributeError:
+				pass
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
@@ -395,7 +448,7 @@ class Server(Resource):
                 return self
 
     @classmethod
-    def all(cls):
+    def all(cls, active_only = 'true', **kwargs):
         """Get a list of all known servers
 
         >>> Server.all()
@@ -406,7 +459,9 @@ class Server(Resource):
         """
         r = Resource(cls.PATH)
         r.request_details = 'basic'
-        s = r.get()
+        params = {}
+    	params['activeOnly'] = active_only
+        s = r.get(params=params)
         if r.last_error is None:
             servers = [cls(server['serverId']) for server in s[cls.COLLECTION_NAME]]
             return servers

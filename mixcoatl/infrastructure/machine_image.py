@@ -1,5 +1,8 @@
 from mixcoatl.resource import Resource
+from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
+
+import json
 
 # TODO: certain images cause weird redirect
 # m = MachineImage(284555) redirect loop
@@ -25,6 +28,10 @@ class MachineImage(Resource):
     def architecture(self):
         """`str` - The underlying CPU architecture of the virtual machine in question"""
         return self.__architecture
+
+    @lazy_property
+    def legacy_owner_id(self):
+        return self.__legacy_owner_id
 
     @lazy_property
     def cloud(self):
@@ -55,14 +62,22 @@ class MachineImage(Resource):
         return self.__budget
 
     @lazy_property
+    def name(self):
+        """`str` - The user friendly name for the machine image"""
+        return self.__name
+
+    @name.setter
+    def name(self, n):
+        self.__name = n
+
+    @lazy_property
     def description(self):
         """`str` - The description of the machine image established in enStratus"""
         return self.__description
 
-    @lazy_property
-    def name(self):
-        """`str` - The user friendly name for the machine image"""
-        return self.__name
+    @description.setter
+    def description(self, d):
+        self.__description = d
 
     @lazy_property
     def owning_account(self):
@@ -152,6 +167,57 @@ class MachineImage(Resource):
     def agent_version(self):
         """`int` - The version of the enStratus agent if installed on the machine image"""
         return self.__agent_version
+
+    @lazy_property
+    def budget(self):
+        return self.__budget
+
+    @budget.setter
+    def budget(self, b):
+        self.__budget = b
+
+    @required_attrs(['machine_image_id'])
+    def destroy(self, reason='no reason provided'):
+        """Deletes machine image with reason :attr:`reason`
+
+        :param reason: The reason for removing the image
+        :type reason: str.
+        :returns: bool -- Result of API call
+        """
+        p = self.PATH+"/"+str(self.machine_image_id)
+        qopts = {'reason':reason}
+        return self.delete(p, params=qopts)
+
+    @required_attrs(['server_id', 'name', 'budget'])
+    def create(self, callback=None):
+        """Creates a machine image from server_id
+
+        >>> def cb(j): print(j)
+        >>> m = MachineImage()
+        >>> m.server_id = 12345
+        >>> m.name = 'image-1-test'
+        >>> m.budget = 12345
+        >>> m.create(callback=cb)
+        
+        :returns: int -- The job id of the create request
+        """
+
+        payload = {'imageServer':
+                    [{
+                        'budget': self.budget,
+                        'description': "Created as a test",
+                        'name': self.name,
+                        'server': {"serverId":self.server_id}
+                    }]}
+
+        self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            if callback is not None:
+                callback(self.current_job)
+            else:
+                return self.current_job
+        else:
+            raise ServerLaunchException(self.last_error)
 
     @classmethod
     def all(cls, region_id, **kwargs):

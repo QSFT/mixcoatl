@@ -35,6 +35,10 @@ class Network(Resource):
         """`str` - A color label assigned to this network"""
         return self.__label
 
+    @lazy_property
+    def data_center(self):
+        return self.__data_center
+
     @label.setter
     def label(self, l):
         self.__label = l
