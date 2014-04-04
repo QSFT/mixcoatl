@@ -6,6 +6,9 @@ Implements access to the enStratus Billingcode API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
+
+import json
 
 class BillingCode(Resource):
     """A billing code is a budget item with optional hard and soft quotas
@@ -44,15 +47,27 @@ class BillingCode(Resource):
         """`str` - User-friendly description of this code"""
         return self.__description
 
+    @description.setter
+    def description(self, d):
+        self.__description = d
+
     @lazy_property
     def finance_code(self):
         """`str` - The alphanumeric identifier of this billing code"""
         return self.__finance_code
+    
+    @finance_code.setter
+    def finance_code(self, f):
+        self.__finance_code = f
 
     @lazy_property
     def name(self):
         """`str` - User-friendly name for this billing code"""
         return self.__name
+
+    @name.setter
+    def name(self, n):
+        self.__name = n
 
     @lazy_property
     def projected_usage(self):
@@ -69,10 +84,18 @@ class BillingCode(Resource):
         """`dict` - Cutoff point where no further resources can be billed to this code"""
         return self.__hard_quota
 
+    @hard_quota.setter
+    def hard_quota(self, h):
+        self.__hard_quota = h
+
     @lazy_property
     def soft_quota(self):
         """`dict` - Point where budget alerts will be triggered for this billing code"""
         return self.__soft_quota
+
+    @soft_quota.setter
+    def soft_quota(self, s):
+        self.__soft_quota = s
 
     @classmethod
     def all(cls, keys_only = False, **kwargs):
@@ -104,4 +127,22 @@ class BillingCode(Resource):
         else:
             raise BillingCodeException(r.last_error)
 
+    @required_attrs(['soft_quota','hard_quota', 'name', 'finance_code', 'description'])
+    def add(self):
+        """Add a new billing code. """
+
+        payload = { "addBillingCode":[{
+                       "softQuota": {"value": self.soft_quota, "currency": "USD"},
+                       "hardQuota": {"value": self.hard_quota, "currency": "USD"},
+                       "status": "ACTIVE",
+                       "name": self.name,
+                       "financeCode": self.finance_code,
+                       "description": self.description }]}
+        self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            return self.current_job
+        else:
+            raise BillingCodeAddException(self.last_error)
+
 class BillingCodeException(BaseException): pass
+class BillingCodeAddException(BillingCodeException): pass
