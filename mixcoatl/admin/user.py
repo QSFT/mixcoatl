@@ -215,16 +215,20 @@ class User(Resource):
 
         return self.put(p, data=json.dumps(payload))
 
-    @required_attrs(['account', 'given_name', 'family_name', 'email', 'groups','billing_codes'])
+    @required_attrs(['account', 'given_name', 'family_name', 'email', 'groups', 'billing_codes'])
     def create(self):
         """Creates a new user."""
+
+        billing_code_list = []
+        for billing_code in self.billing_codes:
+            billing_code_list.append({"billingCodeId": billing_code})
 
         parms = [{'givenName':self.given_name,
                   'familyName': self.family_name,
                   'email': self.email,
                   'groups': [{'groupId':self.groups}],
                   'account': {'accountId':self.account},
-                  'billingCodes':[{'billingCodeId':self.billing_codes}]}]
+                  'billingCodes': billing_code_list}]
 
         if self.password is not None:
             parms[0].update({'password': self.password})
