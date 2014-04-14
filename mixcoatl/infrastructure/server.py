@@ -460,7 +460,6 @@ class Server(Resource):
         r = Resource(cls.PATH)
         r.request_details = 'basic'
         params = kwargs['params']
-        print params
         s = r.get(params=params)
         if r.last_error is None:
             servers = [cls(server['serverId']) for server in s[cls.COLLECTION_NAME]]
