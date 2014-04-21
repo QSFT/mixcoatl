@@ -1,6 +1,13 @@
-import os
+import os, datetime
 
 from mixcoatl.exceptions import ConfigException
+
+def validate(date_text):
+    try:
+        datetime.datetime.strptime(date_text, '%Y-%m-%d')
+        return date_text
+    except ValueError:
+        raise ValueError("Incorrect data format, should be YYYY-MM-DD")
 
 class Config(object):
     # pylint: disable-msg=E0710
@@ -11,6 +18,7 @@ class Config(object):
         self.user_agent = 'mixcoatl'
         self.api_version = None
         self.basepath = None
+        self.default_api_version = '2012-06-15'
 
     def configure(self):
         if self.access_key is None:
@@ -27,7 +35,16 @@ class Config(object):
             if 'ES_API_VERSION' in os.environ:
                 self.set_api_version(os.environ['ES_API_VERSION'])
             else:
-                self.set_api_version('2012-06-15')
+                if 'ES_ENDPOINT' in os.environ:
+                  str = os.environ['ES_ENDPOINT'].split('/')
+
+                  if validate(str[-1]):
+                    self.set_api_version(str[-1])
+                  else:
+                    self.set_api_version(self.default_api_version)
+                else:
+                  self.set_api_version(self.default_api_version)
+
             self.set_basepath('/api/enstratus/%s' % self.api_version)
 
         if self.endpoint is None:
