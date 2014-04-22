@@ -1,0 +1,91 @@
+#!/usr/bin/env python
+# Creates a user or users from JSON.
+# Returns Job ID.
+#
+# JSON sample.
+# [
+# 	{ "account_id"       : 16000,
+# 	  "billing_code_id"  : [10345,10346],
+# 	  "group_id"         : 9010,
+# 	  "family_name"      : "Guybrush",
+# 	  "given_name"       : "Threepwood",
+# 	  "email"            : "guybrush@test.local",
+#         "password"         : "guybrushpass" },
+# 	{ "account_id"       : 16000,
+# 	  "billing_code_id"  : [10345],
+# 	  "group_id"         : 9020,
+# 	  "family_name"      : "Davy",
+# 	  "given_name"       : "Jones",
+# 	  "email"            : "davy.jones@test.local",
+#         "password"         : "davypass" }
+# ]
+
+from mixcoatl.admin.user import User
+from prettytable import PrettyTable
+import argparse
+import pprint
+import json
+import sys
+import os.path
+
+def print_verbose(name,rid):
+    print name, rid
+
+def create_user(account_id, given_name, family_name, email, billing_codes, groups, password=None):
+    u = User()
+    u.account = account_id
+    u.given_name = given_name
+    u.family_name = family_name
+    u.email = email
+    u.billing_codes = billing_codes
+    u.groups = groups
+    u.password = password
+
+    result = u.create()
+
+    return result
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--account', '-a', help='Account ID')
+    parser.add_argument('--given_name', '-f', help='Given (first) name.')
+    parser.add_argument('--family_name', '-l', help='Family (last) name.')
+    parser.add_argument('--email', '-e', help='email address')
+    parser.add_argument('--groups', '-g', help='Group (just one for now)')
+    parser.add_argument('--billing_codes', '-b', help='List of billing codes')
+    parser.add_argument('--password', '-p', help='DCM login password')
+    parser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print out verbose information '
+                                                                                    'about the user creation.')
+    parser.add_argument('--json', '-j', help="input file for creating users", metavar="FILE")
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.json is not None:
+        if not os.path.isfile(cmd_args.json):
+            print("%s is not a file." % cmd_args.json)
+            sys.exit(1)
+        else:
+            try:
+                user_list = json.load(open(cmd_args.json))
+            except ValueError:
+                print("%s is not a valid JSON." % cmd_args.json)
+                sys.exit(1)
+    elif None in [cmd_args.given_name, cmd_args.family_name, cmd_args.email, cmd_args.billing_codes]:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.json is None:
+        billing_code_list = []
+        for billing_code in cmd_args.billing_codes.split(','):
+            billing_code_list.append(int(billing_code))
+
+        result = create_user(cmd_args.account, cmd_args.given_name, cmd_args.family_name,
+                             cmd_args.email, billing_code_list, cmd_args.groups,
+                             cmd_args.password)
+        print result['users'][0]['userId']
+    else:
+        for user in user_list:
+            result = create_user(user['account_id'], user['given_name'], user['family_name'],
+                                 user['email'], user['billing_code_id'], user['group_id'],
+                                 user['password'])
+            print result['users'][0]['userId']

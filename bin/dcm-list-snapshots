@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+# region filter does not work at the moment. mixcoatl-side problem.
+
+from mixcoatl.infrastructure.snapshot import Snapshot
+from mixcoatl.admin.billing_code import BillingCode
+from mixcoatl import resource_utils
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    region_args = parser.add_mutually_exclusive_group(required=True)
+    region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
+    region_args.add_argument('--regionpid', '-R', help="Region Provider ID such as us-east-1.")
+    region_args.add_argument('--all', '-a', help="List volumes in all regions.", action="store_true")
+    group_args = parser.add_mutually_exclusive_group()
+    group_args.add_argument("--groupid", "-g", type=int, help="Owning group's group ID.")
+    group_args.add_argument("--groupname", "-G", help="Owning group's group name.")
+    budget_args = parser.add_mutually_exclusive_group()
+    budget_args.add_argument("--budgetid", "-b", type=int, help="Budget ID.")
+    budget_args.add_argument("--budgetname", "-B", help="Budget Name.")
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+    cmd_args = parser.parse_args()
+
+    if cmd_args.regionid is not None:
+        snapshots = Snapshot.all(region_id=cmd_args.regionid)
+    elif cmd_args.regionpid is not None:
+        snapshots = Snapshot.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
+    elif cmd_args.all is True:
+        snapshots = Snapshot.all()
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    snapshots = resource_utils.get_snapshots(snapshots, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid)
+
+    if cmd_args.groupname is not None:
+        snapshots = resource_utils.get_snapshots(snapshots, group_id=resource_utils.get_group_id(cmd_args.groupname))
+    if cmd_args.budgetname is not None:
+        snapshots = resource_utils.get_snapshots(snapshots, budget_id=resource_utils.get_budget_id(cmd_args.budgetname))
+
+    if snapshots is None:
+        print("There are no snapshots.")
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        for snapshot in snapshots:
+            snapshot.pprint()
+    else:
+        snapshot_table = PrettyTable(["Snapshot ID", "Provider ID", "Snapshot Name", "Group", "Budget", "Date"])
+        budget_name_cache = dict()
+        for snapshot in snapshots:
+            if not budget_name_cache.has_key(snapshot.budget):
+                budget_name_cache[snapshot.budget] = BillingCode(snapshot.budget).name
+            budget_name = budget_name_cache[snapshot.budget]
+            snapshot_table.add_row([snapshot.snapshot_id, snapshot.provider_id, snapshot.name,
+                                    snapshot.owning_groups[0]['name'] if hasattr(snapshot, 'owning_groups') else None, 
+                                    budget_name, snapshot.created_timestamp])
+
+        print(snapshot_table)

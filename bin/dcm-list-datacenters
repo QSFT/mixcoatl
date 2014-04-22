@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+
+from mixcoatl.geography.datacenter import DataCenter
+from prettytable import PrettyTable
+from mixcoatl import resource_utils
+import argparse
+import sys
+
+if __name__ == '__main__':
+    """ List datacenters in a region. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--regionid', '-r', type=int, help='Region ID')
+    parser.add_argument('--regionpid', '-R', help='Region Provider ID such as us-east-1')
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.regionid != None:
+        datacenters = DataCenter.all(cmd_args.regionid)
+    elif cmd_args.regionpid != None:
+        datacenters = DataCenter.all(resource_utils.get_region_id(cmd_args.regionpid))
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        for datacenter in datacenters:
+            datacenter.pprint()
+    else:
+        datacenter_table = PrettyTable(["Datacenter ID", "Provider ID", "Description", "Status"])
+        for datacenter in datacenters:
+            datacenter_table.add_row([datacenter.data_center_id, datacenter.provider_id,
+                                      datacenter.description, datacenter.status])
+        print(datacenter_table)

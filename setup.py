@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import mixcoatl
+import os
+import glob
 
 try:
     from setuptools import setup
@@ -25,7 +27,7 @@ requires = ['requests==1.0.4']
 setup(
     name='mixcoatl',
     version=mixcoatl.__version__,
-    description='enStratus API Python wrapper',
+    description='Dell Cloud Manager API Python wrapper',
     long_description=open('README.rst').read(),
     author='John E. Vincent',
     author_email='lusis.org+github.com@gmail.com',
@@ -35,7 +37,7 @@ setup(
     package_dir={'mixcoatl': 'mixcoatl'},
     include_package_data=True,
     install_requires=requires,
-    scripts=['bin/es-dump.py'],
+    scripts=glob.glob(os.path.join('bin','*')),
     license='Apache 2.0',
     zip_safe=False,
     classifiers=(

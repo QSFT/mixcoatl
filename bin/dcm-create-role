@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+
+# Creates a role
+
+from mixcoatl.admin.role import Role
+from mixcoatl.admin.user import User
+from prettytable import PrettyTable
+import argparse
+import pprint
+import sys
+
+def print_verbose(name,rid):
+    print name, rid
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', '-n', help='Role Name')
+    parser.add_argument('--description', '-d', help='Role Description')
+    parser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print out verbose information about the role creation.')
+
+    cmd_args = parser.parse_args()
+
+    if (cmd_args.name is None or cmd_args.description is None):
+        parser.print_help()
+        sys.exit(1)
+
+    role_name=cmd_args.name
+    role_description=cmd_args.description
+
+    r = Role()
+
+    r.name = role_name
+    r.description = role_description
+
+    result = r.create()
+
+    if (cmd_args.verbose):
+        print_verbose(cmd_args.name, result['roles'][0]['roleId'])
+    else:
+        print result['roles'][0]['roleId']

@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.machine_image import MachineImage
+from mixcoatl import resource_utils
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    """ List machine images in a region. """
+    parser = argparse.ArgumentParser()
+    region_args = parser.add_mutually_exclusive_group(required=True)
+    region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
+    region_args.add_argument('--regionpid', '-R', help="Region Provider ID such as us-east-1.")
+    parser.add_argument('--registered', '-e', help='Returns only images with agent installed', action="store_true")
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.regionid != None:
+        machine_images = MachineImage.all(cmd_args.regionid, registered=cmd_args.registered)
+    elif cmd_args.regionpid != None:
+        machine_images = MachineImage.all(resource_utils.get_region_id(cmd_args.regionpid), registered=cmd_args.registered)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        for machine_image in machine_images:
+            machine_image.pprint()
+    else:
+        machine_image_table = PrettyTable(["ID", "Provider ID", "Name", "OS", "Arch", "Agent", "Status"])
+        machine_image_table.align['Name'] = 'l'
+        machine_image_table.align['Description'] = 'l'
+        machine_image_table.sortby = 'ID'
+        for machine_image in machine_images:
+            machine_image_table.add_row([machine_image.machine_image_id, machine_image.provider_id,
+                                         machine_image.name, machine_image.platform, machine_image.architecture,
+                                         machine_image.agent_version if hasattr(machine_image, 'agent_version') else None,
+                                         machine_image.status])
+        print(machine_image_table)

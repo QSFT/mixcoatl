@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.group import Group
+from mixcoatl.admin.user import User
+from mixcoatl import resource_utils
+from prettytable import PrettyTable
+import argparse
+import pprint
+import sys
+
+if __name__ == '__main__':
+    """ Returns a list of groups where a user belongs to. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--userid', '-u', help='User ID. For example, p100')
+    parser.add_argument('--email', '-m', help='E-Mail address of user')
+    parser.add_argument('--all', '-a', help='List all groups', action="store_true")
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.all:
+        all_groups = Group.all()
+    elif cmd_args.userid != None:
+        users = User.all()
+        user = resource_utils.get_user(users, vm_login_id=cmd_args.userid)
+    elif cmd_args.email != None:
+        users = User.all()
+        user = resource_utils.get_user(users, email=cmd_args.email)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        if cmd_args.all:
+            for group in all_groups:
+                group.pprint()
+        elif hasattr(user, 'groups'):
+            for group in user.groups:
+                pprint.pprint(group)
+    else:
+        group_table = PrettyTable(["Group ID", "Group Name", "Description", "Status"])
+        group_table.align['Description'] = 'l'
+
+        if cmd_args.all:
+            for group in all_groups:
+                group_table.add_row([group.group_id, group.name, group.description, group.status])
+        elif hasattr(user, 'groups'):
+            for group in user.groups:
+                group_table.add_row([group['group_id'], group['name'], group['description'], group['status']])
+
+        print(group_table)
