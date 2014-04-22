@@ -130,5 +130,36 @@ class Account(Resource):
                 return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in c[cls.COLLECTION_NAME]]
         else:
             raise AccountException(r.last_error)
+    
+    def assign_cloud(self, cloud_id, account_number, api_key_id, api_key_secret):
+        """ Associate this account with the cloud and supporting credentials specified.
+
+        :param cloud_id: Cloud ID of the cloud that will be associated.
+        :type cloud_id: int.
+        :param account_number: Account number of the cloud credential.
+        :type account_number: str.
+        :param api_key_id: API access key of the cloud credential.
+        :type api_key_id: str.
+        :param api_key_secret: API secret key of the cloud credential.
+        :type api_key_secret: str.
+        :returns: cloud subscription ID.
+        :raises: :class:`AssignCloudException`
+        """
+
+        p = "%s/%s" % (self.PATH, str(self.account_id))
+        payload = {'assignCloud': {
+                       'accounts': {
+                           'cloudSubscription': {
+                               'cloudId': cloud_id,
+                               'accountNumber': account_number,
+                               'apiKeyId': api_key_id,
+                               'apiKeySecret': api_key_secret }}}}
+        self.put(p, data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+            return self.cloud_subscription['cloud_subscription_id']
+        else:
+            raise AssignCloudException(self.last_error)
 
 class AccountException(BaseException): pass
+class AssignCloudException(AccountException): pass

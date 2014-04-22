@@ -179,20 +179,61 @@ class User(Resource):
         """`str` The public key to grant the user access to Unix instances"""
         return self.__ssh_public_key
 
-    @required_attrs(['account', 'given_name', 'family_name', 'email', 'groups','billing_codes'])
+    @lazy_property
+    def password(self):
+        """`str` DCM login password"""
+        return self.__password
+
+    @password.setter
+    def password(self, p):
+        self.__password = p
+
+    @required_attrs(['user_id'])
+    def grant(self, account_id, groups, billing_codes):
+        """Grants the user access to the specified account. :attr:`reason`
+
+        :param account_id: Account ID of the account to grant access.
+        :type account_id: int.
+        :param groups: List of group ID the user will belong to.
+        :type groups: list.
+        :param billing_codes: List of billing code the user will use.
+        :type billing_codes: list.
+        :returns: bool -- Result of API call
+        """
+        p = '%s/%s' % (self.PATH, str(self.user_id))
+
+        group_list = []
+        billing_code_list = []
+        for group in groups:
+            group_list.append({"groupId": group})
+        for billing_code in billing_codes:
+            billing_code_list.append({"billingCodeId": billing_code})
+
+        payload = {"grant":[{"account": {"accountId": account_id},
+                             "groups": group_list,
+                             "billingCodes": billing_code_list}]}
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['account', 'given_name', 'family_name', 'email', 'groups', 'billing_codes'])
     def create(self):
         """Creates a new user."""
 
+        billing_code_list = []
+        for billing_code in self.billing_codes:
+            billing_code_list.append({"billingCodeId": billing_code})
+
         parms = [{'givenName':self.given_name,
                   'familyName': self.family_name,
-                  'account': self.account,
                   'email': self.email,
                   'groups': [{'groupId':self.groups}],
                   'account': {'accountId':self.account},
-                  'billingCodes':[{'billingCodeId':self.billing_codes}]}]
+                  'billingCodes': billing_code_list}]
+
+        if self.password is not None:
+            parms[0].update({'password': self.password})
 
         payload = {'addUser':camel_keys(parms)}
-        #print payload
 
         response=self.post(data=json.dumps(payload))
         if self.last_error is None:

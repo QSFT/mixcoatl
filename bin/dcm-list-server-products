@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.server_product import ServerProduct
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--regionid', '-r', help='Region ID')
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    if cmd_args.regionid != None:
+        server_products = ServerProduct.all(cmd_args.regionid)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        for sp in server_products:
+            sp.pprint()
+    else:
+        sp_table = PrettyTable(["Server Product ID", "Provider Region ID", "Provider Product ID", "Name", "Platform", "Currency", "Hourly Rate"])
+        for sp in server_products:
+            sp_table.add_row([sp.product_id, sp.provider_region_id, sp.provider_product_id, sp.name,
+                              sp.platform, sp.currency, sp.hourly_rate])
+        print(sp_table)

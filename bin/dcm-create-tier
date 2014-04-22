@@ -1,0 +1,156 @@
+#!/usr/bin/env python
+# This script will return the job of the request to create the tier(s).
+
+from mixcoatl.automation.tier import Tier
+from prettytable import PrettyTable
+import argparse
+import pprint
+import sys,os
+import json
+
+def print_verbose(name,gid):
+    print name, gid
+
+def validate_input(update_file):
+    """
+    This method validates the input file. Returns true if the JSON is valid, false
+    otherwise.
+    """
+    try:
+        json.load(open(update_file))
+        #print "Valid JSON"
+        return True
+    except ValueError:
+        print "Invalid JSON. Exiting."
+        exit(-1)
+        return False
+
+def is_valid_file(parser, arg):
+    """Check to see if the file passed to -i is in fact a file. If it is, check to see if
+       it's a valid json format."""
+    if not os.path.isfile(arg):
+       parser.error("The file %s does not seem to be a file at all! Exiting for safety reasons." %arg)
+       sys.exit(1)
+    else:
+       if validate_input(arg):
+           return True
+       else:
+           print "Invalid JSON. Exiting"
+           sys.exit(1)
+
+def create_tier_from_file():
+    """Create tier as defined in the JSON elements in specified file"""
+    parser = ArgumentParser(description="Tier JSON Descriptor")
+    if is_valid_file(parser,filename):
+        f=open(filename,'r')
+        json_object = json.load(f)
+
+    new_tier = Tier()
+    for value in json_object.values():
+        for v in range(0,len(value)):
+            new_tier.deployment=value[v]['deployment']['deploymentId']
+            new_tier.description = value[v]['description']
+            new_tier.name = value[v]['name']
+            new_tier.budget = value[v]['budget']
+            new_tier.minimum_servers = value[v]['minimumServers']
+            new_tier.maximum_servers = value[v]['maximumServers']
+            new_tier.breach_increment = value[v]['breachIncrement']
+            new_tier.breach_period_in_minutes = value[v]['breachPeriodInMinutes']
+            new_tier.cooldown_period_in_minutes = value[v]['cooldownPeriodInMinutes']
+            new_tier.lower_cpu_threshold = value[v]['lowerCpuThreshold']
+            new_tier.upper_cpu_threshold = value[v]['upperCpuThreshold']
+            new_tier.lower_ram_threshold = value[v]['lowerRamThreshold']
+            new_tier.upper_ram_threshold = value[v]['upperRamThreshold']
+            #result=new_tier.create()
+            #print new_tier.current_job
+
+if __name__ == '__main__':
+    """Creates a new tier, returns the ID of the create tier *job*.
+
+       Example:
+        
+       python es-create-tiers -n "test tier 1" -d "test tier" --deployment-id 212 -b 200 --minimum-servers 1 --maximum-server 1 --breach-period 5 --cooldown-period 5 --lower-cpu-threshold 15 --upper-cpu-threshold 85 --lower-ram-threshold 5 --upper-ram-threshold 85 --breach-increment 1
+
+
+"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', '-n', help='The name of the tier.')
+    parser.add_argument('--description', '-d', help='The description of the tier.')
+    parser.add_argument('--deployment-id', '-D', help='The deployment to which the tier will be tied')
+    parser.add_argument('--budgetid', '-b', help='The billing code for the tier.')
+
+    parser.add_argument('--minimum-servers', type=int, help='Minimum number of servers for the tier.')
+    parser.add_argument('--maximum-servers', type=int, help='Maximum number of servers for the tier.')
+    parser.add_argument('--breach-increment', type=int, help='Breach period in minutes.')
+    parser.add_argument('--breach-period', type=int, help='Breach period in minutes.')
+    parser.add_argument('--cooldown-period', type=int, help='Cooldown period in minutes.')
+    parser.add_argument('--lower-cpu-threshold', type=int, help='Lower CPU threshold.')
+    parser.add_argument('--upper-cpu-threshold', type=int, help='Upper CPU threshold.')
+    parser.add_argument('--lower-ram-threshold', type=int, help='Lower Memory threshold.')
+    parser.add_argument('--upper-ram-threshold', type=int, help='Upper Memory threshold.')
+
+    parser.add_argument('-i', dest="filename", required=False,
+        help="Input file for creating a tier", metavar="FILE")
+    parser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print out verbose information about the tier creation.')
+
+    cmd_args = parser.parse_args()
+    name=cmd_args.name
+    description=cmd_args.description
+    budgetid=cmd_args.budgetid
+    deploymentId=cmd_args.deployment_id
+    filename=cmd_args.filename
+
+    minimum_servers = cmd_args.minimum_servers 
+    maximum_servers = cmd_args.maximum_servers 
+    breach_increment = cmd_args.breach_increment
+    breach_period_in_minutes = cmd_args.breach_period
+    cooldown_period_in_minutes = cmd_args.cooldown_period
+    lower_cpu_threshold = cmd_args.lower_cpu_threshold 
+    upper_cpu_threshold = cmd_args.upper_cpu_threshold 
+    lower_ram_threshold = cmd_args.lower_ram_threshold 
+    upper_ram_threshold = cmd_args.upper_ram_threshold
+
+    if minimum_servers > maximum_servers:
+      print "\nERROR: minimum_servers cannot be greater than maximum_servers\n"
+      print "Please adjust those settings and re-run. Exiting\n"
+      sys.exit(1)
+
+    if lower_cpu_threshold > upper_cpu_threshold:
+      print "\nERROR: lower_cpu_threshold should not be greater than upper_cpu_threshold\n"
+      print "Please adjust those settings and re-run. Exiting\n"
+      sys.exit(1)
+
+    if lower_ram_threshold > upper_ram_threshold:
+      print "\nERROR: lower_ram_threshold should not be greater than upper_ram_threshold\n"
+      print "Please adjust those settings and re-run. Exiting\n"
+      sys.exit(1)
+
+    if cmd_args.filename:
+        print "\nCreating tier from file.\nIgnoring all other command line arguments.\n"
+        create_tier_from_file()
+        sys.exit(0)
+
+    if name is None or description is None or budgetid is None or deploymentId is None or breach_period_in_minutes is None or cooldown_period_in_minutes is None or lower_cpu_threshold is None or upper_cpu_threshold is None or lower_ram_threshold is None or upper_ram_threshold is None:
+        parser.print_help()
+        sys.exit(1)
+
+    new_tier = Tier()
+
+    new_tier.description = description
+    new_tier.name = name
+    new_tier.deployment = deploymentId
+    new_tier.budget = budgetid
+    new_tier.minimum_servers = minimum_servers 
+    new_tier.maximum_servers = maximum_servers 
+    new_tier.breach_increment = breach_increment
+    new_tier.breach_period_in_minutes = breach_period_in_minutes
+    new_tier.cooldown_period_in_minutes = cooldown_period_in_minutes
+    new_tier.lower_cpu_threshold = lower_cpu_threshold 
+    new_tier.upper_cpu_threshold = upper_cpu_threshold 
+    new_tier.lower_ram_threshold = lower_ram_threshold 
+    new_tier.upper_ram_threshold = upper_ram_threshold
+
+    result = new_tier.create()
+
+    # return Job ID
+    print new_tier.current_job

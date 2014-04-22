@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.server import Server
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('serverid', help='Server ID')
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    s = Server(cmd_args.serverid)
+    result = s.load()
+
+    if result is not None:
+        print("Cannot find the server by the ID.")
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        s.pprint()
+    else:
+        server_table = PrettyTable(["Field", "Attribute"])
+        server_table.add_row(["Server ID", s.server_id])
+        server_table.add_row(["Name", s.name])
+        server_table.add_row(["Machine Image ID", s.machine_image['machine_image_id']])
+        server_table.add_row(["Machine Image Name", s.machine_image['name']])
+        server_table.add_row(["Architecture", s.architecture])
+        server_table.add_row(["Product Size", s.provider_product_id])
+        if hasattr(s,'public_ip_address'):
+            server_table.add_row(["Public IP Address", s.public_ip_address])
+        else:
+            server_table.add_row(["Public IP Address", None])
+        if hasattr(s,'private_ip_addresses'):
+            for private_ip_address in s.private_ip_addresses:
+                server_table.add_row(["Private IP Address", private_ip_address])
+        else:
+            server_table.add_row(["Private IP Address", None])
+        server_table.add_row(["Region ID", s.data_center['region']['region_id']])
+        server_table.add_row(["Datacenter ID", s.data_center['data_center_id']])
+        server_table.add_row(["Datacenter Name", s.data_center['name']])
+        server_table.add_row(["Budget ID", s.budget])
+        if hasattr(s,'owning_user'):
+            server_table.add_row(["Owning User ID", s.owning_user['user_id']])
+            server_table.add_row(["Owning User Name", s.owning_user['alpha_name']])
+            server_table.add_row(["Owning User Email", s.owning_user['email']])
+        else:
+            server_table.add_row(["Owning User ID", None])
+            server_table.add_row(["Owning User Name", None])
+            server_table.add_row(["Owning User Email", None])
+        if hasattr(s,'owning_groups'):
+            server_table.add_row(["Owning Group ID", s.owning_groups[0]['group_id']])
+            server_table.add_row(["Owning Group Name", s.owning_groups[0]['name']])
+        else:
+            server_table.add_row(["Owning Group ID", None])
+            server_table.add_row(["Owning Group Name", None])
+        server_table.add_row(["Start Date", s.start_date])
+        server_table.add_row(["Description", s.description])
+        server_table.add_row(["Agent Version", s.agent_version])
+        server_table.add_row(["Status", s.status])
+        server_table.align['Field'] = 'l'
+        server_table.align['Attribute'] = 'l'
+        print(server_table)

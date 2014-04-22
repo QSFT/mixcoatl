@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+from mixcoatl.network.network import Network
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    """ List networks."""
+    parser = argparse.ArgumentParser()
+    network_args = parser.add_mutually_exclusive_group()
+    network_args.add_argument('--accountid', '-i', type=int, help='Account ID')
+    network_args.add_argument('--regionid', '-r', type=int, help='Region ID')
+    network_args.add_argument('--all', '-a', action='store_true')
+    cmd_args = parser.parse_args()
+
+    if cmd_args.regionid is not None:
+        networks = Network.all(region_id=cmd_args.regionid, detail='basic')
+    elif cmd_args.accountid is not None:
+        networks = Network.all(account_id=cmd_args.accountid, detail='basic')
+    elif cmd_args.all:
+        networks = Network.all(detail='basic')
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    network_table = PrettyTable(["Network ID", "Region ID", "Name", "Provider ID", "Type", "Network Address"])
+    for network in networks:
+        network_table.add_row([network.network_id, network.region['region_id'], network.name,
+                               network.provider_id, network.network_type, network.network_address])
+    print(network_table)

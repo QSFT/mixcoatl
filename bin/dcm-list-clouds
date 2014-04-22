@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+from mixcoatl.geography.cloud import Cloud
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    """ Returns a list of clouds. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+    cmd_args = parser.parse_args()
+
+    clouds = Cloud.all()
+
+    if cmd_args.verbose:
+        for cloud in clouds:
+            cloud.pprint()
+    else:
+        cloud_table = PrettyTable(["Cloud ID", "Cloud Name", "Delegate", "Endpoint", "Status"])
+        for cloud in clouds:
+            cloud_table.add_row([cloud.cloud_id, cloud.name, cloud.compute_delegate, cloud.compute_endpoint,
+                                 cloud.status])
+        print(cloud_table)
