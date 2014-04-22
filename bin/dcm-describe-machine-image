@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.machine_image import MachineImage
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('machineimageid', help='Machine Image ID')
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    m = MachineImage(cmd_args.machineimageid)
+    result = m.load()
+
+    if result is not None:
+        print("Cannot find the machine image by the ID.")
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        m.pprint()
+    else:
+        m_table = PrettyTable(["Field", "Attribute"])
+        m_table.add_row(["Machine Image ID", m.machine_image_id])
+        m_table.add_row(["Name", m.name])
+        m_table.add_row(["Provider ID", m.provider_id])
+        m_table.add_row(["Platform", m.platform])
+        m_table.add_row(["Architecture", m.architecture])
+        m_table.add_row(["Region ID", m.region['region_id']])
+        m_table.add_row(["Budget ID", m.budget])
+        m_table.add_row(["Owning User ID", m.owning_user['user_id'] if hasattr(m, 'owning_user') else None])
+        if hasattr(m,'owning_groups'):
+            for group in m.owning_groups:
+                m_table.add_row(["Owning Group ID", group['group_id']])
+        else:
+            m_table.add_row(["Owning Group ID", None])
+        m_table.add_row(["Description", m.description])
+        m_table.add_row(["Agent Version", m.agent_version if hasattr(m,'agent_version') else None])
+        m_table.add_row(["Status", m.status])
+        m_table.align['Field'] = 'l'
+        m_table.align['Attribute'] = 'l'
+        print(m_table)

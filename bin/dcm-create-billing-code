@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.billing_code import BillingCode
+import argparse
+import sys
+
+if __name__ == '__main__':
+    """ Create a billing code. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', '-n', help='Name')
+    parser.add_argument('--code', '-c', help='Budget Code')
+    parser.add_argument('--soft', help='Soft Quota')
+    parser.add_argument('--hard', help='Hard Quota')
+    parser.add_argument('--description', '-d', help='Description')
+    cmd_args = parser.parse_args()
+
+    if None in [cmd_args.name, cmd_args.code, cmd_args.soft, cmd_args.hard, cmd_args.description]:
+        parser.print_help()
+        sys.exit(1)
+
+    b = BillingCode()
+
+    b.name = cmd_args.name
+    b.finance_code = cmd_args.code
+    b.soft_quota = cmd_args.soft
+    b.hard_quota = cmd_args.hard
+    b.description = cmd_args.description
+
+    b.add()

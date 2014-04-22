@@ -1,0 +1,95 @@
+#!/usr/bin/env python
+# This script will now return the name of the deployment being created, and the ID
+
+from mixcoatl.automation.deployment import Deployment
+from prettytable import PrettyTable
+import argparse
+import pprint
+import sys,os
+import json
+
+def print_verbose(name,gid):
+    print name, gid
+
+def validate_input(update_file):
+    """
+    This method validates the input file. Returns true if the JSON is valid, false
+    otherwise.
+    """
+    try:
+        json.load(open(update_file))
+        #print "Valid JSON"
+        return True
+    except ValueError:
+        print "Invalid JSON. Exiting."
+        exit(-1)
+        return False
+
+def is_valid_file(parser, arg):
+    """Check to see if the file passed to -i is in fact a file. If it is, check to see if
+       it's a valid json format."""
+    if not os.path.isfile(arg):
+       parser.error("The file %s does not seem to be a file at all! Exiting for safety reasons." %arg)
+       sys.exit(1)
+    else:
+       if validate_input(arg):
+           return True
+       else:
+           print "Invalid JSON. Exiting"
+           sys.exit(1)
+
+def create_deployment_from_file():
+    """Create deployment as defined in the JSON elements in specified file"""
+    parser = ArgumentParser(description="Deployment JSON Descriptor")
+    if is_valid_file(parser,filename):
+        f=open(filename,'r')
+        json_object = json.load(f)
+
+    new_deployment = Deployment()
+    for value in json_object.values():
+        for v in range(0,len(value)):
+            new_deployment.description=value[v]['description']
+            new_deployment.name = value[v]['name']
+            new_deployment.region = value[v]['regionId']
+            new_deployment.budget = value[v]['budget']
+            result=new_deployment.create()
+            print new_deployment.current_job
+
+if __name__ == '__main__':
+    """Creates a new deployment, returns the ID of the create deployment *job*."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', '-n', help='The name of the deployment.')
+    parser.add_argument('--description', '-d', help='The description of the deployment.')
+    parser.add_argument('--region', '-r', help='The default region of the deployment.')
+    parser.add_argument('--budgetid', '-b', help='The region of the deployment.')
+    parser.add_argument('-i', dest="filename", required=False,
+        help="Input file for creating a deployment", metavar="FILE")
+    parser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print out verbose information about the deployment creation.')
+
+    cmd_args = parser.parse_args()
+    name=cmd_args.name
+    description=cmd_args.description
+    budgetid=cmd_args.budgetid
+    region=cmd_args.region
+    filename=cmd_args.filename
+
+    if cmd_args.filename:
+        print "\nCreating deployment from file.\nIgnoring all other command line arguments.\n"
+        create_deployment_from_file()
+        sys.exit(0)
+
+    if name is None or description is None or budgetid is None or region is None:
+        parser.print_help()
+        sys.exit(1)
+
+    new_deployment = Deployment()
+
+    new_deployment.description = cmd_args.description
+    new_deployment.name = cmd_args.name
+    new_deployment.region = cmd_args.region
+    new_deployment.budget = cmd_args.budgetid
+
+    result = new_deployment.create()
+
+    # return Job ID
+    print new_deployment.current_job

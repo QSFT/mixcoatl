@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# Terminates a server.
+# Returns Job ID.
+
+from mixcoatl.infrastructure.server import Server
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--serverid', '-s', type=int, help='Server ID')
+    parser.add_argument('--reason', '-r', help='The reason for terminating the server.')
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.serverid is None:
+        parser.print_help()
+        sys.exit(1)
+
+    server = Server(cmd_args.serverid)
+
+    if server.load() is not None:
+        print("Cannot find the server.")
+        sys.exit(1)
+
+    if cmd_args.reason:
+        result = server.destroy(reason=cmd_args.reason)
+    else:
+        result = server.destroy()
+
+    if result['jobs'][0]['jobId']:
+        print result['jobs'][0]['jobId']
+    else:
+        print("Failed to terminate the server.")
+        sys.exit(1)

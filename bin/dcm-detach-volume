@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+# Detach a volume from server.
+# Returns Job ID.
+
+from mixcoatl.infrastructure.volume import Volume
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--volumeid', '-v', type=int, required=True, help='Volume ID of the volume to be detached.')
+
+    cmd_args = parser.parse_args()
+
+    volume = Volume(cmd_args.volumeid)
+    if volume.load() is not None:
+        print("cannot find the volume.")
+        sys.exit(1)
+    result = volume.detach()
+# Curretnly, result does not have Job ID.
+#    print(result.current_job)
