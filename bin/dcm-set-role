@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+# Applies a role to a group.
+# This script can be called with or without an account_id.
+
+# [ WITH account_id ]
+
+# If called with an account_id, the role will be applied to the group
+# only in the specified account.
+
+# [ WITHOUT account_id ]
+
+# If called w/o specifying an account_id, the role will be applied to
+# all groups in all accounts to which the user has access.
+
+# In this case, account_id are enumerated before attempting to set the role.
+
+from mixcoatl.admin.account import Account
+from mixcoatl.admin.group import Group
+from mixcoatl.admin.role import Role
+from mixcoatl.admin.user import User
+from prettytable import PrettyTable
+import argparse
+import pprint
+import sys
+
+def set_one_account(group_id,role_id,account_id):
+    print "Setting role %s for %s in account %s" % (role_id,group_id,account_id)
+    group = Group(group_id)
+    result = group.set_role(role_id,account_id)
+
+def set_all_accounts(group_id,role_id):
+    # This is expensive as hell, but it's the only way to get a list of accounts right now
+    # if you're using a system/customer API key.
+
+    a=Account().all()
+
+    accountList=[]
+    group = Group(group_id)
+
+    for index, object in enumerate(a):
+        accountList.append(object.account_id)
+
+    for a in accountList:
+        print "Setting role %s for %s in account %s" % (role_id,group_id,a)
+        result = group.set_role(role_id,a)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--group_id', '-g', type=int, help='Group ID')
+    parser.add_argument('--role_id', '-r', type=int, help='The role ID.')
+    parser.add_argument('--account_id', '-a', type=int, help='The role ID.')
+
+    cmd_args = parser.parse_args()
+
+    gid=cmd_args.group_id
+    role_id=cmd_args.role_id
+    account_id=cmd_args.account_id
+
+    if (cmd_args.group_id is None or cmd_args.role_id is None):
+        parser.print_help()
+        sys.exit(1)
+
+    if (cmd_args.account_id is None):
+        set_all_accounts(gid,role_id)
+    else:
+        set_one_account(gid,role_id,account_id)

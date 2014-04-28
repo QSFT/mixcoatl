@@ -81,6 +81,11 @@ class Network(Resource):
         return self.__cloud
 
     @lazy_property
+    def data_center(self):
+        """`dict` - The data center (if any) to which this network is tied"""
+        return slef.__data_center
+
+    @lazy_property
     def provider_id(self):
         """`str` - The cloud provider unique id for this network"""
         return self.__provider_id

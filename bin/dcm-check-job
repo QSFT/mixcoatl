@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.job import Job
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Check if Job was successfully completed. Possible return values are COMPLETE for completed job, ERROR for failed job, NONE for nonexistent job.')
+    parser.add_argument('jobid', help='Job ID')
+    cmd_args = parser.parse_args()
+
+    j = Job(cmd_args.jobid)
+    result = j.load()
+
+    if result is not None:
+        print("NONE")
+        sys.exit(1)
+
+    print(j.status)

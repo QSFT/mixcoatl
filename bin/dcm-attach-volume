@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+# Attach a volume to server.
+# Returns Job ID.
+
+from mixcoatl.infrastructure.volume import Volume
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--volumeid', '-v', type=int, required=True, help='Volume ID of the volume to be attached.')
+    parser.add_argument('--serverid', '-s', type=int, required=True, help='Server ID of the server to attach the volume.')
+    parser.add_argument('--deviceid', '-d', type=str, help='Device ID such as /dev/xvdh')
+
+    cmd_args = parser.parse_args()
+
+    volume = Volume(cmd_args.volumeid)
+    if volume.load() is not None:
+        print("cannot find the volume.")
+        sys.exit(1)
+
+    result = volume.attach(cmd_args.serverid, cmd_args.deviceid)
+
+    print(result.current_job)

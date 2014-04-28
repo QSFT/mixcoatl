@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+# region filter should be implemeted when mixcoatl gets updated.
+
+from mixcoatl.infrastructure.server import Server
+from mixcoatl import resource_utils
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--all', '-a', help='List all servers.', action="store_true")
+    user_args = parser.add_mutually_exclusive_group()
+    user_args.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
+    user_args.add_argument("--email", "-m", help="E-Mail address of owning user.")
+    group_args = parser.add_mutually_exclusive_group()
+    group_args.add_argument("--groupid", "-g", type=int, help="Owning group's group ID.")
+    group_args.add_argument("--groupname", "-G", help="Owning group's group name.")
+    budget_args = parser.add_mutually_exclusive_group()
+    budget_args.add_argument("--budgetid", "-b", type=int, help="Budget ID.")
+    budget_args.add_argument("--budgetname", "-B", help="Budget Name.")
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    if cmd_args.all:
+        servers = Server.all()
+    elif cmd_args.userid != None:
+        all_servers = Server.all()
+        servers = resource_utils.get_servers(all_servers, vm_login_id=cmd_args.userid)
+    elif cmd_args.email != None:
+        all_servers = Server.all()
+        servers = resource_utils.get_servers(all_servers, email=cmd_args.email)
+    elif cmd_args.groupid != None:
+        all_servers = Server.all()
+        servers = resource_utils.get_servers(all_servers, group_id=cmd_args.groupid)
+    elif cmd_args.groupname != None:
+        group_id = resource_utils.get_group_id(cmd_args.groupname)
+        all_servers = Server.all()
+        servers = resource_utils.get_servers(all_servers, group_id=group_id)
+    elif cmd_args.budgetid != None:
+        all_servers = Server.all()
+        servers = resource_utils.get_servers(all_servers, budget_id=cmd_args.budgetid)
+    elif cmd_args.budgetname != None:
+        budget_id = resource_utils.get_budget_id(cmd_args.budgetname)
+        all_servers = Server.all()
+        servers = resource_utils.get_servers(all_servers, budget_id=budget_id)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        for server in servers:
+            server.pprint()
+    else:
+        server_table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP",
+                                    "Status", "Start Date"])
+        for server in servers:
+            server_table.add_row([server.server_id, server.region['name'], server.provider_id, server.name,
+                                  server.public_ip_address if hasattr(server, 'public_ip_address') else None,
+                                  server.status, server.start_date])
+        print(server_table)

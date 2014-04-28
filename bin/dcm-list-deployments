@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+from mixcoatl.automation.deployment import Deployment
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--all', '-a', help='List all deployments.', action="store_true")
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    if cmd_args.all:
+        deployments = Deployment.all()
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        for d in deployments:
+            d.pprint()
+    else:
+        deployment_table = PrettyTable(["Deployment ID", "Name", "Owner", "Creation Timestamp", "Status"])
+        for d in deployments:
+            deployment_table.add_row([d.deployment_id, d.name, d.owning_user['alpha_name'],
+                                      d.creation_timestamp, d.status])
+        print(deployment_table)

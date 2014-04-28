@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.job import Job
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('jobid', help='Job ID')
+    parser.add_argument("--verbose", "-v", help="Produce verbose output.", action="store_true")
+    cmd_args = parser.parse_args()
+
+    j = Job(cmd_args.jobid)
+    result = j.load()
+
+    if result is not None:
+        print("Cannot find the Job by the ID.")
+        sys.exit(1)
+
+    if cmd_args.verbose:
+        j.pprint()
+    else:
+        job_table = PrettyTable(["Field", "Attribute"])
+        job_table.add_row(["Job ID", j.job_id])
+        job_table.add_row(["Description", j.description])
+        job_table.add_row(["Start Date", j.start_date])
+        job_table.add_row(["End Date", j.end_date])
+        job_table.add_row(["Status", j.status])
+        job_table.add_row(["Message", j.message])
+
+        print(job_table)

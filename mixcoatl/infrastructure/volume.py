@@ -280,8 +280,9 @@ class Volume(Resource):
         :returns: `bool`
         :raises: :class:`VolumeException`
         """
-
-        pass
+        p = self.PATH + "/" + str(self.volume_id)
+        qopts = {'reason': reason}
+        return self.delete(p, params=qopts)
 
     def _change_metadata(self):
         """Changes metadata"""

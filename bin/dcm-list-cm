@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
+from prettytable import PrettyTable
+import argparse, pprint, sys
+
+if __name__ == '__main__':
+    """ Returns a list of CM accounts. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    cmd_args = parser.parse_args()
+
+    cms = ConfigurationManagementAccount.all()
+    if cmd_args.verbose:
+        for cm in cms:
+            cm.pprint()
+    else:
+        cm_table = PrettyTable(["ID", "Type", "Description", "Endpoint", "Status"])
+        cm_list = []
+        for cm in cms:
+        	cm_system_id = cm.cm_service['cm_system']['cm_system_id']
+        	if cm_system_id == 1:
+        		cm_type = "Chef"
+        	elif cm_system_id == 2:
+        		cm_type = "Puppet"
+        	elif cm_system_id == 3:
+        		cm_type = "Object Store"
+        	cm_table.add_row([cm.cm_account_id, cm_type, cm.description, cm.cm_service['service_endpoint'], cm.status])
+
+    	print cm_table

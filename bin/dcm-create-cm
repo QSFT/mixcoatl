@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+# Creates a CM account from JSON.
+#
+# JSON sample.
+# [
+#	{
+#		"budget": 201,
+#		"serviceEndpoint": "http://api.example.com",
+#		"accessKey":"12345",
+#		"accountNumber":"0ccea597-320b-470c-af6a-fba2b2bbea87",
+#		"secretKey":"mh7d3Y21+wkXmlSPs7aOrA==",
+#		"description":"Created by the enStratus #1",
+#		"name":"Unit Test 1",
+#		"label":"red",
+#		"cmService":{"cmServiceId":1}
+#	},
+#	{
+#		"budget": 201,
+#		"serviceEndpoint": "http://api.domain.com",
+#		"accessKey":"67890",
+#		"accountNumber":"15124dwefq23412423r2q3rq23",
+#		"secretKey":"m151h7d3Y21+wkXmlSPs7aOrA==kXmlSPs7aOrA==",
+#		"description":"Created by the enStratus #2",
+#		"name":"Unit Test 2",
+#		"label":"blue",
+#		"cmService":{"cmServiceId":2}
+#	},
+
+# ]
+
+from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
+from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
+from prettytable import PrettyTable
+import argparse, pprint, json, sys, os.path
+
+def print_verbose(name,rid):
+    print name, rid
+
+def create_cm(budget, endpoint, access_key, account_number, secret_key, description, name, cm_system_id):
+	cs = ConfigurationManagementService()
+	cs.budget = budget
+	cs.endpoint = endpoint
+	cs.description = description
+	cs.name = name
+	cs.label = 'red'
+	cs.cm_system_id = cm_system_id
+	
+	result = cs.create()
+	print result
+
+	"""
+    cm = ConfigurationManagementAccount()
+    cm.accessKey = access_key
+    cm.accountNumber = accountNumber
+    cm.secretKey = secretKey
+    cm.description = description
+    cm.name = name
+    cm.label = 'red'
+    cm.cmService = cm_service_id
+    
+    result = cm.create()
+	"""
+	
+    #return result
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--budget', '-b', help='Budget code')
+    parser.add_argument('--endpoint', '-e', help='CM Endpoint')
+    parser.add_argument('--accesskey', '-a', help='Access Key')
+    parser.add_argument('--secretkey', '-s', help='Secret Key')
+    parser.add_argument('--accountnumber', '-c', help='Account Number')
+    parser.add_argument('--description', '-d', help='Description')
+    parser.add_argument('--name', '-n', help='Account Name')
+    parser.add_argument('--system', '-k', help='System ID (1 for CHEF, 2 for PUPPET, 3 for Object Store)')
+    parser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print out verbose information '
+                                                                                    'about the CM creation.')
+    parser.add_argument('--json', '-j', help="input file for creating a CM account", metavar="FILE")
+
+    cmd_args = parser.parse_args()
+
+    if cmd_args.json is not None:
+        if not os.path.isfile(cmd_args.json):
+            print("%s is not a file." % cmd_args.json)
+            sys.exit(1)
+        else:
+            try:
+                cm_list = json.load(open(cmd_args.json))
+            except ValueError:
+                print("%s is not a valid JSON." % cmd_args.json)
+                sys.exit(1)
+    elif (cmd_args.budget is None or cmd_args.endpoint is None or cmd_args.secretkey is None or cmd_args.accesskey is None or cmd_args.description is None or cmd_args.name is None or cmd_args.system is None):
+        parser.print_help()
+        sys.exit(1)
+
+    if cmd_args.json is None:
+        result = create_cm(cmd_args.budget, cmd_args.endpoint, cmd_args.accesskey, cmd_args.accountnumber, cmd_args.secretkey, cmd_args.description, cmd_args.name, cmd_args.system)
+    else:
+        for cm in cm_list:
+            result = create_cm(cm['budget'], cm['serviceEndpoint'], cm['accessKey'], cm['secretKey'], cm['accountNumber'], cm['description'], cm['name'], cm['cmService']['cmServiceId'])

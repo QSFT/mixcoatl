@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+from mixcoatl.network.network import Network
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--budgetid', '-b', help='Budget ID')
+    parser.add_argument('--name', '-n', help='Network Name')
+    parser.add_argument('--netaddress', '-a', help='Network address such as 192.168.0.0/24')
+    parser.add_argument('--regionid', '-r', help='Region ID')
+    parser.add_argument('--description', '-D', help='Description')
+    parser.add_argument('--dnsserver', '-d', help='DNS Server')
+    parser.add_argument('--groupid', '-g', help='Owning Group ID')
+
+    cmd_args = parser.parse_args()
+
+    if (cmd_args.budgetid is None or cmd_args.name is None or
+        cmd_args.netaddress is None or cmd_args.regionid is None or 
+        cmd_args.description is None):
+        parser.print_help()
+        sys.exit(1)
+
+    new_network = Network()
+    new_network.budget = cmd_args.budgetid
+    new_network.name = cmd_args.name
+    new_network.network_address = cmd_args.netaddress
+    new_network.region = cmd_args.regionid
+    new_network.description = cmd_args.description
+
+    if cmd_args.dnsserver is not None:
+        new_network.dns_servers = cmd_args.dnsserver
+    if cmd_args.groupid is not None:
+        new_network.owning_groups = cmd_args.groupid
+
+    result = new_network.create()
+
+    print result.job_id

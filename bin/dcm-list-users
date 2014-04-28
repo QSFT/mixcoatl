@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.user import User
+from prettytable import PrettyTable
+import argparse
+import pprint
+import sys
+
+if __name__ == '__main__':
+    """ Returns a list of users. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    cmd_args = parser.parse_args()
+
+    users = User.all()
+    if cmd_args.verbose:
+        for user in users:
+            user.pprint()
+    else:
+        user_table = PrettyTable(["User ID", "VM Login ID", "Last Name", "First Name",
+                                  "Email", "Groups"])
+        for user in users:
+            group_list = []
+            if hasattr(user, 'groups'):
+                for group in user.groups:
+                    group_list.append(group['name'])
+            vm_login_id = user.vm_login_id if hasattr(user, 'vm_login_id') else None
+            family_name = user.family_name if hasattr(user, 'family_name') else None
+            given_name = user.given_name if hasattr(user, 'given_name') else None
+            email = user.email if hasattr(user, 'email') else None
+            user_table.add_row([user.user_id, vm_login_id, family_name, given_name,
+                                email, "\n".join(group_list)])
+        print(user_table)

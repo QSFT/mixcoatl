@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.volume import Volume
+from mixcoatl import resource_utils
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    region_args = parser.add_mutually_exclusive_group(required=True)
+    region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
+    region_args.add_argument('--regionpid', '-R', help="Region Provider ID such as us-east-1.")
+    region_args.add_argument('--all', '-a', help="List volumes in all regions.", action="store_true")
+    user_args = parser.add_mutually_exclusive_group()
+    user_args.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
+    user_args.add_argument("--email", "-m", help="E-Mail address of owning user.")
+    group_args = parser.add_mutually_exclusive_group()
+    group_args.add_argument("--groupid", "-g", type=int, help="Owning group's group ID.")
+    group_args.add_argument("--groupname", "-G", help="Owning group's group name.")
+    budget_args = parser.add_mutually_exclusive_group()
+    budget_args.add_argument("--budgetid", "-b", type=int, help="Budget ID.")
+    budget_args.add_argument("--budgetname", "-B", help="Budget Name.")
+    parser.add_argument("--nonattached", "-n", help="List non-attached volumes.", action="store_true")
+    parser.add_argument("--minsize", type=int, help="Minimum size of the volumes.")
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    if cmd_args.regionid is not None:
+        volumes = Volume.all(region_id=cmd_args.regionid)
+    elif cmd_args.regionpid is not None:
+        volumes = Volume.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
+    elif cmd_args.all is True:
+        volumes = Volume.all()
+    else:
+        parser.print_help()
+        sys.exit(1)
+        
+    volumes = resource_utils.get_volumes(volumes, vm_login_id=cmd_args.userid, email=cmd_args.email,
+                                          group_id=cmd_args.groupid, budget_id=cmd_args.budgetid,
+                                          size=cmd_args.minsize)
+    if cmd_args.groupname is not None:
+        volumes = resource_utils.get_volumes(volumes, group_id=resource_utils.get_group_id(cmd_args.groupname))
+    if cmd_args.budgetname is not None:
+        volumes = resource_utils.get_volumes(volumes, budget_id=resource_utils.get_budget_id(cmd_args.budgetname))
+
+    if cmd_args.verbose:
+        for volume in volumes:
+            volume.pprint()
+    else:
+        volume_table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Volume Name", "Current Server",
+                                    "Size", "Owner", "Status"])
+        for volume in volumes:
+            volume_table.add_row([volume.volume_id, volume.provider_id, volume.data_center['name'], volume.name,
+                                  volume.server['name'] if hasattr(volume, 'server') else None, volume.size_in_gb,
+                                  volume.owning_user['alpha_name'] if hasattr(volume, 'owning_user') else None,
+                                  volume.status])
+        print(volume_table)
