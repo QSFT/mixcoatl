@@ -1,6 +1,7 @@
 Mixcoatl
 =========
-Mixcoatl was the father of Quetzalcoatl. His name means "Cloud Serpent". Fitting for a Python library for the enStratus API.
+
+Mixcoatl was the father of Quetzalcoatl. His name means "Cloud Serpent". Fitting for a Python library for the DCM API.
 
 Build Status
 ~~~~~~~~~~~~
@@ -10,7 +11,10 @@ Build Status
 
 Word of warning
 ----------------
-This repo is not feature complete in that not all operations are supported. At this point read access to all resources documented in the API doc are working.
+
+This repository is not feature complete in that not all operations are
+supported. At this point read access to all resources documented in the API doc
+are working.
 
 Support is now being added to each resource to implement write operations.
 
@@ -21,7 +25,8 @@ At a minimum, the following environment variables will need to be set:
 - ``ES_SECRET_KEY``
 - ``ES_ACCESS_KEY``
 
-By default, api calls will be made against the enStratus production SaaS and API version ``2012-06-15``. These can be overridden with the following variables:
+By default, API calls will be made against the DCM production SaaS and API
+version ``2012-06-15``. These can be overridden with the following variables:
 
 - ``ES_ENDPOINT``
 - ``ES_API_VERSION``
@@ -30,31 +35,37 @@ When overriding the endpoint, it should be in the form of:
 
 ``http[s]://api.endpoint.domain/api/enstratus/<api version>``
 
-Note that setting both ``ES_API_VERSION`` and ``ES_ENDPOINT`` is not cumulative. If you wish to use a private endpoint, it must include the version in the url.
+Note that setting both ``ES_API_VERSION`` and ``ES_ENDPOINT`` is not
+cumulative. If you wish to use a private endpoint, it must include the version
+in the URL.
 
-``es-dump.py``
---------------
-``mixcoatl`` also ships with a small script for querying arbitrary objects via the enStratus API called ``es-dump.py``. It's very minimal and only dumps the json results of your query:
+``dcm-get``
+-----------
+
+``mixcoatl`` also ships with a small script for querying arbitrary objects via
+the DCM API called ``dcm-get``. It's very minimal and only dumps the JSON
+results of your query:
 
 example:
 
 .. code-block:: bash
 
-        es-dump.py admin/Job
+        dcm-get admin/Job
 
-.. code-block:: yaml
+.. code-block:: json
 
         {
           "jobs": []
         }
 
-It can also accept query params in the form of a python ``dict`` (the same format the ``requests`` library uses:
+It can also accept query params in the form of a python ``dictionary`` (the
+same format the ``requests`` library uses:
 
 .. code-block:: bash
 
-        es-dump.py geography/DataCenter "{'regionId':19344}"
+        dcm-get geography/DataCenter "{'regionId':19344}"
 
-.. code-block:: yaml
+.. code-block:: json
 
         {
           "dataCenters": [
@@ -86,7 +97,12 @@ You'll need to set the environment variables as described above obviously.
 
 Lazy loading
 -------------
-By default, any object you request by its id will not actually hit the endpoint. Only when you request the object in full or a specific attribute, will it actually make the API call. If the API call fails, the error will be returned to you. You can always check the object's ``last_error`` attribute to determine if it failed or not.
+
+By default, any object you request by its id will not actually hit the
+endpoint. Only when you request the object in full or a specific attribute,
+will it actually make the API call. If the API call fails, the error will be
+returned to you. You can always check the object's ``last_error`` attribute to
+determine if it failed or not.
 
 example:
 
