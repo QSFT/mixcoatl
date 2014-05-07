@@ -28,7 +28,7 @@ setup(
     name='mixcoatl',
     version=mixcoatl.__version__,
     description='Dell Cloud Manager API Python wrapper',
-    long_description=open('README.rst').read(),
+    long_description='Dell Cloud Manager API Python wrapper',
     author='John E. Vincent',
     author_email='lusis.org+github.com@gmail.com',
     url='https://github.com/enStratus/mixcoatl',
