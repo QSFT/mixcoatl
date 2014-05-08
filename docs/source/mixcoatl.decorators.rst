@@ -1,7 +1,7 @@
 .. _mixcoatl_decorators:
 
-decorators Package
-==================
+Decorators
+==========
 
 :mod:`decorators` Package
 -------------------------

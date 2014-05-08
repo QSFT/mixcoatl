@@ -1,7 +1,7 @@
 .. _mixcoatl_geography:
 
-geography Package
-=================
+Geography
+=========
 
 :mod:`geography` Package
 ------------------------

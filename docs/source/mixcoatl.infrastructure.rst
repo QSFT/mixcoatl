@@ -1,7 +1,7 @@
 .. _mixcoatl_infrastructure:
 
-infrastructure Package
-======================
+Infrastructure
+==============
 
 :mod:`machine_image` Module
 ---------------------------

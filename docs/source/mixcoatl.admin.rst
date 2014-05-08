@@ -1,75 +1,17 @@
 .. _mixcoatl_admin:
 
-admin Package
-=============
+Admin
+-----
 
-.. _mixcoatl_admin_account:
+.. toctree::
+   :maxdepth: 3
+   :hidden:
+   :titlesonly:
 
-:mod:`account` Module
----------------------
-
-.. automodule:: mixcoatl.admin.account
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. _mixcoatl_admin_api_key:
-
-:mod:`api_key` Module
----------------------
-
-.. automodule:: mixcoatl.admin.api_key
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. _mixcoatl_admin_billing_code:
-
-:mod:`billing_code` Module
---------------------------
-
-.. automodule:: mixcoatl.admin.billing_code
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. _mixcoatl_admin_group:
-
-:mod:`group` Module
--------------------
-
-.. automodule:: mixcoatl.admin.group
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. _mixcoatl_admin_job:
-
-:mod:`job` Module
------------------
-
-.. automodule:: mixcoatl.admin.job
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. _mixcoatl_admin_role:
-
-:mod:`role` Module
-------------------
-
-.. automodule:: mixcoatl.admin.role
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. _mixcoatl_admin_user:
-
-:mod:`user` Module
-------------------
-
-.. automodule:: mixcoatl.admin.user
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   admin/account
+   admin/api_key
+   admin/billing_code
+   admin/group
+   admin/job
+   admin/role
+   admin/user

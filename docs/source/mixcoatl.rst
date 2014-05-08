@@ -32,20 +32,3 @@ mixcoatl Package
     :members:
     :undoc-members:
     :show-inheritance:
-
-Subpackages
------------
-
-.. toctree::
-
-    mixcoatl.admin
-    mixcoatl.analytics
-    mixcoatl.automation
-    mixcoatl.config
-    mixcoatl.decorators
-    mixcoatl.exceptions
-    mixcoatl.geography
-    mixcoatl.infrastructure
-    mixcoatl.network
-    mixcoatl.settings
-

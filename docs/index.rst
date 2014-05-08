@@ -10,11 +10,10 @@ Contents:
 
 .. toctree::
    :maxdepth: 3
+   :includehidden:
    
+   source/source
    dcm_utils/dcm_utils
-   source/mixcoatl
-   source/readme
-   source/patterns
 
 
 Indices and tables
@@ -23,4 +22,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

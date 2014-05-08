@@ -1,7 +1,7 @@
 .. _mixcoatl_exceptions:
 
-exceptions Package
-==================
+Exceptions
+==========
 
 :mod:`exceptions` Package
 -------------------------

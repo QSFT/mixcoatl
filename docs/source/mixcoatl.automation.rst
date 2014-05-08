@@ -1,7 +1,7 @@
 .. _mixcoatl_automation:
 
-automation Package
-==================
+Automation
+==========
 
 .. _mixcoatl_automation_configuration_management_account:
 

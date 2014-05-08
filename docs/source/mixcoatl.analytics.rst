@@ -1,7 +1,7 @@
 .. _mixcoatl_analytics:
 
-analytics Package
-=================
+Analytics
+=========
 
 :mod:`analytics` Package
 ------------------------

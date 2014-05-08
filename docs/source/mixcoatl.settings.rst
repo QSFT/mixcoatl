@@ -1,7 +1,7 @@
 .. _mixcoatl_settings:
 
-settings Package
-================
+Settings
+========
 
 .. _mixcoatl_settings_load_settings:
 

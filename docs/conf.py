@@ -43,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'mixcoatl'
-copyright = u'2013, John E. Vincent'
+copyright = u'2014, Quest Software, Inc.'
 
 
 # The version info for the project you're documenting, acts as replacement for
@@ -94,8 +94,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'solar'
-#html_theme = 'nature'
+html_theme = 'better'
 html_theme_path = ['_themes']
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -137,6 +136,7 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
+html_sidebars = { '**' : ['globaltoc.html'] }
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

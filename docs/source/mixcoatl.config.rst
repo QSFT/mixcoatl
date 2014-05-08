@@ -1,7 +1,7 @@
 .. _mixcoatl_package:
 
-config Package
-==============
+Config
+======
 
 .. _mixcoatl_package_config:
 

@@ -1,7 +1,7 @@
 .. _mixcoatl_network:
 
-network Package
-===============
+Network
+=======
 
 .. _mixcoatl_network_firewall:
 
