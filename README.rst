@@ -16,8 +16,6 @@ This repository is not feature complete in that not all operations are
 supported. At this point read access to all resources documented in the API doc
 are working.
 
-Support is now being added to each resource to implement write operations.
-
 Usage notes
 ~~~~~~~~~~~
 At a minimum, the following environment variables will need to be set:

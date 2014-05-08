@@ -9,11 +9,12 @@ Mixcoatl: The DCM API Wrapper
 Contents:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
    
-   readme
-   patterns
-   mixcoatl
+   dcm_utils/dcm_utils
+   source/mixcoatl
+   source/readme
+   source/patterns
 
 
 Indices and tables
