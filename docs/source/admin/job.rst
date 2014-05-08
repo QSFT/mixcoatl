@@ -1,7 +1,7 @@
 .. _mixcoatl_admin_job:
 
-:mod:`job` Module
------------------
+:mod:`job`
+----------
 
 .. automodule:: mixcoatl.admin.job
     :members:

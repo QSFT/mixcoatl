@@ -1,7 +1,7 @@
 .. _mixcoatl_admin_role:
 
-:mod:`role` Module
-------------------
+:mod:`role`
+-----------
 
 .. automodule:: mixcoatl.admin.role
     :members:

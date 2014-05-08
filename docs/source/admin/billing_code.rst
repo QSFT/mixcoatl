@@ -1,7 +1,7 @@
 .. _mixcoatl_admin_billing_code:
 
-:mod:`billing_code` Module
---------------------------
+:mod:`billing_code`
+-------------------
 
 .. automodule:: mixcoatl.admin.billing_code
     :members:

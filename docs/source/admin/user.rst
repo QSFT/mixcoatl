@@ -1,7 +1,7 @@
 .. _mixcoatl_admin_user:
 
-:mod:`user` Module
-------------------
+:mod:`user`
+-----------
 
 .. automodule:: mixcoatl.admin.user
     :members:

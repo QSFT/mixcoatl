@@ -1,7 +1,7 @@
 .. _mixcoatl_admin_group:
 
-:mod:`group` Module
--------------------
+:mod:`group`
+------------
 
 .. automodule:: mixcoatl.admin.group
     :members:
