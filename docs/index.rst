@@ -12,8 +12,10 @@ Contents:
    :maxdepth: 3
    :includehidden:
    
+   readme
    source/source
    dcm_utils/dcm_utils
+   additional_information/additional_information
 
 
 Indices and tables

@@ -6,6 +6,7 @@ Mixcoatl Source
    :includehidden:
    :titlesonly:
 
+   mixcoatl
    mixcoatl.admin
    mixcoatl.analytics
    mixcoatl.automation

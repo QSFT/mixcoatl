@@ -1,34 +1,19 @@
-mixcoatl Package
-================
+Mixcoatl
+========
 
-:mod:`mixcoatl` Package
------------------------
+:mod:`mixcoatl`
+---------------
 
 .. automodule:: mixcoatl.__init__
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`auth` Module
-------------------
+.. toctree::
+   :maxdepth: 3
+   :hidden:
+   :titlesonly:
 
-.. automodule:: mixcoatl.auth
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`resource` Module
-----------------------
-
-.. automodule:: mixcoatl.resource
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`utils` Module
--------------------
-
-.. automodule:: mixcoatl.utils
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   mixcoatl/auth
+   mixcoatl/resource
+   mixcoatl/utils
