@@ -3,8 +3,8 @@
 Exceptions
 ==========
 
-:mod:`exceptions` Package
--------------------------
+:mod:`exceptions`
+-----------------
 
 .. automodule:: mixcoatl.exceptions
     :members:
