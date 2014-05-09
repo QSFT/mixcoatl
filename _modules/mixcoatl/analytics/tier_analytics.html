@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mixcoatl.analytics.tier_analytics &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mixcoatl.analytics.tier_analytics</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span>
+
+<div class="viewcode-block" id="TierAnalytics"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics">[docs]</a><span class="k">class</span> <span class="nc">TierAnalytics</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;analytics/TierAnalytics&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;analytics&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;tier_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tier_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tier_id</span> <span class="o">=</span> <span class="n">tier_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TierAnalytics.tier_id"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics.tier_id">[docs]</a>    <span class="k">def</span> <span class="nf">tier_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tier_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="TierAnalytics.data_points"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics.data_points">[docs]</a>    <span class="k">def</span> <span class="nf">data_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_points</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="TierAnalytics.period_start"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics.period_start">[docs]</a>    <span class="k">def</span> <span class="nf">period_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__period_start</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="TierAnalytics.period_end"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics.period_end">[docs]</a>    <span class="k">def</span> <span class="nf">period_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__period_end</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="TierAnalytics.interval_in_minutes"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics.interval_in_minutes">[docs]</a>    <span class="k">def</span> <span class="nf">interval_in_minutes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__interval_in_minutes</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TierAnalytics.all"><a class="viewcode-back" href="../../../source/analytics/tier_analytics.html#mixcoatl.analytics.tier_analytics.TierAnalytics.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">tier_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">tier_id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s">&#39;details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;details&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Read Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/source.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

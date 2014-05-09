@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>billing_code &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html" />
+    <link rel="up" title="Admin" href="../mixcoatl.admin.html" />
+    <link rel="next" title="group" href="group.html" />
+    <link rel="prev" title="api_key" href="api_key.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="api_key.html" title="Previous document"><tt class="docutils literal"><span class="pre">api_key</span></tt></a>
+        </li>
+        <li>
+          <a href="group.html" title="Next document"><tt class="docutils literal"><span class="pre">group</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.admin.html">Admin</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mixcoatl.admin.billing_code">
+<span id="billing-code"></span><span id="mixcoatl-admin-billing-code"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">billing_code</span></tt><a class="headerlink" href="#module-mixcoatl.admin.billing_code" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>mixcoatl.admin.billing_code<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Implements access to the enStratus Billingcode API</p>
+<dl class="class">
+<dt id="mixcoatl.admin.billing_code.BillingCode">
+<em class="property">class </em><tt class="descclassname">mixcoatl.admin.billing_code.</tt><tt class="descname">BillingCode</tt><big>(</big><em>billing_code_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../mixcoatl/resource.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A billing code is a budget item with optional hard and soft quotas
+against which cloud resources may be provisioned and tracked.</p>
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/BillingCode'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.PATH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'billingCodes'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'billing_code_id'</em><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.billing_code_id">
+<tt class="descname">billing_code_id</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.billing_code_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.billing_code_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The unique id of this billing code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.budget_state">
+<tt class="descname">budget_state</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.budget_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.budget_state" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The ability of users to provision against this budget</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.current_usage">
+<tt class="descname">current_usage</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.current_usage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.current_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The month-to-data usage across all clouds for this code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.customer">
+<tt class="descname">customer</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The customer to whom this code belongs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.description">
+<tt class="descname">description</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.description" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - User-friendly description of this code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.finance_code">
+<tt class="descname">finance_code</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.finance_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.finance_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The alphanumeric identifier of this billing code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.name">
+<tt class="descname">name</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - User-friendly name for this billing code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.projected_usage">
+<tt class="descname">projected_usage</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.projected_usage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.projected_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - Estimated end-of-month total to be charged against this budget</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.status">
+<tt class="descname">status</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.status" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The status of this billing code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.hard_quota">
+<tt class="descname">hard_quota</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.hard_quota"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.hard_quota" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - Cutoff point where no further resources can be billed to this code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.billing_code.BillingCode.soft_quota">
+<tt class="descname">soft_quota</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.soft_quota"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.soft_quota" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - Point where budget alerts will be triggered for this billing code</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.admin.billing_code.BillingCode.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all visible billing codes</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keys used to make the original request determine result visibility</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode.billing_code_id" title="mixcoatl.admin.billing_code.BillingCode.billing_code_id"><tt class="xref py py-attr docutils literal"><span class="pre">billing_code_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode" title="mixcoatl.admin.billing_code.BillingCode"><tt class="xref py py-class docutils literal"><span class="pre">BillingCode</span></tt></a> objects</li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> - of <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode" title="mixcoatl.admin.billing_code.BillingCode"><tt class="xref py py-class docutils literal"><span class="pre">BillingCode</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCode.billing_code_id" title="mixcoatl.admin.billing_code.BillingCode.billing_code_id"><tt class="xref py py-attr docutils literal"><span class="pre">billing_code_id</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCodeException" title="mixcoatl.admin.billing_code.BillingCodeException"><tt class="xref py py-class docutils literal"><span class="pre">BillingCodeException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.admin.billing_code.BillingCode.add">
+<tt class="descname">add</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new billing code.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.billing_code.BillingCodeException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.billing_code.</tt><tt class="descname">BillingCodeException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCodeException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCodeException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.billing_code.BillingCodeAddException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.billing_code.</tt><tt class="descname">BillingCodeAddException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCodeAddException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCodeAddException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCodeException" title="mixcoatl.admin.billing_code.BillingCodeException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.billing_code.BillingCodeException</span></tt></a></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Read Me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../source.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.html">Mixcoatl</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../mixcoatl.admin.html">Admin</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="account.html"><tt class="docutils literal"><span class="pre">account</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_key.html"><tt class="docutils literal"><span class="pre">api_key</span></tt></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href=""><tt class="docutils literal"><span class="pre">billing_code</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="group.html"><tt class="docutils literal"><span class="pre">group</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="job.html"><tt class="docutils literal"><span class="pre">job</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="role.html"><tt class="docutils literal"><span class="pre">role</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="user.html"><tt class="docutils literal"><span class="pre">user</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.automation.html">Automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.geography.html">Geography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.settings.html">Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="api_key.html" title="Previous document"><tt class="docutils literal"><span class="pre">api_key</span></tt></a>
+        </li>
+        <li>
+          <a href="group.html" title="Next document"><tt class="docutils literal"><span class="pre">group</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.admin.html">Admin</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

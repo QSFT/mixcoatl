@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>role &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html" />
+    <link rel="up" title="Admin" href="../mixcoatl.admin.html" />
+    <link rel="next" title="user" href="user.html" />
+    <link rel="prev" title="job" href="job.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="job.html" title="Previous document"><tt class="docutils literal"><span class="pre">job</span></tt></a>
+        </li>
+        <li>
+          <a href="user.html" title="Next document"><tt class="docutils literal"><span class="pre">user</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.admin.html">Admin</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mixcoatl.admin.role">
+<span id="role"></span><span id="mixcoatl-admin-role"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">role</span></tt><a class="headerlink" href="#module-mixcoatl.admin.role" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>mixcoatl.admin.role<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Implements access to the enStratus Role API</p>
+<dl class="class">
+<dt id="mixcoatl.admin.role.Role">
+<em class="property">class </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">Role</tt><big>(</big><em>role_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../mixcoatl/resource.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A role defines a common set of permissions that govern access into a given account</p>
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'admin/Role'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.PATH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'roles'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'role_id'</em><a class="headerlink" href="#mixcoatl.admin.role.Role.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.role_id">
+<tt class="descname">role_id</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.role_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.role_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The unique id of the role</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.acl">
+<tt class="descname">acl</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.acl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.acl" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The access permissions associated with the role</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.description">
+<tt class="descname">description</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.description" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - A user-friendly description of the role</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.customer">
+<tt class="descname">customer</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The customer to whom this role belongs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.name">
+<tt class="descname">name</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The name of the role</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.role.Role.status">
+<tt class="descname">status</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.status" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The status of the role in enStratus</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.admin.role.Role.grant">
+<tt class="descname">grant</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.grant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.grant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new ACL to a role.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.admin.role.Role.create">
+<tt class="descname">create</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new role. Status is hard-coded to ACTIVE for now.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.admin.role.Role.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#Role.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.Role.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all roles</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keys used to make the request determine results visibility</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Only return <a class="reference internal" href="#mixcoatl.admin.role.Role.role_id" title="mixcoatl.admin.role.Role.role_id"><tt class="xref py py-attr docutils literal"><span class="pre">role_id</span></tt></a> instead of <tt class="xref py py-class docutils literal"><span class="pre">Group</span></tt> objects</li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; List roles with mappings to groups in the specified account</li>
+<li><strong>group_id</strong> (<em>int.</em>) &#8211; Provides the role associated with the specified group</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.admin.role.Role.role_id" title="mixcoatl.admin.role.Role.role_id"><tt class="xref py py-attr docutils literal"><span class="pre">role_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.admin.role.Role" title="mixcoatl.admin.role.Role"><tt class="xref py py-class docutils literal"><span class="pre">Role</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.admin.role.RoleException" title="mixcoatl.admin.role.RoleException"><tt class="xref py py-class docutils literal"><span class="pre">RoleException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.role.RoleException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">RoleException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#RoleException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.RoleException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.role.setACLException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">setACLException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#setACLException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.setACLException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.role.RoleException" title="mixcoatl.admin.role.RoleException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.role.RoleException</span></tt></a></p>
+<p>Role Creation Exception</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.role.RoleCreationException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.role.</tt><tt class="descname">RoleCreationException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/role.html#RoleCreationException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.role.RoleCreationException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.role.RoleException" title="mixcoatl.admin.role.RoleException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.role.RoleException</span></tt></a></p>
+<p>Role Creation Exception</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Read Me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../source.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.html">Mixcoatl</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../mixcoatl.admin.html">Admin</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="account.html"><tt class="docutils literal"><span class="pre">account</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_key.html"><tt class="docutils literal"><span class="pre">api_key</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="billing_code.html"><tt class="docutils literal"><span class="pre">billing_code</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="group.html"><tt class="docutils literal"><span class="pre">group</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="job.html"><tt class="docutils literal"><span class="pre">job</span></tt></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href=""><tt class="docutils literal"><span class="pre">role</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="user.html"><tt class="docutils literal"><span class="pre">user</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.automation.html">Automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.geography.html">Geography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.settings.html">Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="job.html" title="Previous document"><tt class="docutils literal"><span class="pre">job</span></tt></a>
+        </li>
+        <li>
+          <a href="user.html" title="Next document"><tt class="docutils literal"><span class="pre">user</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.admin.html">Admin</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

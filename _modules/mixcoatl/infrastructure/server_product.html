@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mixcoatl.infrastructure.server_product &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mixcoatl.infrastructure.server_product</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;Implements the enStratus ServerProduct API&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+
+<div class="viewcode-block" id="ServerProduct"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct">[docs]</a><span class="k">class</span> <span class="nc">ServerProduct</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;infrastructure/ServerProduct&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;serverProducts&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;product_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">product_id</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__product_id</span> <span class="o">=</span> <span class="n">product_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="ServerProduct.product_id"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.product_id">[docs]</a>    <span class="k">def</span> <span class="nf">product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique enStratus id for this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__product_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.cloud"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The cloud in which this server product is valid&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.architecture"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.architecture">[docs]</a>    <span class="k">def</span> <span class="nf">architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The CPU architecture of the underlying vCPUs&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__architecture</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.cpu_count"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.cpu_count">[docs]</a>    <span class="k">def</span> <span class="nf">cpu_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The number of vCPUs for this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cpu_count</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.cpu_speed_in_mhz"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.cpu_speed_in_mhz">[docs]</a>    <span class="k">def</span> <span class="nf">cpu_speed_in_mhz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The speed of the vCPUs for this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cpu_speed_in_mhz</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.currency"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.currency">[docs]</a>    <span class="k">def</span> <span class="nf">currency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The currenct in which the associated costs are charged&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__currency</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.description"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A detailed description of what this product represents&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.disk_size_in_gb"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.disk_size_in_gb">[docs]</a>    <span class="k">def</span> <span class="nf">disk_size_in_gb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The size of the root volume in GB&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__disk_size_in_gb</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.hourly_rate"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.hourly_rate">[docs]</a>    <span class="k">def</span> <span class="nf">hourly_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The hourly rate for usage of this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hourly_rate</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.name"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The user-friendly name of this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.platform"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.platform">[docs]</a>    <span class="k">def</span> <span class="nf">platform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The operating system for this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__platform</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.provider_product_id"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.provider_product_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The cloud provider&#39;s unique id for this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_product_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.provider_region_id"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.provider_region_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_region_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The cloud provider region id where this product is valid&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_region_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.ram_in_mb"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.ram_in_mb">[docs]</a>    <span class="k">def</span> <span class="nf">ram_in_mb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The memory size for this product in MB&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ram_in_mb</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ServerProduct.software"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.software">[docs]</a>    <span class="k">def</span> <span class="nf">software</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - Any additional software installed on this product&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__software</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ServerProduct.all"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProduct.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">region_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all server products</span>
+
+<span class="sd">        :param region_id: The region id to search in</span>
+<span class="sd">        :type region_id: int.</span>
+<span class="sd">        :param keys_only: Return :attr:`product_id` or :class:`ServerProduct`</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: Level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :returns: `list` of :attr:`product_id` or :class:`ServerProduct`</span>
+<span class="sd">        :raises: :class:`ServerProductException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">uncamel_keys</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;regionId&#39;</span><span class="p">:</span><span class="n">region_id</span><span class="p">}</span>
+        <span class="k">if</span> <span class="s">&#39;keys_only&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">keys_only</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;keys_only&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keys_only</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">products</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="s">&#39;productId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">products</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]:</span>
+                    <span class="n">product</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;productId&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">product</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
+                    <span class="n">product</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                    <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">products</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ServerProductException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="ServerProductException"><a class="viewcode-back" href="../../../source/infrastructure/server_product.html#mixcoatl.infrastructure.server_product.ServerProductException">[docs]</a><span class="k">class</span> <span class="nc">ServerProductException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Read Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/source.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

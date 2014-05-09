@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mixcoatl.infrastructure.volume &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mixcoatl.infrastructure.volume</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;Implements the enStratus Volume API&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span><span class="p">,</span> <span class="n">camel_keys</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.infrastructure.snapshot</span> <span class="kn">import</span> <span class="n">Snapshot</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.infrastructure.snapshot</span> <span class="kn">import</span> <span class="n">SnapshotException</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="Volume"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume">[docs]</a><span class="k">class</span> <span class="nc">Volume</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A volume is a block storage device that may be mounted by servers&quot;&quot;&quot;</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;infrastructure/Volume&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;volumes&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;volume_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volume_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=W0613</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__volume_id</span> <span class="o">=</span> <span class="n">volume_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Volume.volume_id"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.volume_id">[docs]</a>    <span class="k">def</span> <span class="nf">volume_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The unique enStratus id of the volume&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__volume_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.array"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.array">[docs]</a>    <span class="k">def</span> <span class="nf">array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` or `None` - The array, if any, that this volume belongs to&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__array</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.available"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.available">[docs]</a>    <span class="k">def</span> <span class="nf">available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - Indicates if this volume is available for attachment&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__available</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.customer"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The customer to which this volume belongs&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.provider_id"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The unique cloud provider ID for this volume&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.size_string"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.size_string">[docs]</a>    <span class="k">def</span> <span class="nf">size_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - User-friendly string representing the size of the volume&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__size_string</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A user-friendly name for the volume&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="Volume.name"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A user-friendly label for the volume&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
+
+    <span class="nd">@label.setter</span>
+<div class="viewcode-block" id="Volume.label"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.encrypted"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.encrypted">[docs]</a>    <span class="k">def</span> <span class="nf">encrypted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - Indicates if the volume is known by enStratus as encrypted&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__encrypted</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.region"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The region in which this volume is stored&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__region</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The ID of the billing code against which costs are billed&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
+
+    <span class="nd">@budget.setter</span>
+<div class="viewcode-block" id="Volume.budget"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.server"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.server">[docs]</a>    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` or `None` - The server to which this volume is attached if any&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__server</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.owning_groups"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The groups who have ownership of this volume in enStratus&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>
+
+<span class="c">#    @owning_groups.setter</span>
+<span class="c">#    def owning_groups(self, b):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+<span class="c">#        self.__owning_groups = [{&#39;group_id&#39;: b}]</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">size_in_gb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The size of the volume if reported by the cloud provider&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__size_in_gb</span>
+
+    <span class="nd">@size_in_gb.setter</span>
+<div class="viewcode-block" id="Volume.size_in_gb"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.size_in_gb">[docs]</a>    <span class="k">def</span> <span class="nf">size_in_gb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__size_in_gb</span> <span class="o">=</span> <span class="n">size</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.status"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The status of the volume in enStratus&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.removable"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.removable">[docs]</a>    <span class="k">def</span> <span class="nf">removable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - If this volume is removable or not&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__removable</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">data_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The data center where this volume is stored&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_center</span>
+
+    <span class="nd">@data_center.setter</span>
+<div class="viewcode-block" id="Volume.data_center"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.data_center">[docs]</a>    <span class="k">def</span> <span class="nf">data_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__data_center</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;data_center_id&#39;</span><span class="p">:</span> <span class="n">dc</span><span class="p">}</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.owning_account"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.owning_account">[docs]</a>    <span class="k">def</span> <span class="nf">owning_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - the enStratus account under which this volume is registered&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_account</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.device_id"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.device_id">[docs]</a>    <span class="k">def</span> <span class="nf">device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` or `None` - The OS device id of this volume if attached&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__device_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.creation_timestamp"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.creation_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">creation_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The timestamp when this volume was created&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__creation_timestamp</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.owning_user"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus user who is the owner of this volume&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Volume.cloud"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The cloud where this volume is stored&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The description of the volume in enStratus&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+
+    <span class="nd">@description.setter</span>
+<div class="viewcode-block" id="Volume.description"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="c"># pylint: disable-msg=C0111,W0201</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;volume_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Volume.attach"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.attach">[docs]</a>    <span class="k">def</span> <span class="nf">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_id</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Attach a volume to a server</span>
+
+<span class="sd">        :param server_id: Server to attach the volume</span>
+<span class="sd">        :type server_id: int.</span>
+<span class="sd">        :param callback: Optional callback to send the results</span>
+<span class="sd">        :returns: :class:`Volume`</span>
+<span class="sd">        :raises: :class:`VolumeException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;attach&#39;</span><span class="p">:[{</span>
+                            <span class="s">&#39;server&#39;</span><span class="p">:{</span><span class="s">&#39;server_id&#39;</span><span class="p">:</span> <span class="n">server_id</span><span class="p">}}]}</span>
+
+        <span class="k">if</span> <span class="n">device_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;attach&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;device_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">device_id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">payload</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VolumeException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Volume.detach"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.detach">[docs]</a>    <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Detach a volume from a server</span>
+
+<span class="sd">        :param callback: Optional callback to send the results</span>
+<span class="sd">        :returns: :class:`Volume`</span>
+<span class="sd">        :raises: :class:`VolumeException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="s">&#39;{&quot;detach&quot;:[{}]}&#39;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">s</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VolumeException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;budget&#39;</span><span class="p">,</span> <span class="s">&#39;size_in_gb&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;data_center&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Volume.create"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a new volume</span>
+
+<span class="sd">        :param callback: Optional callback to send the resulting :class:`Job`</span>
+<span class="sd">        :type callback: func.</span>
+<span class="sd">        :returns: :class:`Job`</span>
+<span class="sd">        :raises: :class:`VolumeCreationException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">optional_attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;label&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VolumeCreationException</span><span class="p">(</span><span class="s">&#39;Cannot create an already created volume: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">)</span>
+
+        <span class="n">parms</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                    <span class="s">&#39;data_center&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_center</span><span class="p">,</span>
+                    <span class="s">&#39;size_in_gb&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_in_gb</span><span class="p">,</span>
+                    <span class="s">&#39;budget&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">budget</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">oa</span> <span class="ow">in</span> <span class="n">optional_attrs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">parms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">oa</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">)})</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;addVolume&#39;</span><span class="p">:[</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">parms</span><span class="p">)]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span>
+            <span class="n">j</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">j</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VolumeCreationException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Volume.update"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates a volume with changed values</span>
+
+<span class="sd">        :returns: `bool`</span>
+<span class="sd">        :raises: :class:`VolumeException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="s">&#39;budget&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_change_budget</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_change_metadata</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Volume.destroy"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.destroy">[docs]</a>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">reason</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deletes the volume</span>
+
+<span class="sd">        :param reason: Reason for removing the volume</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :returns: `bool`</span>
+<span class="sd">        :raises: :class:`VolumeException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">)</span>
+        <span class="n">qopts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span> <span class="n">reason</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">qopts</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_change_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Changes metadata&quot;&quot;&quot;</span>
+        <span class="n">new_vals</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="p">:</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s">&#39;new&#39;</span><span class="p">]</span>
+                <span class="n">new_vals</span><span class="p">[</span><span class="n">camel_keys</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="n">new_val</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_vals</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;describeVolume&#39;</span><span class="p">:[</span><span class="n">new_vals</span><span class="p">]}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">VolumeException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;budget&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">_change_budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Changes budget&quot;&quot;&quot;</span>
+        <span class="n">changes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;budget&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">changes</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;assignBudget&#39;</span><span class="p">:[{</span><span class="s">&#39;budget&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">budget</span><span class="p">}]}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">VolumeException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Volume.snapshot"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.snapshot">[docs]</a>    <span class="k">def</span> <span class="nf">snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make a snapshot from a volume</span>
+
+<span class="sd">        *This is not a part of the enStratus API for Volume resources.</span>
+<span class="sd">        It is a convenience wrapper around the Snapshot API from the</span>
+<span class="sd">        perspective of an individual* :class:`Volume`</span>
+
+<span class="sd">            .. warning::</span>
+
+<span class="sd">                Snapshot creation is an asynchronous task.</span>
+<span class="sd">                Specifying a callback will cause a blocking operation while the snapshot completes</span>
+<span class="sd">                When using the callback, execution could block for a **VERY** long time.</span>
+
+
+<span class="sd">        :param name: The name to assign the Snapshot. Default: `snap-&lt;volume_id&gt;-timestamp`</span>
+<span class="sd">        :type name: str.</span>
+<span class="sd">        :param description: Description of the snapshot. Default: `mixcoatl snapshot`</span>
+<span class="sd">        :type description: str.</span>
+<span class="sd">        :param budget: Budget to assign the snapshot. Default: :attr:`budget` of the current :class:`Volume`</span>
+<span class="sd">        :type budget: int.</span>
+<span class="sd">        :param callback: Optional callback to return the results.</span>
+<span class="sd">        :type callback: func.</span>
+<span class="sd">        :returns: :class:`Snapshot`</span>
+<span class="sd">        :raises: :class:`VolumeSnapshotException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tstamp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="s">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;snap-</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">,</span> <span class="n">tstamp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">&#39;description&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="s">&#39;mixcoat snapshot&#39;</span>
+        <span class="k">if</span> <span class="s">&#39;budget&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">budget</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;budget&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">budget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">budget</span>
+        <span class="k">if</span> <span class="s">&#39;callback&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">callback</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;callback&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">callback</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="o">.</span><span class="n">add_snapshot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_id</span><span class="p">,</span>
+                                    <span class="n">name</span><span class="p">,</span>
+                                    <span class="n">description</span><span class="p">,</span>
+                                    <span class="n">budget</span><span class="p">,</span>
+                                    <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">s</span>
+        <span class="k">except</span> <span class="n">SnapshotException</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VolumeSnapshotException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Volume.all"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.Volume.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List all volumes</span>
+
+<span class="sd">        :param account_id: Restrict to volumes owned by `account_id`</span>
+<span class="sd">        :type account_id: int.</span>
+<span class="sd">        :param datacenter_id: Restrict to volumes based in `datacenter_id`</span>
+<span class="sd">        :type datacenter_id: int.</span>
+<span class="sd">        :param region_id: Restrict to volumes in `region_id`</span>
+<span class="sd">        :type region_id: int.</span>
+<span class="sd">        :param keys_only: Return :attr:`snapshot_id` or :class:`Snapshot`</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: Level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :returns: `list` of :attr:`volume_id` or :class:`Volume`</span>
+<span class="sd">        :raises: :class:`VolumeException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;none&#39;</span>
+        <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;extended&#39;</span>
+
+        <span class="k">if</span> <span class="s">&#39;keys_only&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">keys_only</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;keys_only&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keys_only</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="k">if</span> <span class="s">&#39;datacenter_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;dataCenterId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;datacenter_id&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;region_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;regionId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;region_id&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;account_id&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;accountId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;account_id&#39;</span><span class="p">]</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">volumes</span> <span class="o">=</span> <span class="n">keys</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]:</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="n">camelize</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PRIMARY_KEY</span><span class="p">)]</span>
+                    <span class="n">volume</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    <span class="n">volume</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">request_details</span>
+                    <span class="n">volume</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                    <span class="n">volumes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">volumes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VolumeException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="assign_budget"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.assign_budget">[docs]</a><span class="k">def</span> <span class="nf">assign_budget</span><span class="p">(</span><span class="n">volume_id</span><span class="p">,</span> <span class="n">budget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change the budget associated with a volume</span>
+
+<span class="sd">    :param volume_id: The volume id to work with</span>
+<span class="sd">    :type volume_id: int.</span>
+<span class="sd">    :param budget: The budget code to assign</span>
+<span class="sd">    :type budget: int.</span>
+<span class="sd">    :returns: `bool`</span>
+<span class="sd">    :raises: :class:`VolumeException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">budget</span> <span class="o">=</span> <span class="n">budget</span>
+    <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="assign_groups"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.assign_groups">[docs]</a><span class="k">def</span> <span class="nf">assign_groups</span><span class="p">(</span><span class="n">volume_id</span><span class="p">,</span> <span class="n">group_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change the group ownership of a volume</span>
+
+<span class="sd">    :param volume_id: The volume id to work with</span>
+<span class="sd">    :type volume_id: int.</span>
+<span class="sd">    :param group_id: The group id to assign</span>
+<span class="sd">    :type group_id: int.</span>
+<span class="sd">    :returns: bool.</span>
+<span class="sd">    :raises: :class:`VolumeException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="attach_volume"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.attach_volume">[docs]</a><span class="k">def</span> <span class="nf">attach_volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">,</span> <span class="n">server_id</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Attach a volume to a server</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            Attaching a volume is an asynchronous task.</span>
+
+<span class="sd">    :param volume_id: The volume id to work with</span>
+<span class="sd">    :type volume_id: int.</span>
+<span class="sd">    :param server_id: The server to attach the volume</span>
+<span class="sd">    :type server_id: int.</span>
+<span class="sd">    :param device_id: Optional device id to assign the volume on the system</span>
+<span class="sd">    :type device_id: str.</span>
+<span class="sd">    :param callback: Optional callback to call with the results</span>
+<span class="sd">    :type callback: func.</span>
+<span class="sd">    :returns: :class:`Job`</span>
+<span class="sd">    :raises: :class:`VolumeException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">server_id</span><span class="p">,</span> <span class="n">device_id</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="describe_volume"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.describe_volume">[docs]</a><span class="k">def</span> <span class="nf">describe_volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change the enStratus meta-data of a volume</span>
+
+<span class="sd">    :param volume_id: The volume to modify</span>
+<span class="sd">    :type volume_id: int.</span>
+<span class="sd">    :param description: Change the description</span>
+<span class="sd">    :type description: str.</span>
+<span class="sd">    :param name: Change the name</span>
+<span class="sd">    :type name: str.</span>
+<span class="sd">    :param label: Change the label. To remove the label, set to `None`</span>
+<span class="sd">    :type label: str.</span>
+<span class="sd">    :returns: :class:`Volume`</span>
+<span class="sd">    :raises: :class:`VolumeException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">v</span>
+</div>
+<div class="viewcode-block" id="add_volume"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.add_volume">[docs]</a><span class="k">def</span> <span class="nf">add_volume</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a new volume</span>
+
+<span class="sd">    :param name: The name of the new volume</span>
+<span class="sd">    :param size_in_gb: The size for the new volume</span>
+<span class="sd">    :param data_center: The location of the new volume</span>
+<span class="sd">    :param budget: The budget code for the new volume</span>
+<span class="sd">    :param description: The description of the new volume</span>
+<span class="sd">    :param callback: Optional callback to recieve the created Job</span>
+<span class="sd">    :returns: :class:`Job`</span>
+<span class="sd">    :raises: :class:`VolumeCreationException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">()</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;callback&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+
+    <span class="n">v</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">cb</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="detach_volume"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.detach_volume">[docs]</a><span class="k">def</span> <span class="nf">detach_volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Detach a volume from a server</span>
+
+<span class="sd">    :param volume_id: The volume to detach</span>
+<span class="sd">    :type volume_id: int.</span>
+<span class="sd">    :param callback: Optional callback to send the results</span>
+<span class="sd">    :returns: :class:`Volume`</span>
+<span class="sd">    :raises: :class:`VolumeException`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="n">volume_id</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">detach</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="VolumeException"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.VolumeException">[docs]</a><span class="k">class</span> <span class="nc">VolumeException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generic Volume Exception&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="VolumeSnapshotException"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.VolumeSnapshotException">[docs]</a><span class="k">class</span> <span class="nc">VolumeSnapshotException</span><span class="p">(</span><span class="n">VolumeException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Volume Snapshot Exception&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="VolumeCreationException"><a class="viewcode-back" href="../../../source/infrastructure/volume.html#mixcoatl.infrastructure.volume.VolumeCreationException">[docs]</a><span class="k">class</span> <span class="nc">VolumeCreationException</span><span class="p">(</span><span class="n">VolumeException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Volume Creation Exception&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Read Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/source.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

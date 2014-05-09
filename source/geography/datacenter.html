@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>datacenter &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html" />
+    <link rel="up" title="Geography" href="../mixcoatl.geography.html" />
+    <link rel="next" title="region" href="region.html" />
+    <link rel="prev" title="cloud" href="cloud.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="cloud.html" title="Previous document"><tt class="docutils literal"><span class="pre">cloud</span></tt></a>
+        </li>
+        <li>
+          <a href="region.html" title="Next document"><tt class="docutils literal"><span class="pre">region</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.geography.html">Geography</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mixcoatl.geography.datacenter">
+<span id="datacenter"></span><span id="mixcoatl-datacenter"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">datacenter</span></tt><a class="headerlink" href="#module-mixcoatl.geography.datacenter" title="Permalink to this headline">¶</a></h1>
+<p>Implements the enStratus DataCenter API</p>
+<dl class="class">
+<dt id="mixcoatl.geography.datacenter.DataCenter">
+<em class="property">class </em><tt class="descclassname">mixcoatl.geography.datacenter.</tt><tt class="descname">DataCenter</tt><big>(</big><em>data_center_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../mixcoatl/resource.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<dl class="docutils">
+<dt>A data center is a part of a regional infrastructure that has some ability</dt>
+<dd>to share resources with other data centers in the region</dd>
+</dl>
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'geography/DataCenter'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.PATH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'dataCenters'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'data_center_id'</em><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.data_center_id">
+<tt class="descname">data_center_id</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.data_center_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.data_center_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The unique enStratus id for this data center</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.description">
+<tt class="descname">description</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.description" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - A description of the data center</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.name">
+<tt class="descname">name</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - A user-friendly name for the data center</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.provider_id">
+<tt class="descname">provider_id</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.provider_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for the data center</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.region">
+<tt class="descname">region</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.region" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> = The region to which this data center belongs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.geography.datacenter.DataCenter.status">
+<tt class="descname">status</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.status" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The current status of the data center</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.geography.datacenter.DataCenter.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>region_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenter.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenter.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all data centers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; Required. The region to query against</li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter.data_center_id" title="mixcoatl.geography.datacenter.DataCenter.data_center_id"><tt class="xref py py-attr docutils literal"><span class="pre">data_center_id</span></tt></a> instead of <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter" title="mixcoatl.geography.datacenter.DataCenter"><tt class="xref py py-class docutils literal"><span class="pre">DataCenter</span></tt></a></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; The level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter" title="mixcoatl.geography.datacenter.DataCenter"><tt class="xref py py-class docutils literal"><span class="pre">DataCenter</span></tt></a> or <a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenter.data_center_id" title="mixcoatl.geography.datacenter.DataCenter.data_center_id"><tt class="xref py py-attr docutils literal"><span class="pre">data_center_id</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.geography.datacenter.DataCenterException" title="mixcoatl.geography.datacenter.DataCenterException"><tt class="xref py py-class docutils literal"><span class="pre">DataCenterException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.geography.datacenter.DataCenterException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.geography.datacenter.</tt><tt class="descname">DataCenterException</tt><a class="reference internal" href="../../_modules/mixcoatl/geography/datacenter.html#DataCenterException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.geography.datacenter.DataCenterException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Read Me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../source.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.html">Mixcoatl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.admin.html">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.automation.html">Automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.exceptions.html">Exceptions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../mixcoatl.geography.html">Geography</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloud.html"><tt class="docutils literal"><span class="pre">cloud</span></tt></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href=""><tt class="docutils literal"><span class="pre">datacenter</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="region.html"><tt class="docutils literal"><span class="pre">region</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.settings.html">Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="cloud.html" title="Previous document"><tt class="docutils literal"><span class="pre">cloud</span></tt></a>
+        </li>
+        <li>
+          <a href="region.html" title="Next document"><tt class="docutils literal"><span class="pre">region</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.geography.html">Geography</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

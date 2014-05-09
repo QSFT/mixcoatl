@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>snapshot &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html" />
+    <link rel="up" title="Infrastructure" href="../mixcoatl.infrastructure.html" />
+    <link rel="next" title="volume" href="volume.html" />
+    <link rel="prev" title="server_product" href="server_product.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="server_product.html" title="Previous document"><tt class="docutils literal"><span class="pre">server_product</span></tt></a>
+        </li>
+        <li>
+          <a href="volume.html" title="Next document"><tt class="docutils literal"><span class="pre">volume</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.infrastructure.html">Infrastructure</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-mixcoatl.infrastructure.snapshot">
+<span id="snapshot"></span><span id="mixcoatl-infrastructure-snapshot"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">snapshot</span></tt><a class="headerlink" href="#module-mixcoatl.infrastructure.snapshot" title="Permalink to this headline">¶</a></h1>
+<p>Implements access to the enStratus Snapshot API</p>
+<dl class="class">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot">
+<em class="property">class </em><tt class="descclassname">mixcoatl.infrastructure.snapshot.</tt><tt class="descname">Snapshot</tt><big>(</big><em>snapshot_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../mixcoatl/resource.html#mixcoatl.resource.Resource" title="mixcoatl.resource.Resource"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.resource.Resource</span></tt></a></p>
+<p>A snapshot is a point-in-time snapshot of a volume</p>
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.PATH">
+<tt class="descname">PATH</tt><em class="property"> = 'infrastructure/Snapshot'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.PATH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.COLLECTION_NAME">
+<tt class="descname">COLLECTION_NAME</tt><em class="property"> = 'snapshots'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.COLLECTION_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.PRIMARY_KEY">
+<tt class="descname">PRIMARY_KEY</tt><em class="property"> = 'snapshot_id'</em><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.PRIMARY_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id">
+<tt class="descname">snapshot_id</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.snapshot_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The unique enStratus id for this snapshot</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.available">
+<tt class="descname">available</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.available" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Identifies if the snapshot is available for creating volumes</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.budget">
+<tt class="descname">budget</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.budget" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The id of the billing code against which costs will be associated</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.cloud">
+<tt class="descname">cloud</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.cloud" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The cloud in which this snapshot is stored</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.created_timestamp">
+<tt class="descname">created_timestamp</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.created_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.created_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The timestamp when the snapshot was created</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.customer">
+<tt class="descname">customer</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.customer" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The customer to which the snapshot belongs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.description">
+<tt class="descname">description</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.description" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The description of the snapshot established in enStratus</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.encrypted">
+<tt class="descname">encrypted</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.encrypted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.encrypted" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Is the snapshot known to be encrypted by enStratus</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.name">
+<tt class="descname">name</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The user-friendly name of the snapshot</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.label">
+<tt class="descname">label</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.label" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The label assigned to the snapshot</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_account">
+<tt class="descname">owning_account</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_account" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus account where the snapshot is registered</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_user">
+<tt class="descname">owning_user</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_user" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus user who has ownership of this snapshot</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.owning_groups">
+<tt class="descname">owning_groups</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.owning_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The enStratus groups who have ownership of this snapshot</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.provider_id">
+<tt class="descname">provider_id</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.provider_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The cloud provider&#8217;s unique id for the snapshot</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.region">
+<tt class="descname">region</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.region" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The cloud region where the snapshot is stored</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.removable">
+<tt class="descname">removable</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.removable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.removable" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Indicates if this snapshot can be removed</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.sharable">
+<tt class="descname">sharable</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.sharable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.sharable" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Indicates if this snapshot can be shared</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.size_in_gb">
+<tt class="descname">size_in_gb</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.size_in_gb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.size_in_gb" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The size of the snapshot in GB</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.status">
+<tt class="descname">status</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.status" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The enStratus status of the snapshot <em>(`ACTIVE`|`INACTIVE`)</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.volume">
+<tt class="descname">volume</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.volume" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The volume, if known, from which the snapshot was created</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.destroy">
+<tt class="descname">destroy</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reason</strong> (<em>str.</em>) &#8211; A reason for deleting the snapshot</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>bool</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a snapshot with changed values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.create">
+<tt class="descname">create</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.all">
+<em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of snapshots</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>account_id</strong> (<em>int.</em>) &#8211; Restrict to snapshots owned by <cite>account_id</cite></li>
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; Restrict to snapshots based on <cite>volume_id</cite></li>
+<li><strong>region_id</strong> (<em>int.</em>) &#8211; Restrict to snapshots in <cite>region_id</cite></li>
+<li><strong>keys_only</strong> (<em>bool.</em>) &#8211; Return <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id"><tt class="xref py py-attr docutils literal"><span class="pre">snapshot_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></li>
+<li><strong>detail</strong> (<em>str.</em>) &#8211; Level of detail to return - <cite>basic</cite> or <cite>extended</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>list</cite> of <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id" title="mixcoatl.infrastructure.snapshot.Snapshot.snapshot_id"><tt class="xref py py-attr docutils literal"><span class="pre">snapshot_id</span></tt></a> or <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot">
+<em class="property">classmethod </em><tt class="descname">describe_snapshot</tt><big>(</big><em>snapshot_id</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.describe_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.describe_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the basic metadata for a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>int.</em>) &#8211; The snapshot to modify</li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; Change the description.</li>
+<li><strong>name</strong> (<em>str.</em>) &#8211; Change the name.</li>
+<li><strong>label</strong> (<em>str.</em>) &#8211; Change the label. To remove the label, set to <cite>None</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.delete_snapshot">
+<em class="property">classmethod </em><tt class="descname">delete_snapshot</tt><big>(</big><em>snapshot_id</em>, <em>reason</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.delete_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.delete_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete a snapshot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>snapshot_id</strong> (<em>int</em>) &#8211; The enStratus snapshot id</li>
+<li><strong>reason</strong> (<em>str.</em>) &#8211; A reason for deleting the snapshot</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>bool</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="mixcoatl.infrastructure.snapshot.Snapshot.add_snapshot">
+<em class="property">classmethod </em><tt class="descname">add_snapshot</tt><big>(</big><em>volume_id</em>, <em>name</em>, <em>description</em>, <em>budget</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#Snapshot.add_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.Snapshot.add_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a snapshot from <cite>volume_id</cite></p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Snapshot creation is an asynchronous task.
+Specifying a callback will cause a blocking operation while the snapshot completes.
+When using the callback, execution could block for a <strong>VERY</strong> long time depending on the time it takes to make the snapshot.</p>
+</div>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>volume_id</strong> (<em>int.</em>) &#8211; The volume to snapshot</li>
+<li><strong>name</strong> (<em>str.</em>) &#8211; The name for the snapshot</li>
+<li><strong>description</strong> (<em>str.</em>) &#8211; Description of the snapshot</li>
+<li><strong>budget</strong> (<em>int.</em>) &#8211; The billing code for the snapshot</li>
+<li><strong>callback</strong> (<em>func.</em>) &#8211; An optional callback to send the final <a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.Snapshot" title="mixcoatl.infrastructure.snapshot.Snapshot"><tt class="xref py py-class docutils literal"><span class="pre">Snapshot</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="mixcoatl.infrastructure.snapshot.SnapshotException"><tt class="xref py py-class docutils literal"><span class="pre">SnapshotException</span></tt></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.infrastructure.snapshot.SnapshotException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.infrastructure.snapshot.</tt><tt class="descname">SnapshotException</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/snapshot.html#SnapshotException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.snapshot.SnapshotException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.BaseException</span></tt></p>
+<p>Generic exception for Snapshots</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Read Me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../source.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.html">Mixcoatl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.admin.html">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.automation.html">Automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.geography.html">Geography</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../mixcoatl.infrastructure.html">Infrastructure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="machine_image.html"><tt class="docutils literal"><span class="pre">machine_image</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="server.html"><tt class="docutils literal"><span class="pre">server</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="server_product.html"><tt class="docutils literal"><span class="pre">server_product</span></tt></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href=""><tt class="docutils literal"><span class="pre">snapshot</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="volume.html"><tt class="docutils literal"><span class="pre">volume</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixcoatl.settings.html">Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+        <li>
+          &larr;
+          <a href="server_product.html" title="Previous document"><tt class="docutils literal"><span class="pre">server_product</span></tt></a>
+        </li>
+        <li>
+          <a href="volume.html" title="Next document"><tt class="docutils literal"><span class="pre">volume</span></tt></a>
+          &rarr;
+        </li>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../source.html">Modules</a>
+      </li>
+      <li>
+        <a href="../mixcoatl.infrastructure.html">Infrastructure</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

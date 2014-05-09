@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mixcoatl.infrastructure.server &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mixcoatl.infrastructure.server</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camel_keys</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+
+<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A server is a virtual machine running within a data center.&quot;&quot;&quot;</span>
+
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;infrastructure/Server&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;servers&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;server_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span> <span class="o">=</span> <span class="n">server_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Server.server_id"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.server_id">[docs]</a>    <span class="k">def</span> <span class="nf">server_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The enStratus ID of this server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.agent_version"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.agent_version">[docs]</a>    <span class="k">def</span> <span class="nf">agent_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The version of the enStratus agent if installed.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__agent_version</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.cloud"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The cloud provided where the instance is located.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The label assigned to the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
+
+    <span class="nd">@label.setter</span>
+<div class="viewcode-block" id="Server.label"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">l</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.customer"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The customer account for the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.cm_account"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.cm_account">[docs]</a>    <span class="k">def</span> <span class="nf">cm_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The configuration management account for the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cm_account</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">data_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The specific datacenter where the instance is located.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data_center</span>
+
+    <span class="nd">@data_center.setter</span>
+<div class="viewcode-block" id="Server.data_center"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.data_center">[docs]</a>    <span class="k">def</span> <span class="nf">data_center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__data_center</span> <span class="o">=</span> <span class="p">{</span><span class="s">u&#39;data_center_id&#39;</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.cmAccount"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.cmAccount">[docs]</a>    <span class="k">def</span> <span class="nf">cmAccount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cmAccount</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">environment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__environment</span>
+
+    <span class="nd">@environment.setter</span>
+<div class="viewcode-block" id="Server.environment"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.environment">[docs]</a>    <span class="k">def</span> <span class="nf">environment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__environment</span> <span class="o">=</span> <span class="p">{</span><span class="s">u&#39;sharedEnvironmentCode&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">}</span>
+</div>
+    <span class="nd">@cmAccount.setter</span>
+<div class="viewcode-block" id="Server.cm_account_id"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.cm_account_id">[docs]</a>    <span class="k">def</span> <span class="nf">cm_account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cmAccount</span> <span class="o">=</span> <span class="p">{</span><span class="s">u&#39;cmAccountId&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">}</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">cm_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cm_scripts</span>
+
+    <span class="nd">@cm_scripts.setter</span>
+<div class="viewcode-block" id="Server.cm_scripts"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.cm_scripts">[docs]</a>    <span class="k">def</span> <span class="nf">cm_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    	<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)</span>
+    	<span class="n">sc</span> <span class="o">=</span> <span class="p">[]</span>
+    	<span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    		<span class="n">sc</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">u&#39;sharedScriptCode&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cm_scripts</span> <span class="o">=</span> <span class="n">sc</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">p_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p_scripts</span>
+
+    <span class="nd">@p_scripts.setter</span>
+<div class="viewcode-block" id="Server.p_scripts"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.p_scripts">[docs]</a>    <span class="k">def</span> <span class="nf">p_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    	<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)</span>
+    	<span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
+    	<span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    		<span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;sharedPersonalityCode&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__p_scripts</span> <span class="o">=</span> <span class="n">p</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The description of the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+
+    <span class="nd">@description.setter</span>
+<div class="viewcode-block" id="Server.description"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__description</span> <span class="o">=</span> <span class="n">d</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">machine_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The machine image to use/used to provision the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__machine_image</span>
+
+    <span class="nd">@machine_image.setter</span>
+<div class="viewcode-block" id="Server.machine_image"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.machine_image">[docs]</a>    <span class="k">def</span> <span class="nf">machine_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__machine_image</span> <span class="o">=</span> <span class="p">{</span><span class="s">u&#39;machine_image_id&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">}</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">vlan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The vlan to assign/assigned to the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__vlan</span>
+
+    <span class="nd">@vlan.setter</span>
+<div class="viewcode-block" id="Server.vlan"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.vlan">[docs]</a>    <span class="k">def</span> <span class="nf">vlan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__vlan</span> <span class="o">=</span> <span class="p">{</span><span class="s">u&#39;vlan_id&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">}</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">firewalls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The firewalls to assign/assigned to the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewalls</span>
+
+    <span class="nd">@firewalls.setter</span>
+<div class="viewcode-block" id="Server.firewalls"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.firewalls">[docs]</a>    <span class="k">def</span> <span class="nf">firewalls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__firewalls</span> <span class="o">=</span> <span class="n">f</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The name assigned/to assign to the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="Server.name"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">n</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.owning_groups"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The enStratus groups owning the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.owning_user"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus user owning the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.platform"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.platform">[docs]</a>    <span class="k">def</span> <span class="nf">platform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The platform of the server *(i.e. `UBUNTU`)*.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__platform</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.personalities"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.personalities">[docs]</a>    <span class="k">def</span> <span class="nf">personalities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The personalities associated with the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__personalities</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.private_ip_addresses"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.private_ip_addresses">[docs]</a>    <span class="k">def</span> <span class="nf">private_ip_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The private ip addresses assigned to the server.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__private_ip_addresses</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.public_ip_address"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.public_ip_address">[docs]</a>    <span class="k">def</span> <span class="nf">public_ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The public ip address of the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__public_ip_address</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.public_ip_addresses"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.public_ip_addresses">[docs]</a>    <span class="k">def</span> <span class="nf">public_ip_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The list of public ip addresses of the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__public_ip_addresses</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.region"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The region where the server is located&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__region</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">provider_product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The provider&#39;s product identifier for the server *(i.e. `m1.large`)*&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_product_id</span>
+
+    <span class="nd">@provider_product_id.setter</span>
+<div class="viewcode-block" id="Server.provider_product_id"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.provider_product_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__provider_product_id</span> <span class="o">=</span> <span class="nb">id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.provider_id"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The provider&#39;s identifier for the server *(i.e. `i-abcdefg`)*&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.product"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.product">[docs]</a>    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus product record for the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__product</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.start_date"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.start_date">[docs]</a>    <span class="k">def</span> <span class="nf">start_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The date the server was started&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start_date</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.stop_date"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.stop_date">[docs]</a>    <span class="k">def</span> <span class="nf">stop_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The date the server was stopped&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stop_date</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.status"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The status of the server *(i.e. `RUNNING` or `PAUSED`)*.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The budget code applied to the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
+
+    <span class="nd">@budget.setter</span>
+<div class="viewcode-block" id="Server.budget"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The budget code to apply to the server.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.scripts"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.scripts">[docs]</a>    <span class="k">def</span> <span class="nf">scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The list of configuration management scripts of the server.(Chef?)&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__scripts</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.run_list"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.run_list">[docs]</a>    <span class="k">def</span> <span class="nf">run_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The list of configuration management scripts of the server.(Puppet?)&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__run_list</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.architecture"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.architecture">[docs]</a>    <span class="k">def</span> <span class="nf">architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The architecture type of the server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__architecture</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">terminate_after</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The time the server automatically shuts down.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__terminate_after</span>
+
+    <span class="nd">@terminate_after.setter</span>
+<div class="viewcode-block" id="Server.terminate_after"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.terminate_after">[docs]</a>    <span class="k">def</span> <span class="nf">terminate_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+	    <span class="bp">self</span><span class="o">.</span><span class="n">__terminate_after</span> <span class="o">=</span> <span class="n">t</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.pause_after"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.pause_after">[docs]</a>    <span class="k">def</span> <span class="nf">pause_after</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The time the server automatically pauses.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pause_after</span>
+
+
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">keypair</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The keypair to assign</span>
+
+<span class="sd">            .. note::</span>
+<span class="sd">                enStratus does not track keypairs used to launch servers.</span>
+<span class="sd">                This attribute is used only in the `launch()` call.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keypair</span>
+
+    <span class="nd">@keypair.setter</span>
+<div class="viewcode-block" id="Server.keypair"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.keypair">[docs]</a>    <span class="k">def</span> <span class="nf">keypair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__keypair</span> <span class="o">=</span> <span class="n">kp</span>
+</div>
+<div class="viewcode-block" id="Server.reload"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.reload">[docs]</a>    <span class="k">def</span> <span class="nf">reload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reload resource data from API calls&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Job</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">):</span>
+                <span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__server_id</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">message</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;server_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Server.destroy"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.destroy">[docs]</a>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s">&#39;no reason provided&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Terminate server instance with reason :attr:`reason`</span>
+
+<span class="sd">        :param reason: The reason for terminating the server</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :returns: bool -- Result of API call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">)</span>
+        <span class="n">qopts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">qopts</span><span class="p">)</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;server_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Server.pause"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Pause the server instance with reason :attr:`reason`</span>
+
+<span class="sd">        :param reason: The reason for pausing the server</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :returns: Job -- Result of API call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">))</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;pause&#39;</span><span class="p">:[{}]}</span>
+
+        <span class="k">if</span> <span class="n">reason</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;pause&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;server_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Server.extend_terminate"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.extend_terminate">[docs]</a>    <span class="k">def</span> <span class="nf">extend_terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extend</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">))</span>
+        <span class="n">qopts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;terminateAfter&#39;</span><span class="p">:</span><span class="n">extend</span><span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">qopts</span><span class="p">)</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;server_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Server.start"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start the paused server instance with reason :attr:`reason`</span>
+
+<span class="sd">        :param reason: The reason for starting the server</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :returns: Job -- Result of API call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">))</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;start&#39;</span><span class="p">:[{}]}</span>
+
+        <span class="k">if</span> <span class="n">reason</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;start&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;server_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Server.stop"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stop the server instance with reason :attr:`reason`</span>
+
+<span class="sd">        :param reason: The reason for stopping the server</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :returns: Job -- Result of API call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">))</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;stop&#39;</span><span class="p">:[{}]}</span>
+
+        <span class="k">if</span> <span class="n">reason</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;stop&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+
+    <span class="c"># TODO: Refactor this a bit. We should be raising exceptions instead of</span>
+    <span class="c"># this madness of returning the last error. Makes no sense. I should have</span>
+    <span class="c"># never done it.</span></div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;provider_product_id&#39;</span><span class="p">,</span> <span class="s">&#39;machine_image&#39;</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span>
+                    <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;data_center&#39;</span><span class="p">,</span> <span class="s">&#39;budget&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="Server.launch"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.launch">[docs]</a>    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Launches a server with the configured parameters</span>
+
+<span class="sd">        &gt;&gt;&gt; def cb(j): print(j)</span>
+<span class="sd">        &gt;&gt;&gt; s = Server()</span>
+<span class="sd">        &gt;&gt;&gt; s.provider_product_id = &#39;m1.large&#39;</span>
+<span class="sd">        &gt;&gt;&gt; s.machine_image = 12345</span>
+<span class="sd">        &gt;&gt;&gt; s.description = &#39;my first launch&#39;</span>
+<span class="sd">        &gt;&gt;&gt; s.name = &#39;server-1-test&#39;</span>
+<span class="sd">        &gt;&gt;&gt; s.data_center = 54321</span>
+<span class="sd">        &gt;&gt;&gt; s.keypair = &#39;my-aws-keypair&#39;</span>
+<span class="sd">        &gt;&gt;&gt; s.launch(callback=cb)</span>
+
+<span class="sd">        :param callback: Optional callback to send the results of the API call</span>
+<span class="sd">        :type callback: func.</span>
+<span class="sd">        :returns: int -- The job id of the launch request</span>
+<span class="sd">        :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">optional_attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;vlan&#39;</span><span class="p">,</span> <span class="s">&#39;firewalls&#39;</span><span class="p">,</span> <span class="s">&#39;keypair&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="s">&#39;cmAccount&#39;</span><span class="p">,</span> <span class="s">&#39;environment&#39;</span><span class="p">,</span> <span class="s">&#39;cm_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;p_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;volumeConfiguration&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ServerLaunchException</span><span class="p">(</span><span class="s">&#39;Cannot launch an already running server: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">)</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;launch&#39;</span><span class="p">:</span>
+                    <span class="p">[{</span>
+                        <span class="s">&#39;productId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider_product_id</span><span class="p">,</span>
+                        <span class="s">&#39;budget&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span>
+                        <span class="s">&#39;machineImage&#39;</span><span class="p">:</span> <span class="n">camel_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_image</span><span class="p">),</span>
+                        <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s">&#39;dataCenter&#39;</span><span class="p">:</span> <span class="n">camel_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_center</span><span class="p">)</span>
+                    <span class="p">}]}</span>
+
+        <span class="k">for</span> <span class="n">oa</span> <span class="ow">in</span> <span class="n">optional_attrs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">oa</span> <span class="o">==</span> <span class="s">&#39;cm_scripts&#39;</span><span class="p">:</span>
+                        <span class="n">payload</span><span class="p">[</span><span class="s">&#39;launch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;scripts&#39;</span><span class="p">:</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">)})</span>
+                    <span class="k">elif</span> <span class="n">oa</span> <span class="o">==</span> <span class="s">&#39;p_scripts&#39;</span><span class="p">:</span>
+                        <span class="n">payload</span><span class="p">[</span><span class="s">&#39;launch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;personalities&#39;</span><span class="p">:</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">)})</span>
+                    <span class="k">elif</span> <span class="n">oa</span> <span class="o">==</span> <span class="s">&#39;volumeConfiguration&#39;</span><span class="p">:</span>
+                        <span class="n">payload</span><span class="p">[</span><span class="s">&#39;launch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;volumeConfiguration&#39;</span><span class="p">:{</span><span class="s">u&#39;raidlevel&#39;</span><span class="p">:</span><span class="s">&#39;RAID0&#39;</span><span class="p">,</span> <span class="s">u&#39;volumeCount&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s">u&#39;volumeSize&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s">u&#39;fileSystem&#39;</span><span class="p">:</span><span class="s">&#39;ext3&#39;</span><span class="p">,</span> <span class="s">u&#39;mountPoint&#39;</span><span class="p">:</span><span class="s">&#39;/mnt/data&#39;</span><span class="p">}})</span>
+                    <span class="k">elif</span> <span class="n">oa</span> <span class="o">==</span> <span class="s">&#39;vlan&#39;</span><span class="p">:</span>
+                        <span class="n">payload</span><span class="p">[</span><span class="s">&#39;launch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;vlan&#39;</span><span class="p">:</span><span class="n">camel_keys</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">))})</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">payload</span><span class="p">[</span><span class="s">&#39;launch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">oa</span><span class="p">:</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oa</span><span class="p">)})</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ServerLaunchException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Server.duplicate"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.duplicate">[docs]</a>    <span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Server.wait_for"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.wait_for">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s">&#39;RUNNING&#39;</span><span class="p">,</span> <span class="n">callback</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Blocks execution until the current server has status of :attr:`status`</span>
+
+<span class="sd">        :param status: The status to expect before continuing *(i.e. `RUNNING` or `PAUSED`)*</span>
+<span class="sd">        :type status: str.</span>
+<span class="sd">        :param callback: Optional callback to be called with the final :class:`Server`` when ``status`` is reached</span>
+<span class="sd">        :type callback: func.</span>
+<span class="sd">        :raises: `ServerException`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ServerException</span><span class="p">(</span><span class="s">&#39;Must be called with an existing server.&#39;</span><span class="p">)</span>
+        <span class="n">initial_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">initial_status</span> <span class="o">==</span> <span class="n">status</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">status</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ServerException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Server.all"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a list of all known servers</span>
+
+<span class="sd">        &gt;&gt;&gt; Server.all()</span>
+<span class="sd">        [{&#39;server_id&#39;:1,...},{&#39;server_id&#39;:2,...}]</span>
+
+<span class="sd">        :returns: list -- a list of :class:`Server`</span>
+<span class="sd">        :raises: ServerException</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+
+        <span class="k">if</span> <span class="s">&#39;params&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+          <span class="n">params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;params&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">servers</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s">&#39;serverId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">servers</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ServerException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="ServerException"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.ServerException">[docs]</a><span class="k">class</span> <span class="nc">ServerException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="ServerLaunchException"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.ServerLaunchException">[docs]</a><span class="k">class</span> <span class="nc">ServerLaunchException</span><span class="p">(</span><span class="n">ServerException</span><span class="p">):</span> <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Read Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/source.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>

@@ -3,17 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Mixcoatl: The enStratus python API wrapper
-===========================================
+Mixcoatl: The DCM API Wrapper
+=============================
+
+.. include:: ../README.rst
 
 Contents:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
+   :includehidden:
    
    readme
-   patterns
-   mixcoatl
+   source/source
+   dcm_utils/dcm_utils
+   additional_information/additional_information
 
 
 Indices and tables
@@ -22,4 +26,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

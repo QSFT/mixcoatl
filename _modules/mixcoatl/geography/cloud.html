@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mixcoatl.geography.cloud &mdash; mixcoatl 0.2.9 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader"><h1><a href="../../../index.html ">
+        mixcoatl 0.2.9 documentation
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for mixcoatl.geography.cloud</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;Implements the enStratus Cloud API&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span>
+
+<div class="viewcode-block" id="Cloud"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud">[docs]</a><span class="k">class</span> <span class="nc">Cloud</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;geography/Cloud&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;clouds&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;cloud_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_id</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_id</span> <span class="o">=</span> <span class="n">cloud_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cloud.cloud_id"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.cloud_id">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique enStratus id for this cloud&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.cloud_provider_console_url"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.cloud_provider_console_url">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_provider_console_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - URL of the cloud provider&#39;s own console&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_provider_console_url</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.cloud_provider_logo_url"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.cloud_provider_logo_url">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_provider_logo_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus installation URL to this cloud&#39;s logo&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_provider_logo_url</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.cloud_provider_name"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.cloud_provider_name">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_provider_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The name of the vendor providing the cloud&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_provider_name</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_account_number_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_account_number_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_account_number_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s user account number&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_account_number_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_access_key_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_access_key_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_access_key_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s API key&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_access_key_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_x509_cert_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_x509_cert_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_x509_cert_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s X509 certificate&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_x509_cert_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_x509_key_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_x509_key_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_x509_key_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s X509 key&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_x509_key_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_delegate"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_delegate">[docs]</a>    <span class="k">def</span> <span class="nf">compute_delegate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - Dasein Cloud API Java class for interacting with this cloud&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_delegate</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_endpoint"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">compute_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - Comma-separated list of cloud API endpoints&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_endpoint</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_secret_key_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_secret_key_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_secret_key_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s API secret key&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_secret_key_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.documentation_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.documentation_label">[docs]</a>    <span class="k">def</span> <span class="nf">documentation_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.name"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The enStratus name of the cloud&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.private_cloud"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.private_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">private_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - If the cloud is a private cloud or not&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__private_cloud</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.status"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - Status of the cloud in enStratus&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Cloud.all"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all clouds</span>
+
+<span class="sd">        :param keys_only: Return :attr:`cloud_id` instead of :class:`Cloud`</span>
+<span class="sd">        :type keys_only: bool.</span>
+<span class="sd">        :param detail: The level of detail to return - `basic` or `extended`</span>
+<span class="sd">        :type detail: str.</span>
+<span class="sd">        :returns: `list` of :class:`Cloud` or :attr:`cloud_id`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="s">&#39;public_only&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;publicOnly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;public_only&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;status&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keys_only</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;cloudId&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]:</span>
+                    <span class="n">cloud</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">&#39;cloudId&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="s">&#39;detail&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">cloud</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;detail&#39;</span><span class="p">]</span>
+                    <span class="n">cloud</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">params</span>
+                    <span class="n">cloud</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                    <span class="n">clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">clouds</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Read Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/source.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dcm_utils/dcm_utils.html">DCM Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/additional_information.html">Additional Information</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="related bottom">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="../../../index.html">mixcoatl 0.2.9 documentation</a></li>
+      <li>
+        <a href="../../index.html">Module code</a>
+      </li> 
+    </ul>
+  </nav>
+  </div>
+  <footer id="pagefooter">&copy; 2014, Quest Software, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.2.2
+        with the <a href="http://github.com/irskep/sphinx-better-theme">
+          better</a> theme.
+
+  </footer>
+
+  
+  </body>
+</html>
