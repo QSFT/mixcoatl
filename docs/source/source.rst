@@ -1,5 +1,5 @@
-Mixcoatl Source
----------------
+Modules
+-------
 
 .. toctree::
    :maxdepth: 3

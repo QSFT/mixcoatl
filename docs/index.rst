@@ -6,6 +6,8 @@
 Mixcoatl: The DCM API Wrapper
 =============================
 
+.. include:: ../README.rst
+
 Contents:
 
 .. toctree::
