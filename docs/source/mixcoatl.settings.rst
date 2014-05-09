@@ -1,15 +1,10 @@
 .. _mixcoatl_settings:
 
 Settings
-========
+--------
 
-.. _mixcoatl_settings_load_settings:
+.. toctree::
+   :maxdepth: 3
+   :titlesonly:
 
-:mod:`load_settings` Module
----------------------------
-
-.. automodule:: mixcoatl.settings.load_settings
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   settings/load_settings
