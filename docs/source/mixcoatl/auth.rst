@@ -1,5 +1,5 @@
-:mod:`auth` Module
-------------------
+:mod:`auth`
+-----------
 
 .. automodule:: mixcoatl.auth
     :members:
