@@ -62,33 +62,123 @@
           <div class="body">
             
   <div class="section" id="dcm-create-user">
-<h1>dcm-create-user<a class="headerlink" href="#dcm-create-user" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-create-user<a class="headerlink" href="#dcm-create-user" title="Permalink to this headline">¶</a></h1>
+<p>Create a DCM user.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Creates a DCM user in a given account. Requires permission to create users.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-user -a &lt;account_id&gt; -f &lt;first_name&gt; -l &lt;last_name&gt; -e &lt;email_address&gt; -g &lt;group_id&gt; -b &lt;budget_code&gt; -p &lt;password&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>account_id, -a</td>
+<td><p class="first">The ID of the account to which the user will be added</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 818</p>
+</td>
+</tr>
+<tr class="row-odd"><td>first_name, -f</td>
+<td><p class="first">The first name of the user</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: Monty</p>
+</td>
+</tr>
+<tr class="row-even"><td>last_name, -l</td>
+<td><p class="first">The last name of the user</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: Python</p>
+</td>
+</tr>
+<tr class="row-odd"><td>email_address, -e</td>
+<td><p class="first">The email address of the user</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: <a class="reference external" href="mailto:monty_python&#37;&#52;&#48;software&#46;dell&#46;com">monty_python<span>&#64;</span>software<span>&#46;</span>dell<span>&#46;</span>com</a></p>
+</td>
+</tr>
+<tr class="row-even"><td>group</td>
+<td><p class="first">The group of which the user will be a part</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 816</p>
+</td>
+</tr>
+<tr class="row-odd"><td>email_address, -e</td>
+<td><p class="first">The budget code to which the user will belong</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 819</p>
+</td>
+</tr>
+<tr class="row-even"><td>password, -p</td>
+<td><p class="first">The password for the user</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: iHLIX0GV5x0QIkhH</p>
+</td>
+</tr>
+<tr class="row-odd"><td>verbose, -v</td>
+<td>Print out verbose information about the user creation</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None.</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command will be the user ID of the created user.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-user -a 818 -f Python -l Monty -e monty_python@software.dell.com -g 816 -b 819 -p SMYY05ef2OCDITcG
+
+921
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-accounts.html#dcm-list-accounts"><em>List Accounts</em></a></p>
+<p><a class="reference internal" href="dcm-list-groups.html#dcm-list-groups"><em>List Groups</em></a></p>
+<p><a class="reference internal" href="dcm-create-group.html#dcm-create-group"><em>Create Group</em></a></p>
+<p><a class="reference internal" href="dcm-list-roles.html#dcm-list-roles"><em>List Roles</em></a></p>
+<p><a class="reference internal" href="dcm-create-role.html#dcm-create-role"><em>Create Role</em></a></p>
+<p><a class="reference internal" href="dcm-list-users.html#dcm-list-users"><em>List Users</em></a></p>
 </div>
 </div>
 
