@@ -1,3 +1,9 @@
+.. raw:: latex
+  
+      \newpage
+
+.. _dcm_create_role:
+
 dcm-create-role
 ---------------
 
