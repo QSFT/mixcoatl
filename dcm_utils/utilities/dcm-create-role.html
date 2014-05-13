@@ -63,32 +63,79 @@
             
   <div class="section" id="dcm-create-role">
 <span id="id1"></span><h1>dcm-create-role<a class="headerlink" href="#dcm-create-role" title="Permalink to this headline">¶</a></h1>
+<p>Create a DCM role.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Creates a DCM role. Requires permission to create roles.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-role -n &lt;role name&gt; -d &lt;role description&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-n, &#8211;name</td>
+<td><p class="first">The name of the role</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: &#8216;Standard Role&#8217;</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-d, &#8211;description</td>
+<td><p class="first">The description of the role</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information about the role creation</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command will be the role ID of the created role.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-role -n <span class="s1">&#39;Standard Role&#39;</span> -d <span class="s1">&#39;Standard Role&#39;</span>
+
+55123
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-groups.html#dcm-list-groups"><em>List Groups</em></a></p>
+<p><a class="reference internal" href="dcm-create-group.html#dcm-create-group"><em>Create Group</em></a></p>
+<p><a class="reference internal" href="dcm-list-roles.html#dcm-list-roles"><em>List Roles</em></a></p>
+<p><a class="reference internal" href="dcm-list-users.html#dcm-list-users"><em>List Users</em></a></p>
 </div>
 </div>
 
