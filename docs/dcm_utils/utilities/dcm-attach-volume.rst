@@ -29,7 +29,7 @@ Options
 +=====================+=======================================================+
 | -v, --volumeid      | Volume ID of the volume to be attached.               |
 |                     |                                                       |
-|                     | Type: Number                                          |
+|                     | Type: Integer                                         |
 |                     |                                                       |
 |                     | Default: None                                         |
 |                     |                                                       |
@@ -38,7 +38,7 @@ Options
 +---------------------+-------------------------------------------------------+
 | -s, --serverid      | Server ID of the server to attach the volume.         | 
 |                     |                                                       |
-|                     | Type: Number                                          |
+|                     | Type: Integer                                         |
 |                     |                                                       |
 |                     | Default: None                                         |
 |                     |                                                       |

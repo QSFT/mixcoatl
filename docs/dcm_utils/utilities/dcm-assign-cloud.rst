@@ -29,7 +29,7 @@ Options
 +=====================+=======================================================+
 | -c, --cloudid       | Cloud ID in DCM. Run dcm-list-clouds to get ID.       |
 |                     |                                                       |
-|                     | Type: Number                                          |
+|                     | Type: Integer                                         |
 |                     |                                                       |
 |                     | Default: None                                         |
 |                     |                                                       |
@@ -38,7 +38,7 @@ Options
 +---------------------+-------------------------------------------------------+
 | -i, --accountid     | DCM Account ID                                        | 
 |                     |                                                       |
-|                     | Type: Number                                          |
+|                     | Type: Integer                                         |
 |                     |                                                       |
 |                     | Default: None                                         |
 |                     |                                                       |
