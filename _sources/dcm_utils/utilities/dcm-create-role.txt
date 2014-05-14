@@ -7,7 +7,7 @@
 dcm-create-role
 ---------------
 
-Create a DCM role.
+Create a DCM role. Roles are used to control access and action to DCM resources.
 
 Description
 ~~~~~~~~~~~
