@@ -1,3 +1,9 @@
+.. raw:: latex
+  
+      \newpage
+
+.. _dcm_list_datacenters:
+
 dcm-list-datacenters
 --------------------
 
