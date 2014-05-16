@@ -1,14 +1,93 @@
+.. raw:: latex
+  
+      \newpage
+
+.. _dcm_create_billing_code:
+
 dcm-create-billing-code
 -----------------------
+
+Create a DCM billing/budget code. The terms `billing` and `budget` are used
+interchangeably.
 
 Description
 ~~~~~~~~~~~
 
+Billing codes are used to track 'spend' and are required whenever resources
+that incur cost are provisioned.
+
 Syntax
 ~~~~~~
 
+.. code-block:: bash
+
+   dcm-create-billing-code
+   usage: dcm-create-billing-code [-h] [--name NAME] [--code CODE] [--soft SOFT]
+                                  [--hard HARD] [--description DESCRIPTION]
+   
+   optional arguments:
+     -h, --help            show this help message and exit
+     --name NAME, -n NAME  Name
+     --code CODE, -c CODE  Budget Code
+     --soft SOFT           Soft Quota
+     --hard HARD           Hard Quota
+     --description DESCRIPTION, -d DESCRIPTION
+                           Description
+
 Options
 ~~~~~~~
+
++--------------------+-------------------------------------------------------+
+| Option             | Description                                           |
++====================+=======================================================+
+| -n, --name         | The name of the billing code                          | 
+|                    |                                                       |
+|                    | Type: String                                          |
+|                    |                                                       |
+|                    | Default: None                                         |
+|                    |                                                       |
+|                    | Required: Yes                                         |
+|                    |                                                       |
+|                    | Example: 'Operations'                                 |
++--------------------+-------------------------------------------------------+
+| -d, --description  | The description of the billing code                   | 
+|                    |                                                       |
+|                    | Type: String                                          |
+|                    |                                                       |
+|                    | Default: None                                         |
+|                    |                                                       |
+|                    | Required: Yes                                         |
+|                    |                                                       |
++--------------------+-------------------------------------------------------+
+| -c, --code         | A short/friendly name for the billing code            | 
+|                    |                                                       |
+|                    | Type: String                                          |
+|                    |                                                       |
+|                    | Default: None                                         |
+|                    |                                                       |
+|                    | Required: Yes                                         |
+|                    |                                                       |
++--------------------+-------------------------------------------------------+
+| --soft             | The value of the soft quota                           | 
+|                    |                                                       |
+|                    | Type: Integer                                         |
+|                    |                                                       |
+|                    | Default: None                                         |
+|                    |                                                       |
+|                    | Required: Yes                                         |
+|                    |                                                       |
++--------------------+-------------------------------------------------------+
+| --hard             | The value of the hard quota                           | 
+|                    |                                                       |
+|                    | Type: Integer                                         |
+|                    |                                                       |
+|                    | Default: None                                         |
+|                    |                                                       |
+|                    | Required: Yes                                         |
+|                    |                                                       |
++--------------------+-------------------------------------------------------+
+| -v, --verbose      | Print out verbose information about the role creation |
++--------------------+-------------------------------------------------------+
 
 Common Options
 ~~~~~~~~~~~~~~
@@ -16,8 +95,12 @@ Common Options
 Deprecated Options
 ^^^^^^^^^^^^^^^^^^
 
+None
+
 Output
 ~~~~~~
+
+The return value from this command is the ID of the created billing code.
 
 Examples
 ~~~~~~~~
@@ -25,5 +108,27 @@ Examples
 Example 1
 ^^^^^^^^^
 
+.. code-block:: bash
+
+   dcm-create-billing-code -n test -d 'Operations' --soft 100 --hard 200 -c OPS
+
+   5123
+
+Output
+%%%%%%
+
+.. code-block:: bash
+
+   dcm-list-billing-codes
+
+   +-----+---------+-------------+------------+------------+---------------+-----------------+--------+
+   |  ID |   Name  | Budget Code | Soft Quota | Hard Quota | Current Usage | Projected Usage | Status |
+   +-----+---------+-------------+------------+------------+---------------+-----------------+--------+
+   | 200 | Default |     DEF     |    0.00    |    0.00    |    USD 0.00   |     USD 0.00    | ACTIVE |
+   | 201 |   test  |     OPS     | USD 100.00 | USD 200.00 |    USD 0.00   |     USD 0.00    | ACTIVE |
+   +-----+---------+-------------+------------+------------+---------------+-----------------+--------+
+
 Related Topics
 ~~~~~~~~~~~~~~
+
+:ref:`List Billing Codes <dcm_list_billing_codes>`
