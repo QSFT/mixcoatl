@@ -58,7 +58,7 @@ Options
 |                    |                                                         |
 |                    | Example: 200                                            |
 +--------------------+---------------------------------------------------------+
-| -B, --budgetname   | The budget name of the role                             | 
+| -B, --budgetname   | The budget name of the volume                           | 
 |                    |                                                         |
 |                    | Type: String                                            |
 |                    |                                                         |
