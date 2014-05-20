@@ -30,6 +30,11 @@ from mixcoatl import __version__
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.intersphinx']
 
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    os.environ["ES_ACCESS_KEY"]='DUMMY_ACCESS_KEY'
+    os.environ["ES_SECRET_KEY"]='DUMMY_SECRET_KEY'
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
