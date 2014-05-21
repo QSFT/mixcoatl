@@ -2,24 +2,24 @@
   
       \newpage
 
-.. _dcm_attach_volume:
+.. _dcm_assign_cloud:
 
-dcm-attach-volume
------------------
+dcm-assign-cloud
+----------------
 
-Attach a volume to server.
+Assign cloud account to DCM account.
 
 Description
 ~~~~~~~~~~~
 
-Attach a volume to server with optional specific device ID.
+Assign cloud account to DCM account using cloud credentials.
 
 Syntax
 ~~~~~~
 
 .. code-block:: bash
 
-   dcm-attach-volume -v <volume_id> -s <server_id> -d <device_id>
+   dcm-assign-cloud -c <cloud_id> -i <account_id> -n <account_number> -a <access_key> -s <secret_key>
 
 Options
 ~~~~~~~
@@ -27,7 +27,7 @@ Options
 +---------------------+-------------------------------------------------------+
 | Option              | Description                                           |
 +=====================+=======================================================+
-| -v, --volumeid      | Volume ID of the volume to be attached.               |
+| -c, --cloudid       | Cloud ID in DCM. Run dcm-list-clouds to get ID.       |
 |                     |                                                       |
 |                     | Type: Integer                                         |
 |                     |                                                       |
@@ -36,7 +36,7 @@ Options
 |                     | Required: Yes                                         |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
-| -s, --serverid      | Server ID of the server to attach the volume.         | 
+| -i, --accountid     | DCM Account ID                                        | 
 |                     |                                                       |
 |                     | Type: Integer                                         |
 |                     |                                                       |
@@ -45,20 +45,38 @@ Options
 |                     | Required: Yes                                         |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
-| -d, --deviceid      | Device ID such as /dev/xvdh                           |
+| -n, --accountnumber | Cloud Account Number                                  | 
 |                     |                                                       |
 |                     | Type: String                                          |
 |                     |                                                       |
 |                     | Default: None                                         |
 |                     |                                                       |
-|                     | Required: No                                          |
+|                     | Required: Yes                                         |
+|                     |                                                       |
++---------------------+-------------------------------------------------------+
+| -a, --accesskey     | Cloud Account Access Key                              | 
+|                     |                                                       |
+|                     | Type: String                                          |
+|                     |                                                       |
+|                     | Default: None                                         |
+|                     |                                                       |
+|                     | Required: Yes                                         |
+|                     |                                                       |
++---------------------+-------------------------------------------------------+
+| -s, --secretkey     | Cloud Account Secret Key                              | 
+|                     |                                                       |
+|                     | Type: String                                          |
+|                     |                                                       |
+|                     | Default: None                                         |
+|                     |                                                       |
+|                     | Required: Yes                                         |
 |                     |                                                       |
 +---------------------+-------------------------------------------------------+
 
 Output
 ~~~~~~
 
-The return value from this command will be the job ID of the created job.
+None
 
 
 Examples
@@ -66,12 +84,11 @@ Examples
 
 .. code-block:: bash
 
-   dcm-attach-volume -v 1103 -s 57432 -d '/dev/xvdh'
+   dcm-assign-cloud -c 1 -i 200 -n 1234ABCD -a DEF012 -s SEK567
 
 Related Topics
 ~~~~~~~~~~~~~~
 
-:ref:`List Servers <dcm_list_servers>`
+:ref:`List Clouds <dcm_list_clouds>`
 
-:ref:`List Volumes <dcm_list_volumes>`
-
+:ref:`List Accounts <dcm_list_accounts>`

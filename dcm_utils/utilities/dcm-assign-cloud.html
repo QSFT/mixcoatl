@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-pause-server &mdash; mixcoatl 0.2.9 documentation</title>
+  <title>dcm-assign-cloud &mdash; mixcoatl 0.2.9 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
     <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html"/>
         <link rel="up" title="DCM Utilities" href="../dcm_utils.html"/>
-        <link rel="next" title="dcm-set-acl" href="dcm-set-acl.html"/>
-        <link rel="prev" title="dcm-list-volumes" href="dcm-list-volumes.html"/> 
+        <link rel="next" title="dcm-attach-volume" href="dcm-attach-volume.html"/>
+        <link rel="prev" title="DCM Utilities" href="../dcm_utils.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -82,7 +82,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../dcm_utils.html">DCM Utilities</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="dcm-assign-cloud.html">dcm-assign-cloud</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-assign-cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-attach-volume.html">dcm-attach-volume</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-check-job.html">dcm-check-job</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-billing-code.html">dcm-create-billing-code</a></li>
@@ -126,7 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-snapshots.html">dcm-list-snapshots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-users.html">dcm-list-users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-volumes.html">dcm-list-volumes</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-pause-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-set-acl.html">dcm-set-acl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-set-role.html">dcm-set-role</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-start-server.html">dcm-start-server</a></li>
@@ -164,10 +164,10 @@
       
           <li><a href="../dcm_utils.html">DCM Utilities</a> &raquo;</li>
       
-    <li>dcm-pause-server</li>
+    <li>dcm-assign-cloud</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../../_sources/dcm_utils/utilities/dcm-pause-server.txt" rel="nofollow"> View page source</a>
+          <a href="../../_sources/dcm_utils/utilities/dcm-assign-cloud.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -175,34 +175,84 @@
 </div>
           <div role="main">
             
-  <div class="section" id="dcm-pause-server">
-<h1>dcm-pause-server<a class="headerlink" href="#dcm-pause-server" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="dcm-assign-cloud">
+<span id="id1"></span><h1>dcm-assign-cloud<a class="headerlink" href="#dcm-assign-cloud" title="Permalink to this headline">¶</a></h1>
+<p>Assign cloud account to DCM account.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Assign cloud account to DCM account using cloud credentials.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-assign-cloud -c &lt;cloud_id&gt; -i &lt;account_id&gt; -n &lt;account_number&gt; -a &lt;access_key&gt; -s &lt;secret_key&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-c, &#8211;cloudid</td>
+<td><p class="first">Cloud ID in DCM. Run dcm-list-clouds to get ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-i, &#8211;accountid</td>
+<td><p class="first">DCM Account ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-n, &#8211;accountnumber</td>
+<td><p class="first">Cloud Account Number</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-a, &#8211;accesskey</td>
+<td><p class="first">Cloud Account Access Key</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-s, &#8211;secretkey</td>
+<td><p class="first">Cloud Account Secret Key</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-assign-cloud -c 1 -i 200 -n 1234ABCD -a DEF012 -s SEK567
+</pre></div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-clouds.html#dcm-list-clouds"><em>List Clouds</em></a></p>
+<p><a class="reference internal" href="dcm-list-accounts.html#dcm-list-accounts"><em>List Accounts</em></a></p>
 </div>
 </div>
 
@@ -212,10 +262,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dcm-set-acl.html" class="btn btn-neutral float-right" title="dcm-set-acl"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dcm-attach-volume.html" class="btn btn-neutral float-right" title="dcm-attach-volume"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dcm-list-volumes.html" class="btn btn-neutral" title="dcm-list-volumes"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../dcm_utils.html" class="btn btn-neutral" title="DCM Utilities"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

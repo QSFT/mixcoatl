@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm_attach_volume &mdash; mixcoatl 0.2.9 documentation</title>
+  <title>dcm-attach-volume &mdash; mixcoatl 0.2.9 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
     <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html"/>
         <link rel="up" title="DCM Utilities" href="../dcm_utils.html"/>
         <link rel="next" title="dcm-check-job" href="dcm-check-job.html"/>
-        <link rel="prev" title="dcm-assign-cloud" href="dcm_assign_cloud.html"/> 
+        <link rel="prev" title="dcm-assign-cloud" href="dcm-assign-cloud.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -82,8 +82,8 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../dcm_utils.html">DCM Utilities</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="dcm_assign_cloud.html">dcm-assign-cloud</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">dcm_attach_volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-assign-cloud.html">dcm-assign-cloud</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-attach-volume</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-check-job.html">dcm-check-job</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-billing-code.html">dcm-create-billing-code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-cm.html">dcm-create-cm</a></li>
@@ -164,7 +164,7 @@
       
           <li><a href="../dcm_utils.html">DCM Utilities</a> &raquo;</li>
       
-    <li>dcm_attach_volume</li>
+    <li>dcm-attach-volume</li>
       <li class="wy-breadcrumbs-aside">
         
           <a href="../../_sources/dcm_utils/utilities/dcm-attach-volume.txt" rel="nofollow"> View page source</a>
@@ -176,33 +176,69 @@
           <div role="main">
             
   <div class="section" id="dcm-attach-volume">
-<h1>dcm_attach_volume<a class="headerlink" href="#dcm-attach-volume" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-attach-volume<a class="headerlink" href="#dcm-attach-volume" title="Permalink to this headline">¶</a></h1>
+<p>Attach a volume to server.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Attach a volume to server with optional specific device ID.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-attach-volume -v &lt;volume_id&gt; -s &lt;server_id&gt; -d &lt;device_id&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;volumeid</td>
+<td><p class="first">Volume ID of the volume to be attached.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-s, &#8211;serverid</td>
+<td><p class="first">Server ID of the server to attach the volume.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-d, &#8211;deviceid</td>
+<td><p class="first">Device ID such as /dev/xvdh</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command will be the job ID of the created job.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-attach-volume -v 1103 -s 57432 -d <span class="s1">&#39;/dev/xvdh&#39;</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-servers.html#dcm-list-servers"><em>List Servers</em></a></p>
+<p><a class="reference internal" href="dcm-list-volumes.html#dcm-list-volumes"><em>List Volumes</em></a></p>
 </div>
 </div>
 
@@ -215,7 +251,7 @@
         <a href="dcm-check-job.html" class="btn btn-neutral float-right" title="dcm-check-job"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dcm_assign_cloud.html" class="btn btn-neutral" title="dcm-assign-cloud"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dcm-assign-cloud.html" class="btn btn-neutral" title="dcm-assign-cloud"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
