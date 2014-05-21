@@ -7,7 +7,7 @@
 dcm-list-billing-codes
 ----------------------
 
-List billing (budget codes).
+List billing (budget) codes.
 
 Description
 ~~~~~~~~~~~
