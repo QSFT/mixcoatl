@@ -177,32 +177,153 @@
             
   <div class="section" id="dcm-list-accounts">
 <span id="id1"></span><h1>dcm-list-accounts<a class="headerlink" href="#dcm-list-accounts" title="Permalink to this headline">¶</a></h1>
+<p>List DCM accounts.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of DCM accounts. The list returned is subject to the scope of the API key.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-accounts <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  -verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing accounts</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of DCM accounts</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-accounts
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+------------+--------------+----------------+--------+
+| Account ID | Account Name | Default Budget | Status |
++------------+--------------+----------------+--------+
+|    200     |     aws      |      200       | ACTIVE |
++------------+--------------+----------------+--------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-accounts -v
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h4>Output<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-json"><div class="highlight"><pre>{&#39;account_id&#39;: 200,
+ &#39;alert_configuration&#39;: {&#39;alert_interval_in_minutes&#39;: 5,
+                         &#39;allow_individual_email_alerts&#39;: True,
+                         &#39;allow_individual_sms_alerts&#39;: True,
+                         &#39;global_email_threshold&#39;: 11,
+                         &#39;global_sms_threshold&#39;: 11,
+                         &#39;stop_alerts_after_minutes&#39;: 60},
+ &#39;billing_system_id&#39;: &#39;200&#39;,
+ &#39;cloud_subscription&#39;: {&#39;account_number&#39;: &#39;521320785623&#39;,
+                        &#39;assignable_private_ip_addresses&#39;: False,
+                        &#39;assignable_public_ip_addresses&#39;: True,
+                        &#39;cloud_id&#39;: 1,
+                        &#39;cloud_subscription_id&#39;: 1,
+                        &#39;has_public_image_library&#39;: True,
+                        &#39;ip_address_forwarding&#39;: False,
+                        &#39;load_balancer_data_center_limited&#39;: True,
+                        &#39;load_balancer_ip_address_assigned&#39;: True,
+                        &#39;requestable_private_ip_addresses&#39;: False,
+                        &#39;requestable_public_ip_addresses&#39;: True,
+                        &#39;storage_account_number&#39;: &#39;5213-2078-5623&#39;,
+                        &#39;subscribed_auto_scaling&#39;: True,
+                        &#39;subscribed_blob_store&#39;: True,
+                        &#39;subscribed_cdn&#39;: True,
+                        &#39;subscribed_dns&#39;: True,
+                        &#39;subscribed_email&#39;: False,
+                        &#39;subscribed_firewall&#39;: True,
+                        &#39;subscribed_image&#39;: True,
+                        &#39;subscribed_ip_address&#39;: True,
+                        &#39;subscribed_key_value&#39;: True,
+                        &#39;subscribed_load_balancer&#39;: True,
+                        &#39;subscribed_message_queue&#39;: False,
+                        &#39;subscribed_push_notifications&#39;: True,
+                        &#39;subscribed_rdbms&#39;: True,
+                        &#39;subscribed_server&#39;: True,
+                        &#39;subscribed_snapshot&#39;: True,
+                        &#39;subscribed_vlan&#39;: True,
+                        &#39;subscribed_volume&#39;: True,
+                        &#39;subscribed_vpn&#39;: False,
+                        &#39;supports_custom_images&#39;: True,
+                        &#39;supports_ha_rdbms&#39;: True,
+                        &#39;supports_hypervisor_analytics&#39;: True,
+                        &#39;supports_non_ha_rdbms&#39;: True,
+                        &#39;supports_private_image_sharing&#39;: True,
+                        &#39;supports_private_snapshot_sharing&#39;: True,
+                        &#39;supports_public_image_sharing&#39;: True,
+                        &#39;supports_public_snapshot_sharing&#39;: True,
+                        &#39;supports_rdbms_firewalls&#39;: True,
+                        &#39;supports_rdbms_maintenance_windows&#39;: True,
+                        &#39;supports_rdbms_snapshots&#39;: True,
+                        &#39;supports_ssh_key_bootstrapping&#39;: True},
+ &#39;configured&#39;: True,
+ &#39;current_job&#39;: None,
+ &#39;customer&#39;: {&#39;accounting_currency&#39;: &#39;USD&#39;,
+              &#39;automated_exchange_rates&#39;: True,
+              &#39;business_name&#39;: &#39;Company Inc.&#39;,
+              &#39;created&#39;: &#39;2014-05-21T16:43:24.110+0000&#39;,
+              &#39;created_timestamp&#39;: &#39;2014-05-21T16:43:24.110+0000&#39;,
+              &#39;customer_id&#39;: 200,
+              &#39;status&#39;: &#39;ACTIVE&#39;,
+              &#39;time_zone&#39;: &#39;America/Chicago&#39;,
+              &#39;web_site&#39;: &#39;http://www.enstratius.com&#39;},
+ &#39;default_budget&#39;: 200,
+ &#39;dns_automation&#39;: None,
+ &#39;last_error&#39;: None,
+ &#39;last_request&#39;: &#39;&lt;Response [200]&gt;&#39;,
+ &#39;name&#39;: &#39;aws&#39;,
+ &#39;owner&#39;: None,
+ &#39;path&#39;: &#39;admin/Account/200&#39;,
+ &#39;plan_id&#39;: 2,
+ &#39;provisioned&#39;: True,
+ &#39;request_details&#39;: &#39;extended&#39;,
+ &#39;status&#39;: &#39;ACTIVE&#39;,
+ &#39;subscribed&#39;: True}
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
