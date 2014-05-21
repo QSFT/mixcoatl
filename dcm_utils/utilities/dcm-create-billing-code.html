@@ -62,33 +62,124 @@
           <div class="body">
             
   <div class="section" id="dcm-create-billing-code">
-<h1>dcm-create-billing-code<a class="headerlink" href="#dcm-create-billing-code" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-create-billing-code<a class="headerlink" href="#dcm-create-billing-code" title="Permalink to this headline">¶</a></h1>
+<p>Create a DCM billing/budget code. The terms <cite>billing</cite> and <cite>budget</cite> are used
+interchangeably.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Billing codes are used to track &#8216;spend&#8217; and are required whenever resources
+that incur cost are provisioned.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-billing-code
+usage: dcm-create-billing-code <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--name NAME<span class="o">]</span> <span class="o">[</span>--code CODE<span class="o">]</span> <span class="o">[</span>--soft SOFT<span class="o">]</span>
+                               <span class="o">[</span>--hard HARD<span class="o">]</span> <span class="o">[</span>--description DESCRIPTION<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --name NAME, -n NAME  Name
+  --code CODE, -c CODE  Budget Code
+  --soft SOFT           Soft Quota
+  --hard HARD           Hard Quota
+  --description DESCRIPTION, -d DESCRIPTION
+                        Description
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-n, &#8211;name</td>
+<td><p class="first">The name of the billing code</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: &#8216;Operations&#8217;</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-d, &#8211;description</td>
+<td><p class="first">The description of the billing code</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-c, &#8211;code</td>
+<td><p class="first">A short/friendly name for the billing code</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>&#8211;soft</td>
+<td><p class="first">The value of the soft quota</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>&#8211;hard</td>
+<td><p class="first">The value of the hard quota</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information about the role creation</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is the ID of the created billing code.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-billing-code -n <span class="nb">test</span> -d <span class="s1">&#39;Operations&#39;</span> --soft 100 --hard 200 -c OPS
+
+5123
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-billing-codes
+
++-----+---------+-------------+------------+------------+---------------+-----------------+--------+
+|  ID |   Name  | Budget Code | Soft Quota | Hard Quota | Current Usage | Projected Usage | Status |
++-----+---------+-------------+------------+------------+---------------+-----------------+--------+
+| 200 | Default |     DEF     |    0.00    |    0.00    |    USD 0.00   |     USD 0.00    | ACTIVE |
+| 201 |   <span class="nb">test</span>  |     OPS     | USD 100.00 | USD 200.00 |    USD 0.00   |     USD 0.00    | ACTIVE |
++-----+---------+-------------+------------+------------+---------------+-----------------+--------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-billing-codes.html#dcm-list-billing-codes"><em>List Billing Codes</em></a></p>
 </div>
 </div>
 

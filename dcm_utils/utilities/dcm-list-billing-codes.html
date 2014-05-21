@@ -62,33 +62,110 @@
           <div class="body">
             
   <div class="section" id="dcm-list-billing-codes">
-<h1>dcm-list-billing-codes<a class="headerlink" href="#dcm-list-billing-codes" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-list-billing-codes<a class="headerlink" href="#dcm-list-billing-codes" title="Permalink to this headline">¶</a></h1>
+<p>List billing (budget codes).</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of all budget codes in table format or if called using the <cite>-v</cite> option, a JSON response.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-billing-codes --help
+usage: dcm-list-billing-codes <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing billing codes.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is information about billing codes.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-billing-codes
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-----+----------------+-------------+------------+-------------+---------------+-----------------+--------+
+|  ID |      Name      | Budget Code | Soft Quota |  Hard Quota | Current Usage | Projected Usage | Status |
++-----+----------------+-------------+------------+-------------+---------------+-----------------+--------+
+| 819 |    Default     |     DEF     |    0.00    |     0.00    |  USD 1718.75  |   USD 2598.71   | ACTIVE |
++-----+----------------+-------------+------------+-------------+---------------+-----------------+--------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-billing-codes -v
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h4>Output<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-json"><div class="highlight"><pre>{&#39;billing_code_id&#39;: 819,
+ &#39;budget_state&#39;: &#39;NORMAL&#39;,
+ &#39;current_job&#39;: None,
+ &#39;current_usage&#39;: {&#39;currency&#39;: &#39;USD&#39;, &#39;value&#39;: 1719.0999755859375},
+ &#39;customer&#39;: {&#39;accounting_currency&#39;: &#39;USD&#39;,
+              &#39;automated_exchange_rates&#39;: True,
+              &#39;business_name&#39;: &#39;DCM CSE&#39;,
+              &#39;created&#39;: &#39;2014-04-28T15:46:58.580+0000&#39;,
+              &#39;created_timestamp&#39;: &#39;2014-04-28T15:46:58.580+0000&#39;,
+              &#39;customer_id&#39;: 816,
+              &#39;status&#39;: &#39;ACTIVE&#39;,
+              &#39;time_zone&#39;: &#39;UTC&#39;,
+              &#39;web_site&#39;: &#39;http://www.dell.com&#39;},
+ &#39;description&#39;: &#39;Default Billing Code&#39;,
+ &#39;finance_code&#39;: &#39;DEF&#39;,
+ &#39;hard_quota&#39;: None,
+ &#39;last_error&#39;: None,
+ &#39;last_request&#39;: &#39;&lt;Response [200]&gt;&#39;,
+ &#39;name&#39;: &#39;Default&#39;,
+ &#39;path&#39;: &#39;admin/BillingCode/819&#39;,
+ &#39;projected_usage&#39;: {&#39;currency&#39;: &#39;USD&#39;, &#39;value&#39;: 2599.070068359375},
+ &#39;request_details&#39;: &#39;extended&#39;,
+ &#39;soft_quota&#39;: None,
+ &#39;status&#39;: &#39;ACTIVE&#39;}
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-create-billing-code.html#dcm-create-billing-code"><em>Create Billing Code</em></a></p>
 </div>
 </div>
 
