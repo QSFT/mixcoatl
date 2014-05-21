@@ -6,7 +6,7 @@ DCM command line API utilities.
 .. toctree::
    :maxdepth: 3
 
-   utilities/dcm_assign_cloud
+   utilities/dcm-assign-cloud
    utilities/dcm-attach-volume
    utilities/dcm-check-job
    utilities/dcm-create-billing-code
