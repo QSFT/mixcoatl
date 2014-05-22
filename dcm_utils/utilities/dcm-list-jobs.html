@@ -177,32 +177,116 @@
             
   <div class="section" id="dcm-list-jobs">
 <span id="id1"></span><h1>dcm-list-jobs<a class="headerlink" href="#dcm-list-jobs" title="Permalink to this headline">¶</a></h1>
+<p>List DCM jobs.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of DCM accounts. The list returned is subject to the scope of the API key.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-jobs <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span> <span class="o">[</span>--job-id JOB_ID<span class="o">]</span>
+
+optional arguments:
+-h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+--verbose, -v         Produce verbose output
+--job-id JOB_ID, -j JOB_ID Job ID
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing jobs</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The output from this command is a list of DCM jobs when no argument is passed,
+or if a job ID is passed, the return message from the job is provided.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-jobs
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+--------+-----------------------------+----------+------------------------------+------------------------------+----------------------------+
+| Job ID | Description                 |  Status  |          Start Date          |           End Date           |          Message           |
++--------+-----------------------------+----------+------------------------------+------------------------------+----------------------------+
+|  901   | Terminate 1005              | COMPLETE | 2014-05-22T19:37:41.926+0000 | 2014-05-22T19:38:36.424+0000 |            None            |
+|  902   | Add Firewall Rule 0.0.0.0/0 | COMPLETE | 2014-05-22T19:38:20.903+0000 | 2014-05-22T19:38:36.422+0000 | ID: 800   Time: 15 seconds |
+|  900   | Terminate 1006              | RUNNING  | 2014-05-22T19:37:35.843+0000 |             None             |            None            |
+|  903   | Launch Server Test          | RUNNING  | 2014-05-22T19:38:41.982+0000 |             None             |            None            |
++--------+-----------------------------+----------+------------------------------+------------------------------+----------------------------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-accounts -j 902
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h4>Output<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-json"><div class="highlight"><pre>ID: 800   Time: 15 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="example-3">
+<h3>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-jobs
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h4>Output<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+--------+-----------------------------+----------+------------------------------+------------------------------+----------------------------+
+| Job ID | Description                 |  Status  |          Start Date          |           End Date           |          Message           |
++--------+-----------------------------+----------+------------------------------+------------------------------+----------------------------+
+|  903   | Launch Server Test          | COMPLETE | 2014-05-22T19:38:41.982+0000 | 2014-05-22T19:40:00.430+0000 |            1100            |
+|  904   | CREATE VOLUME               | RUNNING  | 2014-05-22T19:41:11.917+0000 |             None             |            None            |
+|  905   | Create Image cirros-image   | RUNNING  | 2014-05-22T19:42:09.985+0000 |             None             |       Bundling Image       |
++--------+-----------------------------+----------+------------------------------+------------------------------+----------------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="example-4">
+<h3>Example 4<a class="headerlink" href="#example-4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-jobs -j 905
+</pre></div>
+</div>
+<div class="section" id="id5">
+<h4>Output<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>Bundling Image
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
