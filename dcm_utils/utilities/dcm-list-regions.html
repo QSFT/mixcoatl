@@ -177,32 +177,92 @@
             
   <div class="section" id="dcm-list-regions">
 <span id="id1"></span><h1>dcm-list-regions<a class="headerlink" href="#dcm-list-regions" title="Permalink to this headline">¶</a></h1>
+<p>List regions.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of regions.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-regions <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing regions</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of DCM regions</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-regions
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-----------+----------------+--------+----------------+----------------+--------+
+| Region ID |  Provider ID   | Cloud  |  Region Name   |  Description   | Status |
++-----------+----------------+--------+----------------+----------------+--------+
+|    1403   | ap-northeast-1 | Amazon | ap-northeast-1 | ap-northeast-1 | ACTIVE |
+|    1406   | ap-southeast-1 | Amazon | ap-southeast-1 | ap-southeast-1 | ACTIVE |
+|    1407   | ap-southeast-2 | Amazon | ap-southeast-2 | ap-southeast-2 | ACTIVE |
+|    1400   |   eu-west-1    | Amazon |   eu-west-1    |   eu-west-1    | ACTIVE |
+|    1401   |   sa-east-1    | Amazon |   sa-east-1    |   sa-east-1    | ACTIVE |
+|    1402   |   us-east-1    | Amazon |   us-east-1    |   us-east-1    | ACTIVE |
+|    1405   |   us-west-1    | Amazon |   us-west-1    |   us-west-1    | ACTIVE |
+|    1404   |   us-west-2    | Amazon |   us-west-2    |   us-west-2    | ACTIVE |
++-----------+----------------+--------+----------------+----------------+--------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-regions
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h4>Output<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-----------+-------------+-----------+-------------+-------------+--------+
+| Region ID | Provider ID | Cloud     | Region Name | Description | Status |
++-----------+-------------+-----------+-------------+-------------+--------+
+| 300       | RegionOne   | OpenStack | RegionOne   | RegionOne   | ACTIVE |
++-----------+-------------+-----------+-------------+-------------+--------+
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
