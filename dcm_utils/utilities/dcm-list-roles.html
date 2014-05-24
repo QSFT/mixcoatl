@@ -177,32 +177,72 @@
             
   <div class="section" id="dcm-list-roles">
 <span id="id1"></span><h1>dcm-list-roles<a class="headerlink" href="#dcm-list-roles" title="Permalink to this headline">¶</a></h1>
+<p>List roles.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of roles.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-roles <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing roles</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of DCM roles</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-roles
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+---------+-------------+--------------------+--------+
+| Role ID | Role Name   | Description        | Status |
++---------+-------------+--------------------+--------+
+| 55400   | Admin       | General Admin Role | ACTIVE |
+| 55502   | Production  | Production         | ACTIVE |
+| 55501   | Testing     | Testing            | ACTIVE |
+| 55500   | Development | Development        | ACTIVE |
++---------+-------------+--------------------+--------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
