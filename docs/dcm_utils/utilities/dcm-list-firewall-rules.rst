@@ -1,3 +1,9 @@
+.. raw:: latex
+
+      \newpage
+
+.. _dcm_list_firewall_rules:
+
 dcm-list-firewall-rules
 -----------------------
 
