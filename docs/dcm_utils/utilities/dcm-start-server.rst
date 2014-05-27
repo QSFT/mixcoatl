@@ -5,7 +5,7 @@
 .. _dcm_start_server:
 
 dcm-start-server
----------------
+----------------
 
 Start a server.
 

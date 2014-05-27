@@ -5,7 +5,7 @@
 .. _dcm_create_server:
 
 dcm-create-server
-----------------
+-----------------
 
 Creates a server.
 
