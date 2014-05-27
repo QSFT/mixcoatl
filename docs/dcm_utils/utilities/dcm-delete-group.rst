@@ -1,29 +1,60 @@
+.. raw:: latex
+
+      \newpage
+
+.. _dcm_delete_group:
+
 dcm-delete-group
 ----------------
+
+Delete a DCM group. 
 
 Description
 ~~~~~~~~~~~
 
+Deletes a DCM group.
+
 Syntax
 ~~~~~~
+
+.. code-block:: bash
+
+   dcm-delete-group <group_id>
 
 Options
 ~~~~~~~
 
-Common Options
-~~~~~~~~~~~~~~
-
-Deprecated Options
-^^^^^^^^^^^^^^^^^^
++--------------------+--------------------------------------------------------+
+| Option             | Description                                            |
++====================+========================================================+
+| No flag needed     | Group ID                                               | 
+|                    |                                                        |
+|                    | Type: Integer                                          |
+|                    |                                                        |
+|                    | Default: None                                          |
+|                    |                                                        |
+|                    | Required: Yes                                          |
+|                    |                                                        |
++--------------------+--------------------------------------------------------+
 
 Output
 ~~~~~~
 
+message
+
 Examples
 ~~~~~~~~
 
-Example 1
-^^^^^^^^^
+.. code-block:: bash
+
+   dcm-delete-group 12345
+
+   Group deleted.
 
 Related Topics
 ~~~~~~~~~~~~~~
+
+:ref:`List groups <dcm_list_groups>`
+
+:ref:`Create a group <dcm_create_group>`
+
