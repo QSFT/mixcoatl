@@ -176,33 +176,68 @@
           <div role="main">
             
   <div class="section" id="dcm-update-group">
-<h1>dcm-update-group<a class="headerlink" href="#dcm-update-group" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-update-group<a class="headerlink" href="#dcm-update-group" title="Permalink to this headline">¶</a></h1>
+<p>Update DCM group.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Update DCM group&#8217;s name or description.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-update-group -g &lt;group_id&gt; -n &lt;name&gt; -d &lt;description&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-g, &#8211;groupid</td>
+<td><p class="first">Group ID of the group to be updated.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-n, &#8211;name</td>
+<td><p class="first">Group&#8217;s new name.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+<tr class="row-even"><td>-d, &#8211;description</td>
+<td><p class="first">Group&#8217;s new description.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-update-group -g 105 -n <span class="s1">&#39;Tester&#39;</span> -d <span class="s1">&#39;Tester group&#39;</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-groups.html#dcm-list-groups"><em>List Groups</em></a></p>
 </div>
 </div>
 

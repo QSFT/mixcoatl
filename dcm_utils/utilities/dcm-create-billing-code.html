@@ -265,30 +265,14 @@ optional arguments:
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>The return value from this command is the ID of the created billing code.</p>
+<p>None</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre>dcm-create-billing-code -n <span class="nb">test</span> -d <span class="s1">&#39;Operations&#39;</span> --soft 100 --hard 200 -c OPS
 
 5123
 </pre></div>
-</div>
-<div class="section" id="id2">
-<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre>dcm-list-billing-codes
-
-+-----+---------+-------------+------------+------------+---------------+-----------------+--------+
-|  ID |   Name  | Budget Code | Soft Quota | Hard Quota | Current Usage | Projected Usage | Status |
-+-----+---------+-------------+------------+------------+---------------+-----------------+--------+
-| 200 | Default |     DEF     |    0.00    |    0.00    |    USD 0.00   |     USD 0.00    | ACTIVE |
-| 201 |   <span class="nb">test</span>  |     OPS     | USD 100.00 | USD 200.00 |    USD 0.00   |     USD 0.00    | ACTIVE |
-+-----+---------+-------------+------------+------------+---------------+-----------------+--------+
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="related-topics">

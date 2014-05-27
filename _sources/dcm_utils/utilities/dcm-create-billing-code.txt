@@ -100,33 +100,16 @@ None
 Output
 ~~~~~~
 
-The return value from this command is the ID of the created billing code.
+None
 
 Examples
 ~~~~~~~~
-
-Example 1
-^^^^^^^^^
 
 .. code-block:: bash
 
    dcm-create-billing-code -n test -d 'Operations' --soft 100 --hard 200 -c OPS
 
    5123
-
-Output
-%%%%%%
-
-.. code-block:: bash
-
-   dcm-list-billing-codes
-
-   +-----+---------+-------------+------------+------------+---------------+-----------------+--------+
-   |  ID |   Name  | Budget Code | Soft Quota | Hard Quota | Current Usage | Projected Usage | Status |
-   +-----+---------+-------------+------------+------------+---------------+-----------------+--------+
-   | 200 | Default |     DEF     |    0.00    |    0.00    |    USD 0.00   |     USD 0.00    | ACTIVE |
-   | 201 |   test  |     OPS     | USD 100.00 | USD 200.00 |    USD 0.00   |     USD 0.00    | ACTIVE |
-   +-----+---------+-------------+------------+------------+---------------+-----------------+--------+
 
 Related Topics
 ~~~~~~~~~~~~~~

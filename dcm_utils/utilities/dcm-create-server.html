@@ -176,33 +176,108 @@
           <div role="main">
             
   <div class="section" id="dcm-create-server">
-<h1>dcm-create-server<a class="headerlink" href="#dcm-create-server" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-create-server<a class="headerlink" href="#dcm-create-server" title="Permalink to this headline">¶</a></h1>
+<p>Creates a server.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Creates a server from a specified machine image.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-server -p &lt;product_id&gt; -m &lt;machine_image_id&gt; -d &lt;datacenter_id&gt;
+                  -n &lt;server_name&gt; -b &lt;budget_id&gt; -k &lt;keypair_name&gt;
+                  -v &lt;vlan&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-p, &#8211;productid</td>
+<td><p class="first">Provider&#8217;s product ID</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: &#8216;m1.small&#8217;</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-m, &#8211;machineimage</td>
+<td><p class="first">Machine image ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-d, &#8211;datacenter</td>
+<td><p class="first">Data center ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-D, &#8211;description</td>
+<td><p class="first">Description of the server</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-n, &#8211;name</td>
+<td><p class="first">Name of the server</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-b, &#8211;budgetid</td>
+<td><p class="first">Budget ID</p>
+<p>Type: Integer</p>
+<p>Default: Default budget code</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+<tr class="row-even"><td>-k, &#8211;keypair</td>
+<td><p class="first">Keypair Name</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;vlan</td>
+<td><p class="first">VLAN ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>Job ID</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-server -m 34251 -d 7659 -n <span class="s1">&#39;linux-demo-server&#39;</span> -D <span class="s1">&#39;Linux demonstration server&#39;</span> -b 100
+
+54830
+</pre></div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-servers.html#dcm-list-servers"><em>List Servers</em></a></p>
 </div>
 </div>
 
