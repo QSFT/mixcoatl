@@ -1,5 +1,5 @@
 __title__ = 'mixcoatl'
-__version__ = '0.2.9'
-__author__ = 'John E. Vincent'
+__version__ = '0.3.1'
+__author__ = 'Dell Cloud Manager Team'
 __license__ = 'Apache 2.0'
-__copyright__ = 'Copyright 2014 John E. Vincent, Dell Inc'
+__copyright__ = 'Copyright 2014, Dell Inc'
