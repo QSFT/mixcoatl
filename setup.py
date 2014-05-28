@@ -23,7 +23,7 @@ packages = [
     'mixcoatl.settings'
 ]
 
-requires = ['requests==1.0.4']
+requires = ['requests==1.0.4', 'prettytable==0.7.2']
 setup(
     name='mixcoatl',
     version=mixcoatl.__version__,
