@@ -6,6 +6,8 @@
 Mixcoatl: The DCM API Wrapper
 =============================
 
+`Mixcoatl HTML Slideshow <https://zomgreg.github.io/mixcoatl-slideshow/>`_
+
 .. include:: ../README.rst
 
 Contents:
