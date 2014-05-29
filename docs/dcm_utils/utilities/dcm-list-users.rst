@@ -47,8 +47,11 @@ Output
 
 The return value from this command is a list of DCM users.
 
-Example
-~~~~~~~
+Examples
+~~~~~~~~
+
+Example 1
+^^^^^^^^^
 
 .. code-block:: bash
 
@@ -70,4 +73,3 @@ Output
    |  50944  |     p204    |   advanced   |    user    |    advanced_user@example.com   |   advanced group   |
    |  50945  |     p205    |   advanced   |   user2    |   advanced_user2@example.com   |   advanced group   |
    +---------+-------------+--------------+------------+--------------------------------+--------------------+
-

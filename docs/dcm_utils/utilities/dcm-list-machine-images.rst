@@ -78,14 +78,16 @@ Output
 
 The return value from this command is a list of machine images.
 
-Example
-~~~~~~~
+Examples
+~~~~~~~~
+
+Example 1
+^^^^^^^^^
 
 .. code-block:: bash
 
    dcm-list-machine-images -r 202
    
-
 Output
 %%%%%%
 
@@ -97,4 +99,3 @@ Output
    | 200 |  ami-58a42e30 | ubuntu/images/ebs/ubuntu-precise-12.04  |  UBUNTU | I64  |  None | ACTIVE |
    | 203 |  ami-2ca259b1 | TestImage                               |  RHEL   | I64  |   17  | ACTIVE |
    +-----+---------------+-----------------------------------------+---------+------+-------+--------+
-

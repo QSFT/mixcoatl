@@ -47,8 +47,11 @@ Output
 
 The return value from this command is a list of clouds in DCM's database.
 
-Example
-~~~~~~~
+Examples
+~~~~~~~~
+
+Example 1
+^^^^^^^^^
 
 .. code-block:: bash
 
@@ -72,4 +75,3 @@ Output
    |   9000   | IBM SmartCloud Enterprise  |           org.dasein.cloud.ibm.sce.SCE           | https://www-147.ibm.com/computecloud/enterprise/api/rest/20100331 | INACTIVE |
    |    16    |        Joyent Cloud        |     org.dasein.cloud.joyent.SmartDataCenter      |               https://us-west-1.api.joyentcloud.com               |  ACTIVE  |
    +----------+----------------------------+--------------------------------------------------+-------------------------------------------------------------------+----------+
-

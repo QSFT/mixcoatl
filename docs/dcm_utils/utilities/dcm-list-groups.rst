@@ -65,7 +65,7 @@ Common Options
 ~~~~~~~~~~~~~~
 
 Deprecated Options
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 None
 
@@ -74,8 +74,11 @@ Output
 
 The return value from this command is a list of DCM groups.
 
-Example
-~~~~~~~
+Examples
+~~~~~~~~
+
+Example 1
+^^^^^^^^^
 
 .. code-block:: bash
 
@@ -94,4 +97,3 @@ Output
    |   201    |    basic group     | basic group                                         | ACTIVE |
    |   202    | intermediate group | intermediate group                                  | ACTIVE |
    +----------+--------------------+-----------------------------------------------------+--------+
-
