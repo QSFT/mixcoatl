@@ -58,7 +58,7 @@ Options
 +--------------------+--------------------------------------------------------------+
 | -a, --all          | List all groups.                                             |
 +--------------------+--------------------------------------------------------------+
-| -v, --verbose      | Print out verbose information while listing regions          |
+| -v, --verbose      | Print out verbose information while listing groups.          |
 +--------------------+--------------------------------------------------------------+
 
 Common Options
