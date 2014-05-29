@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-list-machine-images &mdash; mixcoatl 0.2.9 documentation</title>
+  <title>dcm-list-machine-images &mdash; mixcoatl 0.3.1 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.1 documentation" href="../../index.html"/>
         <link rel="up" title="DCM Utilities" href="../dcm_utils.html"/>
         <link rel="next" title="dcm-list-networks" href="dcm-list-networks.html"/>
         <link rel="prev" title="dcm-list-jobs" href="dcm-list-jobs.html"/> 
@@ -176,33 +176,98 @@
           <div role="main">
             
   <div class="section" id="dcm-list-machine-images">
-<h1>dcm-list-machine-images<a class="headerlink" href="#dcm-list-machine-images" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-list-machine-images<a class="headerlink" href="#dcm-list-machine-images" title="Permalink to this headline">¶</a></h1>
+<p>List machine images.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of machine images.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-machine-images <span class="o">[</span>-h<span class="o">]</span> <span class="o">(</span>--regionid REGIONID | --regionpid REGIONPID<span class="o">)</span> <span class="o">[</span>--registered<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --regionid REGIONID, -r REGIONID
+                        Region ID.
+  --regionpid REGIONPID, -R REGIONPID
+                        Region Provider ID such as us-east-1.
+  --registered, -e      Returns only images with agent installed
+  --verbose, -v         Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-r, &#8211;regionid</td>
+<td><p class="first">Region ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes (if regionpid is not specified)</p>
+<p class="last">Example: 201</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-R, &#8211;regionpid</td>
+<td><p class="first">Provider region ID.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes (if regionid is not specified)</p>
+<p class="last">Example: us-east-1</p>
+</td>
+</tr>
+<tr class="row-even"><td>-e, &#8211;registered</td>
+<td><p class="first">Returns only images with agent installed.</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing machine images.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of machine images.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-machine-images -r 202
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-----+---------------+-----------------------------------------+---------+------+-------+--------+
+|  ID |  Provider ID  | Name                                    |    OS   | Arch | Agent | Status |
++-----+---------------+-----------------------------------------+---------+------+-------+--------+
+| 200 |  ami-58a42e30 | ubuntu/images/ebs/ubuntu-precise-12.04  |  UBUNTU | I64  |  None | ACTIVE |
+| 203 |  ami-2ca259b1 | TestImage                               |  RHEL   | I64  |   17  | ACTIVE |
++-----+---------------+-----------------------------------------+---------+------+-------+--------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
@@ -244,7 +309,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.2.9',
+            VERSION:'0.3.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

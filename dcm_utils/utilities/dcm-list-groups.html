@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-list-groups &mdash; mixcoatl 0.2.9 documentation</title>
+  <title>dcm-list-groups &mdash; mixcoatl 0.3.1 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.1 documentation" href="../../index.html"/>
         <link rel="up" title="DCM Utilities" href="../dcm_utils.html"/>
         <link rel="next" title="dcm-list-jobs" href="dcm-list-jobs.html"/>
         <link rel="prev" title="dcm-list-firewalls" href="dcm-list-firewalls.html"/> 
@@ -177,32 +177,96 @@
             
   <div class="section" id="dcm-list-groups">
 <span id="id1"></span><h1>dcm-list-groups<a class="headerlink" href="#dcm-list-groups" title="Permalink to this headline">¶</a></h1>
+<p>List groups.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of groups.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-groups <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--userid USERID<span class="o">]</span> <span class="o">[</span>--email EMAIL<span class="o">]</span> <span class="o">[</span>--all<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --userid USERID, -u USERID
+                        User ID. For example, p100
+  --email EMAIL, -m EMAIL
+                        E-Mail address of user
+  --all, -a             List all groups
+  --verbose, -v         Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-u, &#8211;userid</td>
+<td><p class="first">User ID. Returns a list of groups the user belongs to.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 58395</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-m, &#8211;email</td>
+<td><p class="first">E-Mail address of user.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: <a class="reference external" href="mailto:admin&#37;&#52;&#48;example&#46;com">admin<span>&#64;</span>example<span>&#46;</span>com</a></p>
+</td>
+</tr>
+<tr class="row-even"><td>-a, &#8211;all</td>
+<td>List all groups.</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing groups.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="deprecated-options">
+<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of DCM groups.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-groups --all
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+----------+--------------------+-----------------------------------------------------+--------+
+| Group ID |     Group Name     | Description                                         | Status |
++----------+--------------------+-----------------------------------------------------+--------+
+|   200    |       Admin        | Default administrative group with full permissions. | ACTIVE |
+|   203    |   advanced group   | advanced group                                      | ACTIVE |
+|   201    |    basic group     | basic group                                         | ACTIVE |
+|   202    | intermediate group | intermediate group                                  | ACTIVE |
++----------+--------------------+-----------------------------------------------------+--------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
@@ -244,7 +308,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.2.9',
+            VERSION:'0.3.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

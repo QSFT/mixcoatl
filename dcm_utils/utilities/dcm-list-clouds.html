@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-list-clouds &mdash; mixcoatl 0.2.9 documentation</title>
+  <title>dcm-list-clouds &mdash; mixcoatl 0.3.1 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.2.9 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.1 documentation" href="../../index.html"/>
         <link rel="up" title="DCM Utilities" href="../dcm_utils.html"/>
         <link rel="next" title="dcm-list-cm-accounts" href="dcm-list-cm-accounts.html"/>
         <link rel="prev" title="dcm-list-billing-codes" href="dcm-list-billing-codes.html"/> 
@@ -177,32 +177,77 @@
             
   <div class="section" id="dcm-list-clouds">
 <span id="id1"></span><h1>dcm-list-clouds<a class="headerlink" href="#dcm-list-clouds" title="Permalink to this headline">¶</a></h1>
+<p>List clouds.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of clouds in DCM database.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-clouds <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing clouds.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of clouds in DCM&#8217;s database.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-clouds
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+----------+----------------------------+--------------------------------------------------+-------------------------------------------------------------------+----------+
+| Cloud ID |         Cloud Name         |                     Delegate                     |                              Endpoint                             |  Status  |
++----------+----------------------------+--------------------------------------------------+-------------------------------------------------------------------+----------+
+|    1     |    Amazon Web Services     |          org.dasein.cloud.aws.AWSCloud           |                https://ec2.us-east-1.amazonaws.com                |  ACTIVE  |
+|    45    |           Azure            |           org.dasein.cloud.azure.Azure           |                https://management.core.windows.net/               |  ACTIVE  |
+|   1011   |        CloudCentral        |       org.dasein.cloud.cloudstack.CSCloud        |        http://cloudplatform.cloudcentral.com.au/client/api        |  ACTIVE  |
+|    37    |    CloudSigma Las Vegas    |      org.dasein.cloud.cloudsigma.CloudSigma      |                https://lvs.cloudsigma.com/api/2.0/                |  ACTIVE  |
+|   9110   |       Datapipe Cloud       |       org.dasein.cloud.cloudstack.CSCloud        |             https://cloud.datapipe.com/api/compute/v1/            |  ACTIVE  |
+|    9     |           Google           |          org.dasein.cloud.aws.AWSCloud           |              https://commondatastorage.googleapis.com             |  ACTIVE  |
+|    28    |          HP Cloud          | org.dasein.cloud.openstack.nova.os.NovaOpenStack |     https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0     |  ACTIVE  |
+|   9000   | IBM SmartCloud Enterprise  |           org.dasein.cloud.ibm.sce.SCE           | https://www-147.ibm.com/computecloud/enterprise/api/rest/20100331 | INACTIVE |
+|    16    |        Joyent Cloud        |     org.dasein.cloud.joyent.SmartDataCenter      |               https://us-west-1.api.joyentcloud.com               |  ACTIVE  |
++----------+----------------------------+--------------------------------------------------+-------------------------------------------------------------------+----------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
@@ -244,7 +289,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.2.9',
+            VERSION:'0.3.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
