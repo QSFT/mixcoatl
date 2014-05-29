@@ -55,5 +55,5 @@ Related Topics
 ~~~~~~~~~~~~~~
 
 :ref:`List Servers <dcm_list_servers>`
-:ref:`Start Server <dcm_start_server>`
 
+:ref:`Start Server <dcm_start_server>`
