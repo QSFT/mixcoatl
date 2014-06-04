@@ -176,33 +176,92 @@
           <div role="main">
             
   <div class="section" id="dcm-list-networks">
-<h1>dcm-list-networks<a class="headerlink" href="#dcm-list-networks" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-list-networks<a class="headerlink" href="#dcm-list-networks" title="Permalink to this headline">¶</a></h1>
+<p>List networks.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of networks.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-networks <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--accountid ACCOUNTID | --regionid REGIONID | --all<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --accountid ACCOUNTID, -i ACCOUNTID
+                        Account ID
+  --regionid REGIONID, -r REGIONID
+                        Region ID
+  --all, -a
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-i, &#8211;accountid</td>
+<td><p class="first">Account ID of networks to be listed.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 200</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-r, &#8211;regionid</td>
+<td><p class="first">Region ID of networks to be listed.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 301</p>
+</td>
+</tr>
+<tr class="row-even"><td>-a, &#8211;all</td>
+<td>List all networks.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="deprecated-options">
+<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of networks.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-networks --all
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+------------+-----------+-------------+--------------+----------+-----------------+
+| Network ID | Region ID |     Name    | Provider ID  |   Type   | Network Address |
++------------+-----------+-------------+--------------+----------+-----------------+
+|    800     |    200    | Gollum VPC  | vpc-735ace52 | STANDARD | 192.168.10.0/24 |
++------------+-----------+-------------+--------------+----------+-----------------+
+|    801     |    200    | Baggins VPC | vpc-93e3ace0 | STANDARD | 192.168.20.0/24 |
++------------+-----------+-------------+--------------+----------+-----------------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 

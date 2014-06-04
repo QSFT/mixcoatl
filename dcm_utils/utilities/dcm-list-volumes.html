@@ -177,32 +177,172 @@
             
   <div class="section" id="dcm-list-volumes">
 <span id="id1"></span><h1>dcm-list-volumes<a class="headerlink" href="#dcm-list-volumes" title="Permalink to this headline">¶</a></h1>
+<p>Lists volumes.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of volumes.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-volumes [-h] (--regionid REGIONID | --regionpid REGIONPID | --all)
+       [--userid USERID | --email EMAIL] [--groupid GROUPID | --groupname GROUPNAME]
+       [--budgetid BUDGETID | --budgetname BUDGETNAME] [--nonattached]
+       [--minsize MINSIZE] [--verbose]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --regionid REGIONID, -r REGIONID
+                        Region ID.
+  --regionpid REGIONPID, -R REGIONPID
+                        Region Provider ID such as us-east-1.
+  --all, -a             List volumes in all regions.
+  --userid USERID, -u USERID
+                        Owning user&#39;s VM login ID. For example, p100.
+  --email EMAIL, -m EMAIL
+                        E-Mail address of owning user.
+  --groupid GROUPID, -g GROUPID
+                        Owning group&#39;s group ID.
+  --groupname GROUPNAME, -G GROUPNAME
+                        Owning group&#39;s group name.
+  --budgetid BUDGETID, -b BUDGETID
+                        Budget ID.
+  --budgetname BUDGETNAME, -B BUDGETNAME
+                        Budget Name.
+  --nonattached, -n     List non-attached volumes.
+  --minsize MINSIZE     Minimum size of the volumes.
+  --verbose, -v         Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-r, &#8211;regionid</td>
+<td><p class="first">Region ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes (if regionpid/all is not specified)</p>
+<p class="last">Example: 200</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-R, &#8211;regionpid</td>
+<td><p class="first">Region provider ID.</p>
+<p>Type: Str</p>
+<p>Default: None</p>
+<p>Required: Yes (if regionid/all is not specified)</p>
+<p class="last">Example: us-west-1</p>
+</td>
+</tr>
+<tr class="row-even"><td>-a, &#8211;all</td>
+<td><p class="first">List volumes in all regions.</p>
+<p class="last">Required: Yes (if regionid/regionpid is not specified)</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-u, &#8211;userid</td>
+<td><p class="first">Owning user&#8217;s VM login ID.</p>
+<p>Type: Str</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: p100</p>
+</td>
+</tr>
+<tr class="row-even"><td>-m, &#8211;email</td>
+<td><p class="first">E-Mail address of owning user.</p>
+<p>Type: Str</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: <a class="reference external" href="mailto:gollum&#37;&#52;&#48;example&#46;com">gollum<span>&#64;</span>example<span>&#46;</span>com</a></p>
+</td>
+</tr>
+<tr class="row-odd"><td>-g, &#8211;groupid</td>
+<td><p class="first">Owning group&#8217;s group ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 200</p>
+</td>
+</tr>
+<tr class="row-even"><td>-G, &#8211;groupname</td>
+<td><p class="first">Owning group&#8217;s group name.</p>
+<p>Type: Str</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: admin</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-b, &#8211;budgetid</td>
+<td><p class="first">Budget ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 100</p>
+</td>
+</tr>
+<tr class="row-even"><td>-B, &#8211;budgetname</td>
+<td><p class="first">Budget name.</p>
+<p>Type: Str</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: Default</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-n, &#8211;nonattached</td>
+<td>List non-attached volumes.</td>
+</tr>
+<tr class="row-even"><td>&#8211;minsize</td>
+<td><p class="first">Minimum size of the volumes to be listed. Unit:GB</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 50</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Produce verbose output.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="deprecated-options">
+<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of volumes.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-volumes --regionid 203
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-----------+--------------+------------+--------------+----------------+------+-------------+--------+
+| Volume ID | Provider ID  |    Zone    | Volume Name  | Current Server | Size |    Owner    | Status |
++-----------+--------------+------------+--------------+----------------+------+-------------+--------+
+|    204    | vol-ce05d1b4 | us-east-1a | vol-ce05d1b4 |      <span class="nb">test</span>      |  8   | User, Admin | ACTIVE |
+|    205    | vol-e10125dd | us-east-1a | vol-e10125dd |      <span class="nb">test</span>      |  8   | User, Admin | ACTIVE |
++-----------+--------------+------------+--------------+----------------+------+-------------+--------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 

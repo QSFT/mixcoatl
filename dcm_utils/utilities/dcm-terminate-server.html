@@ -176,33 +176,82 @@
           <div role="main">
             
   <div class="section" id="dcm-terminate-server">
-<h1>dcm-terminate-server<a class="headerlink" href="#dcm-terminate-server" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-terminate-server<a class="headerlink" href="#dcm-terminate-server" title="Permalink to this headline">¶</a></h1>
+<p>Terminates a server.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Terminates a server.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-terminate-server <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--serverid SERVERID<span class="o">]</span> <span class="o">[</span>--reason REASON<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --serverid SERVERID, -s SERVERID
+                        Server ID
+  --reason REASON, -r REASON
+                        The reason <span class="k">for </span>terminating the server.
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-s, &#8211;serverid</td>
+<td><p class="first">Server ID of the server to be deleted.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 28371</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-r, &#8211;reason</td>
+<td><p class="first">The reason for terminating the server.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: Test completed.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="deprecated-options">
+<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>Job ID.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-terminate-server -s 46372
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>173829
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
