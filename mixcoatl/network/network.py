@@ -195,6 +195,11 @@ class Network(Resource):
     def dns_servers(self, d):
         self.__dns_servers = [d]
 
+    @lazy_property
+    def owning_user(self):
+        """`str` - The network's owning user. """
+        return self.__owning_user
+
     @required_attrs(['budget', 'name', 'network_address', 'region', 'description'])
     def create(self, **kwargs):
         """Create a new network
