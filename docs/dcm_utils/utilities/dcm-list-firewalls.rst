@@ -7,20 +7,19 @@
 dcm-list-firewalls
 ------------------
 
-List firewalls (security groups).
+Lists firewalls.
 
 Description
 ~~~~~~~~~~~
 
-Returns a list of firewalls, optionally restricted by region/account.
+Returns a list of firewalls.
 
 Syntax
 ~~~~~~
 
 .. code-block:: bash
 
-   usage: dcm-list-firewalls [-h]
-                             [--accountid ACCOUNTID | --regionid REGIONID | --all]
+   usage: dcm-list-firewalls [-h] [--accountid ACCOUNTID | --regionid REGIONID | --all]
    
    optional arguments:
      -h, --help            show this help message and exit
@@ -36,9 +35,7 @@ Options
 +--------------------+------------------------------------------------------------+
 | Option             | Description                                                |
 +====================+============================================================+
-| -a, --all          | All -- List all firewalls.                                 | 
-+--------------------+------------------------------------------------------------+
-| -i, --accountid    | Account ID                                                 | 
+| -i, --accountid    | Account ID.                                                |
 |                    |                                                            |
 |                    | Type: Integer                                              |
 |                    |                                                            |
@@ -46,9 +43,9 @@ Options
 |                    |                                                            |
 |                    | Required: No                                               |
 |                    |                                                            |
-|                    | Example: 302                                               |
+|                    | Example: 300                                               |
 +--------------------+------------------------------------------------------------+
-| -r, --regionid     | Region ID                                                  | 
+| -r, --regionid     | Region ID.                                                 |
 |                    |                                                            |
 |                    | Type: Integer                                              |
 |                    |                                                            |
@@ -56,31 +53,31 @@ Options
 |                    |                                                            |
 |                    | Required: No                                               |
 |                    |                                                            |
-|                    | Example: 502                                               |
+|                    | Example: 203                                               |
 +--------------------+------------------------------------------------------------+
-| -v, --verbose      | Print out verbose information while listing regions        |
+| -a, --all          | List all firewalls.                                        |
++--------------------+------------------------------------------------------------+
+| -v, --verbose      | Produce verbose output                                     |
 +--------------------+------------------------------------------------------------+
 
 Common Options
 ~~~~~~~~~~~~~~
 
 Deprecated Options
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 None
 
 Output
 ~~~~~~
 
-The return value from this command is a list of firewalls/security groups.
+The return value from this command is a list of firewalls.
 
 Examples
 ~~~~~~~~
 
 Example 1
 ^^^^^^^^^
-
-This example is from an OpenStack cloud installation.
 
 .. code-block:: bash
 
@@ -91,14 +88,10 @@ Output
 
 .. code-block:: bash
 
-   +-------------+-----------+--------------------------------------+
-   | Firewall ID | Name      | Provider ID                          |
-   +-------------+-----------+--------------------------------------+
-   | 300         | default   | 6f41b590-c728-450f-8237-ca6bee31f5f3 |
-   | 301         | mydefault | be52a40a-e540-4432-bb95-531eb958dd54 |
-   +-------------+-----------+--------------------------------------+
-
-Related Topics
-~~~~~~~~~~~~~~
-
-:ref:`List Firewall Rules <dcm_list_firewall_rules>`
+   +-------------+---------------------------------------------------------------------+-------------+
+   | Firewall ID |                                 Name                                | Provider ID |
+   +-------------+---------------------------------------------------------------------+-------------+
+   |     201     |                      default (VPC vpc-e805f58d)                     | sg-81b768f4 |
+   |     202     |                  DemoFirewall (VPC vpc-105e4372)                    | sg-cf9176aa |
+   |     203     |                      default (VPC vpc-105e4372)                     | sg-901439f2 |
+   +-------------+---------------------------------------------------------------------+-------------+
