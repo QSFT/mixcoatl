@@ -252,6 +252,11 @@
 <div class="viewcode-block" id="FirewallRule.end_port"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.end_port">[docs]</a>    <span class="k">def</span> <span class="nf">end_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__end_port</span> <span class="o">=</span> <span class="n">p</span>
 </div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.rule_provider_id"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.rule_provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">rule_provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - Provider&#39;s firewall rule ID&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rule_provider_id</span>
+</div>
     <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;firewall&#39;</span><span class="p">,</span> <span class="s">&#39;network_address&#39;</span><span class="p">,</span> <span class="s">&#39;protocol&#39;</span><span class="p">,</span> <span class="s">&#39;direction&#39;</span><span class="p">,</span> <span class="s">&#39;start_port&#39;</span><span class="p">,</span> <span class="s">&#39;end_port&#39;</span><span class="p">])</span>
 <div class="viewcode-block" id="FirewallRule.create"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a new firewall rule</span>

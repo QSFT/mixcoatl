@@ -177,15 +177,14 @@
             
   <div class="section" id="dcm-list-firewalls">
 <span id="id1"></span><h1>dcm-list-firewalls<a class="headerlink" href="#dcm-list-firewalls" title="Permalink to this headline">¶</a></h1>
-<p>List firewalls (security groups).</p>
+<p>Lists firewalls.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Returns a list of firewalls, optionally restricted by region/account.</p>
+<p>Returns a list of firewalls.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-firewalls <span class="o">[</span>-h<span class="o">]</span>
-                          <span class="o">[</span>--accountid ACCOUNTID | --regionid REGIONID | --all<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-firewalls <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--accountid ACCOUNTID | --regionid REGIONID | --all<span class="o">]</span>
 
 optional arguments:
   -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
@@ -210,66 +209,62 @@ optional arguments:
 </tr>
 </thead>
 <tbody valign="top">
+<tr class="row-even"><td>-i, &#8211;accountid</td>
+<td><p class="first">Account ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 300</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-r, &#8211;regionid</td>
+<td><p class="first">Region ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 203</p>
+</td>
+</tr>
 <tr class="row-even"><td>-a, &#8211;all</td>
-<td>All &#8211; List all firewalls.</td>
-</tr>
-<tr class="row-odd"><td>-i, &#8211;accountid</td>
-<td><p class="first">Account ID</p>
-<p>Type: Integer</p>
-<p>Default: None</p>
-<p>Required: No</p>
-<p class="last">Example: 302</p>
-</td>
-</tr>
-<tr class="row-even"><td>-r, &#8211;regionid</td>
-<td><p class="first">Region ID</p>
-<p>Type: Integer</p>
-<p>Default: None</p>
-<p>Required: No</p>
-<p class="last">Example: 502</p>
-</td>
+<td>List all firewalls.</td>
 </tr>
 <tr class="row-odd"><td>-v, &#8211;verbose</td>
-<td>Print out verbose information while listing regions</td>
+<td>Produce verbose output</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-<p>None</p>
 </div>
+<div class="section" id="deprecated-options">
+<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>The return value from this command is a list of firewalls/security groups.</p>
+<p>The return value from this command is a list of firewalls.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
-<p>This example is from an OpenStack cloud installation.</p>
 <div class="highlight-bash"><div class="highlight"><pre>dcm-list-firewalls --all
 </pre></div>
 </div>
 <div class="section" id="id2">
 <h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre>+-------------+-----------+--------------------------------------+
-| Firewall ID | Name      | Provider ID                          |
-+-------------+-----------+--------------------------------------+
-| 300         | default   | 6f41b590-c728-450f-8237-ca6bee31f5f3 |
-| 301         | mydefault | be52a40a-e540-4432-bb95-531eb958dd54 |
-+-------------+-----------+--------------------------------------+
+<div class="highlight-bash"><div class="highlight"><pre>+-------------+---------------------------------------------------------------------+-------------+
+| Firewall ID |                                 Name                                | Provider ID |
++-------------+---------------------------------------------------------------------+-------------+
+|     201     |                      default <span class="o">(</span>VPC vpc-e805f58d<span class="o">)</span>                     | sg-81b768f4 |
+|     202     |                  DemoFirewall <span class="o">(</span>VPC vpc-105e4372<span class="o">)</span>                    | sg-cf9176aa |
+|     203     |                      default <span class="o">(</span>VPC vpc-105e4372<span class="o">)</span>                     | sg-901439f2 |
++-------------+---------------------------------------------------------------------+-------------+
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="dcm-list-firewall-rules.html#dcm-list-firewall-rules"><em>List Firewall Rules</em></a></p>
 </div>
 </div>
 

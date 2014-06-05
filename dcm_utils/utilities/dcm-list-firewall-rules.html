@@ -177,32 +177,76 @@
             
   <div class="section" id="dcm-list-firewall-rules">
 <span id="id1"></span><h1>dcm-list-firewall-rules<a class="headerlink" href="#dcm-list-firewall-rules" title="Permalink to this headline">¶</a></h1>
+<p>Lists firwall rules.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of firewall rules.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-firewall-rules <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span> firewallid
+
+positional arguments:
+  firewallid     Firewall ID
+
+optional arguments:
+   -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+   --verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Produce verbose output</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
 </div>
+<div class="section" id="deprecated-options">
+<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of firewall rules.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-firewall-rules 201
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+------------------+------------------+---------------+----------+-----------+---------+---------+----------+
+| Firewall Rule ID |      Source      |  Destination  | Protocol | From Port | To Port |   Type  |  Permit  |
++------------------+------------------+---------------+----------+-----------+---------+---------+----------+
+|       211        |    0.0.0.0/0     | destination ? |   TCP    |    3306   |   3306  | INGRESS | permit ? |
+|       212        |    0.0.0.0/0     | destination ? |   TCP    |     22    |    22   | INGRESS | permit ? |
+|       213        |    0.0.0.0/0     | destination ? |   TCP    |     80    |    80   | INGRESS | permit ? |
+|       214        |       201        | destination ? |   ICMP   |    None   |   None  | INGRESS | permit ? |
+|       215        | 54.241.19.109/32 | destination ? |   TCP    |    2003   |   2003  | INGRESS | permit ? |
++------------------+------------------+---------------+----------+-----------+---------+---------+----------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
