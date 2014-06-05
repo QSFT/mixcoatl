@@ -7,23 +7,69 @@
 dcm-list-datacenters
 --------------------
 
+Lists datacenters.
+
 Description
 ~~~~~~~~~~~
+
+Returns a list of datacenters within a region.
 
 Syntax
 ~~~~~~
 
+.. code-block:: bash
+
+   usage: dcm-list-datacenters [-h] [--regionid REGIONID] [--regionpid REGIONPID] [--verbose]
+
+   optional arguments:
+     -h, --help            show this help message and exit
+     --regionid REGIONID, -r REGIONID
+                           Region ID
+     --regionpid REGIONPID, -R REGIONPID
+                           Region Provider ID such as us-east-1
+     --verbose, -v         Produce verbose output
+
 Options
 ~~~~~~~
+
++--------------------+------------------------------------------------------------+
+| Option             | Description                                                |
++====================+============================================================+
+| -r, --regionid     | Region ID.                                                 |
+|                    |                                                            |
+|                    | Type: Integer                                              |
+|                    |                                                            |
+|                    | Default: None                                              |
+|                    |                                                            |
+|                    | Required: Yes (if regionpid was not specified)             |
+|                    |                                                            |
+|                    | Example: 200                                               |
++--------------------+------------------------------------------------------------+
+| -R, --regionpid    | Region Provider ID.                                        |
+|                    |                                                            |
+|                    | Type: Str                                                  |
+|                    |                                                            |
+|                    | Default: None                                              |
+|                    |                                                            |
+|                    | Required: Yes (if regionid was not specified)              |
+|                    |                                                            |
+|                    | Example: us-west-1                                         |
++--------------------+------------------------------------------------------------+
+| -v, --verbose      | Produce verbose output                                     |
++--------------------+------------------------------------------------------------+
 
 Common Options
 ~~~~~~~~~~~~~~
 
 Deprecated Options
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
+
+None
 
 Output
 ~~~~~~
+
+The return value from this command is a list of datacenters.
 
 Examples
 ~~~~~~~~
@@ -31,5 +77,19 @@ Examples
 Example 1
 ^^^^^^^^^
 
-Related Topics
-~~~~~~~~~~~~~~
+.. code-block:: bash
+
+   dcm-list-datacenters -r 201
+
+Output
+%%%%%%
+
+.. code-block:: bash
+
+   +---------------+-------------+-------------+--------+
+   | Datacenter ID | Provider ID | Description | Status |
+   +---------------+-------------+-------------+--------+
+   |      204      |  us-east-1b |  us-east-1b | ACTIVE |
+   |      205      |  us-east-1c |  us-east-1c | ACTIVE |
+   |      206      |  us-east-1d |  us-east-1d | ACTIVE |
+   +---------------+-------------+-------------+--------+
