@@ -78,6 +78,11 @@ class FirewallRule(Resource):
     def end_port(self, p):
         self.__end_port = p
 
+    @lazy_property
+    def rule_provider_id(self):
+        """`str` - Provider's firewall rule ID"""
+        return self.__rule_provider_id
+
     @required_attrs(['firewall', 'network_address', 'protocol', 'direction', 'start_port', 'end_port'])
     def create(self, **kwargs):
         """Create a new firewall rule
