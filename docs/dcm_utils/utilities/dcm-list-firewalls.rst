@@ -7,7 +7,7 @@
 dcm-list-firewalls
 ------------------
 
-Lists firwalls.
+Lists firewalls.
 
 Description
 ~~~~~~~~~~~
