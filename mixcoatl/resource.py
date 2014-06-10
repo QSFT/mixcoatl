@@ -108,6 +108,15 @@ class Resource(object):
         self.__request_details = level
 
     @property
+    def payload_format(self):
+        """The format of the payload: `json` or `xml`"""
+        return self.__payload_format
+
+    @payload_format.setter
+    def payload_format(self, p_format):
+        self.__payload_format = p_format
+
+    @property
     def path(self):
         """The path used in the API request (e.g. ``admin/Job``)"""
         return self.__path
@@ -187,11 +196,19 @@ class Resource(object):
         sig = auth.get_sig(method, self.path)
         url = settings.endpoint+'/'+self.path
 
+        if self.payload_format is not None:
+            if self.payload_format == 'xml':
+                payload_format = 'application/xml'
+            elif self.payload_format == 'json':
+                payload_format = 'application/json'
+        else:
+            payload_format = 'application/json'
+
         headers = {'x-esauth-access': sig['access_key'],
         'x-esauth-timestamp': str(sig['timestamp']),
         'x-esauth-signature': str(sig['signature']),
         'x-es-details': self.request_details,
-        'Accept': 'application/json',
+        'Accept': payload_format,
         'User-Agent': sig['ua']}
 
         #results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
@@ -199,6 +216,10 @@ class Resource(object):
 
         self.last_error = None
         self.last_request = results
+
+        if self.payload_format == 'xml':
+            return results
+
         if results.status_code in failures:
             try:
                 err = results.json()
