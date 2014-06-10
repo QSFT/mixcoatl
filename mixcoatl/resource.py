@@ -73,6 +73,7 @@ class Resource(object):
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
+        self.__payload_format = 'json'
         self.__request_details = request_details
         self.pending_changes = {}
 
@@ -196,13 +197,12 @@ class Resource(object):
         sig = auth.get_sig(method, self.path)
         url = settings.endpoint+'/'+self.path
 
-        if self.payload_format is not None:
-            if self.payload_format == 'xml':
-                payload_format = 'application/xml'
-            elif self.payload_format == 'json':
-                payload_format = 'application/json'
-        else:
+        if self.payload_format == 'xml':
+            payload_format = 'application/xml'
+        elif self.payload_format == 'json':
             payload_format = 'application/json'
+        else:
+            raise AttributeError('Wrong payload format: %s' % self.payload_format)
 
         headers = {'x-esauth-access': sig['access_key'],
         'x-esauth-timestamp': str(sig['timestamp']),
