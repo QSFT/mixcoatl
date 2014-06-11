@@ -169,6 +169,15 @@ class MachineImage(Resource):
         return self.__agent_version
 
     @lazy_property
+    def public(self):
+        """`bool` - Indicates whether or not this image is publicly shared. This value may be modified only for machine images that belong to your account. """
+        return self.__public
+
+    @public.setter
+    def public(self, p):
+        self.__public = p
+
+    @lazy_property
     def budget(self):
         return self.__budget
 
@@ -218,6 +227,30 @@ class MachineImage(Resource):
                 return self.current_job
         else:
             raise ServerLaunchException(self.last_error)
+
+    @required_attrs(['machine_image_id'])
+    def update(self, **kwargs):
+        """Updates meta-data for an image.
+
+        :param description: The description of an image.
+        :type description: str.
+        :param name: The name of an image.
+        :type name: str.
+        :param label: The label of an image.
+        :type label: str.
+        :returns: True if successful or an error message if fails.
+        """
+        payload = {'describeImage': [{}]}
+
+        if 'description' in kwargs:
+            payload['describeImage'][0]['description'] = kwargs['description']
+        if 'name' in kwargs:
+            payload['describeImage'][0]['name'] = kwargs['name']
+        if 'label' in kwargs:
+            payload['describeImage'][0]['label'] = kwargs['label']
+
+        p = self.PATH + "/" + str(self.machine_image_id)
+        return self.put(p, data=json.dumps(payload))
 
     @classmethod
     def all(cls, region_id, **kwargs):

@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import json
+import sys
+import argparse
+import xml.etree.ElementTree as ET
+from mixcoatl import resource
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('basepath', type=str, help='base path')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--xml', type=str)
+    group.add_argument('--json', type=str)
+
+    cmd_args = parser.parse_args()
+
+    r = resource.Resource(cmd_args.basepath)
+    r.request_details = 'extended'
+
+    if cmd_args.xml is not None:
+        r.payload_format = 'xml'
+        xml_string = ET.tostring(ET.parse(cmd_args.xml).getroot())
+        result = r.put(data=xml_string)
+        print(result)
+    elif cmd_args.json is not None:
+        r.payload_format = 'json'
+        try:
+            with open(cmd_args.json) as json_file:
+                json_string = json.dumps(json.load(json_file))
+        except ValueError:
+            print("Invalid JSON")
+            sys.exit(1)
+        result = r.put(data=json_string)
+        print(result)
