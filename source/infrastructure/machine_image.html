@@ -327,6 +327,12 @@ machine based on this machine image/template</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="mixcoatl.infrastructure.machine_image.MachineImage.public">
+<tt class="descname">public</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.public"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.public" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite> - Indicates whether or not this image is publicly shared. This value may be modified only for machine images that belong to your account.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="mixcoatl.infrastructure.machine_image.MachineImage.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.budget" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -364,6 +370,28 @@ machine based on this machine image/template</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int &#8211; The job id of the create request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mixcoatl.infrastructure.machine_image.MachineImage.update">
+<tt class="descname">update</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/machine_image.html#MachineImage.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.machine_image.MachineImage.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates meta-data for an image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>description</strong> (<em>str.</em>) &#8211; The description of an image.</li>
+<li><strong>name</strong> (<em>str.</em>) &#8211; The name of an image.</li>
+<li><strong>label</strong> (<em>str.</em>) &#8211; The label of an image.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if successful or an error message if fails.</p>
+</td>
 </tr>
 </tbody>
 </table>

@@ -343,6 +343,15 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__agent_version</span>
 </div>
     <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">public</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - Indicates whether or not this image is publicly shared. This value may be modified only for machine images that belong to your account. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__public</span>
+
+    <span class="nd">@public.setter</span>
+<div class="viewcode-block" id="MachineImage.public"><a class="viewcode-back" href="../../../source/infrastructure/machine_image.html#mixcoatl.infrastructure.machine_image.MachineImage.public">[docs]</a>    <span class="k">def</span> <span class="nf">public</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__public</span> <span class="o">=</span> <span class="n">p</span>
+</div>
+    <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
 
@@ -392,6 +401,30 @@
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ServerLaunchException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;machine_image_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="MachineImage.update"><a class="viewcode-back" href="../../../source/infrastructure/machine_image.html#mixcoatl.infrastructure.machine_image.MachineImage.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates meta-data for an image.</span>
+
+<span class="sd">        :param description: The description of an image.</span>
+<span class="sd">        :type description: str.</span>
+<span class="sd">        :param name: The name of an image.</span>
+<span class="sd">        :type name: str.</span>
+<span class="sd">        :param label: The label of an image.</span>
+<span class="sd">        :type label: str.</span>
+<span class="sd">        :returns: True if successful or an error message if fails.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;describeImage&#39;</span><span class="p">:</span> <span class="p">[{}]}</span>
+
+        <span class="k">if</span> <span class="s">&#39;description&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;describeImage&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;description&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;describeImage&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">&#39;label&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">payload</span><span class="p">[</span><span class="s">&#39;describeImage&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;label&#39;</span><span class="p">]</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">machine_image_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
 </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="MachineImage.all"><a class="viewcode-back" href="../../../source/infrastructure/machine_image.html#mixcoatl.infrastructure.machine_image.MachineImage.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">region_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
