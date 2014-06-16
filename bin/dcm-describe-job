@@ -25,8 +25,8 @@ if __name__ == '__main__':
         job_table.add_row(["Job ID", j.job_id])
         job_table.add_row(["Description", j.description])
         job_table.add_row(["Start Date", j.start_date])
-        job_table.add_row(["End Date", j.end_date])
+        job_table.add_row(["End Date", j.end_date if hasattr(j, "end_date") else None])
         job_table.add_row(["Status", j.status])
-        job_table.add_row(["Message", j.message])
+        job_table.add_row(["Message", j.message if hasattr(j, "message") else None])
 
         print(job_table)
