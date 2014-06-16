@@ -19,6 +19,7 @@ class Config(object):
         self.api_version = None
         self.basepath = None
         self.default_api_version = '2012-06-15'
+        self.ssl_verify = None
 
     def configure(self):
         if self.access_key is None:
@@ -53,6 +54,12 @@ class Config(object):
             else:
                 self.set_endpoint('https://api.enstratus.com'+self.basepath)
 
+        if self.ssl_verify is None:
+            if 'ES_SSL_VERIFY' in os.environ:
+                self.set_ssl_verify(os.environ['ES_SSL_VERIFY'])
+            else:
+                self.set_ssl_verify('1')
+
     def set_access_key(self, key):
         self.access_key = key
 
@@ -67,3 +74,9 @@ class Config(object):
 
     def set_basepath(self, basepath):
         self.basepath = basepath
+
+    def set_ssl_verify(self, verify):
+        if verify == '0':
+            self.ssl_verify = False
+        else:
+            self.ssl_verify = True

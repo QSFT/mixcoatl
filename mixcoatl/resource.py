@@ -196,6 +196,7 @@ class Resource(object):
         failures = [400, 403, 404, 409, 500, 501, 503]
         sig = auth.get_sig(method, self.path)
         url = settings.endpoint+'/'+self.path
+        ssl_verify = settings.ssl_verify
 
         if self.payload_format == 'xml':
             payload_format = 'application/xml'
@@ -211,8 +212,7 @@ class Resource(object):
         'Accept': payload_format,
         'User-Agent': sig['ua']}
 
-        #results = getattr(r, method.lower())(url, headers=headers, *args, **kwargs)
-        results = r.request(method, url, headers=headers, **kwargs)
+        results = r.request(method, url, headers=headers, verify=ssl_verify, **kwargs)
 
         self.last_error = None
         self.last_request = results
