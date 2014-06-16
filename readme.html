@@ -202,6 +202,10 @@ version <tt class="docutils literal"><span class="pre">2012-06-15</span></tt>. T
 <p>Note that setting both <tt class="docutils literal"><span class="pre">ES_API_VERSION</span></tt> and <tt class="docutils literal"><span class="pre">ES_ENDPOINT</span></tt> is not
 cumulative. If you wish to use a private endpoint, it must include the version
 in the URL.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ES_SSL_VERIFY</span></tt></li>
+</ul>
+<p>By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, <tt class="docutils literal"><span class="pre">ES_SSL_VERIFY=0</span></tt></p>
 </div>
 </div>
 <div class="section" id="dcm-get">

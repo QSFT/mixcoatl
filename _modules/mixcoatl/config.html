@@ -193,6 +193,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">basepath</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_api_version</span> <span class="o">=</span> <span class="s">&#39;2012-06-15&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ssl_verify</span> <span class="o">=</span> <span class="bp">None</span>
 
 <div class="viewcode-block" id="Config.configure"><a class="viewcode-back" href="../../source/mixcoatl.config.html#mixcoatl.config.Config.configure">[docs]</a>    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -226,6 +227,12 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_endpoint</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;ES_ENDPOINT&#39;</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_endpoint</span><span class="p">(</span><span class="s">&#39;https://api.enstratus.com&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">basepath</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssl_verify</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;ES_SSL_VERIFY&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_ssl_verify</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;ES_SSL_VERIFY&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_ssl_verify</span><span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Config.set_access_key"><a class="viewcode-back" href="../../source/mixcoatl.config.html#mixcoatl.config.Config.set_access_key">[docs]</a>    <span class="k">def</span> <span class="nf">set_access_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">access_key</span> <span class="o">=</span> <span class="n">key</span>
@@ -240,7 +247,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="n">version</span>
 </div>
 <div class="viewcode-block" id="Config.set_basepath"><a class="viewcode-back" href="../../source/mixcoatl.config.html#mixcoatl.config.Config.set_basepath">[docs]</a>    <span class="k">def</span> <span class="nf">set_basepath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basepath</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">basepath</span> <span class="o">=</span> <span class="n">basepath</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">basepath</span> <span class="o">=</span> <span class="n">basepath</span>
+</div>
+<div class="viewcode-block" id="Config.set_ssl_verify"><a class="viewcode-back" href="../../source/mixcoatl.config.html#mixcoatl.config.Config.set_ssl_verify">[docs]</a>    <span class="k">def</span> <span class="nf">set_ssl_verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verify</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verify</span> <span class="o">==</span> <span class="s">&#39;0&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_verify</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ssl_verify</span> <span class="o">=</span> <span class="bp">True</span></div></div>
 </pre></div>
 
           </div>
