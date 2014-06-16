@@ -38,6 +38,10 @@ Note that setting both ``ES_API_VERSION`` and ``ES_ENDPOINT`` is not
 cumulative. If you wish to use a private endpoint, it must include the version
 in the URL.
 
+- ``ES_SSL_VERIFY``
+
+By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, ``ES_SSL_VERIFY=0``
+
 ``dcm-get``
 -----------
 
