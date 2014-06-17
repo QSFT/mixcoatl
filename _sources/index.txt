@@ -18,7 +18,8 @@ Contents:
    
    readme
    source/source
-   dcm_utils/dcm_utils
+   rest_tools/rest_tools
+   cli_tools/cli_tools
    additional_information/additional_information
 
 
