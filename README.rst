@@ -96,7 +96,7 @@ same format the ``requests`` library uses:
           ]
         }
 
-You'll need to set the environment variables as described above obviously.
+You'll need to set the environment variables as described above.
 
 Lazy loading
 ------------
