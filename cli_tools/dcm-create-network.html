@@ -181,33 +181,123 @@
           <div role="main">
             
   <div class="section" id="dcm-create-network">
-<h1>dcm-create-network<a class="headerlink" href="#dcm-create-network" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-create-network<a class="headerlink" href="#dcm-create-network" title="Permalink to this headline">¶</a></h1>
+<p>Creates a network.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Creates a network.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-create-network <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--budgetid BUDGETID<span class="o">]</span> <span class="o">[</span>--name NAME<span class="o">]</span>
+                          <span class="o">[</span>--netaddress NETADDRESS<span class="o">]</span> <span class="o">[</span>--regionid REGIONID<span class="o">]</span>
+                          <span class="o">[</span>--description DESCRIPTION<span class="o">]</span> <span class="o">[</span>--dnsserver DNSSERVER<span class="o">]</span>
+                          <span class="o">[</span>--groupid GROUPID<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --budgetid BUDGETID, -b BUDGETID
+                        Budget ID
+  --name NAME, -n NAME  Network Name
+  --netaddress NETADDRESS, -a NETADDRESS
+                        Network address such as 192.168.0.0/24
+  --regionid REGIONID, -r REGIONID
+                        Region ID
+  --description DESCRIPTION, -D DESCRIPTION
+                        Description
+  --dnsserver DNSSERVER, -d DNSSERVER
+                        DNS Server
+  --groupid GROUPID, -g GROUPID
+                        Owning Group ID
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-b, &#8211;budgetid</td>
+<td><p class="first">Budget ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 303</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-n, &#8211;name</td>
+<td><p class="first">Network Name</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-a, &#8211;netaddress</td>
+<td><p class="first">Network address</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 192.168.0.0/24</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-r, &#8211;regionid</td>
+<td><p class="first">Region ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-even"><td>-D, &#8211;description</td>
+<td><p class="first">Description</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-d, &#8211;dnsserver</td>
+<td><p class="first">DNS Server</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+<tr class="row-even"><td>-g, &#8211;groupid</td>
+<td><p class="first">Owning Group ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>Job ID</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-network -b 300 -n <span class="s1">&#39;test-network&#39;</span> -a <span class="s1">&#39;192.168.30.0/24&#39;</span> -r 305 -D <span class="s1">&#39;DCM test network&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>54830
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-networks.html#dcm-list-networks"><em>List Networks</em></a></p>
 </div>
 </div>
 

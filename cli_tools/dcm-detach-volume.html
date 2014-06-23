@@ -181,33 +181,56 @@
           <div role="main">
             
   <div class="section" id="dcm-detach-volume">
-<h1>dcm-detach-volume<a class="headerlink" href="#dcm-detach-volume" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-detach-volume<a class="headerlink" href="#dcm-detach-volume" title="Permalink to this headline">¶</a></h1>
+<p>Detaches a volume from server.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Detaches a volume from server.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-detach-volume -v &lt;volume_id&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;volumeid</td>
+<td><p class="first">Volume ID of the volume to be detached.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p class="last">Required: Yes</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="example-1">
-<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-detach-volume -v 1105
+</pre></div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-servers.html#dcm-list-servers"><em>List Servers</em></a></p>
+<p><a class="reference internal" href="dcm-list-volumes.html#dcm-list-volumes"><em>List Volumes</em></a></p>
+<p><a class="reference internal" href="dcm-attach-volume.html#dcm-attach-volume"><em>Attach Volume</em></a></p>
 </div>
 </div>
 

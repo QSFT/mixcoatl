@@ -2,7 +2,7 @@
   
       \newpage
 
-.. _dcm_list_describe_server:
+.. _dcm_describe_server:
 
 dcm-describe-server
 -------------------

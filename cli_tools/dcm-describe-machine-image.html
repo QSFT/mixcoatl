@@ -181,33 +181,84 @@
           <div role="main">
             
   <div class="section" id="dcm-describe-machine-image">
-<h1>dcm-describe-machine-image<a class="headerlink" href="#dcm-describe-machine-image" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-describe-machine-image<a class="headerlink" href="#dcm-describe-machine-image" title="Permalink to this headline">¶</a></h1>
+<p>Describe a machine image.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a short summary about a machine image.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-describe-machine-image <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span> machineimageid
+
+positional arguments:
+  machineimageid  Machine Image ID
+
+optional arguments:
+  -h, --help      show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --verbose, -v   Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while describing a machine image</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The output of this command is a short summary of information about a machine image given a machine image ID.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-describe-machine-image 601
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+------------------+--------------+
+| Field            | Attribute    |
++------------------+--------------+
+| Machine Image ID | 601          |
+| Name             | Chef-server  |
+| Provider ID      | ami-13596457 |
+| Platform         | UBUNTU       |
+| Architecture     | I64          |
+| Region ID        | 301          |
+| Budget ID        | 300          |
+| Owning User ID   | 410          |
+| Owning Group ID  | None         |
+| Description      | Chef-server  |
+| Agent Version    | 17           |
+| Status           | ACTIVE       |
++------------------+--------------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
