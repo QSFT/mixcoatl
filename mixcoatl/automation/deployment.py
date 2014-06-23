@@ -113,6 +113,10 @@ class Deployment(Resource):
     def e_type(self):
         return self.__e_type
 
+    @lazy_property
+    def dr_storage(self):
+        return self.__dr_storage
+
     @classmethod
     def all(cls, **kwargs):
         r = Resource(cls.PATH)
