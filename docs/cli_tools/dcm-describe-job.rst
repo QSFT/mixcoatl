@@ -58,12 +58,14 @@ Example 1
 
 .. code-block:: bash
 
+
    dcm-describe-job 3219
 
 Output
 %%%%%%
 
 .. code-block:: bash
+
    +-------------+------------------------------+
    |    Field    |          Attribute           |
    +-------------+------------------------------+
