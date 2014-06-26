@@ -15,5 +15,6 @@ Modules
    mixcoatl.exceptions
    mixcoatl.geography
    mixcoatl.infrastructure
+   mixcoatl.platform
    mixcoatl.network
    mixcoatl.settings

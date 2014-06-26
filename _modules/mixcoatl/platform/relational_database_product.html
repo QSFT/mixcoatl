@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mixcoatl.platform.relational_database_product &mdash; mixcoatl 0.3.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="mixcoatl 0.3.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="fa fa-home"> mixcoatl</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Read Me</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#build-status">Build Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#dcm-get"><tt class="docutils literal"><span class="pre">dcm-get</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#lazy-loading">Lazy loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#all"><tt class="docutils literal"><span class="pre">.all()</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../readme.html#pretty-printing">Pretty-printing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/source.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.html">Mixcoatl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.admin.html">Admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.automation.html">Automation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.config.html">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.decorators.html">Decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.geography.html">Geography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.infrastructure.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/mixcoatl.settings.html">Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rest_tools/rest_tools.html">REST Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-get.html">dcm-get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-put.html">dcm-put</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-post.html">dcm-post</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_tools/cli_tools.html">CLI Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-assign-cloud.html">dcm-assign-cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-attach-volume.html">dcm-attach-volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-check-job.html">dcm-check-job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-billing-code.html">dcm-create-billing-code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-cm.html">dcm-create-cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-deployment.html">dcm-create-deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-group.html">dcm-create-group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-launch-config.html">dcm-create-launch-config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-network.html">dcm-create-network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-role.html">dcm-create-role</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-server.html">dcm-create-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-tier.html">dcm-create-tier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-user.html">dcm-create-user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-volume.html">dcm-create-volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-group.html">dcm-delete-group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-network.html">dcm-delete-network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-volume.html">dcm-delete-volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-describe-deployment.html">dcm-describe-deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-describe-job.html">dcm-describe-job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-describe-machine-image.html">dcm-describe-machine-image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-describe-server-terminate.html">dcm-describe-server-terminate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-describe-server.html">dcm-describe-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-detach-volume.html">dcm-detach-volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-accounts.html">dcm-list-accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-billing-codes.html">dcm-list-billing-codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-clouds.html">dcm-list-clouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-cm-accounts.html">dcm-list-cm-accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-cm.html">dcm-list-cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-datacenters.html">dcm-list-datacenters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-deployments.html">dcm-list-deployments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-firewall-rules.html">dcm-list-firewall-rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-firewalls.html">dcm-list-firewalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-groups.html">dcm-list-groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-jobs.html">dcm-list-jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-machine-images.html">dcm-list-machine-images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-networks.html">dcm-list-networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-regions.html">dcm-list-regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-roles.html">dcm-list-roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-server-products.html">dcm-list-server-products</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-servers.html">dcm-list-servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-snapshots.html">dcm-list-snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-users.html">dcm-list-users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-list-volumes.html">dcm-list-volumes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-pause-server.html">dcm-pause-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-set-acl.html">dcm-set-acl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-set-role.html">dcm-set-role</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-start-server.html">dcm-start-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-stop-server.html">dcm-stop-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-terminate-server.html">dcm-terminate-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-update-group.html">dcm-update-group</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional_information/additional_information.html">Additional Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../additional_information/patterns.html">Mapping Patterns</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">mixcoatl</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>mixcoatl.platform.relational_database_product</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for mixcoatl.platform.relational_database_product</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.admin.job</span> <span class="kn">import</span> <span class="n">Job</span>
+<span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
+
+<div class="viewcode-block" id="RelationalDatabaseProduct"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct">[docs]</a><span class="k">class</span> <span class="nc">RelationalDatabaseProduct</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Represents a product with costs from a cloud relational database vendor.&quot;&quot;&quot;</span>
+
+    <span class="n">PATH</span> <span class="o">=</span> <span class="s">&#39;platform/RelationalDatabaseProduct&#39;</span>
+    <span class="n">COLLECTION_NAME</span> <span class="o">=</span> <span class="s">&#39;rdbmsProducts&#39;</span>
+    <span class="n">PRIMARY_KEY</span> <span class="o">=</span> <span class="s">&#39;product_id&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">product_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Resource</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__product_id</span> <span class="o">=</span> <span class="n">product_id</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.product_id"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.product_id">[docs]</a>    <span class="k">def</span> <span class="nf">product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique ID in DCM for this relational database product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__product_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.status"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The current status of the product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.architecture"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.architecture">[docs]</a>    <span class="k">def</span> <span class="nf">architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The underlying CPU architecture of this database server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__architecture</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.cloud"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The cloud for which this product operates.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.core_count"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.core_count">[docs]</a>    <span class="k">def</span> <span class="nf">core_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The number of CPU cores allocated to your database environment.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__core_count</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.cpu_in_g_hz"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.cpu_in_g_hz">[docs]</a>    <span class="k">def</span> <span class="nf">cpu_in_g_hz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The speed of the CPUs allocated to your database environment.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cpu_in_g_hz</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.custom_pricing"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.custom_pricing">[docs]</a>    <span class="k">def</span> <span class="nf">custom_pricing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` - Indicates whether or not this pricing reflects the standard retail rates from the cloud provider.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__custom_pricing</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.description"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.description">[docs]</a>    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A long description for this product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.engine"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.engine">[docs]</a>    <span class="k">def</span> <span class="nf">engine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; `enum` - The database engine represented by this product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__engine</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.hourly_pricing"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.hourly_pricing">[docs]</a>    <span class="k">def</span> <span class="nf">hourly_pricing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The hourly rate the cloud provider charges for having a relational database provisioned.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hourly_pricing</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.io_pricing"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.io_pricing">[docs]</a>    <span class="k">def</span> <span class="nf">io_pricing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The rate charged by the cloud provider for data going in and out of the cloud to the database.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__io_pricing</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.io_units"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.io_units">[docs]</a>    <span class="k">def</span> <span class="nf">io_units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The number of I/O units reflecting in the I/O pricing.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__io_units</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.maximum_storage_in_gb"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.maximum_storage_in_gb">[docs]</a>    <span class="k">def</span> <span class="nf">maximum_storage_in_gb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The amount of storage up to which you may have allocated to be reflected by this product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__maximum_storage_in_gb</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.memory_in_gb"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.memory_in_gb">[docs]</a>    <span class="k">def</span> <span class="nf">memory_in_gb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The amount of RAM allocated to this virtual database server.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memory_in_gb</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.minimum_storage_in_gb"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.minimum_storage_in_gb">[docs]</a>    <span class="k">def</span> <span class="nf">minimum_storage_in_gb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The amount of storage you must have allocated to receive the pricing reflected in this product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__minimum_storage_in_gb</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.name"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - A user-friendly name to describe this product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.region"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - A region for which this product is good.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__region</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.provider_id"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - How this product is identified to the cloud provider.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__provider_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.storage_pricing"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.storage_pricing">[docs]</a>    <span class="k">def</span> <span class="nf">storage_pricing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The rate per storageUnits charged for the storage allocated for this relational database product.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__storage_pricing</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.storage_units"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.storage_units">[docs]</a>    <span class="k">def</span> <span class="nf">storage_units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The number of storage units reflected in the storage pricing.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__storage_units</span>
+</div>
+<div class="viewcode-block" id="RelationalDatabaseProduct.reload"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.reload">[docs]</a>    <span class="k">def</span> <span class="nf">reload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reload resource data from API calls&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">product_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Job</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">):</span>
+                <span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_job</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__relational_database_id</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">message</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RelationalDatabaseProduct.all"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProduct.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">region_id</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a list of all known relational_databases</span>
+
+<span class="sd">        &gt;&gt;&gt; RelationalDatabaseProduct.all(region_id=100, engine=&#39;MYSQL51&#39;)</span>
+<span class="sd">        [{&#39;product_id&#39;:1,...},{&#39;product_id&#39;:2,...}]</span>
+
+<span class="sd">        :returns: list -- a list of :class:`RelationalDatabaseProduct`</span>
+<span class="sd">        :raises: RelationalDatabaseProductException</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">request_details</span> <span class="o">=</span> <span class="s">&#39;basic&#39;</span>
+
+        <span class="n">qopts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;regionId&#39;</span><span class="p">:</span> <span class="n">region_id</span><span class="p">,</span> <span class="s">&#39;engine&#39;</span><span class="p">:</span> <span class="n">engine</span><span class="p">}</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">qopts</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">relational_database_products</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="p">(</span><span class="n">relational_database_product</span><span class="p">[</span><span class="s">&#39;productId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">relational_database_product</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">COLLECTION_NAME</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">relational_database_products</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RelationalDatabaseProductException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="RelationalDatabaseProductException"><a class="viewcode-back" href="../../../source/platform/rdbms_product.html#mixcoatl.platform.relational_database_product.RelationalDatabaseProductException">[docs]</a><span class="k">class</span> <span class="nc">RelationalDatabaseProductException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Quest Software, Inc..
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
