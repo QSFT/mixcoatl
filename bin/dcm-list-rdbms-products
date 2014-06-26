@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+from mixcoatl.platform.relational_database_product import RelationalDatabaseProduct
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--regionid', '-r', help='Region ID')
+    parser.add_argument('--engine', '-e', help='DB engine. examples: MYSQL51, MYSQL55, ORACLE11G, ORACLE11GEX, ORACLE11GX')
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    if None in [cmd_args.regionid, cmd_args.engine]:
+        parser.print_help()
+        sys.exit(1)
+    rdbms_products = RelationalDatabaseProduct.all(cmd_args.regionid,cmd_args.engine)
+
+    if cmd_args.verbose:
+        for rp in rdbms_products:
+            rp.pprint()
+    else:
+        rp_table = PrettyTable(["RDBMS Product ID", "Name", "Provider Product ID", "Engine",
+                                "Currency", "Hourly Pricing", "IO Pricing", "Storage Pricing"])
+        for rp in rdbms_products:
+            rp_table.add_row([rp.product_id, rp.name, rp.provider_id, rp.engine, rp.hourly_pricing['currency'],
+                              rp.hourly_pricing['value'], rp.io_pricing['value'], rp.storage_pricing['value']])
+        print(rp_table)
