@@ -20,6 +20,7 @@ packages = [
     'mixcoatl.geography',
     'mixcoatl.infrastructure',
     'mixcoatl.network',
+    'mixcoatl.platform',
     'mixcoatl.settings'
 ]
 
