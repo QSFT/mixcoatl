@@ -17,6 +17,7 @@ Contents:
    :includehidden:
    
    readme
+   install/install
    source/source
    rest_tools/rest_tools
    cli_tools/cli_tools
