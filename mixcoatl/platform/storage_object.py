@@ -23,11 +23,10 @@ class StorageObject(Resource):
         """`int` - The budget to which the data stored in a container/bucket is billed against."""
         return self.__budget
 
-    # cannot use python keyword 'type' here. should find a solution.
     @lazy_property
-    def type(self):
+    def e_type(self):
         """`str` - The type of storage object."""
-        return self.__type
+        return self.__e_type
 
     @lazy_property
     def cloud(self):
