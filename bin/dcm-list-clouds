@@ -21,4 +21,7 @@ if __name__ == '__main__':
         for cloud in clouds:
             cloud_table.add_row([cloud.cloud_id, cloud.name, cloud.compute_delegate, cloud.compute_endpoint,
                                  cloud.status])
+        cloud_table.align['Cloud Name'] = 'l'
+        cloud_table.align['Delegate'] = 'l'
+        cloud_table.align['Endpoint'] = 'l'
         print(cloud_table)
