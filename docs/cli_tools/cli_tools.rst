@@ -42,11 +42,13 @@ DCM command line API tools.
    dcm-list-jobs
    dcm-list-machine-images
    dcm-list-networks
+   dcm-list-rdbms-products
    dcm-list-regions
    dcm-list-roles
    dcm-list-server-products
    dcm-list-servers
    dcm-list-snapshots
+   dcm-list-storage-objects
    dcm-list-users
    dcm-list-volumes
    dcm-pause-server
