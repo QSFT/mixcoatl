@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+from mixcoatl.platform.storage_object import StorageObject
+from prettytable import PrettyTable
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--regionid', '-r', help='Region ID')
+    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+    cmd_args = parser.parse_args()
+
+    if None in [cmd_args.regionid]:
+        parser.print_help()
+        sys.exit(1)
+    storage_objects = StorageObject.all(cmd_args.regionid)
+
+    if cmd_args.verbose:
+        for so in storage_objects:
+            so.pprint()
+    else:
+        so_table = PrettyTable(["Storage Object ID", "Type", "Name", "Provider ID", "Read Any",
+                                "Read Code", "Read Group", "Read Public", "Write Any", "Write Code", "Write Group"])
+        for so in storage_objects:
+            so_table.add_row([so.storage_object_id, so.e_type, so.name, so.provider_id, so.read_any,
+                              so.read_code, so.read_group, so.read_public, so.write_any, so.write_code,
+                              so.write_group])
+        print(so_table)
