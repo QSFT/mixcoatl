@@ -130,11 +130,13 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-jobs.html">dcm-list-jobs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-machine-images.html">dcm-list-machine-images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-networks.html">dcm-list-networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-rdbms-products.html">dcm-list-rdbms-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-regions.html">dcm-list-regions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-roles.html">dcm-list-roles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-server-products.html">dcm-list-server-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-servers.html">dcm-list-servers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-snapshots.html">dcm-list-snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-storage-objects.html">dcm-list-storage-objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-users.html">dcm-list-users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-volumes.html">dcm-list-volumes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
@@ -187,33 +189,55 @@
           <div role="main">
             
   <div class="section" id="dcm-check-job">
-<h1>dcm-check-job<a class="headerlink" href="#dcm-check-job" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-check-job<a class="headerlink" href="#dcm-check-job" title="Permalink to this headline">¶</a></h1>
+<p>Checks status of a job.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns status of a job.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-check-job <span class="o">[</span>-h<span class="o">]</span> jobid
+
+Check <span class="k">if </span>Job was successfully completed. Possible <span class="k">return </span>values are COMPLETE <span class="k">for </span>completed job, ERROR <span class="k">for </span>failed job, NONE <span class="k">for </span>nonexistent job.
+
+positional arguments:
+  jobid       Job ID
+
+optional arguments:
+  -h, --help  show this <span class="nb">help </span>message and <span class="nb">exit</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is status of a job.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-check-job 3208
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>RUNNING
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 

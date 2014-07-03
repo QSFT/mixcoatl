@@ -130,11 +130,13 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-jobs.html">dcm-list-jobs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-machine-images.html">dcm-list-machine-images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-networks.html">dcm-list-networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-rdbms-products.html">dcm-list-rdbms-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-regions.html">dcm-list-regions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-roles.html">dcm-list-roles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-server-products.html">dcm-list-server-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-servers.html">dcm-list-servers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-snapshots.html">dcm-list-snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-storage-objects.html">dcm-list-storage-objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-users.html">dcm-list-users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-volumes.html">dcm-list-volumes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
@@ -187,33 +189,83 @@
           <div role="main">
             
   <div class="section" id="dcm-describe-deployment">
-<h1>dcm-describe-deployment<a class="headerlink" href="#dcm-describe-deployment" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-describe-deployment<a class="headerlink" href="#dcm-describe-deployment" title="Permalink to this headline">¶</a></h1>
+<p>Describe a deployment.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a description of a deployment.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-describe-deployment <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span> deploymentid
+
+positional arguments:
+  deploymentid   Deployment ID
+
+optional arguments:
+  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --verbose, -v  Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while desribing a deployment.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a description of a deployment.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-describe-deployment 408
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+--------------------+-------------------------------+
+| Field              | Attribute                     |
++--------------------+-------------------------------+
+| Deployment ID      | 408                           |
+| Name               | Web Server                    |
+| Type               | DEDICATED                     |
+| Region             | us-east-1 <span class="o">(</span>us-east-1<span class="o">)</span>         |
+| Budget ID          | 300                           |
+| Owning User Name   | Kang, Sean                    |
+| Owning User Email  | sean.kang@enstratius.com      |
+| Owning Group Name  | Admin                         |
+| Creation Timestamp | 2013-12-17T21:41:21.549+0000  |
+| Description        | Test Web Server               |
+| Status             | STOPPED                       |
++--------------------+-------------------------------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 

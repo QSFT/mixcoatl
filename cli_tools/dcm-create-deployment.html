@@ -130,11 +130,13 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-jobs.html">dcm-list-jobs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-machine-images.html">dcm-list-machine-images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-networks.html">dcm-list-networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-rdbms-products.html">dcm-list-rdbms-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-regions.html">dcm-list-regions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-roles.html">dcm-list-roles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-server-products.html">dcm-list-server-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-servers.html">dcm-list-servers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-snapshots.html">dcm-list-snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-storage-objects.html">dcm-list-storage-objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-users.html">dcm-list-users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-volumes.html">dcm-list-volumes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
@@ -187,33 +189,114 @@
           <div role="main">
             
   <div class="section" id="dcm-create-deployment">
-<h1>dcm-create-deployment<a class="headerlink" href="#dcm-create-deployment" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>dcm-create-deployment<a class="headerlink" href="#dcm-create-deployment" title="Permalink to this headline">¶</a></h1>
+<p>Creates a deployment.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Creates a deployment and returns Job ID.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-create-deployment <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--name NAME<span class="o">]</span> <span class="o">[</span>--description DESCRIPTION<span class="o">]</span>
+                             <span class="o">[</span>--region REGION<span class="o">]</span> <span class="o">[</span>--budgetid BUDGETID<span class="o">]</span> <span class="o">[</span>-i FILE<span class="o">]</span>
+                             <span class="o">[</span>--verbose<span class="o">]</span>
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --name NAME, -n NAME  The name of the deployment.
+  --description DESCRIPTION, -d DESCRIPTION
+                        The description of the deployment.
+  --region REGION, -r REGION
+                        The default region of the deployment.
+  --budgetid BUDGETID, -b BUDGETID
+                        The region of the deployment.
+  -i FILE               Input file <span class="k">for </span>creating a deployment
+  --verbose, -v         Print out verbose information about the deployment creation.
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-n, &#8211;name</td>
+<td><p class="first">The name of the deployment.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: webapp-deployment-1</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-d, &#8211;description</td>
+<td><p class="first">The description of the deployment.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: Web Application Deployment</p>
+</td>
+</tr>
+<tr class="row-even"><td>-r, &#8211;region</td>
+<td><p class="first">The default region of the deployment.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 302</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-b, &#8211;budgetid</td>
+<td><p class="first">Budget ID of the deployment.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 300</p>
+</td>
+</tr>
+<tr class="row-even"><td>-i</td>
+<td><p class="first">Input file for creating deployment.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p class="last">Required: No</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while creating deployment.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is Job ID of creating deployment.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-create-deployment -n <span class="s1">&#39;webapp-deployment-1&#39;</span> -r 302 -b 300 -d <span class="s1">&#39;Web Application Deployment&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>4852
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 

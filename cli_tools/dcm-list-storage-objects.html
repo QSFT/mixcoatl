@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-create-server &mdash; mixcoatl 0.3.2 documentation</title>
+  <title>dcm-list-storage-objects &mdash; mixcoatl 0.3.2 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
     <link rel="top" title="mixcoatl 0.3.2 documentation" href="../index.html"/>
         <link rel="up" title="CLI Tools" href="cli_tools.html"/>
-        <link rel="next" title="dcm-create-tier" href="dcm-create-tier.html"/>
-        <link rel="prev" title="dcm-create-role" href="dcm-create-role.html"/> 
+        <link rel="next" title="dcm-list-users" href="dcm-list-users.html"/>
+        <link rel="prev" title="dcm-list-snapshots" href="dcm-list-snapshots.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -104,7 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-launch-config.html">dcm-create-launch-config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-network.html">dcm-create-network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-role.html">dcm-create-role</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-create-server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-create-server.html">dcm-create-server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-tier.html">dcm-create-tier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-user.html">dcm-create-user</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-create-volume.html">dcm-create-volume</a></li>
@@ -136,7 +136,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-server-products.html">dcm-list-server-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-servers.html">dcm-list-servers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-snapshots.html">dcm-list-snapshots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dcm-list-storage-objects.html">dcm-list-storage-objects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-list-storage-objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-users.html">dcm-list-users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-volumes.html">dcm-list-volumes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
@@ -177,10 +177,10 @@
       
           <li><a href="cli_tools.html">CLI Tools</a> &raquo;</li>
       
-    <li>dcm-create-server</li>
+    <li>dcm-list-storage-objects</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/cli_tools/dcm-create-server.txt" rel="nofollow"> View page source</a>
+          <a href="../_sources/cli_tools/dcm-list-storage-objects.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -188,18 +188,22 @@
 </div>
           <div role="main">
             
-  <div class="section" id="dcm-create-server">
-<span id="id1"></span><h1>dcm-create-server<a class="headerlink" href="#dcm-create-server" title="Permalink to this headline">¶</a></h1>
-<p>Creates a server.</p>
+  <div class="section" id="dcm-list-storage-objects">
+<span id="id1"></span><h1>dcm-list-storage-objects<a class="headerlink" href="#dcm-list-storage-objects" title="Permalink to this headline">¶</a></h1>
+<p>List storage objects.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Creates a server from a specified machine image.</p>
+<p>Returns a list of storage objects.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre>dcm-create-server -p &lt;product_id&gt; -m &lt;machine_image_id&gt; -d &lt;datacenter_id&gt;
-                  -n &lt;server_name&gt; -b &lt;budget_id&gt; -k &lt;keypair_name&gt;
-                  -v &lt;vlan&gt;
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-storage-objects <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--regionid REGIONID<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --regionid REGIONID, -r REGIONID
+                        Region ID
+  --verbose, -v         Produce verbose output
 </pre></div>
 </div>
 </div>
@@ -207,8 +211,8 @@
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
-<col width="26%" />
-<col width="74%" />
+<col width="24%" />
+<col width="76%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Option</th>
@@ -216,81 +220,49 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>-p, &#8211;productid</td>
-<td><p class="first">Provider&#8217;s product ID</p>
-<p>Type: String</p>
+<tr class="row-even"><td>-r, &#8211;regionid</td>
+<td><p class="first">Region ID.</p>
+<p>Type: Integer</p>
 <p>Default: None</p>
 <p>Required: Yes</p>
-<p class="last">Example: &#8216;m1.small&#8217;</p>
+<p class="last">Example: 201</p>
 </td>
 </tr>
-<tr class="row-odd"><td>-m, &#8211;machineimage</td>
-<td><p class="first">Machine image ID</p>
-<p>Type: Integer</p>
-<p>Default: None</p>
-<p class="last">Required: Yes</p>
-</td>
-</tr>
-<tr class="row-even"><td>-d, &#8211;datacenter</td>
-<td><p class="first">Data center ID</p>
-<p>Type: Integer</p>
-<p>Default: None</p>
-<p class="last">Required: Yes</p>
-</td>
-</tr>
-<tr class="row-odd"><td>-D, &#8211;description</td>
-<td><p class="first">Description of the server</p>
-<p>Type: String</p>
-<p>Default: None</p>
-<p class="last">Required: Yes</p>
-</td>
-</tr>
-<tr class="row-even"><td>-n, &#8211;name</td>
-<td><p class="first">Name of the server</p>
-<p>Type: String</p>
-<p>Default: None</p>
-<p class="last">Required: Yes</p>
-</td>
-</tr>
-<tr class="row-odd"><td>-b, &#8211;budgetid</td>
-<td><p class="first">Budget ID</p>
-<p>Type: Integer</p>
-<p>Default: Default budget code</p>
-<p class="last">Required: No</p>
-</td>
-</tr>
-<tr class="row-even"><td>-k, &#8211;keypair</td>
-<td><p class="first">Keypair Name</p>
-<p>Type: String</p>
-<p>Default: None</p>
-<p class="last">Required: No</p>
-</td>
-</tr>
-<tr class="row-odd"><td>-v, &#8211;vlan</td>
-<td><p class="first">VLAN ID</p>
-<p>Type: Integer</p>
-<p>Default: None</p>
-<p class="last">Required: No</p>
-</td>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing storage objects.</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section" id="common-options">
+<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="deprecated-options">
+<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
+</div>
+</div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>Job ID</p>
+<p>The return value from this command is a list of storage objects.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre>dcm-create-server -m 34251 -d 7659 -n <span class="s1">&#39;linux-demo-server&#39;</span> -D <span class="s1">&#39;Linux demonstration server&#39;</span> -b 100
-
-54830
+<div class="section" id="example-1">
+<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-storage-objects -r 201
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-------------------+-----------+---------------------+---------------------+----------+-----------+------------+-------------+-----------+------------+-------------+
+| Storage Object ID |    Type   |         Name        |     Provider ID     | Read Any | Read Code | Read Group | Read Public | Write Any | Write Code | Write Group |
++-------------------+-----------+---------------------+---------------------+----------+-----------+------------+-------------+-----------+------------+-------------+
+|       183539      | container | es-c300-svcimages-1 | es-c300-svcimages-1 |   True   |    True   |    True    |    False    |    True   |    True    |     True    |
++-------------------+-----------+---------------------+---------------------+----------+-----------+------------+-------------+-----------+------------+-------------+
 </pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="dcm-list-servers.html#dcm-list-servers"><em>List Servers</em></a></p>
+</div>
 </div>
 </div>
 
@@ -300,10 +272,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dcm-create-tier.html" class="btn btn-neutral float-right" title="dcm-create-tier"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dcm-list-users.html" class="btn btn-neutral float-right" title="dcm-list-users"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dcm-create-role.html" class="btn btn-neutral" title="dcm-create-role"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dcm-list-snapshots.html" class="btn btn-neutral" title="dcm-list-snapshots"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

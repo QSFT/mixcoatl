@@ -130,11 +130,13 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-jobs.html">dcm-list-jobs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-machine-images.html">dcm-list-machine-images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-networks.html">dcm-list-networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-rdbms-products.html">dcm-list-rdbms-products</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-regions.html">dcm-list-regions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-roles.html">dcm-list-roles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-server-products.html">dcm-list-server-products</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">dcm-list-servers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-snapshots.html">dcm-list-snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-storage-objects.html">dcm-list-storage-objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-users.html">dcm-list-users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-volumes.html">dcm-list-volumes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
@@ -188,32 +190,138 @@
             
   <div class="section" id="dcm-list-servers">
 <span id="id1"></span><h1>dcm-list-servers<a class="headerlink" href="#dcm-list-servers" title="Permalink to this headline">¶</a></h1>
+<p>List servers.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Returns a list of servers.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-servers [-h] [--all] [--userid USERID | --email EMAIL]
+                        [--groupid GROUPID | --groupname GROUPNAME]
+                        [--budgetid BUDGETID | --budgetname BUDGETNAME]
+                        [--verbose]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --all, -a             List all servers.
+  --userid USERID, -u USERID
+                        Owning user&#39;s VM login ID. For example, p100.
+  --email EMAIL, -m EMAIL
+                        E-Mail address of owning user.
+  --groupid GROUPID, -g GROUPID
+                        Owning group&#39;s group ID.
+  --groupname GROUPNAME, -G GROUPNAME
+                        Owning group&#39;s group name.
+  --budgetid BUDGETID, -b BUDGETID
+                        Budget ID.
+  --budgetname BUDGETNAME, -B BUDGETNAME
+                        Budget Name.
+  --verbose, -v         Produce verbose output
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>-a, &#8211;all</td>
+<td>List all servers.</td>
+</tr>
+<tr class="row-odd"><td>-u, &#8211;userid</td>
+<td><p class="first">Owning user&#8217;s VM login ID.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: p100</p>
+</td>
+</tr>
+<tr class="row-even"><td>-m, &#8211;email</td>
+<td><p class="first">E-Mail address of owning user.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: <a class="reference external" href="mailto:tester&#37;&#52;&#48;example&#46;com">tester<span>&#64;</span>example<span>&#46;</span>com</a></p>
+</td>
+</tr>
+<tr class="row-odd"><td>-g, &#8211;groupid</td>
+<td><p class="first">Owning group&#8217;s group ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 301</p>
+</td>
+</tr>
+<tr class="row-even"><td>-G, &#8211;groupname</td>
+<td><p class="first">Owning group&#8217;s group name.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: admin</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-b, &#8211;budgetid</td>
+<td><p class="first">Budget ID.</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 105</p>
+</td>
+</tr>
+<tr class="row-even"><td>-B, &#8211;budgetname</td>
+<td><p class="first">Budget Name.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: QA</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-v, &#8211;verbose</td>
+<td>Print out verbose information while listing servers.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="deprecated-options">
 <h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
+<p>None</p>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The return value from this command is a list of servers.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-list-servers -a
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash"><div class="highlight"><pre>+-----------+-----------+-------------+----------------------------+-----------+---------+------------------------------+
+| Server ID |   Region  | Provider ID |        Server Name         | Public IP |  Status |          Start Date          |
++-----------+-----------+-------------+----------------------------+-----------+---------+------------------------------+
+|    528    | eu-west-1 |  i-e91fde98 |        web server          |    None   | STOPPED | 2014-02-02T23:19:31.000+0000 |
+|    529    | eu-west-1 |  i-97481137 |        chef server         |    None   | STOPPED | 2014-02-25T07:21:30.000+0000 |
+|    601    | us-east-1 |  i-83a3fa23 |       puppet server        |    None   | STOPPED | 2014-01-31T07:55:55.000+0000 |
++-----------+-----------+-------------+----------------------------+-----------+---------+------------------------------+
+</pre></div>
 </div>
 </div>
-<div class="section" id="related-topics">
-<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
