@@ -138,9 +138,9 @@ class BillingCode(Resource):
                        "name": self.name,
                        "financeCode": self.finance_code,
                        "description": self.description }]}
-        self.post(data=json.dumps(payload))
+        response = self.post(data=json.dumps(payload))
         if self.last_error is None:
-            return self.current_job
+            return response
         else:
             raise BillingCodeAddException(self.last_error)
 
