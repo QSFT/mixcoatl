@@ -26,4 +26,5 @@ if __name__ == '__main__':
     b.hard_quota = cmd_args.hard
     b.description = cmd_args.description
 
-    b.add()
+    result = b.add()
+    print(result['billingCodes'][0]['billingCodeId'])

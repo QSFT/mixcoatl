@@ -138,11 +138,30 @@ class BillingCode(Resource):
                        "name": self.name,
                        "financeCode": self.finance_code,
                        "description": self.description }]}
-        self.post(data=json.dumps(payload))
+        response = self.post(data=json.dumps(payload))
         if self.last_error is None:
-            return self.current_job
+            return response
         else:
             raise BillingCodeAddException(self.last_error)
 
+    @required_attrs(['billing_code_id'])
+    def destroy(self, reason, replacement_code):
+        """Destroy billing code with a specified reason :attr:`reason`
+
+        :param reason: The reason of destroying the billing code.
+        :type reason: str.
+        :param replacement_code: The replacement code.
+        :type replacement_code: int.
+        :returns: bool -- Result of API call
+        """
+        p = self.PATH+"/"+str(self.billing_code_id)
+        qopts = {'reason':reason, 'replacementCode':replacement_code}
+        self.delete(p, params=qopts)
+        if self.last_error is None:
+            return True
+        else:
+            raise BillingCodeDestroyException(self.last_error)
+
 class BillingCodeException(BaseException): pass
 class BillingCodeAddException(BillingCodeException): pass
+class BillingCodeDestroyException(BillingCodeException): pass
