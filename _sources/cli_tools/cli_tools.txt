@@ -20,6 +20,7 @@ DCM command line API tools.
    dcm-create-tier
    dcm-create-user
    dcm-create-volume
+   dcm-delete-billing-code
    dcm-delete-group
    dcm-delete-network
    dcm-delete-volume

@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-create-tier.html">dcm-create-tier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-create-user.html">dcm-create-user</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-create-volume.html">dcm-create-volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-delete-billing-code.html">dcm-delete-billing-code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-delete-group.html">dcm-delete-group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-delete-network.html">dcm-delete-network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../cli_tools/dcm-delete-volume.html">dcm-delete-volume</a></li>
@@ -316,6 +317,27 @@ against which cloud resources may be provisioned and tracked.</p>
 <dd><p>Add a new billing code.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="mixcoatl.admin.billing_code.BillingCode.destroy">
+<tt class="descname">destroy</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCode.destroy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCode.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy billing code with a specified reason <tt class="xref py py-attr docutils literal"><span class="pre">reason</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>reason</strong> (<em>str.</em>) &#8211; The reason of destroying the billing code.</li>
+<li><strong>replacement_code</strong> (<em>int.</em>) &#8211; The replacement code.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool &#8211; Result of API call</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -327,6 +349,12 @@ against which cloud resources may be provisioned and tracked.</p>
 <dl class="exception">
 <dt id="mixcoatl.admin.billing_code.BillingCodeAddException">
 <em class="property">exception </em><tt class="descclassname">mixcoatl.admin.billing_code.</tt><tt class="descname">BillingCodeAddException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCodeAddException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCodeAddException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCodeException" title="mixcoatl.admin.billing_code.BillingCodeException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.billing_code.BillingCodeException</span></tt></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="mixcoatl.admin.billing_code.BillingCodeDestroyException">
+<em class="property">exception </em><tt class="descclassname">mixcoatl.admin.billing_code.</tt><tt class="descname">BillingCodeDestroyException</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/billing_code.html#BillingCodeDestroyException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.billing_code.BillingCodeDestroyException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#mixcoatl.admin.billing_code.BillingCodeException" title="mixcoatl.admin.billing_code.BillingCodeException"><tt class="xref py py-class docutils literal"><span class="pre">mixcoatl.admin.billing_code.BillingCodeException</span></tt></a></p>
 </dd></dl>
 

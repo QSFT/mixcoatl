@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-tier.html">dcm-create-tier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-user.html">dcm-create-user</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-create-volume.html">dcm-create-volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-billing-code.html">dcm-delete-billing-code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-group.html">dcm-delete-group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-network.html">dcm-delete-network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../cli_tools/dcm-delete-volume.html">dcm-delete-volume</a></li>
@@ -325,14 +326,33 @@
                        <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                        <span class="s">&quot;financeCode&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">finance_code</span><span class="p">,</span>
                        <span class="s">&quot;description&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="p">}]}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_job</span>
+            <span class="k">return</span> <span class="n">response</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">BillingCodeAddException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;billing_code_id&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="BillingCode.destroy"><a class="viewcode-back" href="../../../source/admin/billing_code.html#mixcoatl.admin.billing_code.BillingCode.destroy">[docs]</a>    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">replacement_code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Destroy billing code with a specified reason :attr:`reason`</span>
+
+<span class="sd">        :param reason: The reason of destroying the billing code.</span>
+<span class="sd">        :type reason: str.</span>
+<span class="sd">        :param replacement_code: The replacement code.</span>
+<span class="sd">        :type replacement_code: int.</span>
+<span class="sd">        :returns: bool -- Result of API call</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span><span class="o">+</span><span class="s">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">billing_code_id</span><span class="p">)</span>
+        <span class="n">qopts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;reason&#39;</span><span class="p">:</span><span class="n">reason</span><span class="p">,</span> <span class="s">&#39;replacementCode&#39;</span><span class="p">:</span><span class="n">replacement_code</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">qopts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BillingCodeDestroyException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
 </div></div>
 <div class="viewcode-block" id="BillingCodeException"><a class="viewcode-back" href="../../../source/admin/billing_code.html#mixcoatl.admin.billing_code.BillingCodeException">[docs]</a><span class="k">class</span> <span class="nc">BillingCodeException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span> <span class="k">pass</span></div>
 <div class="viewcode-block" id="BillingCodeAddException"><a class="viewcode-back" href="../../../source/admin/billing_code.html#mixcoatl.admin.billing_code.BillingCodeAddException">[docs]</a><span class="k">class</span> <span class="nc">BillingCodeAddException</span><span class="p">(</span><span class="n">BillingCodeException</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="BillingCodeDestroyException"><a class="viewcode-back" href="../../../source/admin/billing_code.html#mixcoatl.admin.billing_code.BillingCodeDestroyException">[docs]</a><span class="k">class</span> <span class="nc">BillingCodeDestroyException</span><span class="p">(</span><span class="n">BillingCodeException</span><span class="p">):</span> <span class="k">pass</span></div>
 </pre></div>
 
           </div>
