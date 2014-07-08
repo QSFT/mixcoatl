@@ -23,6 +23,7 @@ if __name__ == '__main__':
     else:
         deployment_table = PrettyTable(["Deployment ID", "Name", "Owner", "Creation Timestamp", "Status"])
         for d in deployments:
-            deployment_table.add_row([d.deployment_id, d.name, d.owning_user['alpha_name'],
+            deployment_table.add_row([d.deployment_id, d.name,
+                                      d.owning_user['alpha_name'] if hasattr(d,"owning_user") else None,
                                       d.creation_timestamp, d.status])
         print(deployment_table)
