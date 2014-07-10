@@ -21,8 +21,18 @@ class FirewallRule(Resource):
 
     @property
     def firewall_rule_id(self):
-        """`int` - The unique enStratus id for this rule"""
+        """`int` - The unique DCM id for this rule"""
         return self.__firewall_rule_id
+
+    @lazy_property
+    def destination(self):
+        """`str` - The endpoint for the firewall rule. This could describe a different value depending on the destination type."""
+        return self.__destination
+
+    @lazy_property
+    def destination_type(self):
+        """`enum` - Describes the type of the destination value. Most clouds do not support every destination type."""
+        return self.__destination_type
 
     @lazy_property
     def direction(self):
@@ -34,6 +44,15 @@ class FirewallRule(Resource):
         self.__direction = d
 
     @lazy_property
+    def end_port(self):
+        """`int` or `None` - The end port for this rule"""
+        return self.__end_port
+
+    @end_port.setter
+    def end_port(self, p):
+        self.__end_port = p
+
+    @lazy_property
     def firewall(self):
         """`dict` - The firewall to which this rule belongs"""
         return self.__firewall
@@ -41,15 +60,6 @@ class FirewallRule(Resource):
     @firewall.setter
     def firewall(self, fwid):
         self.__firewall = {'firewall_id': fwid}
-
-    @lazy_property
-    def network_address(self):
-        """`str` - The CIDR for the source or destination of traffic"""
-        return self.__network_address
-
-    @network_address.setter
-    def network_address(self, addr):
-        self.__network_address = addr
 
     @lazy_property
     def protocol(self):
@@ -61,6 +71,16 @@ class FirewallRule(Resource):
         self.__protocol = p
 
     @lazy_property
+    def source(self):
+        """`str` - The starting point for the firewall rule. This could describe a different value depending on the source type."""
+        return self.__source
+
+    @lazy_property
+    def source_type(self):
+        """`enum` - Describes the type of the source value. Most clouds do not support every source type."""
+        return self.__source_type
+
+    @lazy_property
     def start_port(self):
         """`int` or `None` - The start port for this rule"""
         return self.__start_port
@@ -70,20 +90,21 @@ class FirewallRule(Resource):
         self.__start_port = p
 
     @lazy_property
-    def end_port(self):
-        """`int` or `None` - The end port for this rule"""
-        return self.__end_port
-
-    @end_port.setter
-    def end_port(self, p):
-        self.__end_port = p
-
-    @lazy_property
     def rule_provider_id(self):
         """`str` - Provider's firewall rule ID"""
         return self.__rule_provider_id
 
-    @required_attrs(['firewall', 'network_address', 'protocol', 'direction', 'start_port', 'end_port'])
+    @lazy_property
+    def permission(self):
+        """`enum` - Indicates whether the rule allows or denies traffic."""
+        return self.__permission
+
+    @lazy_property
+    def precedence(self):
+        """`int` - A value indicating the position in the order list by which the firewall should process the rules. Not all clouds support precedence for rule ordering."""
+        return self.__precedence
+
+    @required_attrs(['firewall', 'protocol', 'direction', 'start_port', 'end_port'])
     def create(self, **kwargs):
         """Create a new firewall rule
 
