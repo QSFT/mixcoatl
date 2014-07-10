@@ -104,7 +104,7 @@ class FirewallRule(Resource):
         """`int` - A value indicating the position in the order list by which the firewall should process the rules. Not all clouds support precedence for rule ordering."""
         return self.__precedence
 
-    @required_attrs(['firewall', 'protocol', 'direction', 'start_port', 'end_port'])
+    @required_attrs(['firewall', 'source', 'source_type', 'destination', 'destination_type', 'direction', 'permission', 'protocol'])
     def create(self, **kwargs):
         """Create a new firewall rule
 
@@ -125,12 +125,14 @@ class FirewallRule(Resource):
 
         payload = {'add_rule':[{
             'firewall_id': self.firewall['firewall_id'],
+            'source': self.source,
+            'source_type': self.source_type,
+            'destination': self.destination,
+            'destination_type': self.destination_type,
             'direction': self.direction,
-            'start_port': self.start_port,
-            'end_port': self.end_port,
+            'permission': self.permission,
             'protocol': self.protocol,
-            'reason': reason,
-            'cidr' : self.network_address}]}
+            'reason': reason }]}
 
         if self.firewall_rule_id is not None:
             raise FirewallRuleException('Cannot modify existing firewall rule')
@@ -208,6 +210,7 @@ class FirewallRule(Resource):
         else:
             raise FirewallRuleException(r.last_error)
 
+# Below functions need to be refactored.
 def add_rule(firewall_id, network, proto, direction, start, end, reason):
     """Add a firewall rule to a firewall
 
