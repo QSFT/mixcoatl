@@ -211,34 +211,34 @@ class FirewallRule(Resource):
             raise FirewallRuleException(r.last_error)
 
 # Below functions need to be refactored.
-def add_rule(firewall_id, network, proto, direction, start, end, reason):
-    """Add a firewall rule to a firewall
-
-    >>> f = add_rule(136663, '10.1.1.1/32', 'TCP', 'INGRESS', 15000, 15000, 'inbound api')
-
-    """
-    f = FirewallRule()
-    f.firewall = firewall_id
-    f.network_address = network
-    f.protocol = proto
-    f.direction = direction
-    f.start_port = start
-    f.end_port = end
-    return f.create(reason=reason)
-
-def delete_rule(rule_id, reason='rule removed by mixcoatl'):
-    """Remove a firewall rule
-
-    :param rule_id: The id of the firewall rule to remove
-    :type rule_id: int.
-    :param reason: The reason for removing the rule
-    :type reason: string
-    :returns: `bool`
-    :raises: :class:`FirewallRuleException`
-    """
-    f = FirewallRule(rule_id)
-    return f.remove(reason)
-
+#def add_rule(firewall_id, network, proto, direction, start, end, reason):
+#    """Add a firewall rule to a firewall
+#
+#    >>> f = add_rule(136663, '10.1.1.1/32', 'TCP', 'INGRESS', 15000, 15000, 'inbound api')
+#
+#    """
+#    f = FirewallRule()
+#    f.firewall = firewall_id
+#    f.network_address = network
+#    f.protocol = proto
+#    f.direction = direction
+#    f.start_port = start
+#    f.end_port = end
+#    return f.create(reason=reason)
+#
+#def delete_rule(rule_id, reason='rule removed by mixcoatl'):
+#    """Remove a firewall rule
+#
+#    :param rule_id: The id of the firewall rule to remove
+#    :type rule_id: int.
+#    :param reason: The reason for removing the rule
+#    :type reason: string
+#    :returns: `bool`
+#    :raises: :class:`FirewallRuleException`
+#    """
+#    f = FirewallRule(rule_id)
+#    return f.remove(reason)
+#
 class FirewallRuleException(BaseException):
     """Generic Exception for FirewallRules"""
     pass
