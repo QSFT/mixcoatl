@@ -166,7 +166,13 @@ firewall_rules = {u'rules': [{u'direction': u'INGRESS',
 one_firewall_rule = {u'rules': [{u'direction': u'INGRESS',
                               u'firewall': {u'firewallId': 116387},
                               u'firewallRuleId': 3706471,
-                              u'networkAddress': u'216.250.165.28/32',
-                              u'protocol': u'ICMP'}]}
+                              u'source': u'217.240.165.28/32',
+                              u'sourceType': u'CIDR',
+                              u'destination': u'406',
+                              u'destinationType': u'GLOBAL',
+                              u'startPort': 2003,
+                              u'endPort': 2003,
+                              u'precedence': 0,
+                              u'protocol': u'TCP'}]}
 
 no_rules = {u'rules': []}
