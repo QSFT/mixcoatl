@@ -1,0 +1,53 @@
+
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.server import Server
+from prettytable import PrettyTable
+from datetime import datetime
+from time import mktime
+import argparse, sys
+
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--serverid', '-s', help='Server ID')
+	parser.add_argument('--extend', '-x', help="Extend termination time by (x) hours")
+	parser.add_argument('--date_format', '-d', help="Extend termination time to specified date (Example: 2014-07-04 08:03:11)")
+	cmd_args = parser.parse_args()
+	
+	if cmd_args.serverid and cmd_args.extend:
+		s = Server(cmd_args.serverid)
+		result = s.load()
+
+		if result is not None:
+			print("Cannot find the server by the ID.")
+			sys.exit(1)
+
+		thetime = (int(cmd_args.extend) * 60) * 60
+		s.extend_terminate(thetime*1000)
+	elif cmd_args.serverid and cmd_args.date_format:
+		s = Server(cmd_args.serverid)
+		result = s.load()
+
+		if result is not None:
+			print("Cannot find the server by the ID.")
+			sys.exit(1)
+
+		cur = str(datetime.now())
+		curtime = datetime.strptime(cur, '%Y-%m-%d %H:%M:%S.%f')
+
+		try:
+			terminate_after=cmd_args.date_format
+			terminate_after_seconds=datetime.strptime(terminate_after, '%Y-%m-%d %H:%M:%S')
+			diff = ((terminate_after_seconds - curtime).total_seconds() / 60) / 60
+			newdiff = str(round(diff,2))+" hours"
+		except AttributeError:
+			terminate_after=None
+			newdiff = "Never"
+			diff = None
+
+		if diff is not None:
+			thetime = (int(diff) * 60) * 60
+			s.extend_terminate(thetime*1000)
+	else:
+		parser.print_help()
+		sys.exit(1)	
