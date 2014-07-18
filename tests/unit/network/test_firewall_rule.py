@@ -26,8 +26,14 @@ class TestFirewallRule(unittest.TestCase):
         mock_data.return_value = fw_data.one_firewall_rule
 
         f = fwrule.FirewallRule(3706471)
-        assert f.firewall_rule_id == 3706471
         assert f.direction == 'INGRESS'
-        assert f.network_address == '216.250.165.28/32'
         assert f.firewall['firewall_id'] == 116387
-        assert f.protocol == 'ICMP'
+        assert f.firewall_rule_id == 3706471
+        assert f.source == '217.240.165.28/32'
+        assert f.source_type == 'CIDR'
+        assert f.destination == '406'
+        assert f.destination_type == 'GLOBAL'
+        assert f.start_port == 2003
+        assert f.end_port == 2003
+        assert f.precedence == 0
+        assert f.protocol == 'TCP'

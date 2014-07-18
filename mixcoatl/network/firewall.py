@@ -1,4 +1,3 @@
-"""Implements the enStratus Firewall API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
@@ -23,7 +22,7 @@ class Firewall(Resource):
 
     @property
     def firewall_id(self):
-        """`str` - The unique enStratus ID for this firewall"""
+        """`str` - The unique DCM ID for this firewall"""
         return self.__firewall_id
 
     @lazy_property
@@ -42,7 +41,7 @@ class Firewall(Resource):
 
     @lazy_property
     def owning_account(self):
-        """`dict` - The enStratus account under which this firewall is registered"""
+        """`dict` - The DCM account under which this firewall is registered"""
         return self.__owning_account
 
     @lazy_property
@@ -56,17 +55,22 @@ class Firewall(Resource):
 
     @lazy_property
     def owning_user(self):
-        """`dict` or `None` - The enStratus owner of record for this firewall"""
+        """`dict` or `None` - The DCM owner of record for this firewall"""
         return self.__owning_user
 
     @lazy_property
     def owning_groups(self):
-        """`list` - The enStratus groups that have ownership of this firewall"""
+        """`list` - The DCM groups that have ownership of this firewall"""
         return self.__owning_groups
 
     @lazy_property
+    def legacy_owner_id(self):
+        """`int` - The old DCM user ID that represents user ID before 07 DEC 2013."""
+        return self.__legacy_owner_id
+
+    @lazy_property
     def description(self):
-        """`str` - The description of this firewall in enStratus"""
+        """`str` - The description of this firewall in DCM"""
         return self.__description
 
     @description.setter
@@ -75,7 +79,7 @@ class Firewall(Resource):
 
     @lazy_property
     def cloud(self):
-        """`dict` - The enStratus cloud account in which this firewall lives"""
+        """`dict` - The DCM cloud account in which this firewall lives"""
         return self.__cloud
 
     @lazy_property
@@ -99,7 +103,7 @@ class Firewall(Resource):
 
     @lazy_property
     def budget(self):
-        """`int` - The enStratus billing code costs are associated with"""
+        """`int` - The DCM billing code costs are associated with"""
         return self.__budget
 
     @budget.setter
@@ -108,7 +112,7 @@ class Firewall(Resource):
 
     @lazy_property
     def customer(self):
-        """`dict` - The enStratus customer to which this firewall belongs"""
+        """`dict` - The DCM customer to which this firewall belongs"""
         return self.__customer
 
     @property
