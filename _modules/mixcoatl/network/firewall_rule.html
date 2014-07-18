@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mixcoatl.network.firewall_rule &mdash; mixcoatl 0.3.2 documentation</title>
+  <title>mixcoatl.network.firewall_rule &mdash; mixcoatl 0.3.4 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -209,8 +209,18 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="FirewallRule.firewall_rule_id"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id">[docs]</a>    <span class="k">def</span> <span class="nf">firewall_rule_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` - The unique enStratus id for this rule&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique DCM id for this rule&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewall_rule_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.destination"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.destination">[docs]</a>    <span class="k">def</span> <span class="nf">destination</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The endpoint for the firewall rule. This could describe a different value depending on the destination type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__destination</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.destination_type"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.destination_type">[docs]</a>    <span class="k">def</span> <span class="nf">destination_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`enum` - Describes the type of the destination value. Most clouds do not support every destination type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__destination_type</span>
 </div>
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -222,6 +232,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__direction</span> <span class="o">=</span> <span class="n">d</span>
 </div>
     <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">end_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` or `None` - The end port for this rule&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_port</span>
+
+    <span class="nd">@end_port.setter</span>
+<div class="viewcode-block" id="FirewallRule.end_port"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.end_port">[docs]</a>    <span class="k">def</span> <span class="nf">end_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__end_port</span> <span class="o">=</span> <span class="n">p</span>
+</div>
+    <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">firewall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`dict` - The firewall to which this rule belongs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewall</span>
@@ -229,15 +248,6 @@
     <span class="nd">@firewall.setter</span>
 <div class="viewcode-block" id="FirewallRule.firewall"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.firewall">[docs]</a>    <span class="k">def</span> <span class="nf">firewall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fwid</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__firewall</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;firewall_id&#39;</span><span class="p">:</span> <span class="n">fwid</span><span class="p">}</span>
-</div>
-    <span class="nd">@lazy_property</span>
-    <span class="k">def</span> <span class="nf">network_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The CIDR for the source or destination of traffic&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__network_address</span>
-
-    <span class="nd">@network_address.setter</span>
-<div class="viewcode-block" id="FirewallRule.network_address"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.network_address">[docs]</a>    <span class="k">def</span> <span class="nf">network_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__network_address</span> <span class="o">=</span> <span class="n">addr</span>
 </div>
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">protocol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -249,6 +259,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__protocol</span> <span class="o">=</span> <span class="n">p</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.source"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.source">[docs]</a>    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The starting point for the firewall rule. This could describe a different value depending on the source type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__source</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.source_type"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.source_type">[docs]</a>    <span class="k">def</span> <span class="nf">source_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`enum` - Describes the type of the source value. Most clouds do not support every source type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__source_type</span>
+</div>
+    <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">start_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`int` or `None` - The start port for this rule&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start_port</span>
@@ -258,20 +278,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__start_port</span> <span class="o">=</span> <span class="n">p</span>
 </div>
     <span class="nd">@lazy_property</span>
-    <span class="k">def</span> <span class="nf">end_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` or `None` - The end port for this rule&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_port</span>
-
-    <span class="nd">@end_port.setter</span>
-<div class="viewcode-block" id="FirewallRule.end_port"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.end_port">[docs]</a>    <span class="k">def</span> <span class="nf">end_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__end_port</span> <span class="o">=</span> <span class="n">p</span>
-</div>
-    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="FirewallRule.rule_provider_id"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.rule_provider_id">[docs]</a>    <span class="k">def</span> <span class="nf">rule_provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - Provider&#39;s firewall rule ID&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rule_provider_id</span>
 </div>
-    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;firewall&#39;</span><span class="p">,</span> <span class="s">&#39;network_address&#39;</span><span class="p">,</span> <span class="s">&#39;protocol&#39;</span><span class="p">,</span> <span class="s">&#39;direction&#39;</span><span class="p">,</span> <span class="s">&#39;start_port&#39;</span><span class="p">,</span> <span class="s">&#39;end_port&#39;</span><span class="p">])</span>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.permission"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.permission">[docs]</a>    <span class="k">def</span> <span class="nf">permission</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`enum` - Indicates whether the rule allows or denies traffic.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__permission</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="FirewallRule.precedence"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.precedence">[docs]</a>    <span class="k">def</span> <span class="nf">precedence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - A value indicating the position in the order list by which the firewall should process the rules. Not all clouds support precedence for rule ordering.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precedence</span>
+</div>
+    <span class="nd">@required_attrs</span><span class="p">([</span><span class="s">&#39;firewall&#39;</span><span class="p">,</span> <span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="s">&#39;source_type&#39;</span><span class="p">,</span> <span class="s">&#39;destination&#39;</span><span class="p">,</span> <span class="s">&#39;destination_type&#39;</span><span class="p">,</span> <span class="s">&#39;direction&#39;</span><span class="p">,</span> <span class="s">&#39;permission&#39;</span><span class="p">,</span> <span class="s">&#39;protocol&#39;</span><span class="p">])</span>
 <div class="viewcode-block" id="FirewallRule.create"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRule.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a new firewall rule</span>
 
@@ -292,12 +313,14 @@
 
         <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;add_rule&#39;</span><span class="p">:[{</span>
             <span class="s">&#39;firewall_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall</span><span class="p">[</span><span class="s">&#39;firewall_id&#39;</span><span class="p">],</span>
+            <span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+            <span class="s">&#39;source_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_type</span><span class="p">,</span>
+            <span class="s">&#39;destination&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span>
+            <span class="s">&#39;destination_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">destination_type</span><span class="p">,</span>
             <span class="s">&#39;direction&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">,</span>
-            <span class="s">&#39;start_port&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_port</span><span class="p">,</span>
-            <span class="s">&#39;end_port&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_port</span><span class="p">,</span>
+            <span class="s">&#39;permission&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">permission</span><span class="p">,</span>
             <span class="s">&#39;protocol&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span>
-            <span class="s">&#39;reason&#39;</span><span class="p">:</span> <span class="n">reason</span><span class="p">,</span>
-            <span class="s">&#39;cidr&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">network_address</span><span class="p">}]}</span>
+            <span class="s">&#39;reason&#39;</span><span class="p">:</span> <span class="n">reason</span> <span class="p">}]}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">firewall_rule_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">FirewallRuleException</span><span class="p">(</span><span class="s">&#39;Cannot modify existing firewall rule&#39;</span><span class="p">)</span>
@@ -374,35 +397,36 @@
             <span class="k">return</span> <span class="n">rules</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">FirewallRuleException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">last_error</span><span class="p">)</span>
-</div></div>
-<div class="viewcode-block" id="add_rule"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.add_rule">[docs]</a><span class="k">def</span> <span class="nf">add_rule</span><span class="p">(</span><span class="n">firewall_id</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">proto</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Add a firewall rule to a firewall</span>
 
-<span class="sd">    &gt;&gt;&gt; f = add_rule(136663, &#39;10.1.1.1/32&#39;, &#39;TCP&#39;, &#39;INGRESS&#39;, 15000, 15000, &#39;inbound api&#39;)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">FirewallRule</span><span class="p">()</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">firewall</span> <span class="o">=</span> <span class="n">firewall_id</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">network_address</span> <span class="o">=</span> <span class="n">network</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="n">proto</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">start_port</span> <span class="o">=</span> <span class="n">start</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">end_port</span> <span class="o">=</span> <span class="n">end</span>
-    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="delete_rule"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.delete_rule">[docs]</a><span class="k">def</span> <span class="nf">delete_rule</span><span class="p">(</span><span class="n">rule_id</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s">&#39;rule removed by mixcoatl&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Remove a firewall rule</span>
-
-<span class="sd">    :param rule_id: The id of the firewall rule to remove</span>
-<span class="sd">    :type rule_id: int.</span>
-<span class="sd">    :param reason: The reason for removing the rule</span>
-<span class="sd">    :type reason: string</span>
-<span class="sd">    :returns: `bool`</span>
-<span class="sd">    :raises: :class:`FirewallRuleException`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">FirewallRule</span><span class="p">(</span><span class="n">rule_id</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span>
-</div>
+<span class="c"># Below functions need to be refactored.</span>
+<span class="c">#def add_rule(firewall_id, network, proto, direction, start, end, reason):</span>
+<span class="c">#    &quot;&quot;&quot;Add a firewall rule to a firewall</span>
+<span class="c">#</span>
+<span class="c">#    &gt;&gt;&gt; f = add_rule(136663, &#39;10.1.1.1/32&#39;, &#39;TCP&#39;, &#39;INGRESS&#39;, 15000, 15000, &#39;inbound api&#39;)</span>
+<span class="c">#</span>
+<span class="c">#    &quot;&quot;&quot;</span>
+<span class="c">#    f = FirewallRule()</span>
+<span class="c">#    f.firewall = firewall_id</span>
+<span class="c">#    f.network_address = network</span>
+<span class="c">#    f.protocol = proto</span>
+<span class="c">#    f.direction = direction</span>
+<span class="c">#    f.start_port = start</span>
+<span class="c">#    f.end_port = end</span>
+<span class="c">#    return f.create(reason=reason)</span>
+<span class="c">#</span>
+<span class="c">#def delete_rule(rule_id, reason=&#39;rule removed by mixcoatl&#39;):</span>
+<span class="c">#    &quot;&quot;&quot;Remove a firewall rule</span>
+<span class="c">#</span>
+<span class="c">#    :param rule_id: The id of the firewall rule to remove</span>
+<span class="c">#    :type rule_id: int.</span>
+<span class="c">#    :param reason: The reason for removing the rule</span>
+<span class="c">#    :type reason: string</span>
+<span class="c">#    :returns: `bool`</span>
+<span class="c">#    :raises: :class:`FirewallRuleException`</span>
+<span class="c">#    &quot;&quot;&quot;</span>
+<span class="c">#    f = FirewallRule(rule_id)</span>
+<span class="c">#    return f.remove(reason)</span>
+<span class="c">#</span></div></div>
 <div class="viewcode-block" id="FirewallRuleException"><a class="viewcode-back" href="../../../source/network/firewall_rule.html#mixcoatl.network.firewall_rule.FirewallRuleException">[docs]</a><span class="k">class</span> <span class="nc">FirewallRuleException</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generic Exception for FirewallRules&quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
@@ -436,7 +460,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.3.2',
+            VERSION:'0.3.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

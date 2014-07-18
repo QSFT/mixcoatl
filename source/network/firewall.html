@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>firewall &mdash; mixcoatl 0.3.2 documentation</title>
+  <title>firewall &mdash; mixcoatl 0.3.4 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.2 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../index.html"/>
         <link rel="up" title="Network" href="../mixcoatl.network.html"/>
         <link rel="next" title="firewall_rule" href="firewall_rule.html"/>
         <link rel="prev" title="Network" href="../mixcoatl.network.html"/> 
@@ -193,7 +193,6 @@
             
   <div class="section" id="module-mixcoatl.network.firewall">
 <span id="firewall"></span><span id="mixcoatl-network-firewall"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">firewall</span></tt><a class="headerlink" href="#module-mixcoatl.network.firewall" title="Permalink to this headline">¶</a></h1>
-<p>Implements the enStratus Firewall API</p>
 <dl class="class">
 <dt id="mixcoatl.network.firewall.Firewall">
 <em class="property">class </em><tt class="descclassname">mixcoatl.network.firewall.</tt><tt class="descname">Firewall</tt><big>(</big><em>firewall_id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall" title="Permalink to this definition">¶</a></dt>
@@ -216,7 +215,7 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.firewall_id">
 <tt class="descname">firewall_id</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.firewall_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.firewall_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The unique enStratus ID for this firewall</p>
+<dd><p><cite>str</cite> - The unique DCM ID for this firewall</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -234,7 +233,7 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.owning_account">
 <tt class="descname">owning_account</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.owning_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.owning_account" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The enStratus account under which this firewall is registered</p>
+<dd><p><cite>dict</cite> - The DCM account under which this firewall is registered</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -246,25 +245,31 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.owning_user">
 <tt class="descname">owning_user</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.owning_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.owning_user" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> or <cite>None</cite> - The enStratus owner of record for this firewall</p>
+<dd><p><cite>dict</cite> or <cite>None</cite> - The DCM owner of record for this firewall</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.owning_groups">
 <tt class="descname">owning_groups</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.owning_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.owning_groups" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>list</cite> - The enStratus groups that have ownership of this firewall</p>
+<dd><p><cite>list</cite> - The DCM groups that have ownership of this firewall</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall.Firewall.legacy_owner_id">
+<tt class="descname">legacy_owner_id</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.legacy_owner_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.legacy_owner_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - The old DCM user ID that represents user ID before 07 DEC 2013.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.description">
 <tt class="descname">description</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.description" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The description of this firewall in enStratus</p>
+<dd><p><cite>str</cite> - The description of this firewall in DCM</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.cloud">
 <tt class="descname">cloud</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.cloud" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The enStratus cloud account in which this firewall lives</p>
+<dd><p><cite>dict</cite> - The DCM cloud account in which this firewall lives</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -288,13 +293,13 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.budget">
 <tt class="descname">budget</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.budget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.budget" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The enStratus billing code costs are associated with</p>
+<dd><p><cite>int</cite> - The DCM billing code costs are associated with</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall.Firewall.customer">
 <tt class="descname">customer</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall.html#Firewall.customer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall.Firewall.customer" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The enStratus customer to which this firewall belongs</p>
+<dd><p><cite>dict</cite> - The DCM customer to which this firewall belongs</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -434,7 +439,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.3.2',
+            VERSION:'0.3.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mixcoatl.network.firewall &mdash; mixcoatl 0.3.2 documentation</title>
+  <title>mixcoatl.network.firewall &mdash; mixcoatl 0.3.4 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -186,7 +186,6 @@
           <div role="main">
             
   <h1>Source code for mixcoatl.network.firewall</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;Implements the enStratus Firewall API&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.validations</span> <span class="kn">import</span> <span class="n">required_attrs</span>
@@ -211,7 +210,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Firewall.firewall_id"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.firewall_id">[docs]</a>    <span class="k">def</span> <span class="nf">firewall_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The unique enStratus ID for this firewall&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The unique DCM ID for this firewall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__firewall_id</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -230,7 +229,7 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.owning_account"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.owning_account">[docs]</a>    <span class="k">def</span> <span class="nf">owning_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus account under which this firewall is registered&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The DCM account under which this firewall is registered&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_account</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -244,17 +243,22 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.owning_user"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` or `None` - The enStratus owner of record for this firewall&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`dict` or `None` - The DCM owner of record for this firewall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.owning_groups"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`list` - The enStratus groups that have ownership of this firewall&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The DCM groups that have ownership of this firewall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Firewall.legacy_owner_id"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.legacy_owner_id">[docs]</a>    <span class="k">def</span> <span class="nf">legacy_owner_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The old DCM user ID that represents user ID before 07 DEC 2013.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__legacy_owner_id</span>
+</div>
+    <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The description of this firewall in enStratus&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The description of this firewall in DCM&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__description</span>
 
     <span class="nd">@description.setter</span>
@@ -263,7 +267,7 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.cloud"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.cloud">[docs]</a>    <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus cloud account in which this firewall lives&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The DCM cloud account in which this firewall lives&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -287,7 +291,7 @@
 </div>
     <span class="nd">@lazy_property</span>
     <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` - The enStratus billing code costs are associated with&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The DCM billing code costs are associated with&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span>
 
     <span class="nd">@budget.setter</span>
@@ -296,7 +300,7 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Firewall.customer"><a class="viewcode-back" href="../../../source/network/firewall.html#mixcoatl.network.firewall.Firewall.customer">[docs]</a>    <span class="k">def</span> <span class="nf">customer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`dict` - The enStratus customer to which this firewall belongs&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`dict` - The DCM customer to which this firewall belongs&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
     <span class="nd">@property</span>
@@ -469,7 +473,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.3.2',
+            VERSION:'0.3.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

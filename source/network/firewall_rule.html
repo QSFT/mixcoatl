@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>firewall_rule &mdash; mixcoatl 0.3.2 documentation</title>
+  <title>firewall_rule &mdash; mixcoatl 0.3.4 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.2 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../index.html"/>
         <link rel="up" title="Network" href="../mixcoatl.network.html"/>
         <link rel="next" title="load_balancer" href="load_balancer.html"/>
         <link rel="prev" title="firewall" href="firewall.html"/> 
@@ -215,7 +215,19 @@
 <dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id">
 <tt class="descname">firewall_rule_id</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.firewall_rule_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall_rule_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> - The unique enStratus id for this rule</p>
+<dd><p><cite>int</cite> - The unique DCM id for this rule</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.destination">
+<tt class="descname">destination</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.destination"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.destination" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The endpoint for the firewall rule. This could describe a different value depending on the destination type.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.destination_type">
+<tt class="descname">destination_type</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.destination_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.destination_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>enum</cite> - Describes the type of the destination value. Most clouds do not support every destination type.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -225,15 +237,15 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.network.firewall_rule.FirewallRule.firewall">
-<tt class="descname">firewall</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>dict</cite> - The firewall to which this rule belongs</p>
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.end_port">
+<tt class="descname">end_port</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.end_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.end_port" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> or <cite>None</cite> - The end port for this rule</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.network.firewall_rule.FirewallRule.network_address">
-<tt class="descname">network_address</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.network_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.network_address" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>str</cite> - The CIDR for the source or destination of traffic</p>
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.firewall">
+<tt class="descname">firewall</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.firewall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.firewall" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>dict</cite> - The firewall to which this rule belongs</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -243,21 +255,39 @@
 </dd></dl>
 
 <dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.source">
+<tt class="descname">source</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.source" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>str</cite> - The starting point for the firewall rule. This could describe a different value depending on the source type.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.source_type">
+<tt class="descname">source_type</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.source_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.source_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>enum</cite> - Describes the type of the source value. Most clouds do not support every source type.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.start_port">
 <tt class="descname">start_port</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.start_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.start_port" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>int</cite> or <cite>None</cite> - The start port for this rule</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="mixcoatl.network.firewall_rule.FirewallRule.end_port">
-<tt class="descname">end_port</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.end_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.end_port" title="Permalink to this definition">¶</a></dt>
-<dd><p><cite>int</cite> or <cite>None</cite> - The end port for this rule</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="mixcoatl.network.firewall_rule.FirewallRule.rule_provider_id">
 <tt class="descname">rule_provider_id</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.rule_provider_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.rule_provider_id" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>str</cite> - Provider&#8217;s firewall rule ID</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.permission">
+<tt class="descname">permission</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.permission" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>enum</cite> - Indicates whether the rule allows or denies traffic.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.network.firewall_rule.FirewallRule.precedence">
+<tt class="descname">precedence</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRule.precedence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRule.precedence" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>int</cite> - A value indicating the position in the order list by which the firewall should process the rules. Not all clouds support precedence for rule ordering.</p>
 </dd></dl>
 
 <dl class="method">
@@ -329,39 +359,6 @@
 
 </dd></dl>
 
-<dl class="function">
-<dt id="mixcoatl.network.firewall_rule.add_rule">
-<tt class="descclassname">mixcoatl.network.firewall_rule.</tt><tt class="descname">add_rule</tt><big>(</big><em>firewall_id</em>, <em>network</em>, <em>proto</em>, <em>direction</em>, <em>start</em>, <em>end</em>, <em>reason</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#add_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.add_rule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a firewall rule to a firewall</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">add_rule</span><span class="p">(</span><span class="mi">136663</span><span class="p">,</span> <span class="s">&#39;10.1.1.1/32&#39;</span><span class="p">,</span> <span class="s">&#39;TCP&#39;</span><span class="p">,</span> <span class="s">&#39;INGRESS&#39;</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="s">&#39;inbound api&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="mixcoatl.network.firewall_rule.delete_rule">
-<tt class="descclassname">mixcoatl.network.firewall_rule.</tt><tt class="descname">delete_rule</tt><big>(</big><em>rule_id</em>, <em>reason='rule removed by mixcoatl'</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#delete_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.delete_rule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove a firewall rule</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>rule_id</strong> (<em>int.</em>) &#8211; The id of the firewall rule to remove</li>
-<li><strong>reason</strong> (<em>string</em>) &#8211; The reason for removing the rule</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><cite>bool</cite></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="mixcoatl.network.firewall_rule.FirewallRuleException"><tt class="xref py py-class docutils literal"><span class="pre">FirewallRuleException</span></tt></a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="exception">
 <dt id="mixcoatl.network.firewall_rule.FirewallRuleException">
 <em class="property">exception </em><tt class="descclassname">mixcoatl.network.firewall_rule.</tt><tt class="descname">FirewallRuleException</tt><a class="reference internal" href="../../_modules/mixcoatl/network/firewall_rule.html#FirewallRuleException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.network.firewall_rule.FirewallRuleException" title="Permalink to this definition">¶</a></dt>
@@ -409,7 +406,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.3.2',
+            VERSION:'0.3.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
