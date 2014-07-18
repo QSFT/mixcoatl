@@ -29,8 +29,10 @@ if __name__ == '__main__':
             for region in d.regions:
                 deployment_table.add_row(["Region", region['provider_id'] + " (" + region['description'] + ")"])
         deployment_table.add_row(["Budget ID", d.budget])
-        deployment_table.add_row(["Owning User Name", d.owning_user['alpha_name']])
-        deployment_table.add_row(["Owning User Email", d.owning_user['email']])
+        deployment_table.add_row(["Owning User Name",
+                                  d.owning_user['alpha_name'] if hasattr(d,'owning_user') else None])
+        deployment_table.add_row(["Owning User Email",
+                                  d.owning_user['email'] if hasattr(d,'owning_user') else None])
         if hasattr(d, 'owning_groups'):
             for owning_group in d.owning_groups:
                 deployment_table.add_row(["Owning Group Name", owning_group['name']])
