@@ -13,3 +13,4 @@ build/
 dist/
 docs/_build/
 _ghpages/
+mixcoatl.sublime-*
