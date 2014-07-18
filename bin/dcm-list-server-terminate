@@ -9,20 +9,9 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--all', '-a', help='List all servers.', action="store_true")
 	parser.add_argument('--serverid', '-s', help='Server ID')
-	parser.add_argument('--extend', '-x', help="Extend termination time by (x) hours")
 	cmd_args = parser.parse_args()
 	
-	if cmd_args.serverid and cmd_args.extend:
-		s = Server(cmd_args.serverid)
-		result = s.load()
-
-		if result is not None:
-			print("Cannot find the server by the ID.")
-			sys.exit(1)
-
-		thetime = (int(cmd_args.extend) * 60) * 60
-		s.extend_terminate(thetime*1000)
-	elif cmd_args.all or cmd_args.serverid:
+	if cmd_args.all or cmd_args.serverid:
 		if cmd_args.serverid:
 			servers = [ Server(cmd_args.serverid) ]
 		else:
@@ -42,7 +31,7 @@ if __name__ == '__main__':
 			try:
 				terminate_after=server.terminate_after
 				terminate_after_seconds=datetime.strptime(terminate_after.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
-				diff = round(((terminate_after_seconds - curtime).total_seconds() / 60) / 60)
+				diff = round(((terminate_after_seconds - curtime).total_seconds() / 60) / 60, 2)
 				newdiff = str(diff)+" hours"
 			except AttributeError:
 				terminate_after=None
