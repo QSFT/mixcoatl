@@ -5,10 +5,12 @@
 .. _dcm_set_server_terminate:
 
 dcm-set-server-terminate
----------------
+------------------------
 
 Set or Extend a servers terminateAfter timestamp. 
-The terminateAfter timestamp is a date in the future in which the server will automatically be terminated.
+
+The terminateAfter timestamp is a date in the future in which the server will
+automatically be terminated.
 
 Description
 ~~~~~~~~~~~
