@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-list-cm &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>dcm-set-server-terminate &mdash; mixcoatl 0.3.4 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
     <link rel="top" title="mixcoatl 0.3.4 documentation" href="../index.html"/>
         <link rel="up" title="CLI Tools" href="cli_tools.html"/>
-        <link rel="next" title="dcm-list-datacenters" href="dcm-list-datacenters.html"/>
-        <link rel="prev" title="dcm-list-cm-accounts" href="dcm-list-cm-accounts.html"/> 
+        <link rel="next" title="dcm-start-server" href="dcm-start-server.html"/>
+        <link rel="prev" title="dcm-set-role" href="dcm-set-role.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -121,7 +121,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-billing-codes.html">dcm-list-billing-codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-clouds.html">dcm-list-clouds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-cm-accounts.html">dcm-list-cm-accounts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-list-cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-list-cm.html">dcm-list-cm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-datacenters.html">dcm-list-datacenters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-deployments.html">dcm-list-deployments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-list-firewall-rules.html">dcm-list-firewall-rules</a></li>
@@ -143,7 +143,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-pause-server.html">dcm-pause-server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-set-acl.html">dcm-set-acl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-set-role.html">dcm-set-role</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dcm-set-server-terminate.html">dcm-set-server-terminate</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">dcm-set-server-terminate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-start-server.html">dcm-start-server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-stop-server.html">dcm-stop-server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-terminate-server.html">dcm-terminate-server</a></li>
@@ -179,10 +179,10 @@
       
           <li><a href="cli_tools.html">CLI Tools</a> &raquo;</li>
       
-    <li>dcm-list-cm</li>
+    <li>dcm-set-server-terminate</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="../_sources/cli_tools/dcm-list-cm.txt" rel="nofollow"> View page source</a>
+          <a href="../_sources/cli_tools/dcm-set-server-terminate.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -190,20 +190,29 @@
 </div>
           <div role="main">
             
-  <div class="section" id="dcm-list-cm">
-<span id="id1"></span><h1>dcm-list-cm<a class="headerlink" href="#dcm-list-cm" title="Permalink to this headline">¶</a></h1>
-<p>Lists configuration management accounts.</p>
+  <div class="section" id="dcm-set-server-terminate">
+<span id="id1"></span><h1>dcm-set-server-terminate<a class="headerlink" href="#dcm-set-server-terminate" title="Permalink to this headline">¶</a></h1>
+<p>Set or Extend a servers terminateAfter timestamp.</p>
+<p>The terminateAfter timestamp is a date in the future in which the server will
+automatically be terminated.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Returns a list of configuration management accounts.</p>
+<p>Set or Extend a servers terminateAfter timestamp.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-list-cm <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-set-server-terminate <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--serverid SERVERID<span class="o">]</span> <span class="o">[</span>--extend EXTEND<span class="o">]</span>
+                                <span class="o">[</span>--date_format DATE_FORMAT<span class="o">]</span>
 
 optional arguments:
-  -h, --help     show this <span class="nb">help </span>message and <span class="nb">exit</span>
-  --verbose, -v  Produce verbose output
+  -h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --serverid SERVERID, -s SERVERID
+                        Server ID
+  --extend EXTEND, -x EXTEND
+                        Extend termination <span class="nb">time </span>by <span class="o">(</span>x<span class="o">)</span> hours
+  --date_format DATE_FORMAT, -d DATE_FORMAT
+                        Extend termination <span class="nb">time </span>to specified date <span class="o">(</span>Example:
+                        2014-07-04 08:03:11<span class="o">)</span>
 </pre></div>
 </div>
 </div>
@@ -211,8 +220,8 @@ optional arguments:
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
-<col width="24%" />
-<col width="76%" />
+<col width="27%" />
+<col width="73%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Option</th>
@@ -220,41 +229,64 @@ optional arguments:
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>-v, &#8211;verbose</td>
-<td>Print out verbose information while listing cm accounts.</td>
+<tr class="row-even"><td>-s, &#8211;serverid</td>
+<td><p class="first">Server ID</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: 1515</p>
+</td>
+</tr>
+<tr class="row-odd"><td>-x, &#8211;extend</td>
+<td><p class="first">Sets terminateAfter to NOW + Hour Specified</p>
+<p>Type: Integer</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: 3</p>
+</td>
+</tr>
+<tr class="row-even"><td>-d, &#8211;date_format</td>
+<td><p class="first">Date/Time</p>
+<p>Type: DATETIME</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p class="last">Example: &#8220;2014-07-04 08:03:11&#8221;</p>
+</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="common-options">
 <h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="deprecated-options">
-<h2>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h2>
+<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
 <p>None</p>
+</div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>The return value from this command is a list of configuration management accounts.</p>
+<p>None</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash"><div class="highlight"><pre>dcm-list-cm --all
+<div class="highlight-bash"><div class="highlight"><pre>dcm-set-server-terminate -s 4537 -x 5
+
+dcm-list-server-terminate -s 4537
+
++------+--------+-----------+-------------+-------------+-------------------------------+---------+-------------+
+|  ID  | Cloud  |   Region  | Provider ID | Server Name |             Owner             |  Status | Termination |
++------+--------+-----------+-------------+-------------+-------------------------------+---------+-------------+
+| 4537 | Amazon | us-east-1 |  i-f0eff9a3 |     <span class="nb">test</span>    | brian.williams@enstratius.com | RUNNING |  5.0 hours  |
++------+--------+-----------+-------------+-------------+-------------------------------+---------+-------------+
 </pre></div>
 </div>
-<div class="section" id="id2">
-<h4>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre>+-----+------+------------------+---------------------------------------+----------+
-|  ID | Type |   Description    |                Endpoint               |  Status  |
-+-----+------+------------------+---------------------------------------+----------+
-|  1  | Chef | Demo Chef server | https://chef.example.com:443          |  ACTIVE  |
-+-----+------+------------------+---------------------------------------+----------+
-</pre></div>
 </div>
 </div>
-</div>
+<div class="section" id="related-topics">
+<h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-list-server-terminate.html#dcm-list-server-terminate"><em>List Server Terminate</em></a></p>
 </div>
 </div>
 
@@ -264,10 +296,10 @@ optional arguments:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dcm-list-datacenters.html" class="btn btn-neutral float-right" title="dcm-list-datacenters"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dcm-start-server.html" class="btn btn-neutral float-right" title="dcm-start-server"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dcm-list-cm-accounts.html" class="btn btn-neutral" title="dcm-list-cm-accounts"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dcm-set-role.html" class="btn btn-neutral" title="dcm-set-role"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
