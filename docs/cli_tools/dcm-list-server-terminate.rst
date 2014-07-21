@@ -5,10 +5,12 @@
 .. _dcm_list_server_terminate:
 
 dcm-list-server-terminate
----------------
+-------------------------
 
 Lists all servers with their accompanying terminateAfter timestamp.  
-The terminateAfter timestamp is a date in the future in which the server will automatically be terminated.
+
+The terminateAfter timestamp is a date in the future in which the server will
+automatically be terminated.
 
 Description
 ~~~~~~~~~~~
@@ -45,7 +47,7 @@ Options
 |                    | Required: Yes                                         |
 |                    |                                                       |
 |                    | Example: 1515                                         |
-|                    |                                                       |
++--------------------+-------------------------------------------------------+
 
 Common Options
 ~~~~~~~~~~~~~~

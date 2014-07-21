@@ -27,7 +27,6 @@ DCM command line API tools.
    dcm-describe-deployment
    dcm-describe-job
    dcm-describe-machine-image
-   dcm-describe-server-terminate
    dcm-describe-server
    dcm-detach-volume
    dcm-list-accounts
@@ -48,6 +47,7 @@ DCM command line API tools.
    dcm-list-roles
    dcm-list-server-products
    dcm-list-servers
+   dcm-list-server-terminate
    dcm-list-snapshots
    dcm-list-storage-objects
    dcm-list-users
@@ -55,6 +55,7 @@ DCM command line API tools.
    dcm-pause-server
    dcm-set-acl
    dcm-set-role
+   dcm-set-server-terminate
    dcm-start-server
    dcm-stop-server
    dcm-terminate-server
