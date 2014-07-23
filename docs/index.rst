@@ -3,8 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Mixcoatl: The DCM API Wrapper
-=============================
+.. figure:: ./images/mixcoatl_logo.png
+   :align: left
+
+The DCM API Wrapper
+===================
+
+|
+
 
 `Mixcoatl HTML Slideshow <https://zomgreg.github.io/mixcoatl-slideshow/>`_
 
