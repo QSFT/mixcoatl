@@ -3,15 +3,12 @@
 # Returns Job ID.
 
 from mixcoatl.infrastructure.volume import Volume
-from mixcoatl import resource_utils
 import argparse
 import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    budget_group = parser.add_mutually_exclusive_group(required=True)
-    budget_group.add_argument('--budgetid', '-b', type=int, help='Budget ID.')
-    budget_group.add_argument('--budgetname', '-B', help='Budget name.')
+    parser.add_argument('--budgetid', '-b', type=int, help='Budget ID.')
     parser.add_argument('--datacenter', '-d', type=int, help='Data Center ID in which to create the volume.')
     parser.add_argument('--description', '-D', help='The description of the volume.')
     parser.add_argument('--name', '-n', help='The name of the volume.')
@@ -19,8 +16,7 @@ if __name__ == '__main__':
 
     cmd_args = parser.parse_args()
 
-    if ((cmd_args.budgetid is None and cmd_args.budgetname is None) or cmd_args.datacenter is None or
-        cmd_args.description is None or cmd_args.name is None or cmd_args.size is None):
+    if None in [cmd_args.budgetid, cmd_args.datacenter, cmd_args.description, cmd_args.name, cmd_args.size]:
         parser.print_help()
         sys.exit(1)
 
@@ -30,11 +26,7 @@ if __name__ == '__main__':
     new_volume.description = cmd_args.description
     new_volume.name = cmd_args.name
     new_volume.size_in_gb = cmd_args.size
-
-    if cmd_args.budgetid is not None:
-        new_volume.budget = cmd_args.budgetid
-    else:
-        new_volume.budget = resource_utils.get_budget_id(cmd_args.budgetname)
+    new_volume.budget = cmd_args.budgetid
 
     result = new_volume.create()
 
