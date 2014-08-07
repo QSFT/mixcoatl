@@ -30,6 +30,8 @@ if __name__ == '__main__':
         server_table.add_row(["Product Size", s.provider_product_id])
         if hasattr(s,'public_ip_address'):
             server_table.add_row(["Public IP Address", s.public_ip_address])
+        elif hasattr(s,'public_ip_addresses'):
+            server_table.add_row(["Public IP Address", ",".join(s.public_ip_addresses)])
         else:
             server_table.add_row(["Public IP Address", None])
         if hasattr(s,'private_ip_addresses'):
