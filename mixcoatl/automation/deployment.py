@@ -35,6 +35,10 @@ class Deployment(Resource):
         self.__budget = b
 
     @lazy_property
+    def catalog_item(self):
+        return self.__catalog_item
+
+    @lazy_property
     def label(self):
         return self.__label
 
