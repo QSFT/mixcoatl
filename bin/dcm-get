@@ -1,46 +1,43 @@
 #!/usr/bin/env python
 
+import argparse
+import pprint
 import json
 import sys
-import pprint
-sys.path.append('../mixcoatl')
+import xml.dom.minidom
 from mixcoatl import resource
 
-# Usage examples
-# --------------------------------------------------------
-# dcm-get.py infrastructure/Server
-# dcm-get.py infrastructure/Server "{}" basic
-# dcm-get.py infrastructure/Server "{'regionId':12345}"
-# dcm-get.py infrastructure/Server/12345 "{}" basic
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('basepath', type=str, help='base path')
+    parser.add_argument('parameter', nargs='?', default=None, help='query parameter')
+    parser.add_argument('--extended', action='store_true')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--json', action='store_true')
+    group.add_argument('--xml', action='store_true')
 
-if len(sys.argv) < 2:
-    sys.exit('Usage: %s basepath <optional query params dict> [basic|extended]' % sys.argv[0])
+    cmd_args = parser.parse_args()
 
-basepath = sys.argv[1]
-if len(sys.argv) == 3:
-    params = eval(sys.argv[2])
-else:
-    params = None
+    r = resource.Resource(cmd_args.basepath)
+    if cmd_args.extended is True:
+        r.request_details = 'extended'
+    else:
+        r.request_details = 'basic'
+    if cmd_args.xml is True:
+        r.payload_format = 'xml'
+    else:
+        r.payload_format = 'json'
 
-if len(sys.argv) == 4:
-    params = eval(sys.argv[2])
-    details = sys.argv[3]
-else:
-    details = 'extended'
+    result = r.get(params=cmd_args.parameter)
 
-r = resource.Resource(basepath)
-r.request_details = details
-if params is not None:
-    qparms = params
-else:
-    qparms = {}
-z = r.get(params=qparms)
-
-output = sys.stdout
-headers = r.last_request.headers
-data = json.loads(r.last_request.content)
-#print('HEADERS\n-------\n')
-#pprint.pprint(headers)
-#print('\nRESPONSE\n--------\n')
-json.dump(data, output, sort_keys=True, indent=2)
-output.write('\n')
+    if cmd_args.xml is True:
+        try:
+            print(xml.dom.minidom.parseString(r.last_request.content).toxml())
+        except:
+            print(result)
+    else:
+        try:
+            data = json.loads(r.last_request.content)        
+            json.dump(data, sys.stdout, sort_keys=True, indent=2)
+        except:
+            print(result)
