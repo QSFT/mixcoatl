@@ -73,6 +73,7 @@ class Resource(object):
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
+        self.__status_code = None
         self.__payload_format = 'json'
         self.__request_details = request_details
         self.pending_changes = {}
@@ -98,6 +99,10 @@ class Resource(object):
             except KeyError:
                 d[x] = None
         return repr(convert(d))
+
+    @property
+    def status_code(self):
+        return self.__status_code
 
     @property
     def request_details(self):
@@ -216,6 +221,7 @@ class Resource(object):
 
         self.last_error = None
         self.last_request = results
+        self.__status_code = results.status_code
 
         if self.payload_format == 'xml':
             return results

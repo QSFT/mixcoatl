@@ -12,9 +12,12 @@ if __name__ == '__main__':
     parser.add_argument('basepath', type=str, help='base path')
     parser.add_argument('parameter', nargs='?', default=None, help='query parameter')
     parser.add_argument('--extended', action='store_true')
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument('--json', action='store_true')
-    group.add_argument('--xml', action='store_true')
+    group_one = parser.add_mutually_exclusive_group()
+    group_one.add_argument('--json', action='store_true')
+    group_one.add_argument('--xml', action='store_true')
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--statuscode', action='store_true')
+    group_two.add_argument('--statuscodeonly', action='store_true')
 
     cmd_args = parser.parse_args()
 
@@ -30,6 +33,12 @@ if __name__ == '__main__':
 
     result = r.get(params=cmd_args.parameter)
 
+    if cmd_args.statuscode:
+        print(r.status_code)
+    elif cmd_args.statuscodeonly:
+        print(r.status_code)
+        sys.exit(0)
+
     if cmd_args.xml is True:
         try:
             print(xml.dom.minidom.parseString(r.last_request.content).toxml())
@@ -38,6 +47,6 @@ if __name__ == '__main__':
     else:
         try:
             data = json.loads(r.last_request.content)        
-            json.dump(data, sys.stdout, sort_keys=True, indent=2)
+            print(json.dumps(data, sort_keys=True, indent=2))
         except:
             print(result)
