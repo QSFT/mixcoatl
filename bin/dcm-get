@@ -31,7 +31,9 @@ if __name__ == '__main__':
     else:
         r.payload_format = 'json'
 
-    result = r.get(params=eval(cmd_args.parameter))
+    p = None if cmd_args.parameter is None else eval(cmd_args.parameter)
+
+    result = r.get(params=p)
 
     if cmd_args.statuscode:
         print(r.status_code)
