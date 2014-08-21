@@ -68,6 +68,16 @@ class Cloud(Resource):
         return self.__compute_secret_key_label
 
     @lazy_property
+    def compute_pkc_s12_password_label(self):
+        """`str` - enStratus localized label key for the cloud's pkc s12 password"""
+        return self.__compute_pkc_s12_password_label
+
+    @lazy_property
+    def compute_pkc_s12_cert_label(self):
+        """`str` - enStratus localized label key for the cloud's pkc s12 cert"""
+        return self.__compute_pkc_s12_cert_label
+
+    @lazy_property
     def documentation_label(self):
         """`str` - enStratus localized label key"""
         return self.__documentation_label
