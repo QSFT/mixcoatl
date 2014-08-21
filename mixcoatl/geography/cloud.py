@@ -1,4 +1,4 @@
-"""Implements the enStratus Cloud API"""
+"""Implements the DCM Cloud API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
@@ -14,7 +14,7 @@ class Cloud(Resource):
 
     @property
     def cloud_id(self):
-        """`int` - The unique enStratus id for this cloud"""
+        """`int` - The unique DCM id for this cloud"""
         return self.__cloud_id
 
     @lazy_property
@@ -24,7 +24,7 @@ class Cloud(Resource):
 
     @lazy_property
     def cloud_provider_logo_url(self):
-        """`str` - enStratus installation URL to this cloud's logo"""
+        """`str` - DCM installation URL to this cloud's logo"""
         return self.__cloud_provider_logo_url
 
     @lazy_property
@@ -34,22 +34,22 @@ class Cloud(Resource):
 
     @lazy_property
     def compute_account_number_label(self):
-        """`str` - enStratus localized label key for the cloud's user account number"""
+        """`str` - DCM localized label key for the cloud's user account number"""
         return self.__compute_account_number_label
 
     @lazy_property
     def compute_access_key_label(self):
-        """`str` - enStratus localized label key for the cloud's API key"""
+        """`str` - DCM localized label key for the cloud's API key"""
         return self.__compute_access_key_label
 
     @lazy_property
     def compute_x509_cert_label(self):
-        """`str` - enStratus localized label key for the cloud's X509 certificate"""
+        """`str` - DCM localized label key for the cloud's X509 certificate"""
         return self.__compute_x509_cert_label
 
     @lazy_property
     def compute_x509_key_label(self):
-        """`str` - enStratus localized label key for the cloud's X509 key"""
+        """`str` - DCM localized label key for the cloud's X509 key"""
         return self.__compute_x509_key_label
 
     @lazy_property
@@ -64,27 +64,27 @@ class Cloud(Resource):
 
     @lazy_property
     def compute_secret_key_label(self):
-        """`str` - enStratus localized label key for the cloud's API secret key"""
+        """`str` - DCM localized label key for the cloud's API secret key"""
         return self.__compute_secret_key_label
 
     @lazy_property
     def compute_pkc_s12_password_label(self):
-        """`str` - enStratus localized label key for the cloud's pkc s12 password"""
+        """`str` - DCM localized label key for the cloud's pkc s12 password"""
         return self.__compute_pkc_s12_password_label
 
     @lazy_property
     def compute_pkc_s12_cert_label(self):
-        """`str` - enStratus localized label key for the cloud's pkc s12 cert"""
+        """`str` - DCM localized label key for the cloud's pkc s12 cert"""
         return self.__compute_pkc_s12_cert_label
 
     @lazy_property
     def documentation_label(self):
-        """`str` - enStratus localized label key"""
+        """`str` - DCM localized label key"""
         return self.__documentation_label
 
     @lazy_property
     def name(self):
-        """`str` - The enStratus name of the cloud"""
+        """`str` - The DCM name of the cloud"""
         return self.__name
 
     @lazy_property
@@ -94,7 +94,7 @@ class Cloud(Resource):
 
     @lazy_property
     def status(self):
-        """`str` - Status of the cloud in enStratus"""
+        """`str` - Status of the cloud in DCM"""
         return self.__status
 
     @classmethod
