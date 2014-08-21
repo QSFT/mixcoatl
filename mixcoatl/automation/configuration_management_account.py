@@ -66,6 +66,10 @@ class ConfigurationManagementAccount(Resource):
     @lazy_property
     def owning_groups(self):
         return self.__owning_groups
+
+    @lazy_property
+    def owning_user(self):
+        return self.__owning_user
         
     @classmethod
     def all(cls, **kwargs):
