@@ -80,6 +80,10 @@ class Server(Resource):
     def cm_scripts(self):
         return self.__cm_scripts
 
+    @lazy_property
+    def last_agent_contact_timestamp(self):
+        return self.__last_agent_contact_timestamp
+
     @cm_scripts.setter
     def cm_scripts(self, c):
     	s = c.split(",")
