@@ -54,6 +54,36 @@ class Group(Resource):
         """`dict` - The customer to who this group belongs."""
         return self.__customer
 
+    @lazy_property
+    def customer_admin(self):
+        """`bool` """
+        return self.__customer_admin
+
+    @lazy_property
+    def user_admin(self):
+        """`bool` """
+        return self.__user_admin
+
+    @lazy_property
+    def configuration_management_admin(self):
+        """`bool` """
+        return self.__configuration_management_admin
+
+    @lazy_property
+    def configuration_management_qualifier(self):
+        """`bool` """
+        return self.__configuration_management_qualifier
+
+    @lazy_property
+    def group_account_budget_codes(self):
+        """`list` """
+        return self.__group_account_budget_codes
+
+    @lazy_property
+    def role_assignments(self):
+        """`list` """
+        return self.__role_assignments
+
     @classmethod
     def all(cls, keys_only=False, **kwargs):
         """Get all groups
