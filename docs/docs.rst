@@ -3,9 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. figure:: ./images/mixcoatl_logo.png
-   :align: left
-
 The DCM API Wrapper
 ===================
 

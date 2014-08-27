@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="mixcoatl is a python library for interacting with the Dell Cloud Manager API">
+<title>Mixcoatl -- The Cloud Serpent</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 hero">
+                <h1>mixcoatl</h1>
+                <p>mixtli [ˈmiʃ.t͡ɬi] "cloud" and cōātl [ˈkoː.aːt͡ɬ] "serpent"</p>
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="http://www.github.com/enStratus/mixcoatl" target="_blank">Github Page</a>
+                    <a class="btn btn-info btn-lg" role="button" href="http://enstratus.github.io/mixcoatl" target="_blank">API Reference</a>
+
+                    <br />
+
+                    <div class="well well-sm">
+                        <b>Install Now:&nbsp;&nbsp;&nbsp;</b>  pip install -U mixcoatl
+                    </div>
+                </p>
+            </div>
+            <div class="col-md-6 serpent">
+                <img src="assets/images/mixcoatl_serpent.png" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="main-heading">The Mixcoatl project was started to wrap the Dell Cloud Manager API and make it easy to use.</h1>
+
+    <br />
+
+    <hr />
+</div>
+
+<br /><br />
+
+<div class="container marketing">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row features">
+                <div class="col-lg-6">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                    <h2>Fast & Simple</h2>
+                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+                    <h2>Feature 2</h2>
+                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+            </div>
+
+            <br /><br />
+
+            <div class="row features">
+                <div class="col-lg-6">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+                    <h2>Feature 3</h2>
+                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+                    <h2>Feature 4</h2>
+                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 sample_code_container">
+            <div class="lead">Get started with mixcoatl in about 10 minutes</div>
+
+            <div class="sample_code">
+                <pre>
+>>> from mixcoatl.geography.cloud import Cloud
+>>> c = Cloud.all()
+>>> # Initial call made for all Clouds
+>>> c
+>>> # Delay while each cloud object is dereferenced
+>>> c[0]
+{'status': 'ACTIVE', 'current_job': None, 'last_request': '<Response [200]>', 'name': 'Amazon Web Services', 'last_error': None, 'cloud_provider_name': 'Amazon', 'cloud_provider_console_url': 'http://aws.amazon.com', 'cloud_provider_logo_url': '/clouds/aws.gif', 'compute_endpoint': 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com', 'compute_secret_key_label': 'AWS_SECRET_ACCESS_KEY', 'documentation_label': None, 'compute_delegate': 'org.dasein.cloud.aws.AWSCloud', 'path': 'geography/Cloud/1', 'compute_account_number_label': 'AWS_ACCOUNT_NUMBER', 'private_cloud': False}
+>>> type(c[0])
+mixcoatl.geography.cloud.Cloud
+>>> c[0].__class__.__name__
+'Cloud'
+
+>>> c = Cloud(1)
+>>> # returns immediately
+>>> c.cloud_id
+1
+>>> c.name
+>>> # api call is made.
+u'Amazon Web Services'
+</pre>
+            </div>
+
+            <p><a href="https://github.com/enStratus/mixcoatl/blob/master/README.rst" target="_blank">More examples in the README</a></p>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <hr />
+
+    <br /><br />
+
+    <blockquote>
+      <p>"As the Dell Cloud Manager API matured, it became clear there was an opportunity to expose programmatic access to multiple clouds via a single set of command-line tools in the same way the DCM user interface allows for pointing-and-clicking." -- Greg Moselle (Software Systems Engineer, Sr. Manager)</p>
+    </blockquote>
+</div>
+
+<br /><br />
+
+<div class="fork">
+    <div class="container">
+        <h2>Would you like to Contribute?</h2>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <div class="fork_icon">
+                    Fork it!
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="fork_icon">
+                    Commit!
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="fork_icon">
+                    Pull Request!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <footer>
+        <div class="row">
+            <div class="col-md-6 footer-text">
+                <a href="http://www.github.com/enStratus/mixcoatl" target="_blank">Github Page</a> | <a href="http://enstratus.github.io/mixcoatl" target="_blank">API Reference</a>
+            </div>
+            <div class="col-md-6">
+                <img src="assets/images/mixcoatl.png" width="200" />
+            </div>
+        </div>
+    </footer>
+
+    <br /><br />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>

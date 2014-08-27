@@ -45,7 +45,7 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'docs'
 
 # General information about the project.
 project = u'mixcoatl'
@@ -262,7 +262,7 @@ texinfo_documents = [
 epub_title = u'mixcoatl'
 epub_author = u'Author'
 epub_publisher = u'Author'
-epub_copyright = u'2013, Author'
+epub_copyright = u'2014, Author'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

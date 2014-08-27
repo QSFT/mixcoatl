@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rm -rf _ghpages
+git clone git@github.com:enStratus/mixcoatl.git _ghpages
+cd _ghpages
+git checkout -b gh-pages origin/gh-pages
+cd ../docs/
+make ghpages
+cp index.html ../_ghpages/
+cp -Rp assets ../_ghpages/
+cd ../_ghpages
