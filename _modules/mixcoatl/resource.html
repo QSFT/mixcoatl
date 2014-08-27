@@ -43,7 +43,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
-        <a href="../../index.html" class="fa fa-home"> mixcoatl</a>
+        <a href="../../docs.html" class="fa fa-home"> mixcoatl</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -164,7 +164,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">mixcoatl</a>
+        <a href="../../docs.html">mixcoatl</a>
       </nav>
 
 
@@ -173,7 +173,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    <li><a href="../../docs.html">Docs</a> &raquo;</li>
       
           <li><a href="../index.html">Module code</a> &raquo;</li>
       
@@ -262,6 +262,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__last_request</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__last_error</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__current_job</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__status_code</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__payload_format</span> <span class="o">=</span> <span class="s">&#39;json&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__request_details</span> <span class="o">=</span> <span class="n">request_details</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pending_changes</span> <span class="o">=</span> <span class="p">{}</span>
@@ -288,6 +289,10 @@
                 <span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="n">convert</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
 
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Resource.status_code"><a class="viewcode-back" href="../../source/mixcoatl/resource.html#mixcoatl.resource.Resource.status_code">[docs]</a>    <span class="k">def</span> <span class="nf">status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status_code</span>
+</div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">request_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;The level of detail used in the API call: `basic` or `extended`&quot;&quot;&quot;</span>
@@ -405,6 +410,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_request</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__status_code</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">status_code</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">payload_format</span> <span class="o">==</span> <span class="s">&#39;xml&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">results</span>

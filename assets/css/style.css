@@ -1,0 +1,109 @@
+.jumbotron {
+	background-image: url(../images/clouds.jpg);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.main-heading {
+	text-align: center;
+}
+
+.hero h1 {
+	color: #FFFFFF;
+}
+
+.hero {
+	text-align: center;
+}
+
+.serpent {
+	text-align: center;
+}
+
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.footer-text {
+	text-align: left; 
+	padding: 10px;
+}
+
+.features .col-lg-6 {
+	text-align: center;
+}
+
+.sample_code_container {
+	text-align: center;
+}
+
+.prettyprint {
+	border: 0px;
+}
+
+pre {
+	text-align: left;
+	background-color: transparent;
+	color: #FFFFFF;
+	border: 0px;
+}
+
+.sample_code_container p {
+	padding: 10px;
+}
+
+.sample_code {
+	width: 100%; 
+	height: 550px; 
+	background-color: #222222;
+	border-radius: 5px;
+	color: #EEEEEE;
+	padding: 10px;
+}
+
+footer {
+	padding-top: 25px;
+}
+
+footer img {
+	float: right;
+}
+
+.fork {
+	background-color: #CECECE;
+	border-top: 4px solid #AAAAAA;
+	width: 100%;
+	height: 330px;
+}
+
+.fork h2 {
+	text-align: center;
+}
+
+.fork .col-md-3 {
+	text-align: center;
+}
+
+.fork_icon {
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	padding-top: 80px;
+	font-size: 14pt;
+	background-color: #444444;
+	color: #EEEEEE;
+	text-align: center;
+	margin-top: 25px;
+	font-weight: bold;
+}
+
+

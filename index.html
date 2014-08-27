@@ -1,1093 +1,167 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>The DCM API Wrapper &mdash; mixcoatl 0.3.4 documentation</title>
-  
-
-  
-  
-
-  
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  
-  
-    
-
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="#"/>
-        <link rel="next" title="Read Me" href="readme.html"/> 
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="mixcoatl is a python library for interacting with the Dell Cloud Manager API">
+<title>Mixcoatl -- The Cloud Serpent</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<link href="assets/css/style.css" rel="stylesheet">
 </head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 hero">
+                <h1>mixcoatl</h1>
+                <p>mixtli [ˈmiʃ.t͡ɬi] "cloud" and cōātl [ˈkoː.aːt͡ɬ] "serpent"</p>
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="http://www.github.com/enStratus/mixcoatl" target="_blank">Github Page</a>
+                    <a class="btn btn-info btn-lg" role="button" href="http://enstratus.github.io/mixcoatl" target="_blank">API Reference</a>
 
-<body class="wy-body-for-nav" role="document">
+                    <br />
 
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="#" class="fa fa-home"> mixcoatl</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
-        
-            <ul>
-<li class="toctree-l1"><a class="reference internal" href="readme.html">Read Me</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#build-status">Build Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#dcm-get"><tt class="docutils literal"><span class="pre">dcm-get</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#lazy-loading">Lazy loading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#all"><tt class="docutils literal"><span class="pre">.all()</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#pretty-printing">Pretty-printing</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="install/install.html">Install</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install/windows.html">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install/linux.html">Linux, OS X</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="source/source.html">Modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.html">Mixcoatl</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.admin.html">Admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.analytics.html">Analytics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.automation.html">Automation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.config.html">Config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.decorators.html">Decorators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.exceptions.html">Exceptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.geography.html">Geography</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.infrastructure.html">Infrastructure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.platform.html">Platform</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.network.html">Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.settings.html">Settings</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rest_tools/rest_tools.html">REST Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-get.html">dcm-get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-put.html">dcm-put</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-post.html">dcm-post</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cli_tools/cli_tools.html">CLI Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html">dcm-assign-cloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-attach-volume.html">dcm-attach-volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-check-job.html">dcm-check-job</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html">dcm-create-billing-code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-cm.html">dcm-create-cm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-deployment.html">dcm-create-deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-group.html">dcm-create-group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html">dcm-create-launch-config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-network.html">dcm-create-network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-role.html">dcm-create-role</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-server.html">dcm-create-server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-tier.html">dcm-create-tier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-user.html">dcm-create-user</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-volume.html">dcm-create-volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html">dcm-delete-billing-code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-group.html">dcm-delete-group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-network.html">dcm-delete-network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-volume.html">dcm-delete-volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html">dcm-describe-deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-job.html">dcm-describe-job</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html">dcm-describe-machine-image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-server.html">dcm-describe-server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-detach-volume.html">dcm-detach-volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-accounts.html">dcm-list-accounts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html">dcm-list-billing-codes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-clouds.html">dcm-list-clouds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html">dcm-list-cm-accounts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-cm.html">dcm-list-cm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html">dcm-list-datacenters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-deployments.html">dcm-list-deployments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html">dcm-list-firewall-rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html">dcm-list-firewalls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-groups.html">dcm-list-groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-jobs.html">dcm-list-jobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html">dcm-list-machine-images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-networks.html">dcm-list-networks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html">dcm-list-rdbms-products</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-regions.html">dcm-list-regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-roles.html">dcm-list-roles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-server-products.html">dcm-list-server-products</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-servers.html">dcm-list-servers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html">dcm-list-server-terminate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html">dcm-list-snapshots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html">dcm-list-storage-objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-users.html">dcm-list-users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-volumes.html">dcm-list-volumes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-pause-server.html">dcm-pause-server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-set-acl.html">dcm-set-acl</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-set-role.html">dcm-set-role</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html">dcm-set-server-terminate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-start-server.html">dcm-start-server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-stop-server.html">dcm-stop-server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-terminate-server.html">dcm-terminate-server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-update-group.html">dcm-update-group</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="additional_information/additional_information.html">Additional Information</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="additional_information/patterns.html">Mapping Patterns</a></li>
-</ul>
-</li>
-</ul>
-
-        
-      </div>
-      &nbsp;
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">mixcoatl</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>The DCM API Wrapper</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          <a href="_sources/index.txt" rel="nofollow"> View page source</a>
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main">
-            
-  <div class="figure align-left">
-<img alt="_images/mixcoatl_logo.png" src="_images/mixcoatl_logo.png" />
-</div>
-<div class="section" id="the-dcm-api-wrapper">
-<h1>The DCM API Wrapper<a class="headerlink" href="#the-dcm-api-wrapper" title="Permalink to this headline">¶</a></h1>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><a class="reference external" href="https://zomgreg.github.io/mixcoatl-slideshow/">Mixcoatl HTML Slideshow</a></p>
-</div>
-<div class="section" id="read-me">
-<h1>Read Me<a class="headerlink" href="#read-me" title="Permalink to this headline">¶</a></h1>
-<p>Mixcoatl was the father of Quetzalcoatl. His name means &#8220;Cloud Serpent&#8221;. Fitting for a Python library for the DCM API.</p>
-<div class="section" id="build-status">
-<h2>Build Status<a class="headerlink" href="#build-status" title="Permalink to this headline">¶</a></h2>
-<a class="reference external image-reference" href="http://travis-ci.org/enStratus/mixcoatl"><img alt="https://secure.travis-ci.org/enStratus/mixcoatl.png" src="https://secure.travis-ci.org/enStratus/mixcoatl.png" /></a>
-<div class="section" id="word-of-warning">
-<h3>Word of warning<a class="headerlink" href="#word-of-warning" title="Permalink to this headline">¶</a></h3>
-<p>This repository is not feature complete in that not all operations are
-supported. At this point read access to all resources documented in the API doc
-are working.</p>
-</div>
-<div class="section" id="usage-notes">
-<h3>Usage notes<a class="headerlink" href="#usage-notes" title="Permalink to this headline">¶</a></h3>
-<p>The following environment variables will need to be set:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">ES_SECRET_KEY</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">ES_ACCESS_KEY</span></tt></li>
-</ul>
-<p>By default, API calls will be made against the DCM production SaaS and API
-version <tt class="docutils literal"><span class="pre">2012-06-15</span></tt>. These can be overridden with the following variables:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">ES_ENDPOINT</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">ES_API_VERSION</span></tt></li>
-</ul>
-<p>When overriding the endpoint, it should be in the form:</p>
-<p><tt class="docutils literal"><span class="pre">http[s]://api.endpoint.domain/api/enstratus/&lt;api</span> <span class="pre">version&gt;</span></tt></p>
-<p>Note that setting both <tt class="docutils literal"><span class="pre">ES_API_VERSION</span></tt> and <tt class="docutils literal"><span class="pre">ES_ENDPOINT</span></tt> is not
-cumulative. If you wish to use a private endpoint, it must include the version
-in the URL.</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">ES_SSL_VERIFY</span></tt></li>
-</ul>
-<p>By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, <tt class="docutils literal"><span class="pre">ES_SSL_VERIFY=0</span></tt></p>
-</div>
-</div>
-<div class="section" id="dcm-get">
-<h2><tt class="docutils literal"><span class="pre">dcm-get</span></tt><a class="headerlink" href="#dcm-get" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">mixcoatl</span></tt> also ships with a small script for querying arbitrary objects via
-the DCM API called <tt class="docutils literal"><span class="pre">dcm-get</span></tt>. It&#8217;s very minimal and only dumps the JSON
-results of your query:</p>
-<p>example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>dcm-get admin/Job
-</pre></div>
-</div>
-<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-  <span class="nt">&quot;jobs&quot;</span><span class="p">:</span> <span class="p">[]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>It can also accept query parameters in the form of a python <tt class="docutils literal"><span class="pre">dictionary</span></tt> (the
-same format the <tt class="docutils literal"><span class="pre">requests</span></tt> library uses:</p>
-<div class="highlight-bash"><div class="highlight"><pre>dcm-get geography/DataCenter <span class="s2">&quot;{&#39;regionId&#39;:19344}&quot;</span>
-</pre></div>
-</div>
-<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-  <span class="nt">&quot;dataCenters&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;dataCenterId&quot;</span><span class="p">:</span> <span class="mi">64351</span><span class="p">,</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;us-west-2a&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;us-west-2a&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;providerId&quot;</span><span class="p">:</span> <span class="s2">&quot;us-west-2a&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;region&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;cloud&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;cloudId&quot;</span><span class="p">:</span> <span class="mi">1</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;customer&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;customerId&quot;</span><span class="p">:</span> <span class="mi">14334</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;AWS Western United States (2)&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;jurisdiction&quot;</span><span class="p">:</span> <span class="s2">&quot;US&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Oregon (us-west-2)&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;providerId&quot;</span><span class="p">:</span> <span class="s2">&quot;us-west-2&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;regionId&quot;</span><span class="p">:</span> <span class="mi">19344</span><span class="p">,</span>
-        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ACTIVE&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ACTIVE&quot;</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>You&#8217;ll need to set the environment variables as described above.</p>
-</div>
-<div class="section" id="lazy-loading">
-<h2>Lazy loading<a class="headerlink" href="#lazy-loading" title="Permalink to this headline">¶</a></h2>
-<p>By default, any object you request by its id will not actually hit the
-endpoint. Only when you request the object in full or a specific attribute,
-will it actually make the API call. If the API call fails, the error will be
-returned to you. You can always check the object&#8217;s <tt class="docutils literal"><span class="pre">last_error</span></tt> attribute to
-determine if it failed or not.</p>
-<p>example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.geography.cloud import Cloud
-&gt;&gt;&gt; <span class="nv">c</span> <span class="o">=</span> Cloud<span class="o">(</span>1<span class="o">)</span>
-&gt;&gt;&gt; <span class="c"># returns immediately</span>
-&gt;&gt;&gt; c.cloud_id
-1
-&gt;&gt;&gt; c.name
-&gt;&gt;&gt; <span class="c"># api call is made.</span>
-u<span class="s1">&#39;Amazon Web Services&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="all">
-<h2><tt class="docutils literal"><span class="pre">.all()</span></tt><a class="headerlink" href="#all" title="Permalink to this headline">¶</a></h2>
-<p>All objects should support a call to return all resources of that type. This
-will actually return a list of objects. Note that calling <tt class="docutils literal"><span class="pre">.all()</span></tt> actually
-deferences the objects so an API call will be made for each object:</p>
-<p>example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.geography.cloud import Cloud
-&gt;&gt;&gt; <span class="nv">c</span> <span class="o">=</span> Cloud.all<span class="o">()</span>
-&gt;&gt;&gt; <span class="c"># Initial call made for all Clouds</span>
-&gt;&gt;&gt; c
-&gt;&gt;&gt; <span class="c"># Delay while each cloud object is dereferenced</span>
-&gt;&gt;&gt; c<span class="o">[</span>0<span class="o">]</span>
-<span class="o">{</span><span class="s1">&#39;status&#39;</span>: <span class="s1">&#39;ACTIVE&#39;</span>, <span class="s1">&#39;current_job&#39;</span>: None, <span class="s1">&#39;last_request&#39;</span>: <span class="s1">&#39;&lt;Response [200]&gt;&#39;</span>, <span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;Amazon Web Services&#39;</span>, <span class="s1">&#39;last_error&#39;</span>: None, <span class="s1">&#39;cloud_provider_name&#39;</span>: <span class="s1">&#39;Amazon&#39;</span>, <span class="s1">&#39;cloud_provider_console_url&#39;</span>: <span class="s1">&#39;http://aws.amazon.com&#39;</span>, <span class="s1">&#39;cloud_provider_logo_url&#39;</span>: <span class="s1">&#39;/clouds/aws.gif&#39;</span>, <span class="s1">&#39;compute_endpoint&#39;</span>: <span class="s1">&#39;https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com&#39;</span>, <span class="s1">&#39;compute_secret_key_label&#39;</span>: <span class="s1">&#39;AWS_SECRET_ACCESS_KEY&#39;</span>, <span class="s1">&#39;documentation_label&#39;</span>: None, <span class="s1">&#39;compute_delegate&#39;</span>: <span class="s1">&#39;org.dasein.cloud.aws.AWSCloud&#39;</span>, <span class="s1">&#39;path&#39;</span>: <span class="s1">&#39;geography/Cloud/1&#39;</span>, <span class="s1">&#39;compute_account_number_label&#39;</span>: <span class="s1">&#39;AWS_ACCOUNT_NUMBER&#39;</span>, <span class="s1">&#39;private_cloud&#39;</span>: False<span class="o">}</span>
-&gt;&gt;&gt; <span class="nb">type</span><span class="o">(</span>c<span class="o">[</span>0<span class="o">])</span>
-mixcoatl.geography.cloud.Cloud
-&gt;&gt;&gt; c<span class="o">[</span>0<span class="o">]</span>.__class__.__name__
-<span class="s1">&#39;Cloud&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="pretty-printing">
-<h2>Pretty-printing<a class="headerlink" href="#pretty-printing" title="Permalink to this headline">¶</a></h2>
-<p>Every resource has a <tt class="docutils literal"><span class="pre">.pprint()</span></tt> function available which returns the
-&#8216;prettyprinted&#8217; object</p>
-<p>example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.geography.cloud import Cloud
-&gt;&gt;&gt; <span class="nv">c</span> <span class="o">=</span> Cloud<span class="o">(</span>1<span class="o">)</span>
-&gt;&gt;&gt; c
-&gt;&gt;&gt; c.pprint<span class="o">()</span>
-&gt;&gt;&gt; <span class="c"># pretty print representation</span>
-</pre></div>
-</div>
-<div class="section" id="other-notes">
-<h3>Other notes<a class="headerlink" href="#other-notes" title="Permalink to this headline">¶</a></h3>
-<p>In general, most resources should support read-only access. If you know the id
-of an resource, you can simply request the resource by name with the id as a
-parameter:</p>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.infrastructure.server import Server
-&gt;&gt;&gt; <span class="nv">s</span> <span class="o">=</span> Server<span class="o">(</span>12345<span class="o">)</span>
-&gt;&gt;&gt; s
-</pre></div>
-</div>
-<p>Importing resources generally follows the API directly i.e.:</p>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.scope.resource import ResourceName
-</pre></div>
-</div>
-<div class="section" id="for-firewalls">
-<h4>For Firewalls<a class="headerlink" href="#for-firewalls" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.network.firewall import Firewall
-&gt;&gt;&gt; <span class="nv">f</span> <span class="o">=</span> Firewall<span class="o">(</span>12345<span class="o">)</span>
-&gt;&gt;&gt; f
-</pre></div>
-</div>
-</div>
-<div class="section" id="for-servers">
-<h4>For Servers<a class="headerlink" href="#for-servers" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre>&gt;&gt;&gt; from mixcoatl.infrastucture.server import Server
-&gt;&gt;&gt; <span class="nv">s</span> <span class="o">=</span> Server<span class="o">(</span>12345<span class="o">)</span>
-&gt;&gt;&gt; s
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="further-reading">
-<h3>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h3>
-<p>For specific examples per resource, see the <a class="reference external" href="https://github.com/enStratus/mixcoatl/wiki">wiki</a> or the <a class="reference external" href="http://enstratus.github.com/mixcoatl">documentation</a></p>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="readme.html">Read Me</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#build-status">Build Status</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#word-of-warning">Word of warning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#usage-notes">Usage notes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#dcm-get"><tt class="docutils literal"><span class="pre">dcm-get</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#lazy-loading">Lazy loading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#all"><tt class="docutils literal"><span class="pre">.all()</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="readme.html#pretty-printing">Pretty-printing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#other-notes">Other notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="readme.html#further-reading">Further Reading</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="install/install.html">Install</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install/windows.html">Windows</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="install/windows.html#post-installation">Post-Installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="install/linux.html">Linux, OS X</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="install/linux.html#apt-get">apt-get</a></li>
-<li class="toctree-l3"><a class="reference internal" href="install/linux.html#yum">yum</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="source/source.html">Modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.html">Mixcoatl</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/mixcoatl.html#id1"><tt class="docutils literal"><span class="pre">mixcoatl</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.admin.html">Admin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/account.html"><tt class="docutils literal"><span class="pre">account</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/api_key.html"><tt class="docutils literal"><span class="pre">api_key</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/billing_code.html"><tt class="docutils literal"><span class="pre">billing_code</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/group.html"><tt class="docutils literal"><span class="pre">group</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/job.html"><tt class="docutils literal"><span class="pre">job</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/role.html"><tt class="docutils literal"><span class="pre">role</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/admin/user.html"><tt class="docutils literal"><span class="pre">user</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.analytics.html">Analytics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/analytics/analytics.html"><tt class="docutils literal"><span class="pre">analytics</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/analytics/server_analytics.html"><tt class="docutils literal"><span class="pre">server_analytics</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/analytics/tier_analytics.html"><tt class="docutils literal"><span class="pre">tier_analytics</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.automation.html">Automation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/automation/configuration_management_account.html"><tt class="docutils literal"><span class="pre">configuration_management_account</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/automation/deployment.html"><tt class="docutils literal"><span class="pre">deployment</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/automation/service.html"><tt class="docutils literal"><span class="pre">service</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/automation/tier.html"><tt class="docutils literal"><span class="pre">tier</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.config.html">Config</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/mixcoatl.config.html#module-mixcoatl.config"><tt class="docutils literal"><span class="pre">config</span></tt> Package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.decorators.html">Decorators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/decorators/lazy.html"><tt class="docutils literal"><span class="pre">lazy</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/decorators/validations.html"><tt class="docutils literal"><span class="pre">validations</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.exceptions.html">Exceptions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/mixcoatl.exceptions.html#id1"><tt class="docutils literal"><span class="pre">exceptions</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.geography.html">Geography</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/geography/cloud.html"><tt class="docutils literal"><span class="pre">cloud</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/geography/datacenter.html"><tt class="docutils literal"><span class="pre">datacenter</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/geography/region.html"><tt class="docutils literal"><span class="pre">region</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.infrastructure.html">Infrastructure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/infrastructure/machine_image.html"><tt class="docutils literal"><span class="pre">machine_image</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/infrastructure/server.html"><tt class="docutils literal"><span class="pre">server</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/infrastructure/server_product.html"><tt class="docutils literal"><span class="pre">server_product</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/infrastructure/snapshot.html"><tt class="docutils literal"><span class="pre">snapshot</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/infrastructure/volume.html"><tt class="docutils literal"><span class="pre">volume</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.platform.html">Platform</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/platform/rdbms_product.html"><tt class="docutils literal"><span class="pre">rdbms_product</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.network.html">Network</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/network/firewall.html"><tt class="docutils literal"><span class="pre">firewall</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/network/firewall_rule.html"><tt class="docutils literal"><span class="pre">firewall_rule</span></tt></a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/network/load_balancer.html"><tt class="docutils literal"><span class="pre">load_balancer</span></tt></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/mixcoatl.settings.html">Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/settings/load_settings.html"><tt class="docutils literal"><span class="pre">load_settings</span></tt></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rest_tools/rest_tools.html">REST Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-get.html">dcm-get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-put.html">dcm-put</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-put.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-put.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-put.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-put.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-put.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-put.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-post.html">dcm-post</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rest_tools/dcm-post.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cli_tools/cli_tools.html">CLI Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html">dcm-assign-cloud</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-assign-cloud.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-attach-volume.html">dcm-attach-volume</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-attach-volume.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-attach-volume.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-attach-volume.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-attach-volume.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-attach-volume.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-attach-volume.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-check-job.html">dcm-check-job</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-check-job.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-check-job.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-check-job.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-check-job.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-check-job.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-check-job.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html">dcm-create-billing-code</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-billing-code.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-cm.html">dcm-create-cm</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-cm.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-deployment.html">dcm-create-deployment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-deployment.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-deployment.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-deployment.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-deployment.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-deployment.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-deployment.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-group.html">dcm-create-group</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-group.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html">dcm-create-launch-config</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-launch-config.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-network.html">dcm-create-network</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-network.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-network.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-network.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-network.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-network.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-network.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-role.html">dcm-create-role</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-role.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-server.html">dcm-create-server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-server.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-server.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-server.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-server.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-server.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-server.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-tier.html">dcm-create-tier</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-tier.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-user.html">dcm-create-user</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-user.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-create-volume.html">dcm-create-volume</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-create-volume.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html">dcm-delete-billing-code</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-billing-code.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-group.html">dcm-delete-group</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-group.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-group.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-group.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-group.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-group.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-group.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-network.html">dcm-delete-network</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-network.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-delete-volume.html">dcm-delete-volume</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-delete-volume.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html">dcm-describe-deployment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-deployment.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-job.html">dcm-describe-job</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-job.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-job.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-job.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-job.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-job.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-job.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html">dcm-describe-machine-image</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-machine-image.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-describe-server.html">dcm-describe-server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-server.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-server.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-server.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-server.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-server.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-describe-server.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-detach-volume.html">dcm-detach-volume</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-detach-volume.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-detach-volume.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-detach-volume.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-detach-volume.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-detach-volume.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-detach-volume.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-accounts.html">dcm-list-accounts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-accounts.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-accounts.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-accounts.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-accounts.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-accounts.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-accounts.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html">dcm-list-billing-codes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-billing-codes.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-clouds.html">dcm-list-clouds</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-clouds.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-clouds.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-clouds.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-clouds.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-clouds.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-clouds.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html">dcm-list-cm-accounts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm-accounts.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-cm.html">dcm-list-cm</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-cm.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html">dcm-list-datacenters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-datacenters.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-deployments.html">dcm-list-deployments</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-deployments.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html">dcm-list-firewall-rules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewall-rules.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html">dcm-list-firewalls</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-firewalls.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-groups.html">dcm-list-groups</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-groups.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-jobs.html">dcm-list-jobs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-jobs.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-jobs.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-jobs.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-jobs.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-jobs.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-jobs.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html">dcm-list-machine-images</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-machine-images.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-networks.html">dcm-list-networks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-networks.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html">dcm-list-rdbms-products</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-rdbms-products.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-regions.html">dcm-list-regions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-regions.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-regions.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-regions.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-regions.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-regions.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-regions.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-roles.html">dcm-list-roles</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-roles.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-roles.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-roles.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-roles.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-roles.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-roles.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-server-products.html">dcm-list-server-products</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-products.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-products.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-products.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-products.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-products.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-products.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-servers.html">dcm-list-servers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-servers.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-servers.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-servers.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-servers.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-servers.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-servers.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html">dcm-list-server-terminate</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-server-terminate.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html">dcm-list-snapshots</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-snapshots.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html">dcm-list-storage-objects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-storage-objects.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-users.html">dcm-list-users</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-users.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-users.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-users.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-users.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-users.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-users.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-list-volumes.html">dcm-list-volumes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-list-volumes.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-pause-server.html">dcm-pause-server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-pause-server.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-pause-server.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-pause-server.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-pause-server.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-pause-server.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-pause-server.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-set-acl.html">dcm-set-acl</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-acl.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-set-role.html">dcm-set-role</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-role.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html">dcm-set-server-terminate</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-set-server-terminate.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-start-server.html">dcm-start-server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-start-server.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-start-server.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-start-server.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-start-server.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-start-server.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-start-server.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-stop-server.html">dcm-stop-server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-stop-server.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-stop-server.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-stop-server.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-stop-server.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-stop-server.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-stop-server.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-terminate-server.html">dcm-terminate-server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#common-options">Common Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-terminate-server.html#examples">Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli_tools/dcm-update-group.html">dcm-update-group</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-update-group.html#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-update-group.html#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-update-group.html#options">Options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-update-group.html#output">Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-update-group.html#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cli_tools/dcm-update-group.html#related-topics">Related Topics</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="additional_information/additional_information.html">Additional Information</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="additional_information/patterns.html">Mapping Patterns</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="additional_information/patterns.html#module-and-class-structure">Module and Class Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="additional_information/patterns.html#examples">Examples</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
-</ul>
-</div>
-
-
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="readme.html" class="btn btn-neutral float-right" title="Read Me"/>Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2014, Quest Software, Inc..
-    </p>
-  </div>
-
-  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
-</footer>
+                    <div class="well well-sm">
+                        <b>Install Now:&nbsp;&nbsp;&nbsp;</b> $ pip install -U mixcoatl
+                    </div>
+                </p>
+            </div>
+            <div class="col-md-6 serpent">
+                <img src="assets/images/mixcoatl_serpent.png" />
+            </div>
         </div>
-      </div>
+    </div>
+</div>
 
-    </section>
+<div class="container">
+    <h1 class="main-heading">The Mixcoatl project was started to wrap the <a href="http://www.enstratius.com" target="_blank">Dell Cloud Manager</a> API and make it easy to use.</h1>
 
-  </div>
-  
+    <br />
 
+    <hr />
+</div>
 
-  
+<br /><br />
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.3.4',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+<div class="container marketing">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row features">
+                <div class="col-lg-6">
+                    <i class="fa fa-border fa-thumbs-up fa-5x"></i>
+                    <h2>Fast & Simple</h2>
+                    <p>Get started quickly using our pre-built command line tools or use the mixcoatl libraries to build your own tools.</p>
+                </div>
+                <div class="col-lg-6">
+                    <i class="fa fa-border fa-cloud fa-5x"></i>
+                    <h2>Multi-Cloud</h2>
+                    <p>Instantly add Multi-Cloud support to any project using mixcoatl and Dell Cloud Manager.</p>
+                </div>
+            </div>
 
-  
+            <br /><br />
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+            <div class="row features">
+                <div class="col-lg-6">
+                    <i class="fa fa-border fa-folder-open-o fa-5x"></i>
+                    <h2>Extendable</h2>
+                    <p>Python based and well documented open source project that is easily extendible.</p>
+                </div>
+                <div class="col-lg-6">
+                    <i class="fa fa-border fa-users fa-5x"></i>
+                    <h2>Easy Auth</h2>
+                    <p>Get started quickly by setting the Access Key, Secret Key, and Endpoint.  Signup for a <a href="http://www.enstratius.com/enstratius-free-trial" target="_blank">free trial</a> account now!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 sample_code_container">
+            <div class="lead">Get started with mixcoatl in about 10 minutes</div>
 
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-   
+            <div class="sample_code">
+                <pre>
+>>> from mixcoatl.geography.cloud import Cloud
+>>> c = Cloud.all()
+>>> # Initial call made for all Clouds
+>>> c
+>>> # Delay while each cloud object is dereferenced
+>>> c[0]
+{'status': 'ACTIVE', 'current_job': None, 'last_request': '<Response [200]>', 'name': 'Amazon Web Services', 'last_error': None, 'cloud_provider_name': 'Amazon', 'cloud_provider_console_url': 'http://aws.amazon.com', 'cloud_provider_logo_url': '/clouds/aws.gif', 'compute_endpoint': 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com', 'compute_secret_key_label': 'AWS_SECRET_ACCESS_KEY', 'documentation_label': None, 'compute_delegate': 'org.dasein.cloud.aws.AWSCloud', 'path': 'geography/Cloud/1', 'compute_account_number_label': 'AWS_ACCOUNT_NUMBER', 'private_cloud': False}
+>>> type(c[0])
+mixcoatl.geography.cloud.Cloud
+>>> c[0].__class__.__name__
+'Cloud'
 
+>>> c = Cloud(1)
+>>> # returns immediately
+>>> c.cloud_id
+1
+>>> c.name
+>>> # api call is made.
+u'Amazon Web Services'
+</pre>
+            </div>
+
+            <p><a href="https://github.com/enStratus/mixcoatl/blob/master/README.rst" target="_blank">More examples in the README</a></p>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <hr />
+
+    <br /><br />
+
+    <blockquote>
+      <p>"As the Dell Cloud Manager API matured, it became clear there was an opportunity to expose programmatic access to multiple clouds via a single set of command-line tools in the same way the DCM user interface allows for pointing-and-clicking." -- Greg Moselle (Software Systems Engineer, Sr. Manager)</p>
+    </blockquote>
+</div>
+
+<br /><br />
+
+<div class="fork">
+    <div class="container">
+        <h2>Would you like to Contribute?</h2>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <div class="fork_icon">
+                    Fork it!
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="fork_icon">
+                    Commit!
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="fork_icon">
+                    Pull Request!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <footer>
+        <div class="row">
+            <div class="col-md-6 footer-text">
+                <a href="http://www.github.com/enStratus/mixcoatl" target="_blank">Github Page</a> | <a href="http://enstratus.github.io/mixcoatl" target="_blank">API Reference</a>
+            </div>
+            <div class="col-md-6">
+                <img src="assets/images/mixcoatl.png" width="200" />
+            </div>
+        </div>
+    </footer>
+
+    <br /><br />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>

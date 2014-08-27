@@ -43,7 +43,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
-        <a href="../../../index.html" class="fa fa-home"> mixcoatl</a>
+        <a href="../../../docs.html" class="fa fa-home"> mixcoatl</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -164,7 +164,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">mixcoatl</a>
+        <a href="../../../docs.html">mixcoatl</a>
       </nav>
 
 
@@ -173,7 +173,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+    <li><a href="../../../docs.html">Docs</a> &raquo;</li>
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
@@ -222,6 +222,10 @@
 <div class="viewcode-block" id="Deployment.budget"><a class="viewcode-back" href="../../../source/automation/deployment.html#mixcoatl.automation.deployment.Deployment.budget">[docs]</a>    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="c"># pylint: disable-msg=C0111,W0201</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__budget</span> <span class="o">=</span> <span class="n">b</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Deployment.catalog_item"><a class="viewcode-back" href="../../../source/automation/deployment.html#mixcoatl.automation.deployment.Deployment.catalog_item">[docs]</a>    <span class="k">def</span> <span class="nf">catalog_item</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__catalog_item</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Deployment.label"><a class="viewcode-back" href="../../../source/automation/deployment.html#mixcoatl.automation.deployment.Deployment.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
