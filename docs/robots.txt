@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: http://mixcoatl.net/sitemap.xml.gz
