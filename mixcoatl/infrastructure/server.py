@@ -265,7 +265,14 @@ class Server(Resource):
         """`str` - The time the server automatically pauses."""
         return self.__pause_after
 
+    @lazy_property
+    def userData(self):
+        """`list` - The userdata to assign/assigned to the server"""
+        return self.__userData
 
+    @userData.setter
+    def userData(self, userData):
+        self.__userData = userData
 
     @property
     def keypair(self):
@@ -384,7 +391,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
+        optional_attrs = ['userData', 'vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
