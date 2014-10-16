@@ -179,6 +179,11 @@ class User(Resource):
         """`str` The public key to grant the user access to Unix instances"""
         return self.__ssh_public_key
 
+    @ssh_public_key.setter
+    def ssh_public_key(self, p):
+        # pylint: disable-msg=C0111,W0201
+        self.__ssh_public_key = p
+
     @lazy_property
     def password(self):
         """`str` DCM login password"""
