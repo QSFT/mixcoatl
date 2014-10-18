@@ -277,7 +277,7 @@ class MachineImage(Resource):
         else:
             keys_only = False
         if 'available' in kwargs:
-            params['active'] = kwargs['active']
+            params['active'] = kwargs['available']
         if 'registered' in kwargs:
             params['registered'] = kwargs['registered']
         c = r.get(params=params)
