@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+
+import json
+import sys
+import argparse
+import xml.etree.ElementTree as ET
+from mixcoatl import resource
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('basepath', type=str, help='base path')
+
+    cmd_args = parser.parse_args()
+
+    r = resource.Resource(cmd_args.basepath)
+    r.request_details = 'extended'
+
+    result = r.delete()
+    print(result)
