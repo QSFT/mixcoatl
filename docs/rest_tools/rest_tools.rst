@@ -22,3 +22,4 @@ will be very helpful in learning how the API works and for troubleshooting.
    dcm-get
    dcm-put
    dcm-post
+   dcm-delete
