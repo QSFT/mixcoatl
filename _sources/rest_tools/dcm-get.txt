@@ -57,3 +57,12 @@ same format the ``requests`` library uses:
             }
           ]
         }
+
+Related Topics
+~~~~~~~~~~~~~~
+
+:ref:`DCM DELETE <dcm_delete>`
+
+:ref:`DCM POST <dcm_post>`
+
+:ref:`DCM PUT <dcm_put>`

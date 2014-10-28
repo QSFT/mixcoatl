@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dcm-post &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>dcm-post &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,9 +28,9 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../index.html"/>
         <link rel="up" title="REST Utilities" href="rest_tools.html"/>
-        <link rel="next" title="CLI Tools" href="../cli_tools/cli_tools.html"/>
+        <link rel="next" title="dcm-delete" href="dcm-delete.html"/>
         <link rel="prev" title="dcm-put" href="dcm-put.html"/> 
 
   
@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -192,32 +193,82 @@
             
   <div class="section" id="dcm-post">
 <span id="id1"></span><h1>dcm-post<a class="headerlink" href="#dcm-post" title="Permalink to this headline">¶</a></h1>
+<p><tt class="docutils literal"><span class="pre">dcm-post</span></tt> implements a generic POST to the DCM API. POST calls can create a new
+object or update an existing one.</p>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">dcm-post</span></tt> is provided to allow for making a POST to the DCM API.</p>
 </div>
 <div class="section" id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>usage: dcm-post <span class="o">[</span>-h<span class="o">]</span> <span class="o">(</span>--xml XML | --json JSON<span class="o">)</span> basepath
+
+positional arguments:
+  basepath     base path
+
+optional arguments:
+  -h, --help   show this <span class="nb">help </span>message and <span class="nb">exit</span>
+  --xml XML
+  --json JSON
+</pre></div>
+</div>
 </div>
 <div class="section" id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="common-options">
-<h2>Common Options<a class="headerlink" href="#common-options" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="deprecated-options">
-<h3>Deprecated Options<a class="headerlink" href="#deprecated-options" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="output">
-<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&lt;base path&gt;</td>
+<td><p class="first">Positional parameter</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+<p class="last">Example: infrastructure/Server/5090</p>
+</td>
+</tr>
+<tr class="row-odd"><td>&#8211;xml</td>
+<td><p class="first">Pass XML payload to post command.</p>
+<p>Type: File</p>
+<p>Default: None</p>
+<p>Required: Yes (if using XML)</p>
+<p class="last">Example: &#8211;xml update.xml</p>
+</td>
+</tr>
+<tr class="row-even"><td>&#8211;json</td>
+<td><p class="first">Pass JSON payload to post command.</p>
+<p>Type: File</p>
+<p>Default: None</p>
+<p>Required: Yes (if using JSON)</p>
+<p class="last">Example: &#8211;json update.json</p>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="example-1">
 <h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<p>A call to create a volume. <a class="reference download internal" href="../_downloads/create_volume.json"><tt class="xref download docutils literal"><span class="pre">click</span> <span class="pre">here</span></tt></a> to view the contents of the JSON
+payload.</p>
+<div class="highlight-bash"><div class="highlight"><pre>dcm-post --json create_volume infrastructure/Volume
+</pre></div>
+</div>
+<p>Output</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">{</span>u<span class="s1">&#39;jobs&#39;</span>: <span class="o">[{</span>u<span class="s1">&#39;status&#39;</span>: u<span class="s1">&#39;RUNNING&#39;</span>, u<span class="s1">&#39;jobId&#39;</span>: 300<span class="o">}]}</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="related-topics">
 <h2>Related Topics<a class="headerlink" href="#related-topics" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="dcm-get.html#dcm-get"><em>DCM GET</em></a></p>
+<p><a class="reference internal" href="dcm-put.html#dcm-put"><em>DCM POST</em></a></p>
 </div>
 </div>
 
@@ -227,7 +278,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../cli_tools/cli_tools.html" class="btn btn-neutral float-right" title="CLI Tools"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dcm-delete.html" class="btn btn-neutral float-right" title="dcm-delete"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="dcm-put.html" class="btn btn-neutral" title="dcm-put"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -259,7 +310,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

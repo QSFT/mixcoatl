@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mixcoatl.infrastructure.server &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>mixcoatl.infrastructure.server &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -269,6 +270,10 @@
     <span class="k">def</span> <span class="nf">cm_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cm_scripts</span>
 
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Server.last_agent_contact_timestamp"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.last_agent_contact_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">last_agent_contact_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__last_agent_contact_timestamp</span>
+</div>
     <span class="nd">@cm_scripts.setter</span>
 <div class="viewcode-block" id="Server.cm_scripts"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.cm_scripts">[docs]</a>    <span class="k">def</span> <span class="nf">cm_scripts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
     	<span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)</span>
@@ -449,8 +454,15 @@
 <div class="viewcode-block" id="Server.pause_after"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.pause_after">[docs]</a>    <span class="k">def</span> <span class="nf">pause_after</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;`str` - The time the server automatically pauses.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pause_after</span>
+</div>
+    <span class="nd">@lazy_property</span>
+    <span class="k">def</span> <span class="nf">userData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` - The userdata to assign/assigned to the server&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__userData</span>
 
-
+    <span class="nd">@userData.setter</span>
+<div class="viewcode-block" id="Server.userData"><a class="viewcode-back" href="../../../source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.userData">[docs]</a>    <span class="k">def</span> <span class="nf">userData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">userData</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__userData</span> <span class="o">=</span> <span class="n">userData</span>
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">keypair</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -569,7 +581,7 @@
 <span class="sd">        :returns: int -- The job id of the launch request</span>
 <span class="sd">        :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">optional_attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;vlan&#39;</span><span class="p">,</span> <span class="s">&#39;firewalls&#39;</span><span class="p">,</span> <span class="s">&#39;keypair&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="s">&#39;cmAccount&#39;</span><span class="p">,</span> <span class="s">&#39;environment&#39;</span><span class="p">,</span> <span class="s">&#39;cm_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;p_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;volumeConfiguration&#39;</span><span class="p">]</span>
+        <span class="n">optional_attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;userData&#39;</span><span class="p">,</span> <span class="s">&#39;vlan&#39;</span><span class="p">,</span> <span class="s">&#39;firewalls&#39;</span><span class="p">,</span> <span class="s">&#39;keypair&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="s">&#39;cmAccount&#39;</span><span class="p">,</span> <span class="s">&#39;environment&#39;</span><span class="p">,</span> <span class="s">&#39;cm_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;p_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;volumeConfiguration&#39;</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ServerLaunchException</span><span class="p">(</span><span class="s">&#39;Cannot launch an already running server: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_id</span><span class="p">)</span>
 
@@ -694,7 +706,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

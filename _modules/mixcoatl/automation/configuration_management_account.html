@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mixcoatl.automation.configuration_management_account &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>mixcoatl.automation.configuration_management_account &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -255,6 +256,10 @@
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="ConfigurationManagementAccount.owning_groups"><a class="viewcode-back" href="../../../source/automation/configuration_management_account.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.owning_groups">[docs]</a>    <span class="k">def</span> <span class="nf">owning_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_groups</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="ConfigurationManagementAccount.owning_user"><a class="viewcode-back" href="../../../source/automation/configuration_management_account.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.owning_user">[docs]</a>    <span class="k">def</span> <span class="nf">owning_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__owning_user</span>
         </div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ConfigurationManagementAccount.all"><a class="viewcode-back" href="../../../source/automation/configuration_management_account.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -299,7 +304,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>group &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>group &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../../index.html"/>
         <link rel="up" title="Admin" href="../mixcoatl.admin.html"/>
         <link rel="next" title="job" href="job.html"/>
         <link rel="prev" title="billing_code" href="billing_code.html"/> 
@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -244,6 +245,42 @@
 <dd><p><cite>dict</cite> - The customer to who this group belongs.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="mixcoatl.admin.group.Group.customer_admin">
+<tt class="descname">customer_admin</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.customer_admin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.customer_admin" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.group.Group.user_admin">
+<tt class="descname">user_admin</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.user_admin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.user_admin" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.group.Group.configuration_management_admin">
+<tt class="descname">configuration_management_admin</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.configuration_management_admin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.configuration_management_admin" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.group.Group.configuration_management_qualifier">
+<tt class="descname">configuration_management_qualifier</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.configuration_management_qualifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.configuration_management_qualifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>bool</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.group.Group.group_account_budget_codes">
+<tt class="descname">group_account_budget_codes</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.group_account_budget_codes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.group_account_budget_codes" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.admin.group.Group.role_assignments">
+<tt class="descname">role_assignments</tt><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.role_assignments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.role_assignments" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite></p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="mixcoatl.admin.group.Group.all">
 <em class="property">classmethod </em><tt class="descname">all</tt><big>(</big><em>keys_only=False</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/mixcoatl/admin/group.html#Group.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.admin.group.Group.all" title="Permalink to this definition">¶</a></dt>
@@ -373,7 +410,7 @@ credentials for the given user.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

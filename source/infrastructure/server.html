@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>server &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>server &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../../index.html"/>
         <link rel="up" title="Infrastructure" href="../mixcoatl.infrastructure.html"/>
         <link rel="next" title="server_product" href="server_product.html"/>
         <link rel="prev" title="machine_image" href="machine_image.html"/> 
@@ -91,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -272,6 +273,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.last_agent_contact_timestamp">
+<tt class="descname">last_agent_contact_timestamp</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/server.html#Server.last_agent_contact_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.last_agent_contact_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="mixcoatl.infrastructure.server.Server.cm_scripts">
 <tt class="descname">cm_scripts</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/server.html#Server.cm_scripts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.cm_scripts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -429,6 +435,12 @@
 <dt id="mixcoatl.infrastructure.server.Server.pause_after">
 <tt class="descname">pause_after</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/server.html#Server.pause_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.pause_after" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>str</cite> - The time the server automatically pauses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mixcoatl.infrastructure.server.Server.userData">
+<tt class="descname">userData</tt><a class="reference internal" href="../../_modules/mixcoatl/infrastructure/server.html#Server.userData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mixcoatl.infrastructure.server.Server.userData" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>list</cite> - The userdata to assign/assigned to the server</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -646,7 +658,7 @@ This attribute is used only in the <cite>launch()</cite> call.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mixcoatl.admin.group &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>mixcoatl.admin.group &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -243,6 +244,36 @@
         <span class="sd">&quot;&quot;&quot;`dict` - The customer to who this group belongs.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer</span>
 </div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Group.customer_admin"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.customer_admin">[docs]</a>    <span class="k">def</span> <span class="nf">customer_admin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__customer_admin</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Group.user_admin"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.user_admin">[docs]</a>    <span class="k">def</span> <span class="nf">user_admin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__user_admin</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Group.configuration_management_admin"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.configuration_management_admin">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_management_admin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_management_admin</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Group.configuration_management_qualifier"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.configuration_management_qualifier">[docs]</a>    <span class="k">def</span> <span class="nf">configuration_management_qualifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`bool` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__configuration_management_qualifier</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Group.group_account_budget_codes"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.group_account_budget_codes">[docs]</a>    <span class="k">def</span> <span class="nf">group_account_budget_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__group_account_budget_codes</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Group.role_assignments"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.role_assignments">[docs]</a>    <span class="k">def</span> <span class="nf">role_assignments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`list` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__role_assignments</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Group.all"><a class="viewcode-back" href="../../../source/admin/group.html#mixcoatl.admin.group.Group.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">keys_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get all groups</span>
@@ -376,7 +407,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

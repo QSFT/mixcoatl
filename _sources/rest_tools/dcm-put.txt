@@ -99,3 +99,5 @@ Related Topics
 
 :ref:`DCM POST <dcm_post>`
 
+:ref:`DCM DELETE <dcm_delete>`
+

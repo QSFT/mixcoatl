@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>mixcoatl.geography.cloud &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>mixcoatl.geography.cloud &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="../../../index.html"/>
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -187,7 +188,7 @@
           <div role="main">
             
   <h1>Source code for mixcoatl.geography.cloud</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;Implements the enStratus Cloud API&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Implements the DCM Cloud API&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.resource</span> <span class="kn">import</span> <span class="n">Resource</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.decorators.lazy</span> <span class="kn">import</span> <span class="n">lazy_property</span>
 <span class="kn">from</span> <span class="nn">mixcoatl.utils</span> <span class="kn">import</span> <span class="n">camelize</span>
@@ -203,7 +204,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Cloud.cloud_id"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.cloud_id">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`int` - The unique enStratus id for this cloud&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`int` - The unique DCM id for this cloud&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_id</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -213,7 +214,7 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.cloud_provider_logo_url"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.cloud_provider_logo_url">[docs]</a>    <span class="k">def</span> <span class="nf">cloud_provider_logo_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus installation URL to this cloud&#39;s logo&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM installation URL to this cloud&#39;s logo&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cloud_provider_logo_url</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -223,22 +224,22 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.compute_account_number_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_account_number_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_account_number_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s user account number&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s user account number&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_account_number_label</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.compute_access_key_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_access_key_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_access_key_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s API key&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s API key&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_access_key_label</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.compute_x509_cert_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_x509_cert_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_x509_cert_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s X509 certificate&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s X509 certificate&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_x509_cert_label</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.compute_x509_key_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_x509_key_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_x509_key_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s X509 key&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s X509 key&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_x509_key_label</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -253,17 +254,27 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.compute_secret_key_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_secret_key_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_secret_key_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key for the cloud&#39;s API secret key&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s API secret key&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_secret_key_label</span>
 </div>
     <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_pkc_s12_password_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_pkc_s12_password_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_pkc_s12_password_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s pkc s12 password&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_pkc_s12_password_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
+<div class="viewcode-block" id="Cloud.compute_pkc_s12_cert_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_pkc_s12_cert_label">[docs]</a>    <span class="k">def</span> <span class="nf">compute_pkc_s12_cert_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key for the cloud&#39;s pkc s12 cert&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__compute_pkc_s12_cert_label</span>
+</div>
+    <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.documentation_label"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.documentation_label">[docs]</a>    <span class="k">def</span> <span class="nf">documentation_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - enStratus localized label key&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - DCM localized label key&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_label</span>
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.name"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - The enStratus name of the cloud&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - The DCM name of the cloud&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
 </div>
     <span class="nd">@lazy_property</span>
@@ -273,7 +284,7 @@
 </div>
     <span class="nd">@lazy_property</span>
 <div class="viewcode-block" id="Cloud.status"><a class="viewcode-back" href="../../../source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`str` - Status of the cloud in enStratus&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;`str` - Status of the cloud in DCM&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__status</span>
 </div>
     <span class="nd">@classmethod</span>
@@ -342,7 +353,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

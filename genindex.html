@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; mixcoatl 0.3.4 documentation</title>
+  <title>Index &mdash; mixcoatl 0.3.5 documentation</title>
   
 
   
@@ -29,7 +29,7 @@
   
 
   
-    <link rel="top" title="mixcoatl 0.3.4 documentation" href="index.html"/> 
+    <link rel="top" title="mixcoatl 0.3.5 documentation" href="index.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -89,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-get.html">dcm-get</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-put.html">dcm-put</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-post.html">dcm-post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest_tools/dcm-delete.html">dcm-delete</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli_tools/cli_tools.html">CLI Tools</a><ul>
@@ -813,12 +814,20 @@
   <dt><a href="source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_endpoint">compute_endpoint (mixcoatl.geography.cloud.Cloud attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_pkc_s12_cert_label">compute_pkc_s12_cert_label (mixcoatl.geography.cloud.Cloud attribute)</a>
+  </dt>
+
+      
+  <dt><a href="source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_pkc_s12_password_label">compute_pkc_s12_password_label (mixcoatl.geography.cloud.Cloud attribute)</a>
+  </dt>
+
       
   <dt><a href="source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_secret_key_label">compute_secret_key_label (mixcoatl.geography.cloud.Cloud attribute)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="source/geography/cloud.html#mixcoatl.geography.cloud.Cloud.compute_x509_cert_label">compute_x509_cert_label (mixcoatl.geography.cloud.Cloud attribute)</a>
   </dt>
@@ -833,6 +842,14 @@
 
       
   <dt><a href="source/mixcoatl.exceptions.html#mixcoatl.exceptions.ConfigException">ConfigException</a>
+  </dt>
+
+      
+  <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.configuration_management_admin">configuration_management_admin (mixcoatl.admin.group.Group attribute)</a>
+  </dt>
+
+      
+  <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.configuration_management_qualifier">configuration_management_qualifier (mixcoatl.admin.group.Group attribute)</a>
   </dt>
 
       
@@ -1023,6 +1040,10 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.customer_admin">customer_admin (mixcoatl.admin.group.Group attribute)</a>
+  </dt>
+
       
   <dt><a href="source/admin/api_key.html#mixcoatl.admin.api_key.ApiKey.customer_management_key">customer_management_key (mixcoatl.admin.api_key.ApiKey attribute)</a>
   </dt>
@@ -1408,6 +1429,10 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.group_account_budget_codes">group_account_budget_codes (mixcoatl.admin.group.Group attribute)</a>
+  </dt>
+
+      
   <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.group_id">group_id (mixcoatl.admin.group.Group attribute)</a>
   </dt>
 
@@ -1559,6 +1584,10 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.last_agent_contact_timestamp">last_agent_contact_timestamp (mixcoatl.infrastructure.server.Server attribute)</a>
+  </dt>
+
       
   <dt><a href="source/automation/tier.html#mixcoatl.automation.tier.Tier.last_breach_change_timestamp">last_breach_change_timestamp (mixcoatl.automation.tier.Tier attribute)</a>
   </dt>
@@ -2006,10 +2035,14 @@
 
       </dl></dd>
       
-  <dt><a href="source/automation/deployment.html#mixcoatl.automation.deployment.Deployment.owning_user">owning_user (mixcoatl.automation.deployment.Deployment attribute)</a>
+  <dt><a href="source/automation/configuration_management_account.html#mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount.owning_user">owning_user (mixcoatl.automation.configuration_management_account.ConfigurationManagementAccount attribute)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="source/automation/deployment.html#mixcoatl.automation.deployment.Deployment.owning_user">(mixcoatl.automation.deployment.Deployment attribute)</a>
+  </dt>
+
         
   <dt><a href="source/automation/service.html#mixcoatl.automation.service.Service.owning_user">(mixcoatl.automation.service.Service attribute)</a>
   </dt>
@@ -2586,6 +2619,10 @@
   </dt>
 
       
+  <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.role_assignments">role_assignments (mixcoatl.admin.group.Group attribute)</a>
+  </dt>
+
+      
   <dt><a href="source/admin/role.html#mixcoatl.admin.role.Role.role_id">role_id (mixcoatl.admin.role.Role attribute)</a>
   </dt>
 
@@ -3017,12 +3054,12 @@
   <dt><a href="source/automation/tier.html#mixcoatl.automation.tier.Tier.upper_cpu_threshold">upper_cpu_threshold (mixcoatl.automation.tier.Tier attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="source/automation/tier.html#mixcoatl.automation.tier.Tier.upper_ram_threshold">upper_ram_threshold (mixcoatl.automation.tier.Tier attribute)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="source/admin/user.html#mixcoatl.admin.user.User">User (class in mixcoatl.admin.user)</a>
   </dt>
@@ -3032,11 +3069,19 @@
   </dt>
 
       
+  <dt><a href="source/admin/group.html#mixcoatl.admin.group.Group.user_admin">user_admin (mixcoatl.admin.group.Group attribute)</a>
+  </dt>
+
+      
   <dt><a href="source/admin/user.html#mixcoatl.admin.user.User.user_id">user_id (mixcoatl.admin.user.User attribute)</a>
   </dt>
 
       
   <dt><a href="source/admin/user.html#mixcoatl.admin.user.UserCreationException">UserCreationException</a>
+  </dt>
+
+      
+  <dt><a href="source/infrastructure/server.html#mixcoatl.infrastructure.server.Server.userData">userData (mixcoatl.infrastructure.server.Server attribute)</a>
   </dt>
 
       
@@ -3140,7 +3185,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.4',
+            VERSION:'0.3.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
