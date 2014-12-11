@@ -394,7 +394,7 @@ class Volume(Resource):
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
-            request_details = 'extended'
+            request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
