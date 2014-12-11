@@ -54,6 +54,7 @@ if __name__ == '__main__':
     else:
         server_table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP",
                                     "Status", "Start Date"])
+        server_table.align = 'l'
         for server in servers:
             if hasattr(server, 'public_ip_address'):
                 public_ip_address = server.public_ip_address
@@ -61,6 +62,11 @@ if __name__ == '__main__':
                 public_ip_address = ",".join(server.public_ip_addresses)
             else:
                 public_ip_address = None
-            server_table.add_row([server.server_id, server.region['name'], server.provider_id, server.name,
-                                  public_ip_address, server.status, server.start_date])
+            server_table.add_row([server.server_id,
+                                  server.region['name'] if hasattr(server.region, 'name') else server.region['region_id'],
+                                  server.provider_id, server.name,
+                                  public_ip_address,
+                                  server.status,
+                                  server.start_date])
+
         print(server_table)

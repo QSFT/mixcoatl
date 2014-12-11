@@ -480,7 +480,11 @@ class Server(Resource):
         :raises: ServerException
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
+
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
 
         if 'params' in kwargs:
           params = kwargs['params']

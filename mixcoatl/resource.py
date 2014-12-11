@@ -50,7 +50,7 @@ class Resource(object):
     #: The unique identifier of an individual resource
     PRIMARY_KEY = None
 
-    def __init__(self, base_path=None, request_details = 'extended', **kwargs):
+    def __init__(self, base_path=None, request_details = 'basic', **kwargs):
 
         if base_path is None:
             try:
@@ -64,7 +64,7 @@ class Resource(object):
             self.__request_details = kwargs['request_details']
             del kwargs['request_details']
         else:
-            self.__request_details = 'extended'
+            self.__request_details = 'basic'
 
         if 'params' in kwargs:
             self.__params = kwargs['params']
