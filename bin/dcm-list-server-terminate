@@ -49,6 +49,8 @@ if __name__ == '__main__':
                  server.status,
                  newdiff])
 
+        server_table.align = 'l'
+
         print(server_table)
     else:
         parser.print_help()
