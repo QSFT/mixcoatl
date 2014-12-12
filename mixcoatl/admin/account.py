@@ -41,6 +41,11 @@ class Account(Resource):
         return self.__cloud_subscription
 
     @lazy_property
+    def cloud_subscription_id(self):
+        """`int` -- Cloud subscription ID """
+        return self.__cloud_subscription_id
+
+    @lazy_property
     def configured(self):
         """`bool` - Has this account has been tied to an account with a cloud provider"""
         return self.__configured
