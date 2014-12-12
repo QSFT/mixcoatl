@@ -23,13 +23,28 @@ if __name__ == '__main__':
         for rule in rules:
             rule.pprint()
     else:
-        firewall_rules_table = PrettyTable(["Firewall Rule ID", "Source", "Source Type",
-                                            "Destination", "Destination Type", "Protocol",
-                                            "Direction", "Start Port", "End Port",
-                                            "Permission", "Precedence"])
+        firewall_rules_table = PrettyTable(["Firewall Rule ID",
+                                            "Source",
+                                            "Source Type",
+                                            "Destination",
+                                            "Destination Type",
+                                            "Protocol",
+                                            "Direction",
+                                            "Start Port",
+                                            "End Port",
+                                            "Permission",
+                                            "Precedence"])
         for rule in rules:
-            firewall_rules_table.add_row([rule.firewall_rule_id, rule.source, rule.source_type,
-                                          rule.destination, rule.destination_type, rule.protocol,
-                                          rule.direction, rule.start_port, rule.end_port,
-                                          rule.permission, rule.precedence])
+            firewall_rules_table.add_row([rule.firewall_rule_id,
+                                          rule.source,
+                                          rule.source_type,
+                                          rule.destination,
+                                          rule.destination_type,
+                                          rule.protocol,
+                                          rule.direction,
+                                          rule.start_port if hasattr(rule, 'start_port') else None,
+                                          rule.end_port if hasattr(rule, 'end_port') else None,
+                                          rule.permission,
+                                          rule.precedence])
+        firewall_rules_table.align = 'l'
         print(firewall_rules_table)
