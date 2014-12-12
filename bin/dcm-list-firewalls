@@ -25,6 +25,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     firewall_table = PrettyTable(["Firewall ID", "Name", "Provider ID"])
+    firewall_table.align = 'l'
     for firewall in firewalls:
         firewall_table.add_row([firewall.firewall_id, firewall.name, firewall.provider_id])
     print(firewall_table)
