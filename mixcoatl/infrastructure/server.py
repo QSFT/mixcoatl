@@ -274,6 +274,15 @@ class Server(Resource):
     def userData(self, userData):
         self.__userData = userData
 
+    @lazy_property
+    def volumeConfiguration(self):
+        """`type` - The volumeConfiguration to assign/assigned to the server"""
+        return self.__volumeConfiguration
+
+    @volumeConfiguration.setter
+    def volumeConfiguration(self, volumeConfiguration):
+        self.__volumeConfiguration = volumeConfiguration
+
     @property
     def keypair(self):
         """`str` - The keypair to assign
@@ -413,7 +422,7 @@ class Server(Resource):
                     elif oa == 'p_scripts':
                         payload['launch'][0].update({'personalities':getattr(self, oa)})
                     elif oa == 'volumeConfiguration':
-                        payload['launch'][0].update({'volumeConfiguration':{u'raidlevel':'RAID0', u'volumeCount':1, u'volumeSize':2, u'fileSystem':'ext3', u'mountPoint':'/mnt/data'}})
+                        payload['launch'][0].update({'volumeConfiguration': getattr(self, oa)})
                     elif oa == 'vlan':
                         payload['launch'][0].update({'vlan':camel_keys(getattr(self, oa))})
                     else:
