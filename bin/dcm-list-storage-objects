@@ -6,6 +6,8 @@ import argparse
 import sys
 
 if __name__ == '__main__':
+    print "Object storage disabled."
+    sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument('--regionid', '-r', help='Region ID')
     parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
