@@ -29,6 +29,9 @@ if __name__ == '__main__':
     else:
         datacenter_table = PrettyTable(["Datacenter ID", "Provider ID", "Description", "Status"])
         for datacenter in datacenters:
-            datacenter_table.add_row([datacenter.data_center_id, datacenter.provider_id,
-                                      datacenter.description, datacenter.status])
+            datacenter_table.add_row([datacenter.data_center_id,
+                                      datacenter.provider_id,
+                                      datacenter.description,
+                                      datacenter.status])
+        datacenter_table.align = 'l'
         print(datacenter_table)
