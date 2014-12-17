@@ -52,4 +52,5 @@ if __name__ == '__main__':
                                   volume.owning_user['alpha_name'] if hasattr(volume, 'owning_user') else None,
                                   volume.status])
 
+        volume_table.align = 'l'
         print(volume_table)
