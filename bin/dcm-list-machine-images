@@ -34,8 +34,13 @@ if __name__ == '__main__':
         machine_image_table.align['Description'] = 'l'
         machine_image_table.sortby = 'ID'
         for machine_image in machine_images:
-            machine_image_table.add_row([machine_image.machine_image_id, machine_image.provider_id,
-                                         machine_image.name, machine_image.platform, machine_image.architecture,
+            machine_image_table.add_row([machine_image.machine_image_id,
+                                         machine_image.provider_id,
+                                         machine_image.name,
+                                         machine_image.platform,
+                                         machine_image.architecture,
                                          machine_image.agent_version if hasattr(machine_image, 'agent_version') else None,
                                          machine_image.status])
+
+        machine_image_table.align = 'l'
         print(machine_image_table)
