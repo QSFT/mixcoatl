@@ -20,5 +20,9 @@ if __name__ == '__main__':
     else:
         account_table = PrettyTable(["Account ID", "Account Name", "Default Budget", "Status"])
         for account in accounts:
-            account_table.add_row([account.account_id, account.name, account.default_budget, account.status])
+            account_table.add_row([account.account_id,
+                                   account.name,
+                                   account.default_budget,
+                                   account.status])
+        account_table.align = 'l'
         print(account_table)
