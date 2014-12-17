@@ -39,4 +39,5 @@ if __name__ == '__main__':
                                        "%s %.2f" % (billingcode.projected_usage['currency'],
                                        billingcode.projected_usage['value']), billingcode.status])
 
+        billingcode_table.align = 'l'
         print(billingcode_table)
