@@ -46,6 +46,10 @@ if __name__ == '__main__':
                 group_table.add_row([group.group_id, group.name, group.description, group.status])
         elif hasattr(user, 'groups'):
             for group in user.groups:
-                group_table.add_row([group['group_id'], group['name'], group['description'], group['status']])
+                group_table.add_row([group['group_id'],
+                                     group['name'],
+                                     group['description'],
+                                     group['status']])
 
+        group_table.align = 'l'
         print(group_table)
