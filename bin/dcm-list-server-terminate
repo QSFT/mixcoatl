@@ -24,9 +24,15 @@ if __name__ == '__main__':
         curtime = datetime.strptime(cur, '%Y-%m-%d %H:%M:%S.%f')
 
         for server in servers:
-            try:
-                owning_user = server.owning_user['email']
-            except AttributeError:
+            if hasattr(server, 'owning_user'):
+                if hasattr(server.owning_user, 'email'):
+                    try:
+                        owning_user = server.owning_user['email']
+                    except AttributeError:
+                        owning_user = "Not Found"
+                else:
+                    owning_user = "Not Found"
+            else:
                 owning_user = "Not Found"
 
             try:
