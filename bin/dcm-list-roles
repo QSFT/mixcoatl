@@ -23,4 +23,6 @@ if __name__ == '__main__':
         for role in all_roles:
             role_table.add_row([role.role_id, role.name, role.description, role.status])
 
+        role_table.align = 'l'
+
         print(role_table)

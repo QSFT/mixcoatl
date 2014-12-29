@@ -13,6 +13,7 @@ if __name__ == '__main__':
 
     s = Server(cmd_args.serverid)
     result = s.load()
+    print s
 
     if result is not None:
         print("Cannot find the server by the ID.")
@@ -25,25 +26,30 @@ if __name__ == '__main__':
         server_table.add_row(["Server ID", s.server_id])
         server_table.add_row(["Name", s.name])
         server_table.add_row(["Machine Image ID", s.machine_image['machine_image_id']])
-        server_table.add_row(["Machine Image Name", s.machine_image['name']])
+        if hasattr(s, 'machine_image_name'):
+            server_table.add_row(["Machine Image Name", s.machine_image['name']])
+        else:
+            server_table.add_row(["Machine Image Name", None])
         server_table.add_row(["Architecture", s.architecture])
         server_table.add_row(["Product Size", s.provider_product_id])
-        if hasattr(s,'public_ip_address'):
+        if hasattr(s, 'public_ip_address'):
             server_table.add_row(["Public IP Address", s.public_ip_address])
-        elif hasattr(s,'public_ip_addresses'):
+        elif hasattr(s, 'public_ip_addresses'):
             server_table.add_row(["Public IP Address", ",".join(s.public_ip_addresses)])
         else:
             server_table.add_row(["Public IP Address", None])
-        if hasattr(s,'private_ip_addresses'):
+        if hasattr(s, 'private_ip_addresses'):
             for private_ip_address in s.private_ip_addresses:
                 server_table.add_row(["Private IP Address", private_ip_address])
         else:
             server_table.add_row(["Private IP Address", None])
-        server_table.add_row(["Region ID", s.data_center['region']['region_id']])
         server_table.add_row(["Datacenter ID", s.data_center['data_center_id']])
-        server_table.add_row(["Datacenter Name", s.data_center['name']])
+        if hasattr(s.data_center, 'name'):
+            server_table.add_row(["Datacenter Name", s.data_center['name']])
+        else:
+            server_table.add_row(["Datacenter Name", None ])
         server_table.add_row(["Budget ID", s.budget])
-        if hasattr(s,'owning_user'):
+        if hasattr(s, 'owning_user'):
             server_table.add_row(["Owning User ID", s.owning_user['user_id']])
             server_table.add_row(["Owning User Name", s.owning_user['alpha_name']])
             server_table.add_row(["Owning User Email", s.owning_user['email']])
@@ -51,7 +57,7 @@ if __name__ == '__main__':
             server_table.add_row(["Owning User ID", None])
             server_table.add_row(["Owning User Name", None])
             server_table.add_row(["Owning User Email", None])
-        if hasattr(s,'owning_groups'):
+        if hasattr(s, 'owning_groups'):
             server_table.add_row(["Owning Group ID", s.owning_groups[0]['group_id']])
             server_table.add_row(["Owning Group Name", s.owning_groups[0]['name']])
         else:

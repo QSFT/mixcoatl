@@ -11,7 +11,6 @@ if __name__ == '__main__':
     parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
 
     cmd_args = parser.parse_args()
-
     regions = Region.all()
 
     if cmd_args.verbose:
@@ -20,6 +19,11 @@ if __name__ == '__main__':
     else:
         region_table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
         for region in regions:
-            region_table.add_row([region.region_id, region.provider_id, region.cloud['cloud_provider_name'],
-                                  region.name, region.description, region.status])
+            region_table.add_row([region.region_id,
+            region.provider_id,
+            region.cloud['cloud_provider_name'] if hasattr(region,'cloud_provider_name') else region.cloud['cloud_id'],
+            region.name if hasattr(region, 'name') else region.region_id,
+            region.description,
+            region.status])
+        region_table.align = 'l'
         print(region_table)

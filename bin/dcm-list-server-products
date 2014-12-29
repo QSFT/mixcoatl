@@ -23,6 +23,13 @@ if __name__ == '__main__':
     else:
         sp_table = PrettyTable(["Server Product ID", "Provider Region ID", "Provider Product ID", "Name", "Platform", "Currency", "Hourly Rate"])
         for sp in server_products:
-            sp_table.add_row([sp.product_id, sp.provider_region_id, sp.provider_product_id, sp.name,
-                              sp.platform, sp.currency, sp.hourly_rate])
+            print sp
+            sp_table.add_row([sp.product_id,
+                              sp.provider_region_id if hasattr(sp,'provider_region_id') else None,
+                              sp.provider_product_id if hasattr(sp,'provider_product_id') else None,
+                              sp.name if hasattr(sp,'name') else None,
+                              sp.platform if hasattr(sp, 'platform') else None,
+                              sp.currency if hasattr(sp, 'currency') else None,
+                              sp.hourly_rate if hasattr(sp, 'hourly_rate') else None])
+        sp_table.align = 'l'
         print(sp_table)

@@ -24,5 +24,9 @@ if __name__ == '__main__':
         cma_table.sortby = 'Account ID'
         for cma in cmas:
             cm_system_name = cm_system[str(cma.cm_service['cm_system']['cm_system_id'])]
-            cma_table.add_row([cma.cm_account_id, cma.name, cm_system_name, cma.status])
+            cma_table.add_row([cma.cm_account_id,
+                               cma.name,
+                               cm_system_name,
+                               cma.status])
+        cma_table.align = 'l'
         print(cma_table)

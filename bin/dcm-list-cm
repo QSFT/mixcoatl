@@ -19,13 +19,18 @@ if __name__ == '__main__':
         cm_table = PrettyTable(["ID", "Type", "Description", "Endpoint", "Status"])
         cm_list = []
         for cm in cms:
-        	cm_system_id = cm.cm_service['cm_system']['cm_system_id']
-        	if cm_system_id == 1:
-        		cm_type = "Chef"
-        	elif cm_system_id == 2:
-        		cm_type = "Puppet"
-        	elif cm_system_id == 3:
-        		cm_type = "Object Store"
-        	cm_table.add_row([cm.cm_account_id, cm_type, cm.description, cm.cm_service['service_endpoint'], cm.status])
+            cm_system_id = cm.cm_service['cm_system']['cm_system_id']
+            if cm_system_id == 1:
+                cm_type = "Chef"
+            elif cm_system_id == 2:
+                cm_type = "Puppet"
+            elif cm_system_id == 3:
+                cm_type = "Object Store"
+            cm_table.add_row([cm.cm_account_id,
+                              cm_type,
+                              cm.description,
+                              cm.cm_service['service_endpoint'],
+                              cm.status])
 
-    	print cm_table
+        cm_table.align = 'l'
+        print cm_table
