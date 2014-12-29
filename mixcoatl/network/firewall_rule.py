@@ -179,18 +179,19 @@ class FirewallRule(Resource):
         :raises: :class:`FirewallRuleException`
         """
 
-        params = {}
-        r = Resource(cls.PATH)
-        r.request_details = 'none'
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
-            request_details = 'extended'
+            request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
+
+        params = {}
+        r = Resource(cls.PATH)
+        r.request_details = 'none'
 
         params['firewallId'] = firewall_id
         x = r.get(params=params)
@@ -204,7 +205,7 @@ class FirewallRule(Resource):
                     key = i[camelize(cls.PRIMARY_KEY)]
                     rule = cls(key)
                     rule.request_details = request_details
-                    rule.load()
+                    rule.load(params=params)
                     rules.append(rule)
             return rules
         else:

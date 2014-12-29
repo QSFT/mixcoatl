@@ -6,41 +6,58 @@ from datetime import datetime
 import argparse, sys
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('--all', '-a', help='List all servers.', action="store_true")
-	parser.add_argument('--serverid', '-s', help='Server ID')
-	cmd_args = parser.parse_args()
-	
-	if cmd_args.all or cmd_args.serverid:
-		if cmd_args.serverid:
-			servers = [ Server(cmd_args.serverid) ]
-		else:
-			servers = Server.all()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--all', '-a', help='List all servers.', action="store_true")
+    parser.add_argument('--serverid', '-s', help='Server ID')
+    cmd_args = parser.parse_args()
 
-		server_table = PrettyTable(["ID", "Cloud", "Region", "Provider ID", "Server Name", "Owner", "Status", "Termination"])
-	
-		cur = str(datetime.utcnow())
-		curtime = datetime.strptime(cur, '%Y-%m-%d %H:%M:%S.%f')
-		
-		for server in servers:
-			try:
-				owning_user=server.owning_user['email']
-			except AttributeError:
-				owning_user="Not Found"
-	
-			try:
-				terminate_after=server.terminate_after
-				terminate_after_seconds=datetime.strptime(terminate_after.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
-				diff = round(((terminate_after_seconds - curtime).total_seconds() / 60) / 60, 2)
-				newdiff = str(diff)+" hours"
-			except AttributeError:
-				terminate_after=None
-				newdiff = "Never"
-	
-			#if terminate_after is not None:
-			server_table.add_row([server.server_id, server.cloud['cloud_provider_name'], server.region['name'], server.provider_id, server.name, owning_user, server.status, newdiff])
+    if cmd_args.all or cmd_args.serverid:
+        if cmd_args.serverid:
+            servers = [Server(cmd_args.serverid)]
+        else:
+            servers = Server.all()
 
-		print(server_table)
-	else:
-		parser.print_help()
-		sys.exit(1)	
+        server_table = PrettyTable(
+            ["ID", "Cloud", "Region", "Provider ID", "Server Name", "Owner", "Status", "Termination"])
+
+        cur = str(datetime.utcnow())
+        curtime = datetime.strptime(cur, '%Y-%m-%d %H:%M:%S.%f')
+
+        for server in servers:
+            if hasattr(server, 'owning_user'):
+                if hasattr(server.owning_user, 'email'):
+                    try:
+                        owning_user = server.owning_user['email']
+                    except AttributeError:
+                        owning_user = "Not Found"
+                else:
+                    owning_user = "Not Found"
+            else:
+                owning_user = "Not Found"
+
+            try:
+                terminate_after = server.terminate_after
+                terminate_after_seconds = datetime.strptime(terminate_after.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
+                diff = round(((terminate_after_seconds - curtime).total_seconds() / 60) / 60, 2)
+                newdiff = str(diff) + " hours"
+            except AttributeError:
+                terminate_after = None
+                newdiff = "Never"
+
+            # if terminate_after is not None:
+            server_table.add_row(
+                [server.server_id,
+                 server.cloud['cloud_provider_name'] if hasattr(server.cloud,'cloud_provider_name') else server.cloud['cloud_id'],
+                 server.region['name'] if hasattr(server.region, 'name') else server.region['region_id'],
+                 server.provider_id,
+                 server.name,
+                 owning_user,
+                 server.status,
+                 newdiff])
+
+        server_table.align = 'l'
+
+        print(server_table)
+    else:
+        parser.print_help()
+        sys.exit(1)

@@ -31,20 +31,34 @@ if __name__ == '__main__':
     else:
         parser.print_help()
         sys.exit(1)
-        
-    volumes = resource_utils.get_volumes(volumes, vm_login_id=cmd_args.userid, email=cmd_args.email,
-                                         group_id=cmd_args.groupid, budget_id=cmd_args.budgetid,
-                                         size=cmd_args.minsize)
+
+    volumes = resource_utils.get_volumes(volumes, vm_login_id=cmd_args.userid, email=cmd_args.email, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid, size=cmd_args.minsize)
 
     if cmd_args.verbose:
         for volume in volumes:
             volume.pprint()
     else:
-        volume_table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Volume Name", "Current Server",
-                                    "Size", "Owner", "Status"])
+        volume_table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Status"])
         for volume in volumes:
-            volume_table.add_row([volume.volume_id, volume.provider_id, volume.data_center['name'], volume.name,
-                                  volume.server['name'] if hasattr(volume, 'server') else None, volume.size_in_gb,
-                                  volume.owning_user['alpha_name'] if hasattr(volume, 'owning_user') else None,
-                                  volume.status])
+            if hasattr(volume, 'owning_user'):
+                if hasattr(volume.owning_user, 'alpha_name'):
+                    try:
+                        owning_user = volume.owning_user['alpha_name']
+                    except AttributeError:
+                        owning_user = "Not Found"
+                else:
+                    owning_user = "Not Found"
+            else:
+                owning_user = "Not Found"
+
+            volume_table.add_row([volume.volume_id,
+            volume.provider_id,
+            volume.data_center['name'] if hasattr(volume.data_center,'name') else volume.data_center['data_center_id'],
+            volume.name,
+            volume.server['server_id'] if hasattr(volume,'server') else None,
+            volume.size_in_gb,
+            owning_user,
+            volume.status])
+
+        volume_table.align = 'l'
         print(volume_table)

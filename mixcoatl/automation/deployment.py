@@ -8,6 +8,7 @@ from mixcoatl.admin.job import Job
 import json
 import time
 
+
 class Deployment(Resource):
     PATH = 'automation/Deployment'
     COLLECTION_NAME = 'deployments'
@@ -135,7 +136,7 @@ class Deployment(Resource):
         else:
             return r.last_error
 
-    @required_attrs(['name', 'description','budget','region'])
+    @required_attrs(['name', 'description', 'budget', 'region'])
     def create(self, callback=None):
         """Creates a new deployment
 
@@ -144,21 +145,22 @@ class Deployment(Resource):
         """
 
         parms = [{'budget': self.budget,
-                    'regionId': self.region,
-                    'description': self.description,
-										'name': self.name}]
+                  'regionId': self.region,
+                  'description': self.description,
+                  'name': self.name}]
 
+        payload = {'addDeployment': camel_keys(parms)}
 
-        payload = {'addDeployment':camel_keys(parms)}
-
-        response=self.post(data=json.dumps(payload))
+        response = self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
             return response
         else:
             raise DeploymentCreationException(self.last_error)
 
+
 class DeploymentException(BaseException): pass
+
 
 class DeploymentCreationException(DeploymentException):
     """Deployment Creation Exception"""

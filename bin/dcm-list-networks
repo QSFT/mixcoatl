@@ -28,4 +28,5 @@ if __name__ == '__main__':
     for network in networks:
         network_table.add_row([network.network_id, network.region['region_id'], network.name,
                                network.provider_id, network.network_type, network.network_address])
+    network_table.align = 'l'
     print(network_table)

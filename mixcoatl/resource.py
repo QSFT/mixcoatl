@@ -50,7 +50,7 @@ class Resource(object):
     #: The unique identifier of an individual resource
     PRIMARY_KEY = None
 
-    def __init__(self, base_path=None, request_details = 'extended', **kwargs):
+    def __init__(self, base_path=None, request_details = 'basic', **kwargs):
 
         if base_path is None:
             try:
@@ -64,7 +64,7 @@ class Resource(object):
             self.__request_details = kwargs['request_details']
             del kwargs['request_details']
         else:
-            self.__request_details = 'extended'
+            self.__request_details = 'basic'
 
         if 'params' in kwargs:
             self.__params = kwargs['params']
@@ -166,14 +166,19 @@ class Resource(object):
     def params(self, p):
         self.__params = p
 
-    def load(self):
+    def load(self, **kwargs):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
         reserved_words = ['type']
         p = self.PATH+"/"+str(getattr(self, self.__class__.PRIMARY_KEY))
 
+        if 'params' in kwargs:
+            params = kwargs['params']
+        else:
+            params = camel_keys(self.params)
+
         #self.request_details = 'extended'
-        s = self.get(p, params=camel_keys(self.params))
+        s = self.get(p, params=params)
         if self.last_error is None:
             scope = uncamel_keys(s[self.__class__.COLLECTION_NAME][0])
             for k in scope.keys():

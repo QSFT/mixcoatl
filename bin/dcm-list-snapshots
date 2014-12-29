@@ -54,8 +54,12 @@ if __name__ == '__main__':
             if not budget_name_cache.has_key(snapshot.budget):
                 budget_name_cache[snapshot.budget] = BillingCode(snapshot.budget).name
             budget_name = budget_name_cache[snapshot.budget]
-            snapshot_table.add_row([snapshot.snapshot_id, snapshot.provider_id, snapshot.name,
+            snapshot_table.add_row([snapshot.snapshot_id,
+                                    snapshot.provider_id,
+                                    snapshot.name,
                                     snapshot.owning_groups[0]['name'] if hasattr(snapshot, 'owning_groups') else None, 
-                                    budget_name, snapshot.created_timestamp])
+                                    budget_name,
+                                    snapshot.created_timestamp])
 
+        snapshot_table.align = 'l'
         print(snapshot_table)
