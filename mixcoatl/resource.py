@@ -166,14 +166,19 @@ class Resource(object):
     def params(self, p):
         self.__params = p
 
-    def load(self):
+    def load(self, **kwargs):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
         reserved_words = ['type']
         p = self.PATH+"/"+str(getattr(self, self.__class__.PRIMARY_KEY))
 
+        if 'params' in kwargs:
+            params = kwargs['params']
+        else:
+            params = camel_keys(self.params)
+
         #self.request_details = 'extended'
-        s = self.get(p, params=camel_keys(self.params))
+        s = self.get(p, params=params)
         if self.last_error is None:
             scope = uncamel_keys(s[self.__class__.COLLECTION_NAME][0])
             for k in scope.keys():
