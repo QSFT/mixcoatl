@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+
+import json, urllib2, argparse, sys
+from distutils.version import StrictVersion
+from mixcoatl import __version__
+
+def versions(package_name):
+    url = "https://pypi.python.org/pypi/%s/json" % (package_name,)
+    data = json.load(urllib2.urlopen(urllib2.Request(url)))
+    versions = data["releases"].keys()
+    versions.sort(key=StrictVersion)
+    versions.reverse()
+    return versions
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--version', '-v', help='List current and available versions.', action="store_true")
+    cmd_args = parser.parse_args()
+
+    if cmd_args.version:
+		print "Mixcoatl version installed:",__version__
+		print "All available versions:"
+		print "\t".join(versions("mixcoatl"))
+    else:
+        parser.print_help()
+        sys.exit(1)
