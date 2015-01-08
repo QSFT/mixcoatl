@@ -370,8 +370,8 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        payload = {'provisionUser':[{'userId': user_id}]}
 
+        payload = {'provisionUser':[{'user': {'userId': user_id}}]}
         if admin_role is not None:
             payload['provisionUser'][0].update({'adminRole': admin_role})
 
