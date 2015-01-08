@@ -225,7 +225,7 @@ class Resource(object):
 
         results = r.request(method, url, headers=headers, verify=ssl_verify, **kwargs)
 
-        if os.environ['DCM_DEBUG'] == '1':
+        if 'DCM_DEBUG' in os.environ:
             print "URL: %s" % (url)
             for key, value in kwargs.iteritems():
                 print "%s = %s" % (key, value)
