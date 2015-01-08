@@ -362,6 +362,22 @@ class Server(Resource):
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
+    def provision_user(self, user_id, admin_role=None):
+        """Stop the server instance with reason :attr:`reason`
+
+        :param reason: The reason for stopping the server
+        :type reason: str.
+        :returns: Job -- Result of API call
+        """
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        payload = {'provisionUser':[{'userId': user_id}]}
+
+        if admin_role is not None:
+            payload['provisionUser'][0].update({'adminRole': admin_role})
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['server_id'])
     def stop(self, reason=None):
         """Stop the server instance with reason :attr:`reason`
 
