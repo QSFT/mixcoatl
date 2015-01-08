@@ -3,6 +3,7 @@ mixcoatl.resource
 ------------------
 
 """
+import os
 from mixcoatl.settings.load_settings import settings
 import mixcoatl.auth as auth
 import requests as r
@@ -223,6 +224,13 @@ class Resource(object):
         'User-Agent': sig['ua']}
 
         results = r.request(method, url, headers=headers, verify=ssl_verify, **kwargs)
+
+        if os.environ['DCM_DEBUG'] == '1':
+            print "URL: %s" % (url)
+            for key, value in kwargs.iteritems():
+                print "%s = %s" % (key, value)
+            for key, value in results.headers.iteritems():
+                print "Headers: %s = %s" % (key, value)
 
         self.last_error = None
         self.last_request = results
