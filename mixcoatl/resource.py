@@ -1,7 +1,6 @@
 """
 mixcoatl.resource
 ------------------
-
 """
 import os
 from mixcoatl.settings.load_settings import settings
@@ -52,7 +51,6 @@ class Resource(object):
     PRIMARY_KEY = None
 
     def __init__(self, base_path=None, request_details = 'basic', **kwargs):
-
         if base_path is None:
             try:
                 self.__path = self.__class__.PATH
@@ -71,6 +69,7 @@ class Resource(object):
             self.__params = kwargs['params']
         else:
             self.__params = {}
+
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None

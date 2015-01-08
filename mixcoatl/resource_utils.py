@@ -1,7 +1,16 @@
+import json
+import xml.dom.minidom
 from mixcoatl.admin.billing_code import BillingCode
 from mixcoatl.geography.region import Region
 from mixcoatl.admin.group import Group
 from mixcoatl.admin.user import User
+
+def print_format(data, payload_format):
+    if payload_format == "xml":
+        print xml.dom.minidom.parseString(data).toxml()
+        return xml.dom.minidom.parseString(data).toxml()
+    else:
+        return json.dumps(json.loads(data), sort_keys=True)
 
 def get_servers(servers, **kwargs):
     """ Returns a list of servers
