@@ -3,9 +3,9 @@ mixcoatl.resource
 ------------------
 """
 import os
-from mixcoatl.settings.load_settings import settings
-import mixcoatl.auth as auth
 import requests as r
+import mixcoatl.auth as auth
+from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
 
