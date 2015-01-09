@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-import argparse
-import sys
-from mixcoatl import resource, resource_utils
+import os, sys, argparse, time
+from mixcoatl import resource, utils
 from prettytable import PrettyTable
 
 if __name__ == '__main__':
     """ List regions. """
+    start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('--extended', action='store_true', help='set level of API response detail to extended.')
     group_one = parser.add_mutually_exclusive_group()
@@ -27,17 +27,23 @@ if __name__ == '__main__':
         r.payload_format = 'json'
 
     result = r.get(params=None)
-    if cmd_args.xml is True or cmd_args.json is True:
-        print resource_utils.print_format(r.last_request.content, r.payload_format)
+    if r.last_error is not None:
+        print utils.print_error(r.last_error, r.payload_format)
     else:
-        region_table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
-        for region in result['regions']:
-            region_table.add_row([
-                region['regionId'],
-                region['providerId'],
-                region.cloud['cloud_provider_name'] if hasattr(region,'cloud_provider_name') else region['cloud']['cloudId'],
-                region.name if hasattr(region, 'name') else region['regionId'],
-                region['description'],
-                region['status']])
-        region_table.align = 'l'
-        print(region_table)
+        if cmd_args.xml is True or cmd_args.json is True:
+            print utils.print_format(r.last_request.content, r.payload_format)
+        else:
+            table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
+            for r in result['regions']:
+                table.add_row([
+                    r['regionId'],
+                    r['providerId'],
+                    r.cloud['cloud_provider_name'] if hasattr(r,'cloud_provider_name') else r['cloud']['cloudId'],
+                    r.name if hasattr(r, 'name') else r['regionId'],
+                    r['description'],
+                    r['status']])
+            table.align = 'l'
+            print(table)
+
+        if 'DCM_DEBUG' in os.environ:
+            print 'Results returned in', time.time()-start, 'seconds.'
