@@ -370,10 +370,11 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        payload = {'provisionUser':[{'userId': user_id}]}
 
+        user_dict = {'userId': user_id}
         if admin_role is not None:
-            payload['provisionUser'][0].update({'adminRole': admin_role})
+            user_dict['adminRole'] = admin_role
+        payload = {'provisionUser':[{'user': user_dict}]}
 
         return self.put(p, data=json.dumps(payload))
 
