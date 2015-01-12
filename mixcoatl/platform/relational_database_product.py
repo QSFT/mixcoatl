@@ -144,9 +144,11 @@ class RelationalDatabaseProduct(Resource):
         s = r.get(params=qopts)
 
         if r.last_error is None:
-            relational_database_products = [cls(relational_database_product['productId']) for relational_database_product in s[cls.COLLECTION_NAME]]
-            return relational_database_products
+            #relational_database_products = [cls(relational_database_product['productId']) for relational_database_product in s[cls.COLLECTION_NAME]]
+            return s
         else:
             raise RelationalDatabaseProductException(r.last_error)
 
-class RelationalDatabaseProductException(BaseException): pass
+
+class RelationalDatabaseProductException(BaseException):
+    pass

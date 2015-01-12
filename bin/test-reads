@@ -41,7 +41,7 @@ for i in `ls bin/dcm-list-*`; do
 			$i -a > /dev/null 2>&1
 			;;
 		bin/dcm-list-volumes)
-			$i -a > /dev/null 2>&1
+			$i > /dev/null 2>&1
 			;;
 		bin/dcm-list-snapshots)
 			$i -r $regionid > /dev/null 2>&1

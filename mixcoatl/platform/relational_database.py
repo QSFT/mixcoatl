@@ -332,10 +332,15 @@ class RelationalDatabase(Resource):
           params = []
         s = r.get(params=params)
         if r.last_error is None:
-            relational_databases = [cls(relational_database['relationalDatabaseId']) for relational_database in s[cls.COLLECTION_NAME]]
-            return relational_databases
+            #relational_databases = [cls(relational_database['relationalDatabaseId']) for relational_database in s[cls.COLLECTION_NAME]]
+            return s
         else:
             raise RelationalDatabaseException(r.last_error)
 
-class RelationalDatabaseException(BaseException): pass
-class RelationalDatabaseLaunchException(RelationalDatabaseException): pass
+
+class RelationalDatabaseException(BaseException):
+    pass
+
+
+class RelationalDatabaseLaunchException(RelationalDatabaseException):
+    pass
