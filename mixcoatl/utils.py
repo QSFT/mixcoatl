@@ -1,20 +1,13 @@
 import json
-import xml.dom.minidom
+from dicttoxml import dicttoxml
 
 """Common helper utilities for use with mixcoatl"""
 
-def print_error(error, payload_format):
-    data = {"error":error}
-    if payload_format == "xml":
-        return xml.dom.minidom.parseString(data).toxml() 
-    else:
-        return json.dumps(data, sort_keys=True)
-
 def print_format(data, payload_format):
     if payload_format == "xml":
-        return xml.dom.minidom.parseString(data).toxml()
+        return dicttoxml(data)
     else:
-        return json.dumps(json.loads(data), sort_keys=True)
+        return json.dumps(data, sort_keys=True)
 
 def uncamel(val):
     """Return the snake case version of :attr:`str`
