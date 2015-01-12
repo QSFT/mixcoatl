@@ -21,26 +21,26 @@ Usage notes
 
 The following environment variables will need to be set:
 
-- ``ES_SECRET_KEY``
-- ``ES_ACCESS_KEY``
+- ``DCM_SECRET_KEY``
+- ``DCM_ACCESS_KEY``
 
 By default, API calls will be made against the DCM production SaaS and API
-version ``2012-06-15``. These can be overridden with the following variables:
+version ``2014-07-30``. These can be overridden with the following variables:
 
-- ``ES_ENDPOINT``
-- ``ES_API_VERSION``
+- ``DCM_ENDPOINT``
+- ``DCM_API_VERSION``
 
 When overriding the endpoint, it should be in the form:
 
 ``http[s]://api.endpoint.domain/api/enstratus/<api version>``
 
-Note that setting both ``ES_API_VERSION`` and ``ES_ENDPOINT`` is not
+Note that setting both ``DCM_API_VERSION`` and ``DCM_ENDPOINT`` is not
 cumulative. If you wish to use a private endpoint, it must include the version
 in the URL.
 
-- ``ES_SSL_VERIFY``
+- ``DCM_SSL_VERIFY``
 
-By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, ``ES_SSL_VERIFY=0``
+By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, ``DCM_SSL_VERIFY=0``
 
 ``dcm-get``
 -----------
