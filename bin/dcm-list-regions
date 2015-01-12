@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import os, sys, argparse, time
-from mixcoatl import resource, utils
+from mixcoatl.geography.region import Region
+from mixcoatl import utils
 from prettytable import PrettyTable
 
 if __name__ == '__main__':
@@ -14,36 +15,27 @@ if __name__ == '__main__':
     group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    r = resource.Resource("geography/Region")
+    regions = Region.all()
 
-    if cmd_args.extended is True:
-        r.request_details = 'extended'
-    else:
-        r.request_details = 'basic'
-
-    if cmd_args.xml is True:
-        r.payload_format = 'xml'
-    else:
-        r.payload_format = 'json'
-
-    result = r.get(params=None)
-    if r.last_error is not None:
-        print utils.print_error(r.last_error, r.payload_format)
-    else:
-        if cmd_args.xml is True or cmd_args.json is True:
-            print utils.print_format(r.last_request.content, r.payload_format)
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = 'xml'
         else:
-            table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
-            for r in result['regions']:
-                table.add_row([
-                    r['regionId'],
-                    r['providerId'],
-                    r.cloud['cloud_provider_name'] if hasattr(r,'cloud_provider_name') else r['cloud']['cloudId'],
-                    r.name if hasattr(r, 'name') else r['regionId'],
-                    r['description'],
-                    r['status']])
-            table.align = 'l'
-            print(table)
+            payload_format = 'json'
 
-        if 'DCM_DEBUG' in os.environ:
-            print 'Results returned in', time.time()-start, 'seconds.'
+        print utils.print_format(regions, payload_format)
+    else:
+        table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
+        for r in regions['regions']:
+            table.add_row([
+                r['regionId'],
+                r['providerId'],
+                r.cloud['cloud_provider_name'] if hasattr(r,'cloud_provider_name') else r['cloud']['cloudId'],
+                r.name if hasattr(r, 'name') else r['regionId'],
+                r['description'],
+                r['status']])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
