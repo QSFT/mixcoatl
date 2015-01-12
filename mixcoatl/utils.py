@@ -1,11 +1,12 @@
 import json
-from dicttoxml import dicttoxml
 
 """Common helper utilities for use with mixcoatl"""
 
 def print_format(data, payload_format):
+    import dicttoxml
+
     if payload_format == "xml":
-        return dicttoxml(data)
+        return dicttoxml.dicttoxml(data)
     else:
         return json.dumps(data, sort_keys=True)
 
