@@ -177,9 +177,7 @@ class Volume(Resource):
         :returns: :class:`Volume`
         :raises: :class:`VolumeException`
         """
-
-        payload = {'attach':[{
-                            'server':{'server_id': server_id}}]}
+        payload = {'attach':[{'server':{'server_id': server_id}}]}
 
         if device_id is not None:
             payload['attach'][0]['device_id'] = device_id
@@ -222,7 +220,6 @@ class Volume(Resource):
         :returns: :class:`Job`
         :raises: :class:`VolumeCreationException`
         """
-
         optional_attrs = ['label']
         if self.volume_id is not None:
             raise VolumeCreationException('Cannot create an already created volume: %s' % self.volume_id)
