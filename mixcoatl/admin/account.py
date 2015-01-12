@@ -2,21 +2,22 @@
 mixcoatl.admin.account
 ----------------------
 
-Implements access to the enStratus Account API
+Implements access to the DCM Account API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 import json
 
+
 class Account(Resource):
-    """An account object represents an enStratus account held by an enStratus customer."""
+    """An account object represents an DCM account held by an DCM customer."""
 
     PATH = 'admin/Account'
     COLLECTION_NAME = 'accounts'
     PRIMARY_KEY = 'account_id'
 
-    def __init__(self, account_id = None, *args, **kwargs):
+    def __init__(self, account_id=None, *args, **kwargs):
         Resource.__init__(self)
         self.__account_id = account_id
 
@@ -32,7 +33,7 @@ class Account(Resource):
 
     @lazy_property
     def billing_system_id(self):
-        """`int` - The ID associated with this account that may appear on invoices."""
+        """`int` - The ID that may appear on invoices."""
         return self.__billing_system_id
 
     @lazy_property
@@ -47,17 +48,17 @@ class Account(Resource):
 
     @lazy_property
     def configured(self):
-        """`bool` - Has this account has been tied to an account with a cloud provider"""
+        """`bool` - Has account has been tied to an account with a cloud"""
         return self.__configured
 
     @lazy_property
     def customer(self):
-        """`dict` - The enStratus customer record to which this account belongs"""
+        """`dict` - The DCM customer record to which this account belongs"""
         return self.__customer
 
     @lazy_property
     def default_budget(self):
-        """The unique id of the billing code that is the default for discovered resources"""
+        """The billing id that is the default for discovered resources"""
         return self.__default_budget
 
     @lazy_property
@@ -92,12 +93,11 @@ class Account(Resource):
 
     @lazy_property
     def subscribed(self):
-        """`bool` - If the account is configured and the cloud account is working with enStratus"""
+        """`bool` - If the account is configured & working with DCM"""
         return self.__subscribed
 
-
     @classmethod
-    def all(cls, keys_only = False, **kwargs):
+    def all(cls, keys_only=False, **kwargs):
         """Get all accounts
 
         >>> Account.all(detail='basic')
@@ -132,10 +132,10 @@ class Account(Resource):
             if keys_only is True:
                 return [i[camelize(cls.PRIMARY_KEY)] for i in c[cls.COLLECTION_NAME]]
             else:
-                return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in c[cls.COLLECTION_NAME]]
+                return c
         else:
             raise AccountException(r.last_error)
-    
+
     def assign_cloud(self, cloud_id, account_number, api_key_id, api_key_secret):
         """ Associate this account with the cloud and supporting credentials specified.
 
@@ -158,7 +158,7 @@ class Account(Resource):
                                'cloudId': cloud_id,
                                'accountNumber': account_number,
                                'apiKeyId': api_key_id,
-                               'apiKeySecret': api_key_secret }}}}
+                               'apiKeySecret': api_key_secret}}}}
         self.put(p, data=json.dumps(payload))
         if self.last_error is None:
             self.load()
@@ -166,5 +166,10 @@ class Account(Resource):
         else:
             raise AssignCloudException(self.last_error)
 
-class AccountException(BaseException): pass
-class AssignCloudException(AccountException): pass
+
+class AccountException(BaseException):
+    pass
+
+
+class AssignCloudException(AccountException):
+    pass

@@ -6,6 +6,7 @@ from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 
 if __name__ == '__main__':
+    """ List Volumes"""
     start = time.time()
     parser = argparse.ArgumentParser()
     region_args = parser.add_mutually_exclusive_group()
