@@ -9,7 +9,6 @@ if __name__ == '__main__':
     """ List regions. """
     start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--extended', action='store_true', help='set level of API response detail to extended.')
     group_one = parser.add_mutually_exclusive_group()
     group_one.add_argument('--json', action='store_true', help='print API response in JSON format.')
     group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
