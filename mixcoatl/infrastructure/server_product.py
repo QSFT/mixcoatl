@@ -1,4 +1,5 @@
 """Implements the enStratus ServerProduct API"""
+from mixcoatl.utils import uncamel_keys
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
@@ -99,7 +100,6 @@ class ServerProduct(Resource):
         :returns: `list` of :attr:`product_id` or :class:`ServerProduct`
         :raises: :class:`ServerProductException`
         """
-        from mixcoatl.utils import uncamel_keys
         r = Resource(cls.PATH)
         r.request_details = 'basic'
         params = {'regionId':region_id}
