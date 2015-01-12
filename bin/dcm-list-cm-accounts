@@ -1,32 +1,50 @@
 #!/usr/bin/env python
 
+import os
+import sys
+import time
+import pprint
+import argparse
+from mixcoatl import resource_utils, utils
 from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
 from prettytable import PrettyTable
-import argparse
 
-cm_system = { '1': 'Chef',
-              '2': 'Puppet',
-              '3': 'ObjectStore' }
 
 if __name__ == '__main__':
-    """ List Configuration Management Accounts."""
+    """ Returns a list of CM accounts. """
     parser = argparse.ArgumentParser()
-    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
-    cmd_args = parser.parse_args()
+    parser.add_argument('--verbose', '-v', help='Verbose', action="store_true")
 
-    cmas = ConfigurationManagementAccount.all()
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
+
+    cmd_args = parser.parse_args()
+    cms = ConfigurationManagementAccount.all()
 
     if cmd_args.verbose:
-        for cma in cmas:
-            cma.pprint()
-    else:
-        cma_table = PrettyTable(["Account ID", "Name", "System", "Status"])
-        cma_table.sortby = 'Account ID'
-        for cma in cmas:
-            cm_system_name = cm_system[str(cma.cm_service['cm_system']['cm_system_id'])]
-            cma_table.add_row([cma.cm_account_id,
-                               cma.name,
-                               cm_system_name,
-                               cma.status])
-        cma_table.align = 'l'
-        print(cma_table)
+        for cm in cms:
+            cm.pprint()
+        else:
+            if cmd_args.xml is True or cmd_args.json is True:
+                if cmd_args.xml is True:
+                    payload_format = "xml"
+                else:
+                    payload_format = "json"
+
+                print utils.print_format(cms, payload_format)
+            else:
+                table = PrettyTable(["Account ID", "Name", "System", "Status"])
+                for r in accounts['accounts']:
+                    table.add_row([
+                        r['accountId'],
+                        r['name'],
+                        r['defaultBudget'],
+                        r['status']])
+                    table.align = 'l'
+                print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

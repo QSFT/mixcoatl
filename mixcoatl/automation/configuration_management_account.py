@@ -2,6 +2,7 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
 
+
 class ConfigurationManagementAccount(Resource):
     PATH = 'automation/ConfigurationManagementAccount'
     COLLECTION_NAME = 'cmAccounts'
@@ -70,7 +71,7 @@ class ConfigurationManagementAccount(Resource):
     @lazy_property
     def owning_user(self):
         return self.__owning_user
-        
+
     @classmethod
     def all(cls, **kwargs):
         r = Resource(cls.PATH)
@@ -81,6 +82,6 @@ class ConfigurationManagementAccount(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
+            return x
         else:
             return x.last_error

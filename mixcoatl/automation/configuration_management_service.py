@@ -95,12 +95,15 @@ class ConfigurationManagementService(Resource):
 
         x = r.get()
         if r.last_error is None:
-            return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
+            return x
         else:
             return x.last_error
 
-class CMException(BaseException): pass
+
+class CMException(BaseException):
+    pass
 	
+
 class CMCreationException(CMException):
     """CM Creation Exception"""
     pass

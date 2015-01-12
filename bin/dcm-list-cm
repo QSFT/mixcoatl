@@ -1,36 +1,54 @@
 #!/usr/bin/env python
 
-from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
+import os
+import sys
+import time
+import pprint
+import argparse
+from mixcoatl import resource_utils, utils
+from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
 from prettytable import PrettyTable
-import argparse, pprint, sys
+
 
 if __name__ == '__main__':
-    """ Returns a list of CM accounts. """
+    """ Returns a list of CM services. """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+    parser.add_argument('--verbose', '-v', help='Verbose', action="store_true")
+
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
 
     cmd_args = parser.parse_args()
+    cms = ConfigurationManagementService.all()
+    cm_system = {'1': 'Chef', '2': 'Puppet', '3': 'ObjectStore'}
 
-    cms = ConfigurationManagementAccount.all()
     if cmd_args.verbose:
         for cm in cms:
             cm.pprint()
     else:
-        cm_table = PrettyTable(["ID", "Type", "Description", "Endpoint", "Status"])
-        cm_list = []
-        for cm in cms:
-            cm_system_id = cm.cm_service['cm_system']['cm_system_id']
-            if cm_system_id == 1:
-                cm_type = "Chef"
-            elif cm_system_id == 2:
-                cm_type = "Puppet"
-            elif cm_system_id == 3:
-                cm_type = "Object Store"
-            cm_table.add_row([cm.cm_account_id,
-                              cm_type,
-                              cm.description,
-                              cm.cm_service['service_endpoint'],
-                              cm.status])
+        if cmd_args.xml is True or cmd_args.json is True:
+            if cmd_args.xml is True:
+                payload_format = "xml"
+            else:
+                payload_format = "json"
 
-        cm_table.align = 'l'
-        print cm_table
+            print utils.print_format(cms, payload_format)
+        else:
+            table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
+            for r in cms['cmServices']:
+                cm_system_name = cm_system[str(r['cmSystem']['cmSystemId'])]
+                table.add_row([
+                    r['cmServiceId'],
+                    cm_system_name,
+                    r['customer']['customerId'],
+                    r['name'],
+                    r['serviceEndpoint'],
+                    r['status']])
+            table.align = 'l'
+            print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
