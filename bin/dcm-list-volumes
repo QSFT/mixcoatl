@@ -1,21 +1,26 @@
 #!/usr/bin/env python
 
-import os, sys, argparse, time
+from mixcoatl.infrastructure.volume import Volume
 from mixcoatl import resource, utils
+from mixcoatl import resource_utils
 from prettytable import PrettyTable
+import argparse
+import sys
 
 if __name__ == '__main__':
-    """ List Volumes. """
-    start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--extended', action='store_true', help='set level of API response detail to extended.')
+    region_args = parser.add_mutually_exclusive_group()
+    region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
+    region_args.add_argument('--regionpid', '-R', help="Region Provider ID such as us-east-1.")
 
-    group_one = parser.add_mutually_exclusive_group()
-    group_one.add_argument('--volumeid', '-v', type=int, help="Volume ID.")
+    user_args = parser.add_mutually_exclusive_group()
+    user_args.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
+    user_args.add_argument("--email", "-m", help="E-Mail address of owning user.")
 
-    parser.add_argument('--regionid', '-r', type=int, help="Region ID.")
-    parser.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
+    parser.add_argument("--groupid", "-g", type=int, help="Owning group's group ID.")
     parser.add_argument("--budgetid", "-b", type=int, help="Budget ID.")
+    parser.add_argument("--nonattached", "-n", help="List non-attached volumes.", action="store_true")
+    parser.add_argument("--minsize", type=int, help="Minimum size of the volumes.")
 
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true', help='print API response in JSON format.')
@@ -23,53 +28,34 @@ if __name__ == '__main__':
 
     cmd_args = parser.parse_args()
 
-    if cmd_args.volumeid is not None:
-        r = resource.Resource("infrastructure/Volume/"+str(cmd_args.volumeid))
-    else:
-        r = resource.Resource("infrastructure/Volume")
-
-    params = {}
-
-    if cmd_args.extended is True:
-        r.request_details = 'extended'
-    else:
-        r.request_details = 'basic'
-
     if cmd_args.regionid is not None:
-        params['regionId'] = cmd_args.regionid
-
-    if cmd_args.userid is not None:
-        params['userId'] = cmd_args.userid
-
-    if cmd_args.budgetid is not None:
-        params['budget'] = cmd_args.budgetid
-
-    if cmd_args.xml is True:
-        r.payload_format = 'xml'
+        volumes = Volume.all(region_id=cmd_args.regionid)
+    elif cmd_args.regionpid is not None:
+        volumes = Volume.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
     else:
-        r.payload_format = 'json'
+        volumes = Volume.all()
 
-    result = r.get(params=params)
-    if r.last_error is not None:
-        print utils.print_error(r.last_error, r.payload_format)
-    else:
-        if cmd_args.xml is True or cmd_args.json is True:
-            print utils.print_format(r.last_request.content, r.payload_format)
+    volumes = resource_utils.get_volumes(volumes, vm_login_id=cmd_args.userid, email=cmd_args.email, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid, size=cmd_args.minsize)
+
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
         else:
-            table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
-            for r in result['volumes']:
-                table.add_row([
-                    r['volumeId'],
-                    r['providerId'],
-                    r['dataCenter']['dataCenterId'],
-                    r['name'],
-                    r['server']['serverId'],
-                    r['sizeString'],
-                    r['owningAccount']['accountId'],
-                    r['budget'],
-                    r['status']])
-            table.align = 'l'
-            print(table)
+            payload_format = "json"
 
-        if 'DCM_DEBUG' in os.environ:
-            print 'Results returned in', time.time()-start, 'seconds.'
+        print utils.print_format(volumes, payload_format)
+    else:
+        table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
+        for r in volumes['volumes']:
+            table.add_row([
+                r['volumeId'],
+                r['providerId'],
+                r['dataCenter']['dataCenterId'],
+                r['name'],
+                r['server']['serverId'],
+                r['sizeString'],
+                r['owningAccount']['accountId'],
+                r['budget'],
+                r['status']])
+        table.align = 'l'
+        print(table)

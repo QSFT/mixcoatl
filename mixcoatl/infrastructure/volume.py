@@ -104,11 +104,6 @@ class Volume(Resource):
         """`list` - The groups who have ownership of this volume in enStratus"""
         return self.__owning_groups
 
-#    @owning_groups.setter
-#    def owning_groups(self, b):
-        # pylint: disable-msg=C0111,W0201
-#        self.__owning_groups = [{'group_id': b}]
-
     @lazy_property
     def size_in_gb(self):
         """`int` - The size of the volume if reported by the cloud provider"""
@@ -374,7 +369,6 @@ class Volume(Resource):
     @classmethod
     def all(cls, **kwargs):
         """List all volumes
-
         :param account_id: Restrict to volumes owned by `account_id`
         :type account_id: int.
         :param datacenter_id: Restrict to volumes based in `datacenter_id`
@@ -388,9 +382,10 @@ class Volume(Resource):
         :returns: `list` of :attr:`volume_id` or :class:`Volume`
         :raises: :class:`VolumeException`
         """
-        params = {}
         r = Resource(cls.PATH)
-        r.request_details = 'none'
+        r.request_details = 'basic'
+        params = {}
+
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
@@ -410,17 +405,11 @@ class Volume(Resource):
 
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
+                keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
                 volumes = keys
             else:
-                volumes = []
-                for i in x[cls.COLLECTION_NAME]:
-                    key = i[camelize(cls.PRIMARY_KEY)]
-                    volume = cls(key)
-                    volume.request_details = request_details
-                    volume.load()
-                    volumes.append(volume)
+                volumes = x
             return volumes
         else:
             raise VolumeException(r.last_error)
