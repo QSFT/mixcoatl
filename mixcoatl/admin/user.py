@@ -2,7 +2,7 @@
 mixcoatl.admin.user
 -------------------
 
-Implements access to the enStratus User API
+Implements access to the DCM User API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
@@ -12,8 +12,7 @@ import json
 import time
 
 class User(Resource):
-    """A user within the enStratus environment"""
-
+    """A user within the DCM environment"""
     PATH = 'admin/User'
     COLLECTION_NAME = 'users'
     PRIMARY_KEY = 'user_id'
@@ -268,11 +267,14 @@ class User(Resource):
             if keys_only is True:
                 return [i['userId'] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['userId']) for i in x[cls.COLLECTION_NAME]]
+                return x
         else:
             raise UserException(r.last_error)
 
-class UserException(BaseException): pass
+
+class UserException(BaseException):
+    pass
+
 
 class UserCreationException(UserException):
     """User Creation Exception"""
