@@ -4,8 +4,8 @@ from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.network.firewall_rule import FirewallRule
 from mixcoatl.utils import camelize, camel_keys
 from mixcoatl.admin.job import Job
-
 import json
+
 
 class Firewall(Resource):
     PATH = 'network/Firewall'
@@ -193,7 +193,6 @@ class Firewall(Resource):
 
         params = {}
         r = Resource(cls.PATH)
-        r.request_details = 'none'
 
         if 'detail' in kwargs:
             request_details = kwargs['detail']
@@ -213,15 +212,10 @@ class Firewall(Resource):
 
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
-                firewalls = keys
+                firewalls = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                firewalls = []
-                for key in keys:
-                    fw = cls(key, detail=request_details)
-                    fw.load()
-                    firewalls.append(fw)
+                firewalls = x
             return firewalls
         else:
             raise FirewallException(r.last_error)
