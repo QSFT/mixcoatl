@@ -113,13 +113,7 @@ class ServerProduct(Resource):
             if keys_only is True:
                 products = [item['productId'] for item in c[cls.COLLECTION_NAME]]
             else:
-                products = []
-                for i in c[cls.COLLECTION_NAME]:
-                    product = cls(i['productId'])
-                    if 'detail' in kwargs:
-                        product.request_details = kwargs['detail']
-                    product.load()
-                    products.append(product)
+                products = c
             return products
         else:
             raise ServerProductException(r.last_error)
