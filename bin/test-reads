@@ -31,7 +31,7 @@ region_id = random.choice(Region.all(keys_only=True))
 print "++ Defaulting to Region #"+str(region_id)
 tests = ['Region', 'Firewall', 'Account', 'DataCenter', 'MachineImage', 'Network', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
-for i in tests.sort():
+for i in tests:
 	params = None
 	start = time.time()
 
