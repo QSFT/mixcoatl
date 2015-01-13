@@ -122,14 +122,7 @@ class Cloud(Resource):
             if keys_only is True:
                 return [i['cloudId'] for i in c[cls.COLLECTION_NAME]]
             else:
-                clouds = []
-                for i in c[cls.COLLECTION_NAME]:
-                    cloud = cls(i['cloudId'])
-                    if 'detail' in kwargs:
-                        cloud.request_details = kwargs['detail']
-                    cloud.params = params
-                    cloud.load()
-                    clouds.append(cloud)
+                clouds = c
                 return clouds
         else:
             return r.last_error
