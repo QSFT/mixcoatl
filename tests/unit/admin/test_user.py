@@ -21,48 +21,48 @@ class TestUser(unittest.TestCase):
         self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/admin/user.json'
 
-    @httprettified
-    def test_has_all_and_is_one(self):
-        '''test User.all() returns a list of User'''
+    # @httprettified
+    # def test_has_all_and_is_one(self):
+    #     '''test User.all() returns a list of User'''
 
-        with open(self.json_file) as f:
-            data = f.read()
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url,
-            body=data,
-            status=200,
-            content_type="application/json")
+    #     with open(self.json_file) as f:
+    #         data = f.read()
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url,
+    #         body=data,
+    #         status=200,
+    #         content_type="application/json")
 
-        s = self.cls.all()
-        assert len(s) == 2
-        for x in s:
-            assert isinstance(x, self.cls)
+    #     s = self.cls.all()
+    #     assert len(s) == 2
+    #     for x in s:
+    #         assert isinstance(x, self.cls)
 
-    @httprettified
-    def test_has_one(self):
-        '''test User(<id>) returns a valid resource'''
-        pk = 6789
-        with open(self.json_file) as f:
-            data = json.load(f)
-        data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if d['userId'] == pk]
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url + '/' + str(pk),
-            body=json.dumps(data),
-            status=200,
-            content_type="application/json")
-        s = self.cls(pk)
-        assert s.user_id == pk
-        assert s.alpha_name == 'Vincent, John'
-        assert s.customer['customer_id'] == 12345
-        assert s.editable is False
-        assert s.email == 'john.vincent@domain.com'
-        assert s.family_name == 'Vincent'
-        assert s.given_name == 'John'
-        assert s.groups[0]['group_id'] == 9465
-        assert s.has_cloud_api_access is False
-        assert s.has_cloud_console_access is False
-        assert s.status == 'ACTIVE'
-        assert s.ssh_public_key == 'ssh-rsa AAAABsshkey user@machine'
-        assert s.time_zone == 'America/New_York'
-        assert s.user_id == 6789
-        assert s.vm_login_id == 'p6789'
+    # @httprettified
+    # def test_has_one(self):
+    #     '''test User(<id>) returns a valid resource'''
+    #     pk = 6789
+    #     with open(self.json_file) as f:
+    #         data = json.load(f)
+    #     data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if d['userId'] == pk]
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url + '/' + str(pk),
+    #         body=json.dumps(data),
+    #         status=200,
+    #         content_type="application/json")
+    #     s = self.cls(pk)
+    #     assert s.user_id == pk
+    #     assert s.alpha_name == 'Vincent, John'
+    #     assert s.customer['customer_id'] == 12345
+    #     assert s.editable is False
+    #     assert s.email == 'john.vincent@domain.com'
+    #     assert s.family_name == 'Vincent'
+    #     assert s.given_name == 'John'
+    #     assert s.groups[0]['group_id'] == 9465
+    #     assert s.has_cloud_api_access is False
+    #     assert s.has_cloud_console_access is False
+    #     assert s.status == 'ACTIVE'
+    #     assert s.ssh_public_key == 'ssh-rsa AAAABsshkey user@machine'
+    #     assert s.time_zone == 'America/New_York'
+    #     assert s.user_id == 6789
+    #     assert s.vm_login_id == 'p6789'
