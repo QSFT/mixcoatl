@@ -16,9 +16,6 @@ for i in `ls bin/dcm-list-*`; do
 		bin/dcm-list-datacenters)
 			$i -r $regionid > /dev/null 2>&1
 			;;
-		bin/dcm-list-rdbms-products)
-			$i -r $regionid > /dev/null 2>&1
-			;;
 		bin/dcm-list-machine-images)
 			$i -r $regionid > /dev/null 2>&1
 			;;
@@ -40,14 +37,8 @@ for i in `ls bin/dcm-list-*`; do
 		bin/dcm-list-servers)
 			$i -a > /dev/null 2>&1
 			;;
-		bin/dcm-list-volumes)
-			$i > /dev/null 2>&1
-			;;
 		bin/dcm-list-snapshots)
 			$i -r $regionid > /dev/null 2>&1
-			;;
-		bin/dcm-list-firewalls) 
-			$i -a > /dev/null 2>&1
 			;;
 		*)
 			$i > /dev/null 2>&1
