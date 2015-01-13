@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 regionid=`dcm-list-regions | grep us-east-1 | awk '{ print $2; }'`
-firewallid=`dcm-list-firewalls -a | grep -v "Firewall ID" | grep -v "+--" | head -n 1 | awk '{ print $2; }'`
+firewallid=`dcm-list-firewalls | grep -v "Firewall ID" | grep -v "+--" | head -n 1 | awk '{ print $2; }'`
 txtbld=$(tput bold)
 bldred=${txtbld}$(tput setaf 1)
 bldgrn=${txtbld}$(tput setaf 2)
