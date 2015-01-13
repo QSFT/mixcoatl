@@ -20,7 +20,7 @@ if __name__ == '__main__':
         help='print API response in XML format.')
 
     cmd_args = parser.parse_args()
-    cms = ConfigurationManagementService.all()
+    results = ConfigurationManagementService.all()
     cm_system = {'1': 'Chef', '2': 'Puppet', '3': 'ObjectStore'}
 
     if cmd_args.xml is True or cmd_args.json is True:
@@ -29,10 +29,10 @@ if __name__ == '__main__':
         else:
             payload_format = "json"
 
-        print utils.print_format(cms, payload_format)
+        print utils.print_format(results, payload_format)
     else:
         table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
-        for r in cms['cmServices']:
+        for r in results['cmServices']:
             cm_system_name = cm_system[str(r['cmSystem']['cmSystemId'])]
             table.add_row([
                 r['cmServiceId'],
