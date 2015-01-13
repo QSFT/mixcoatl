@@ -12,7 +12,7 @@ class Firewall(Resource):
     COLLECTION_NAME = 'firewalls'
     PRIMARY_KEY = "firewall_id"
 
-    def __init__(self, firewall_id = None, *args, **kwargs):
+    def __init__(self, firewall_id=None, *args, **kwargs):
         Resource.__init__(self)
 
         if 'detail' in kwargs:
@@ -178,7 +178,6 @@ class Firewall(Resource):
     @classmethod
     def all(cls, **kwargs):
         """List all firewalls in `region_id`
-
         :param region_id: Limit results to `region_id`
         :type region_id: int.
         :param account_id: limit results to `account_id`
@@ -197,7 +196,7 @@ class Firewall(Resource):
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
-            request_details = 'extended'
+            request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
