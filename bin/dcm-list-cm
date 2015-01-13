@@ -3,7 +3,6 @@
 import os
 import sys
 import time
-import pprint
 import argparse
 from mixcoatl import resource_utils, utils
 from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
@@ -13,7 +12,6 @@ from prettytable import PrettyTable
 if __name__ == '__main__':
     """ Returns a list of CM services. """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Verbose', action="store_true")
 
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
@@ -25,30 +23,26 @@ if __name__ == '__main__':
     cms = ConfigurationManagementService.all()
     cm_system = {'1': 'Chef', '2': 'Puppet', '3': 'ObjectStore'}
 
-    if cmd_args.verbose:
-        for cm in cms:
-            cm.pprint()
-    else:
-        if cmd_args.xml is True or cmd_args.json is True:
-            if cmd_args.xml is True:
-                payload_format = "xml"
-            else:
-                payload_format = "json"
-
-            print utils.print_format(cms, payload_format)
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
         else:
-            table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
-            for r in cms['cmServices']:
-                cm_system_name = cm_system[str(r['cmSystem']['cmSystemId'])]
-                table.add_row([
-                    r['cmServiceId'],
-                    cm_system_name,
-                    r['customer']['customerId'],
-                    r['name'],
-                    r['serviceEndpoint'],
-                    r['status']])
-            table.align = 'l'
-            print(table)
+            payload_format = "json"
+
+        print utils.print_format(cms, payload_format)
+    else:
+        table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
+        for r in cms['cmServices']:
+            cm_system_name = cm_system[str(r['cmSystem']['cmSystemId'])]
+            table.add_row([
+                r['cmServiceId'],
+                cm_system_name,
+                r['customer']['customerId'],
+                r['name'],
+                r['serviceEndpoint'],
+                r['status']])
+        table.align = 'l'
+        print(table)
 
     if 'DCM_DEBUG' in os.environ:
         print 'Results returned in', time.time()-start, 'seconds.'
