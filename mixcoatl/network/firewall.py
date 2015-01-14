@@ -212,11 +212,9 @@ class Firewall(Resource):
         if r.last_error is None:
             if keys_only is True:
                 firewalls = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
-                return firewalls
             else:
-                x = dict(uncamel_keys(x))
-                firewalls = type('Firewall', (object,), x)
-                return firewalls().firewalls
+                firewalls = type('Firewall', (object,), dict(uncamel_keys(x))).firewalls
+            return firewalls
         else:
             raise FirewallException(r.last_error)
 
