@@ -29,13 +29,13 @@ if __name__ == '__main__':
     cmd_args = parser.parse_args()
 
     if cmd_args.regionid is not None:
-        volumes = Volume.all(region_id=cmd_args.regionid)
+        results = Volume.all(region_id=cmd_args.regionid)
     elif cmd_args.regionpid is not None:
-        volumes = Volume.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
+        results = Volume.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
     else:
-        volumes = Volume.all()
+        results = Volume.all()
 
-    volumes = resource_utils.get_volumes(volumes, vm_login_id=cmd_args.userid, email=cmd_args.email, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid, size=cmd_args.minsize)
+    results = resource_utils.get_volumes(results, vm_login_id=cmd_args.userid, email=cmd_args.email, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid, size=cmd_args.minsize)
 
     if cmd_args.xml is True or cmd_args.json is True:
         if cmd_args.xml is True:
@@ -43,18 +43,18 @@ if __name__ == '__main__':
         else:
             payload_format = "json"
 
-        print utils.print_format(volumes, payload_format)
+        print utils.print_format(results, payload_format)
     else:
         table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
-        for r in volumes['volumes']:
+        for r in results:
             table.add_row([
-                r['volumeId'],
-                r['providerId'],
-                r['dataCenter']['dataCenterId'],
+                r['volume_id'],
+                r['provider_id'],
+                r['data_center']['data_center_id'],
                 r['name'],
-                r['server']['serverId'],
-                r['sizeString'],
-                r['owningAccount']['accountId'],
+                r['server']['server_id'],
+                r['size_string'],
+                r['owning_account']['account_id'],
                 r['budget'],
                 r['status']])
         table.align = 'l'

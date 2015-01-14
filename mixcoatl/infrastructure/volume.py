@@ -1,8 +1,8 @@
-"""Implements the enStratus Volume API"""
+"""Implements the DCM Volume API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.infrastructure.snapshot import SnapshotException
 from mixcoatl.admin.job import Job
@@ -403,10 +403,9 @@ class Volume(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
-                volumes = keys
+                volumes = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                volumes = x
+                volumes = type('Volume', (object,), dict(uncamel_keys(x))).volumes
             return volumes
         else:
             raise VolumeException(r.last_error)
