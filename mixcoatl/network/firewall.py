@@ -1,3 +1,4 @@
+"""Implements the DCM Firewall API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
@@ -8,11 +9,12 @@ import json
 
 
 class Firewall(Resource):
+    """ List Firewalls """
     PATH = 'network/Firewall'
     COLLECTION_NAME = 'firewalls'
     PRIMARY_KEY = "firewall_id"
 
-    def __init__(self, firewall_id=None, *args, **kwargs):
+    def __init__(self, firewall_id=None, **kwargs):
         Resource.__init__(self)
 
         if 'detail' in kwargs:
@@ -65,7 +67,7 @@ class Firewall(Resource):
 
     @lazy_property
     def legacy_owner_id(self):
-        """`int` - The old DCM user ID that represents user ID before 07 DEC 2013."""
+        """`int` - DCM user ID that represents user ID before 07 DEC 2013."""
         return self.__legacy_owner_id
 
     @lazy_property
@@ -124,12 +126,12 @@ class Firewall(Resource):
         try:
             return self.__rules
         except AttributeError:
-            rls = FirewallRule.all(self.__firewall_id, detail=self.request_details)
-            if len(rls) < 1:
+            r = FirewallRule.all(self.__firewall_id, detail=self.request_details)
+            if len(r) < 1:
                 self.__rules = []
             else:
-                self.__rules = rls
-            return rls
+                self.__rules = r
+            return r
 
     @required_attrs(['budget', 'region', 'name', 'description'])
     def create(self, **kwargs):
@@ -143,7 +145,7 @@ class Firewall(Resource):
         :raises: :class:`FirewallException`
         """
 
-        payload = {'add_firewall':[{
+        payload = {'add_firewall': [{
             'budget': self.budget,
             'region': self.region,
             'name': self.name,
@@ -173,7 +175,6 @@ class Firewall(Resource):
 
     def describe(self):
         """Describe a firewall"""
-
 
     @classmethod
     def all(cls, **kwargs):
