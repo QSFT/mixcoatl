@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import mixcoatl.network.firewall as firewall
 from mixcoatl.network.firewall import Firewall
 from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
