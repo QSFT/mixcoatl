@@ -2,6 +2,7 @@
 
 import os, time, argparse
 from mixcoatl.admin.account import Account
+from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 
 if __name__ == '__main__':
