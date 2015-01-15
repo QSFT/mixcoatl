@@ -7,6 +7,7 @@ from datetime import datetime
 from mixcoatl.admin.account import Account
 from mixcoatl.geography.region import Region
 from mixcoatl.network.firewall import Firewall
+from mixcoatl.network.load_balancer import LoadBalancer
 from mixcoatl.geography.datacenter import DataCenter
 from mixcoatl.network.network import Network
 from mixcoatl.infrastructure.machine_image import MachineImage
@@ -25,13 +26,14 @@ from mixcoatl.admin.job import Job
 # from mixcoatl.automation.environment import Environment
 
 print "Starting Mixcoatl 'GET' testing ..."
+total_start = time.time()
 
 region_id = random.choice(Region.all(keys_only=True))
 
 print "++ Defaulting to Region #"+str(region_id)
-tests = ['Region', 'Firewall', 'Account', 'DataCenter', 'MachineImage', 'Network', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+tests = ['Region', 'Firewall', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
-for i in tests:
+for i in sorted(tests):
 	params = None
 	start = time.time()
 
@@ -51,4 +53,6 @@ for i in tests:
 			print '[ '+colored('OK', 'green')+' ]'
 	except:
 		print '[ '+colored('FAIL', 'red')+' ]'
+
+print '++ Script finished in', round(time.time()-total_start,3), 'seconds. ',
 
