@@ -11,11 +11,9 @@ import tests.data.firewall as fw_data
 
 @patch('mixcoatl.resource.Resource.get')
 class TestFirewallRule(unittest.TestCase):
-
     # def test_has_all_rules_and_is_FirewallRule(self, mock_data):
     #     '''test all() returns a list of FirewallRule'''
     #     mock_data.return_value = fw_data.firewall_rules
-
     #     f = fwrule.FirewallRule.all(116387)
     #     assert len(f) == 5
     #     for x in f:
@@ -24,7 +22,6 @@ class TestFirewallRule(unittest.TestCase):
 
     # def test_has_a_rule(self, mock_data):
     #     mock_data.return_value = fw_data.one_firewall_rule
-
     #     f = fwrule.FirewallRule(3706471)
     #     assert f.direction == 'INGRESS'
     #     assert f.firewall['firewall_id'] == 116387
