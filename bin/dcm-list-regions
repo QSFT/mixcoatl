@@ -14,25 +14,25 @@ if __name__ == '__main__':
     group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    regions = Region.all()
+    results = Region.all()
 
     if cmd_args.xml is True or cmd_args.json is True:
         if cmd_args.xml is True:
-            payload_format = 'xml'
+            payload_format = "xml"
         else:
-            payload_format = 'json'
+            payload_format = "json"
 
-        print utils.print_format(regions, payload_format)
+        print utils.print_format(results, payload_format)
     else:
         table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
-        for r in regions['regions']:
+        for r in results:
             table.add_row([
-                r['regionId'],
-                r['providerId'],
-                r.cloud['cloud_provider_name'] if hasattr(r,'cloud_provider_name') else r['cloud']['cloudId'],
-                r.name if hasattr(r, 'name') else r['regionId'],
-                r['description'],
-                r['status']])
+                r.region_id,
+                r.provider_id,
+                r.cloud['cloud_id'],
+                r.name,
+                r.description,
+                r.status])
         table.align = 'l'
         print(table)
 

@@ -1,7 +1,7 @@
 """Implements the enStratus Region API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
 class Region(Resource):
     """A region is a logical sub-infrastructure within a cloud"""
@@ -83,13 +83,13 @@ class Region(Resource):
             if x in kwargs:
                 params[camelize(x)] = kwargs[x]
 
-        c = r.get(params=params)
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                regions = [item['regionId'] for item in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                regions = c
-            return regions
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise RegionException(r.last_error)
 
