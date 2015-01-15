@@ -7,7 +7,7 @@ Implements access to the DCM User API
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 import time
 
@@ -265,9 +265,10 @@ class User(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i['userId'] for i in x[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return x
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise UserException(r.last_error)
 

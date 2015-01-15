@@ -34,14 +34,14 @@ if __name__ == '__main__':
         print utils.print_format(results, payload_format)
     else:
         table = PrettyTable(["User ID", "VM Login ID", "Last Name", "First Name", "Email", "Status"])
-        for r in results['users']:
+        for r in results:
             table.add_row([
-                r['userId'],
-                r['vmLoginId'],
-                r['familyName'],
-                r['givenName'],
-                r['email'],
-                r['status']])
+                r.user_id,
+                r.vm_login_id,
+                r.family_name,
+                r.given_name,
+                r.email,
+                r.status])
         table.align = 'l'
         print(table)
 
