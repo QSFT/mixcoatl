@@ -1,43 +1,56 @@
 #!/usr/bin/env python
 
 from mixcoatl.admin.billing_code import BillingCode
+from mixcoatl import utils
 from prettytable import PrettyTable
 import argparse
+import time
 import sys
+import os
 
 if __name__ == '__main__':
     """ Returns a list of billingcode codes. """
+    start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true', help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true', help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    all_billingcodes = BillingCode.all()
+    results = BillingCode.all()
 
-    if cmd_args.verbose:
-        for billingcode in all_billingcodes:
-            billingcode.pprint()
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
     else:
-        billingcode_table = PrettyTable(["ID", "Name", "Budget Code", "Soft Quota", "Hard Quota",
-                                         "Current Usage", "Projected Usage", "Status"])
-        for billingcode in all_billingcodes:
-            if hasattr(billingcode, 'soft_quota'):
-                soft_quota = billingcode.soft_quota
+        table = PrettyTable(["ID", "Name", "Budget Code", "Soft Quota", "Hard Quota",
+                            "Current Usage", "Projected Usage", "Status"])
+        for r in results:
+            if hasattr(r, 'soft_quota'):
+                soft_quota = r.soft_quota
             else:
                 soft_quota = {'currency': '', 'value': 0}
-            if hasattr(billingcode, 'hard_quota'):
-                hard_quota = billingcode.hard_quota
+            if hasattr(r, 'hard_quota'):
+                hard_quota = r.hard_quota
             else:
                 hard_quota = {'currency': '', 'value': 0}
-            if hasattr(billingcode, 'current_usage'):
-                current_usage = billingcode.current_usage
+            if hasattr(r, 'current_usage'):
+                current_usage = r.current_usage
             else:
                 current_usage = {'currency': '', 'value': 0}
-            billingcode_table.add_row([billingcode.billing_code_id, billingcode.name, billingcode.finance_code,
-                                       "%s %.2f" % (soft_quota['currency'], soft_quota['value']),
-                                       "%s %.2f" % (hard_quota['currency'], hard_quota['value']),
-                                       "%s %.2f" % (current_usage['currency'], current_usage['value']),
-                                       "%s %.2f" % (billingcode.projected_usage['currency'],
-                                       billingcode.projected_usage['value']), billingcode.status])
 
-        billingcode_table.align = 'l'
-        print(billingcode_table)
+            table.add_row([r.billing_code_id, r.name, r.finance_code,
+                           "%s %.2f" % (soft_quota['currency'], soft_quota['value']),
+                           "%s %.2f" % (hard_quota['currency'], hard_quota['value']),
+                           "%s %.2f" % (current_usage['currency'], current_usage['value']),
+                           "%s %.2f" % (r.projected_usage['currency'],
+                           r.projected_usage['value']), r.status])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
