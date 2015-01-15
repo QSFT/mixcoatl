@@ -6,6 +6,7 @@ Implements access to the DCM Account API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 
@@ -95,6 +96,67 @@ class Account(Resource):
         """`bool` - If the account is configured & working with DCM"""
         return self.__subscribed
 
+    @lazy_property
+    def account_name(self):
+        return self.__account_name
+
+    @account_name.setter
+    def account_name(self, n):
+        self.__account_name = n
+
+    @lazy_property
+    def account_number(self):
+        return self.__account_number
+
+    @account_number.setter
+    def account_number(self, n):
+        self.__account_number = n
+
+    @lazy_property
+    def api_key_id(self):
+        return self.__api_key_id
+
+    @api_key_id.setter
+    def api_key_id(self, n):
+        self.__api_key_id = n
+
+    @lazy_property
+    def api_key_secret(self):
+        return self.__api_key_secret
+
+    @api_key_secret.setter
+    def api_key_secret(self, n):
+        self.__api_key_secret = n
+
+    @lazy_property
+    def cloud_id(self):
+        return self.__cloud_id
+
+    @cloud_id.setter
+    def cloud_id(self, n):
+        self.__cloud_id = n
+
+    @required_attrs(['account_name', 'account_number', 'cloud_id', 'api_key_id', 'api_key_secret'])
+    def add(self):
+        payload = {'addAccount': 
+                    [
+                        {
+                            'name': self.account_name,
+                            'cloudSubscription': 
+                            {
+                                'accountNumber': self.account_number, 
+                                'cloudId': int(self.cloud_id),
+                                'apiKeyId': self.api_key_id,
+                                'apiKeySecret': self.api_key_secret
+                            }
+                        }
+                    ]}
+        response = self.post(self.PATH, data=json.dumps(payload))
+        if self.last_error is None:
+            return response
+        else:
+            raise CreateAccountException(self.last_error)
+
     @classmethod
     def all(cls, keys_only=False, **kwargs):
         """Get all accounts
@@ -172,4 +234,8 @@ class AccountException(BaseException):
 
 
 class AssignCloudException(AccountException):
+    pass
+
+
+class CreateAccountException(AccountException):
     pass
