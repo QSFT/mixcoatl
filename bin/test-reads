@@ -30,11 +30,24 @@ from mixcoatl.admin.job import Job
 print "Starting Mixcoatl 'GET' testing ..."
 total_start = time.time()
 
-region_id = random.choice(Region.all(keys_only=True))
-firewall_id = random.choice(Firewall.all(keys_only=True))
+try:
+	region_id = random.choice(Region.all(keys_only=True))
+	print "++ Defaulting to Region #"+str(region_id)
+except:
+	print "++ Unable to retrieve any regions."
 
-print "++ Defaulting to Region #"+str(region_id)
-print "++ Defaulting to Firewall #"+str(firewall_id)
+try:
+	firewall_id = random.choice(Firewall.all(keys_only=True))
+	print "++ Defaulting to Firewall #"+str(firewall_id)
+except:
+	print "++ Unable to retrieve a firewall."
+
+try:
+	cm_id = random.choice(ConfigurationManagementAccount.all(keys_only=True))
+	print "++ Defaulting to CM Account #"+str(cm_id)
+except:
+	print "++ Unable to retrieve a cm account."
+
 tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 for i in sorted(tests):
