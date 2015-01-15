@@ -3,7 +3,6 @@ from mixcoatl.admin.job import Job
 from mixcoatl.utils import camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
-
 import json, sys, time
 
 class Server(Resource):
