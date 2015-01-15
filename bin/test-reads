@@ -5,6 +5,7 @@ from termcolor import colored
 from prettytable import PrettyTable
 from datetime import datetime
 from mixcoatl.admin.account import Account
+from mixcoatl.geography.cloud import Cloud
 from mixcoatl.geography.region import Region
 from mixcoatl.network.firewall import Firewall
 from mixcoatl.network.firewall_rule import FirewallRule
@@ -34,7 +35,7 @@ firewall_id = random.choice(Firewall.all(keys_only=True))
 
 print "++ Defaulting to Region #"+str(region_id)
 print "++ Defaulting to Firewall #"+str(firewall_id)
-tests = ['Region', 'Firewall', 'FirewallRule', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 for i in sorted(tests):
 	params = None
