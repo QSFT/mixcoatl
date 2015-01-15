@@ -6,10 +6,18 @@ import json
 def print_format(data, payload_format):
     import dicttoxml
 
+    newdata = []
+    for i in data:
+        thedict = {}
+        for key, value in i.__dict__.iteritems():
+            if '__' not in key:
+                thedict[key] = value
+        newdata.append(thedict)
+
     if payload_format == "xml":
-        return dicttoxml.dicttoxml(data)
+        return dicttoxml.dicttoxml(newdata)
     else:
-        return json.dumps(data, sort_keys=True)
+        return json.dumps(newdata)
 
 # Work in progress.  Dynamically generate PrettyTable from results. --Brian
 # class PrintTable:
