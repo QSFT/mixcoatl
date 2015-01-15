@@ -1,15 +1,17 @@
 #!/usr/bin/env python
-# region filter does not work at the moment. mixcoatl-side problem.
 
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.admin.billing_code import BillingCode
 from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
+import time
 import sys
 import os
 
 if __name__ == '__main__':
+    """ List snapshots from DCM """
+    start = time.time()
     parser = argparse.ArgumentParser()
     region_args = parser.add_mutually_exclusive_group()
     region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
@@ -74,23 +76,3 @@ if __name__ == '__main__':
 
     if 'DCM_DEBUG' in os.environ:
         print 'Results returned in', time.time()-start, 'seconds.'
-
-    # if cmd_args.verbose:
-    #     for snapshot in snapshots:
-    #         snapshot.pprint()
-    # else:
-    #     snapshot_table = PrettyTable(["Snapshot ID", "Provider ID", "Snapshot Name", "Group", "Budget", "Date"])
-    #     budget_name_cache = dict()
-    #     for snapshot in snapshots:
-    #         if not budget_name_cache.has_key(snapshot.budget):
-    #             budget_name_cache[snapshot.budget] = BillingCode(snapshot.budget).name
-    #         budget_name = budget_name_cache[snapshot.budget]
-    #         snapshot_table.add_row([snapshot.snapshot_id,
-    #                                 snapshot.provider_id,
-    #                                 snapshot.name,
-    #                                 snapshot.owning_groups[0]['name'] if hasattr(snapshot, 'owning_groups') else None, 
-    #                                 budget_name,
-    #                                 snapshot.created_timestamp])
-
-    #     snapshot_table.align = 'l'
-    #     print(snapshot_table)
