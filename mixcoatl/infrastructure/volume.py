@@ -403,10 +403,10 @@ class Volume(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                volumes = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                volumes = type('Volume', (object,), dict(uncamel_keys(x))).volumes
-            return volumes
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise VolumeException(r.last_error)
 
