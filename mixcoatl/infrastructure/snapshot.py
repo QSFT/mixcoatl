@@ -2,7 +2,7 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
 
 import json
@@ -244,29 +244,26 @@ class Snapshot(Resource):
         r = Resource(cls.PATH)
         r.request_details = 'basic'
         params = {}
+
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
+            
         if 'region_id' in kwargs:
             params['regionId'] = kwargs['region_id']
         if 'account_id' in kwargs:
             params['accountId'] = kwargs['account_id']
         if 'volume_id' in kwargs:
             params['volumeId'] = kwargs['volume_id']
-        c = r.get(params=params)
+
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                snapshots = [item['snapshotId'] for item in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                snapshots = []
-                for i in c[cls.COLLECTION_NAME]:
-                    snapshot = cls(i['snapshotId'])
-                    if 'detail' in kwargs:
-                        snapshot.request_details = kwargs['detail']
-                    snapshot.load()
-                    snapshots.append(snapshot)
-            return snapshots
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise SnapshotException(r.last_error)
 

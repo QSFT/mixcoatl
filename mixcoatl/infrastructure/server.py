@@ -1,6 +1,6 @@
 from mixcoatl.resource import Resource
 from mixcoatl.admin.job import Job
-from mixcoatl.utils import camel_keys
+from mixcoatl.utils import camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 
@@ -502,14 +502,23 @@ class Server(Resource):
         else:
             r.request_details = 'basic'
 
-        if 'params' in kwargs:
-          params = kwargs['params']
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
         else:
-          params = []
-        s = r.get(params=params)
+            keys_only = False
+
+        if 'params' in kwargs:
+            params = kwargs['params']
+        else:
+            params = []
+
+        x = r.get(params=params)
         if r.last_error is None:
-            servers = [cls(server['serverId']) for server in s[cls.COLLECTION_NAME]]
-            return servers
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise ServerException(r.last_error)
 

@@ -6,13 +6,12 @@ Implements access to the DCM Account API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 
 
 class Account(Resource):
     """An account object represents an DCM account held by an DCM customer."""
-
     PATH = 'admin/Account'
     COLLECTION_NAME = 'accounts'
     PRIMARY_KEY = 'account_id'
@@ -127,12 +126,13 @@ class Account(Resource):
         else:
             params = {}
 
-        c = r.get(params=params)
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i[camelize(cls.PRIMARY_KEY)] for i in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return c
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise AccountException(r.last_error)
 

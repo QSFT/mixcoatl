@@ -79,7 +79,6 @@ class LoadBalancer(Resource):
     def listeners(self):
         return self.__listeners
 
-
     @classmethod
     def all(cls, **kwargs):
         r = Resource(cls.PATH)

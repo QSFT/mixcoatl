@@ -7,6 +7,7 @@ from datetime import datetime
 from mixcoatl.admin.account import Account
 from mixcoatl.geography.region import Region
 from mixcoatl.network.firewall import Firewall
+from mixcoatl.network.firewall_rule import FirewallRule
 from mixcoatl.network.load_balancer import LoadBalancer
 from mixcoatl.geography.datacenter import DataCenter
 from mixcoatl.network.network import Network
@@ -29,9 +30,11 @@ print "Starting Mixcoatl 'GET' testing ..."
 total_start = time.time()
 
 region_id = random.choice(Region.all(keys_only=True))
+firewall_id = random.choice(Firewall.all(keys_only=True))
 
 print "++ Defaulting to Region #"+str(region_id)
-tests = ['Region', 'Firewall', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+print "++ Defaulting to Firewall #"+str(firewall_id)
+tests = ['Region', 'Firewall', 'FirewallRule', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 for i in sorted(tests):
 	params = None
@@ -39,6 +42,8 @@ for i in sorted(tests):
 
 	if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct':
 		params = region_id
+	elif i == 'FirewallRule':
+		params = firewall_id
 
 	if params is not None:
 		print i+'.all('+str(params)+')',

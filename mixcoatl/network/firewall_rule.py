@@ -2,8 +2,7 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.admin.job import Job
-from mixcoatl.utils import camel_keys
-from mixcoatl.utils import camelize
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
 import json
 
@@ -196,18 +195,23 @@ class FirewallRule(Resource):
         params['firewallId'] = firewall_id
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            # keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            # if keys_only is True:
+            #     rules = keys
+            # else:
+            #     rules = []
+            #     for i in x[cls.COLLECTION_NAME]:
+            #         key = i[camelize(cls.PRIMARY_KEY)]
+            #         rule = cls(key)
+            #         rule.request_details = request_details
+            #         rule.load(params=params)
+            #         rules.append(rule)
+            # return rules
             if keys_only is True:
-                rules = keys
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                rules = []
-                for i in x[cls.COLLECTION_NAME]:
-                    key = i[camelize(cls.PRIMARY_KEY)]
-                    rule = cls(key)
-                    rule.request_details = request_details
-                    rule.load(params=params)
-                    rules.append(rule)
-            return rules
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise FirewallRuleException(r.last_error)
 
