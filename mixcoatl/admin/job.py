@@ -99,4 +99,6 @@ class Job(Resource):
         else:
             return True
 
-class JobException(BaseException): pass
+
+class JobException(BaseException):
+    pass

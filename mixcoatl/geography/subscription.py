@@ -1,7 +1,7 @@
-"""Implements the enStratus Cloud API"""
+"""Implements the DCM Cloud API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
 class Subscription(Resource):
     PATH = 'geography/Subscription'
@@ -19,17 +19,23 @@ class Subscription(Resource):
     @classmethod
     def region(cls, region_id, **kwargs):
         """Returns subscription for given Region"""
-
         r = Resource(cls.PATH+"/"+str(region_id))
         r.request_details = 'basic'
         s = r.get()
         return s
 
     @classmethod
-    def all(cls, **kwargs):
-        """Returns subscriptions for all regions"""
-
+    def all(cls, keys_only=False):
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
-        s = r.get()
-        return s
+        x = r.get()
+        if r.last_error is None:
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
+        else:
+            raise SubscriptionException(r.last_error)
+
+class SubscriptionException(BaseException):
+    pass
