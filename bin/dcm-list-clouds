@@ -29,15 +29,15 @@ if __name__ == '__main__':
         print utils.print_format(results, payload_format)
     else:
         table = PrettyTable(["Cloud ID", "Cloud Name", "Delegate", "Endpoint", "Status"])
-        for r in results['clouds']:
+        for r in results:
             table.add_row([
-                r['cloudId'],
-                r['name'],
-                r['computeDelegate'],
-                r['computeEndpoint'],
-                r['status']])
+                r.cloud_id,
+                r.name,
+                r.compute_delegate,
+                r.compute_endpoint,
+                r.status])
         table.align = 'l'
-        print(table)
+        print(table.get_string(sortby="Cloud ID"))
 
     if 'DCM_DEBUG' in os.environ:
         print 'Results returned in', time.time()-start, 'seconds.'
