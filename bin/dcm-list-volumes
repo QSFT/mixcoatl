@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-import os, sys, argparse, time
+import os
+import sys
+import argparse
+import time
 from mixcoatl.infrastructure.volume import Volume
 from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
@@ -48,15 +51,15 @@ if __name__ == '__main__':
         table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
         for r in results:
             table.add_row([
-                r['volume_id'],
-                r['provider_id'],
-                r['data_center']['data_center_id'],
-                r['name'],
-                r['server']['server_id'],
-                r['size_string'],
-                r['owning_account']['account_id'],
-                r['budget'],
-                r['status']])
+                r.volume_id,
+                r.provider_id,
+                r.data_center['data_center_id'],
+                r.name,
+                r.server['server_id'],
+                r.size_string,
+                r.owning_account['account_id'],
+                r.budget,
+                r.status])
         table.align = 'l'
         print(table)
 

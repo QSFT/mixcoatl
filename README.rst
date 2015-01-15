@@ -127,21 +127,7 @@ example:
 ``.all()``
 ----------
 
-Returns a dictionary list of resource results.
-
-example:
-
-.. code-block:: bash
-
-   >>> from mixcoatl.geography.cloud import Cloud
-   >>> c = Cloud.all()
-   >>> # Initial call made for all Clouds
-   >>> c[0]
-   {'status': 'ACTIVE', 'current_job': None, 'last_request': '<Response [200]>', 'name': 'Amazon Web Services', 'last_error': None, 'cloud_provider_name': 'Amazon', 'cloud_provider_console_url': 'http://aws.amazon.com', 'cloud_provider_logo_url': '/clouds/aws.gif', 'compute_endpoint': 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com', 'compute_secret_key_label': 'AWS_SECRET_ACCESS_KEY', 'documentation_label': None, 'compute_delegate': 'org.dasein.cloud.aws.AWSCloud', 'path': 'geography/Cloud/1', 'compute_account_number_label': 'AWS_ACCOUNT_NUMBER', 'private_cloud': False}
-   >>> type(c[0])
-   mixcoatl.geography.cloud.Cloud
-   >>> c[0].__class__.__name__
-   'Cloud'
+Returns an object list of resource results.
 
 Pretty-printing
 ---------------

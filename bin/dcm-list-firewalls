@@ -5,9 +5,9 @@ import sys
 import time
 import json
 import argparse
+from prettytable import PrettyTable
 from mixcoatl.network.firewall import Firewall
 from mixcoatl import resource_utils, utils
-from prettytable import PrettyTable
 
 if __name__ == '__main__':
     """ List firewalls."""
@@ -42,11 +42,11 @@ if __name__ == '__main__':
         table = PrettyTable(["Firewall ID", "Name", "Region", "Provider ID", "Status"])
         for r in results:
             table.add_row([
-                r['firewall_id'],
-                r['name'],
-                r['region']['region_id'],
-                r['provider_id'],
-                r['status']])
+                r.firewall_id,
+                r.name,
+                r.region['region_id'],
+                r.provider_id,
+                r.status])
         table.align = 'l'
         print(table)
 
