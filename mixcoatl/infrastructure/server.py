@@ -363,10 +363,10 @@ class Server(Resource):
 
     @required_attrs(['server_id'])
     def provision_user(self, user_id, admin_role=None):
-        """Stop the server instance with reason :attr:`reason`
+        """Add a user to a server
 
-        :param reason: The reason for stopping the server
-        :type reason: str.
+        :param user_id: The ID of the user
+        :type reason: int
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
@@ -375,6 +375,21 @@ class Server(Resource):
         if admin_role is not None:
             user_dict['adminRole'] = admin_role
         payload = {'provisionUser':[{'user': user_dict}]}
+
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['server_id'])
+    def deprovision_user(self, user_id):
+        """Remove a user to a server
+
+        :param user_id: The ID of the user
+        :type reason: int
+        :returns: Job -- Result of API call
+        """
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+
+        user_dict = {'userId': user_id}
+        payload = {'deprovisionUser':[{'user': user_dict}]}
 
         return self.put(p, data=json.dumps(payload))
 
