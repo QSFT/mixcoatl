@@ -4,15 +4,14 @@ import os
 import sys
 import time
 import argparse
-from mixcoatl import resource_utils, utils
+from mixcoatl import utils
 from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
 from prettytable import PrettyTable
 
-
 if __name__ == '__main__':
     """ Returns a list of CM services. """
+    start = time.time()
     parser = argparse.ArgumentParser()
-
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
@@ -32,15 +31,15 @@ if __name__ == '__main__':
         print utils.print_format(results, payload_format)
     else:
         table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
-        for r in results['cmServices']:
-            cm_system_name = cm_system[str(r['cmSystem']['cmSystemId'])]
+        for r in results:
+            cm_system_name = cm_system[str(r.cm_system['cmSystemId'])]
             table.add_row([
-                r['cmServiceId'],
+                r.cmd_service_id,
                 cm_system_name,
-                r['customer']['customerId'],
-                r['name'],
-                r['serviceEndpoint'],
-                r['status']])
+                r.customer['customerId'],
+                r.name,
+                r.service_endpoint,
+                r.status])
         table.align = 'l'
         print(table)
 
