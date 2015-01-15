@@ -9,8 +9,8 @@ from mock import Mock
 import mixcoatl.network.firewall_rule as fwrule
 import tests.data.firewall as fw_data
 
-@patch('mixcoatl.resource.Resource.get')
-class TestFirewallRule(unittest.TestCase):
+# @patch('mixcoatl.resource.Resource.get')
+# class TestFirewallRule(unittest.TestCase):
     # def test_has_all_rules_and_is_FirewallRule(self, mock_data):
     #     '''test all() returns a list of FirewallRule'''
     #     mock_data.return_value = fw_data.firewall_rules
