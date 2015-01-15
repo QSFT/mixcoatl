@@ -3,48 +3,40 @@
 import os
 import sys
 import time
-import pprint
 import argparse
-from mixcoatl import resource_utils, utils
+from mixcoatl import utils
 from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
 from prettytable import PrettyTable
 
-
 if __name__ == '__main__':
     """ Returns a list of CM accounts. """
+    start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Verbose', action="store_true")
-
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
     group_two.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
-
     cmd_args = parser.parse_args()
-    cms = ConfigurationManagementAccount.all()
+    results = ConfigurationManagementAccount.all()
 
-    if cmd_args.verbose:
-        for cm in cms:
-            cm.pprint()
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
         else:
-            if cmd_args.xml is True or cmd_args.json is True:
-                if cmd_args.xml is True:
-                    payload_format = "xml"
-                else:
-                    payload_format = "json"
+            payload_format = "json"
 
-                print utils.print_format(cms, payload_format)
-            else:
-                table = PrettyTable(["Account ID", "Name", "System", "Status"])
-                for r in accounts['accounts']:
-                    table.add_row([
-                        r['accountId'],
-                        r['name'],
-                        r['defaultBudget'],
-                        r['status']])
-                    table.align = 'l'
-                print(table)
+        print utils.print_format(results, payload_format)
+    else:
+        table = PrettyTable(["Account ID", "Name", "System", "Status"])
+        for r in results:
+            table.add_row([
+                r.account_id,
+                r.name,
+                r.default_budget,
+                r.status])
+            table.align = 'l'
+        print(table)
 
     if 'DCM_DEBUG' in os.environ:
         print 'Results returned in', time.time()-start, 'seconds.'

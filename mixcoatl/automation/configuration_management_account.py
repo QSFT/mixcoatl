@@ -1,6 +1,6 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 
 
 class ConfigurationManagementAccount(Resource):
@@ -80,8 +80,17 @@ class ConfigurationManagementAccount(Resource):
         else:
             r.request_details = 'basic'
 
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
+        else:
+            keys_only = False
+
         x = r.get()
         if r.last_error is None:
-            return x
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+            return results
         else:
             return x.last_error
