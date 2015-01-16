@@ -12,8 +12,8 @@ from mixcoatl.admin.job import Job
 from mixcoatl.admin.role import Role
 from mixcoatl.admin.user import User
 
-# from mixcoatl.automation.script import Script
-# from mixcoatl.automation.personality import Personality
+from mixcoatl.automation.script import Script
+from mixcoatl.automation.personality import Personality
 # from mixcoatl.automation.environment import Environment
 from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
 from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
@@ -59,7 +59,7 @@ try:
 except:
 	print "++ Unable to retrieve a cm account."
 
-tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Script', 'Personality', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 for i in sorted(tests):
 	params = None
@@ -69,6 +69,8 @@ for i in sorted(tests):
 		params = region_id
 	elif i == 'FirewallRule':
 		params = firewall_id
+	elif i == 'Script' or i == 'Personality':
+		params = cm_id
 
 	if params is not None:
 		print i+'.all('+str(params)+')',
@@ -88,10 +90,6 @@ for i in sorted(tests):
 		except:
 			print '[ '+colored('FAIL', 'red')+' ]'
 			pass
-
-	# except:
-	# 	print '[ '+colored('FAIL', 'red')+' ]'
-	# 	pass
 
 print '++ Script finished in', round(time.time()-total_start,3), 'seconds. ',
 
