@@ -4,29 +4,39 @@ import os, string, random, argparse, sys, time
 from termcolor import colored
 from prettytable import PrettyTable
 from datetime import datetime
+
 from mixcoatl.admin.account import Account
-from mixcoatl.geography.cloud import Cloud
-from mixcoatl.geography.region import Region
-from mixcoatl.network.firewall import Firewall
-from mixcoatl.network.firewall_rule import FirewallRule
-from mixcoatl.network.load_balancer import LoadBalancer
-from mixcoatl.geography.datacenter import DataCenter
-from mixcoatl.network.network import Network
-from mixcoatl.infrastructure.machine_image import MachineImage
-from mixcoatl.infrastructure.server_product import ServerProduct
 from mixcoatl.admin.billing_code import BillingCode
-from mixcoatl.infrastructure.server import Server
-from mixcoatl.infrastructure.volume import Volume
-from mixcoatl.infrastructure.snapshot import Snapshot
-from mixcoatl.geography.subscription import Subscription
 from mixcoatl.admin.group import Group
-from mixcoatl.admin.user import User
-from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
-from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
 from mixcoatl.admin.job import Job
+from mixcoatl.admin.role import Role
+from mixcoatl.admin.user import User
+
 # from mixcoatl.automation.script import Script
 # from mixcoatl.automation.personality import Personality
 # from mixcoatl.automation.environment import Environment
+from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
+from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
+
+from mixcoatl.geography.cloud import Cloud
+from mixcoatl.geography.region import Region
+from mixcoatl.geography.datacenter import DataCenter
+from mixcoatl.geography.subscription import Subscription
+
+from mixcoatl.infrastructure.machine_image import MachineImage
+from mixcoatl.infrastructure.server_product import ServerProduct
+from mixcoatl.infrastructure.server import Server
+from mixcoatl.infrastructure.volume import Volume
+from mixcoatl.infrastructure.snapshot import Snapshot
+
+from mixcoatl.network.network import Network
+from mixcoatl.network.firewall import Firewall
+from mixcoatl.network.firewall_rule import FirewallRule
+from mixcoatl.network.load_balancer import LoadBalancer
+
+region_id = None
+firewall_id = None
+cm_id = None
 
 print "Starting Mixcoatl 'GET' testing ..."
 total_start = time.time()
@@ -55,24 +65,33 @@ for i in sorted(tests):
 	params = None
 	start = time.time()
 
-	if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct':
+	if region_id is not None and (i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct'):
 		params = region_id
 	elif i == 'FirewallRule':
 		params = firewall_id
 
 	if params is not None:
 		print i+'.all('+str(params)+')',
-		call = getattr(sys.modules[__name__],i).all(params)
-	else:
-		print i+'.all()',
-		call = getattr(sys.modules[__name__],i).all()
-
-	try:
-		if call is not None:
+		try:
+			call = getattr(sys.modules[__name__],i).all(params)
 			print 'returned in', round(time.time()-start,3), 'seconds. ',
 			print '[ '+colored('OK', 'green')+' ]'
-	except:
-		print '[ '+colored('FAIL', 'red')+' ]'
+		except:
+			print '[ '+colored('FAIL', 'red')+' ]'
+			pass
+	else:
+		print i+'.all()',
+		try:
+			call = getattr(sys.modules[__name__],i).all()
+			print 'returned in', round(time.time()-start,3), 'seconds. ',
+			print '[ '+colored('OK', 'green')+' ]'
+		except:
+			print '[ '+colored('FAIL', 'red')+' ]'
+			pass
+
+	# except:
+	# 	print '[ '+colored('FAIL', 'red')+' ]'
+	# 	pass
 
 print '++ Script finished in', round(time.time()-total_start,3), 'seconds. ',
 
