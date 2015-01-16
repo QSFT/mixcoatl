@@ -2,11 +2,10 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.infrastructure.snapshot import SnapshotException
 from mixcoatl.admin.job import Job
-
 import json
 import time
 
@@ -115,9 +114,10 @@ class Group(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['groupId'] for i in x[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['groupId']) for i in x[cls.COLLECTION_NAME]]
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise GroupException(r.last_error)
 
@@ -169,10 +169,8 @@ class Group(Resource):
         :param callback: Optional callback to send the resulting :class:`Job`
         :raises: :class:`GroupCreationException`
         """
-
         parms = {'group': {'name': self.name,
                     'description': self.description}}
-
         payload = {'addGroup':camel_keys(parms)}
 
         response=self.post(data=json.dumps(payload))

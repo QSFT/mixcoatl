@@ -3,6 +3,7 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
+
 class Subscription(Resource):
     PATH = 'geography/Subscription'
     COLLECTION_NAME = 'subscriptions'
@@ -36,6 +37,7 @@ class Subscription(Resource):
             return results
         else:
             raise SubscriptionException(r.last_error)
+
 
 class SubscriptionException(BaseException):
     pass

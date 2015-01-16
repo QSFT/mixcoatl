@@ -2,15 +2,15 @@
 mixcoatl.admin.role
 --------------------
 
-Implements access to the enStratus Role API
+Implements access to the DCM Role API
 
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys
-
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
+
 
 class Role(Resource):
     """A role defines a common set of permissions that govern access into a given account"""
@@ -133,17 +133,22 @@ class Role(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['roleId'] for i in x[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['roleId']) for i in x[cls.COLLECTION_NAME]]
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise RoleException(r.last_error)
 
-class RoleException(BaseException): pass
+
+class RoleException(BaseException):
+    pass
+
 
 class setACLException(RoleException):
     """Role Creation Exception"""
     pass
+
 
 class RoleCreationException(RoleException):
     """Role Creation Exception"""

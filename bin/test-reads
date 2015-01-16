@@ -19,6 +19,7 @@ from mixcoatl.infrastructure.server import Server
 from mixcoatl.infrastructure.volume import Volume
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.geography.subscription import Subscription
+from mixcoatl.admin.group import Group
 from mixcoatl.admin.user import User
 from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
 from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
@@ -48,7 +49,7 @@ try:
 except:
 	print "++ Unable to retrieve a cm account."
 
-tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 for i in sorted(tests):
 	params = None
