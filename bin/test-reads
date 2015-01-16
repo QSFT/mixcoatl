@@ -14,7 +14,7 @@ from mixcoatl.admin.user import User
 
 from mixcoatl.automation.script import Script
 from mixcoatl.automation.personality import Personality
-# from mixcoatl.automation.environment import Environment
+from mixcoatl.automation.environment import Environment
 from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
 from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
 
@@ -59,7 +59,7 @@ try:
 except:
 	print "++ Unable to retrieve a cm account."
 
-tests = ['Region', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Script', 'Personality', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Script', 'Personality', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 for i in sorted(tests):
 	params = None
@@ -69,7 +69,7 @@ for i in sorted(tests):
 		params = region_id
 	elif i == 'FirewallRule':
 		params = firewall_id
-	elif i == 'Script' or i == 'Personality':
+	elif i == 'Script' or i == 'Personality' or i == 'Environment':
 		params = cm_id
 
 	if params is not None:
