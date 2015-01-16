@@ -5,20 +5,27 @@ import sys
 import time
 import argparse
 from mixcoatl import utils
-from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
+from mixcoatl.automation.script import Script
 from prettytable import PrettyTable
 
 if __name__ == '__main__':
-    """ Returns a list of CM accounts. """
+    """ Returns a list of a CM's scripts. """
     start = time.time()
     parser = argparse.ArgumentParser()
+    parser.add_argument('--cm', '-c', type=int, help='Config Management Account ID')
+
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
     group_two.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
     cmd_args = parser.parse_args()
-    results = ConfigurationManagementAccount.all()
+
+    if cmd_args.cm != None:
+        results = Script.all(cmd_args.cm)
+    else:
+        parser.print_help()
+        sys.exit(1)
 
     if cmd_args.xml is True or cmd_args.json is True:
         if cmd_args.xml is True:
@@ -28,14 +35,15 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Account ID", "Name", "System", "Status"])
+        table = PrettyTable(["Script Code", "Name", "Description", "Created", "Status"])
         for r in results:
             table.add_row([
-                r.account_id,
+                r.shared_script_code,
                 r.name,
-                r.default_budget,
+                r.description,
+                r.created_timestamp,
                 r.status])
-            table.align = 'l'
+        table.align = 'l'
         print(table)
 
     if 'DCM_DEBUG' in os.environ:

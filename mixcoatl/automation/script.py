@@ -1,7 +1,8 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
+
 
 class Script(Resource):
     PATH = 'automation/Script'
@@ -19,9 +20,28 @@ class Script(Resource):
     @classmethod
     def all(cls, cmAccountId, **kwargs):
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
-        params = {'cmAccountId':cmAccountId}
-        c = r.get(params=params)
-        return c[cls.COLLECTION_NAME]
 
-class ScriptException(BaseException): pass
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
+
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
+        else:
+            keys_only = False
+
+        params = {'cmAccountId':cmAccountId}
+        x = r.get(params=params)
+        if r.last_error is None:
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
+        else:
+            raise ScriptException(r.last_error)
+
+
+class ScriptException(BaseException):
+    pass
