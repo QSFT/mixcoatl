@@ -4,21 +4,29 @@ import os
 import sys
 import time
 import argparse
-from mixcoatl import resource_utils, utils
-from mixcoatl.platform.relational_database import RelationalDatabase
+from mixcoatl import utils
+from mixcoatl.platform.storage_object import StorageObject
 from prettytable import PrettyTable
 
 if __name__ == '__main__':
-    """ Returns a list of RDBMS. """
+    """ Returns a list of Storage Objects. """
     start = time.time()
     parser = argparse.ArgumentParser()
+    parser.add_argument('--regionid', '-r', type=int, help='Region ID', required=True)
+
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
     group_two.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
+
     cmd_args = parser.parse_args()
-    results = RelationalDatabase.all()
+
+    if cmd_args.regionid is not None:
+        results = StorageObject.all(cmd_args.regionid)
+    else:
+        parser.print_help()
+        sys.exit(1)
 
     if cmd_args.xml is True or cmd_args.json is True:
         if cmd_args.xml is True:
@@ -28,16 +36,16 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["RDBMS Product ID", "Name", "Provider Product ID", "Engine", "Budget Code", "Size"])
+        table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
         for r in results:
             table.add_row([
-                r.relational_database_id,
+                r.cm_service_id,
+                cm_system_name,
+                r.customer['customer_id'],
                 r.name,
-                r.rdbms_product['product_id'],
-                r.engine,
-                r.budget,
-                r.allocated_storage_in_gb])
-            table.align = 'l'
+                r.service_endpoint,
+                r.status])
+        table.align = 'l'
         print(table)
 
     if 'DCM_DEBUG' in os.environ:

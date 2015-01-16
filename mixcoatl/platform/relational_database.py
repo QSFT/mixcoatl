@@ -1,14 +1,12 @@
 from mixcoatl.resource import Resource
 from mixcoatl.admin.job import Job
-from mixcoatl.utils import camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
-
 import json, sys, time
 
 class RelationalDatabase(Resource):
     """A relational database is a database as a service offering supporting a relational model."""
-
     PATH = 'platform/RelationalDatabase'
     COLLECTION_NAME = 'relational_databases'
     PRIMARY_KEY = 'relational_database_id'
@@ -315,25 +313,28 @@ class RelationalDatabase(Resource):
 
     @classmethod
     def all(cls, **kwargs):
-        """Get a list of all known relational_databases
-
-        >>> RelationalDatabase.all()
-        [{'relational_database_id':1,...},{'relational_database_id':2,...}]
-
-        :returns: list -- a list of :class:`RelationalDatabase`
-        :raises: RelationalDatabaseException
-        """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
+        params = {}
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
+
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
+        else:
+            keys_only = False
 
         if 'params' in kwargs:
-          params = kwargs['params']
-        else:
-          params = []
-        s = r.get(params=params)
+            params = kwargs['params']
+
+        x = r.get(params=params)
         if r.last_error is None:
-            #relational_databases = [cls(relational_database['relationalDatabaseId']) for relational_database in s[cls.COLLECTION_NAME]]
-            return s
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise RelationalDatabaseException(r.last_error)
 

@@ -1,0 +1,141 @@
+#!/usr/bin/env python
+
+import os, string, random, argparse, sys, time
+from termcolor import colored
+from prettytable import PrettyTable
+from datetime import datetime
+
+from mixcoatl.admin.account import Account
+from mixcoatl.admin.billing_code import BillingCode
+from mixcoatl.admin.group import Group
+from mixcoatl.admin.job import Job
+from mixcoatl.admin.role import Role
+from mixcoatl.admin.user import User
+
+from mixcoatl.automation.script import Script
+from mixcoatl.automation.personality import Personality
+from mixcoatl.automation.environment import Environment
+from mixcoatl.automation.configuration_management_account import ConfigurationManagementAccount
+from mixcoatl.automation.configuration_management_service import ConfigurationManagementService
+
+from mixcoatl.geography.cloud import Cloud
+from mixcoatl.geography.region import Region
+from mixcoatl.geography.datacenter import DataCenter
+from mixcoatl.geography.subscription import Subscription
+
+from mixcoatl.infrastructure.machine_image import MachineImage
+from mixcoatl.infrastructure.server_product import ServerProduct
+from mixcoatl.infrastructure.server import Server
+from mixcoatl.infrastructure.volume import Volume
+from mixcoatl.infrastructure.snapshot import Snapshot
+
+from mixcoatl.network.network import Network
+from mixcoatl.network.firewall import Firewall
+from mixcoatl.network.firewall_rule import FirewallRule
+from mixcoatl.network.load_balancer import LoadBalancer
+
+from mixcoatl.platform.relational_database import RelationalDatabase
+from mixcoatl.platform.relational_database_product import RelationalDatabaseProduct
+# StorageObject service is disabled in Kraken
+# from mixcoatl.platform.storage_object import StorageObject
+
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--get', action='store_true', help='Perform API (GET) Tests.')
+	cmd_args = parser.parse_args()
+
+	if cmd_args.get is not True:
+		parser.print_help()
+		sys.exit(1)
+
+	if cmd_args.get is True:
+		region_id = None
+		firewall_id = None
+		cm_id = None
+
+		print "Starting Mixcoatl 'GET' testing ..."
+		total_start = time.time()
+
+		try:
+			region_id = random.choice(Region.all(keys_only=True))
+			print "++ Defaulting to Region #"+str(region_id)
+		except:
+			print "++ Unable to retrieve any regions."
+
+		try:
+			firewall_id = random.choice(Firewall.all(keys_only=True))
+			print "++ Defaulting to Firewall #"+str(firewall_id)
+		except:
+			print "++ Unable to retrieve a firewall."
+
+		try:
+			cm_id = random.choice(ConfigurationManagementAccount.all(keys_only=True))
+			print "++ Defaulting to CM Account #"+str(cm_id)
+		except:
+			print "++ Unable to retrieve a cm account."
+
+		tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Script', 'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+
+		for i in sorted(tests):
+			params = None
+			start = time.time()
+
+			if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
+				print i+'.all('+str(region_id)+')',
+				if region_id is not None:
+					try:
+						call = getattr(sys.modules[__name__],i).all(region_id)
+						print 'returned in', round(time.time()-start,3), 'seconds. ',
+						print '[ '+colored('OK', 'green')+' ]'
+					except:
+						print '[ '+colored('FAIL', 'red')+' ]'
+						pass
+				else:
+					print '[ '+colored('NO REGION_ID, SKIPPING', 'yellow')+' ]'
+			elif i == 'FirewallRule':
+				print i+'.all('+str(firewall_id)+')',
+				if firewall_id is not None:
+					try:
+						call = getattr(sys.modules[__name__],i).all(firewall_id)
+						print 'returned in', round(time.time()-start,3), 'seconds. ',
+						print '[ '+colored('OK', 'green')+' ]'
+					except:
+						print '[ '+colored('FAIL', 'red')+' ]'
+						pass
+				else:
+					print '[ '+colored('NO FIREWALL_ID, SKIPPING', 'yellow')+' ]'
+			elif i == 'Script' or i == 'Personality' or i == 'Environment':
+				print i+'.all('+str(cm_id)+')',
+				if cm_id is not None:
+					try:
+						call = getattr(sys.modules[__name__],i).all(cm_id)
+						print 'returned in', round(time.time()-start,3), 'seconds. ',
+						print '[ '+colored('OK', 'green')+' ]'
+					except:
+						print '[ '+colored('FAIL', 'red')+' ]'
+						pass
+				else:
+					print '[ '+colored('NO CM_ID, SKIPPING', 'yellow')+' ]'
+			elif i == 'RelationalDatabaseProduct':
+				print i+'.all('+str(region_id)+',"MYSQL")',
+				if region_id is not None:
+					try:
+						call = getattr(sys.modules[__name__],i).all(region_id, 'MYSQL')
+						print 'returned in', round(time.time()-start,3), 'seconds. ',
+						print '[ '+colored('OK', 'green')+' ]'
+					except:
+						print '[ '+colored('FAIL', 'red')+' ]'
+						pass
+				else:
+					print '[ '+colored('NO region_id, SKIPPING', 'yellow')+' ]'
+			else:
+				print i+'.all()',
+				try:
+					call = getattr(sys.modules[__name__],i).all()
+					print 'returned in', round(time.time()-start,3), 'seconds. ',
+					print '[ '+colored('OK', 'green')+' ]'
+				except:
+					print '[ '+colored('FAIL', 'red')+' ]'
+					pass
+		
+		print '++ Script finished in', round(time.time()-total_start,3), 'seconds.'

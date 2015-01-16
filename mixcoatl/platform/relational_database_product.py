@@ -1,6 +1,8 @@
 from mixcoatl.resource import Resource
 from mixcoatl.admin.job import Job
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
+
 
 class RelationalDatabaseProduct(Resource):
     """Represents a product with costs from a cloud relational database vendor."""
@@ -139,16 +141,27 @@ class RelationalDatabaseProduct(Resource):
         """
         r = Resource(cls.PATH)
         r.request_details = 'basic'
+        params = {'regionId': region_id, 'engine': engine}
 
-        qopts = {'regionId': region_id, 'engine': engine}
-        s = r.get(params=qopts)
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
 
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
+        else:
+            keys_only = False
+
+        x = r.get(params=params)
         if r.last_error is None:
-            #relational_database_products = [cls(relational_database_product['productId']) for relational_database_product in s[cls.COLLECTION_NAME]]
-            return s
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+            return results
         else:
             raise RelationalDatabaseProductException(r.last_error)
-
 
 class RelationalDatabaseProductException(BaseException):
     pass
