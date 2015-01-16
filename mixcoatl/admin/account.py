@@ -138,19 +138,7 @@ class Account(Resource):
 
     @required_attrs(['account_name', 'account_number', 'cloud_id', 'api_key_id', 'api_key_secret'])
     def add(self):
-        payload = {'addAccount': 
-                    [
-                        {
-                            'name': self.account_name,
-                            'cloudSubscription': 
-                            {
-                                'accountNumber': self.account_number, 
-                                'cloudId': int(self.cloud_id),
-                                'apiKeyId': self.api_key_id,
-                                'apiKeySecret': self.api_key_secret
-                            }
-                        }
-                    ]}
+        payload = {'addAccount':[{'name':self.account_name,'cloudSubscription':{'accountNumber':self.account_number,'cloudId':int(self.cloud_id),'apiKeyId':self.api_key_id,'apiKeySecret':self.api_key_secret}}]}
         response = self.post(self.PATH, data=json.dumps(payload))
         if self.last_error is None:
             return response
@@ -176,7 +164,6 @@ class Account(Resource):
         :returns: `list` of :class:`Account` or :attr:`account_id`
         :raises: :class:`AccountException`
         """
-
         r = Resource(cls.PATH)
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
