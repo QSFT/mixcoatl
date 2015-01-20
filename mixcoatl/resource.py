@@ -10,14 +10,14 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
 
 class Resource(object):
-    """The base class for all resources returned from an enStratus API call
+    """The base class for all resources returned from an DCM API call
     By default all resources are largely represented as a `dict`-alike object
     that mirrors the JSON response from the enStratus API with keys converted
     from camel-case to snake-case.
 
     For instance:
 
-        * The enStratus API JSON for a resource looks something like this:
+        * The DCM API JSON for a resource looks something like this:
 
             .. code-block:: yaml
 
