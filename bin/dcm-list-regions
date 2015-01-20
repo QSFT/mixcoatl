@@ -12,13 +12,16 @@ if __name__ == '__main__':
     group_one = parser.add_mutually_exclusive_group()
     group_one.add_argument('--json', action='store_true', help='print API response in JSON format.')
     group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
+    group_one.add_argument('--csv', action='store_true', help='print API response in CSV format.')
     cmd_args = parser.parse_args()
 
     results = Region.all()
 
-    if cmd_args.xml is True or cmd_args.json is True:
+    if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
         if cmd_args.xml is True:
             payload_format = "xml"
+        elif cmd_args.csv is True:
+            payload_format = "csv"
         else:
             payload_format = "json"
 
