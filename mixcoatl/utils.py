@@ -1,3 +1,5 @@
+import csv
+import sys
 import json
 #from prettytable import PrettyTable
 
@@ -16,6 +18,25 @@ def print_format(data, payload_format):
 
     if payload_format == "xml":
         return dicttoxml.dicttoxml(newdata)
+    elif payload_format == "csv":
+        csv = ""
+        for i in newdata[0].keys():
+            csv += '"'+i.replace('"','\"')+'"'+","
+        csv = csv.rstrip(",")
+
+        for x in newdata:
+            csv += "\n"
+            for i in x:
+                if isinstance(x[i], dict):
+                    if x[i]:
+                        csv += '"'+str(x[i][x[i].keys()[0]]).replace('"','\"')+'"'+","
+                    else:
+                        csv += '"",'
+                else:
+                    csv += '"'+str(x[i]).replace('"','\"')+'"'+","
+            csv = csv.rstrip(",")
+
+        return csv
     else:
         return json.dumps(newdata)
 

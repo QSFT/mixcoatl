@@ -17,12 +17,16 @@ if __name__ == '__main__':
         help='print API response in JSON format.')
     group_two.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
+    group_two.add_argument('--csv', action='store_true',
+        help='print API response in CSV format.')
     cmd_args = parser.parse_args()
 
     results = Cloud.all()
-    if cmd_args.xml is True or cmd_args.json is True:
+    if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
         if cmd_args.xml is True:
             payload_format = "xml"
+        elif cmd_args.csv is True:
+            payload_format = "csv"
         else:
             payload_format = "json"
 
