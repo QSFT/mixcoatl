@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import requests as r
+from mixcoatl import resource_utils, utils
+from prettytable import PrettyTable
+from BeautifulSoup import BeautifulSoup
+import time
+import sys
+import os
+
+def remove_duplicates(l):
+    return list(set(l))
+
+if __name__ == '__main__':
+    """ List API Versions from DCM """
+    start = time.time()
+    url = os.environ['DCM_ENDPOINT'].split("/")
+    api_url = url[0]+"//"+url[2]+"/api/enstratus"
+
+    if os.environ['DCM_SSL_VERIFY'] == 1:
+        req = r.get(api_url)
+    else:
+        req = r.get(api_url, verify=False)
+
+    versions = []
+    soup = BeautifulSoup(req.text)
+    find_all = soup.findAll('a')
+
+    for v in find_all:
+        versions.append(v.text)
+
+    for v in sorted(remove_duplicates(versions), reverse=True):
+        print v
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
