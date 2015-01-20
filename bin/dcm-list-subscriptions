@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+
+import os, sys, argparse, time
+from mixcoatl.geography.subscription import Subscription
+from mixcoatl import utils
+from prettytable import PrettyTable
+
+if __name__ == '__main__':
+    """ List subscriptions. """
+    start = time.time()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--region', '-r', type=int, help='Region ID')
+
+    group_one = parser.add_mutually_exclusive_group()
+    group_one.add_argument('--json', action='store_true', help='print API response in JSON format.')
+    group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
+    group_one.add_argument('--csv', action='store_true', help='print API response in CSV format.')
+    cmd_args = parser.parse_args()
+
+    if cmd_args.region is not None:
+        results = Subscription.all(region_id=cmd_args.region)
+    else:
+        results = Subscription.all()
+
+    if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        elif cmd_args.csv is True:
+            payload_format = "csv"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
+    else:
+        table = PrettyTable(["Region ID", 
+                            "Auto Scaling",
+                            "Blob Store",
+                            "CDN",
+                            "DNS",
+                            "Email",
+                            "Firewall",
+                            "KVDB",
+                            "Load Balancers",
+                            "MQ",
+                            "Machine Image",
+                            "Network",
+                            "RDBMS",
+                            "Server",
+                            "Snapshot",
+                            "Static IP",
+                            "VPN",
+                            "Volume"])
+
+        for r in results:
+            table.add_row([r.region_id,
+                            r.subscribed_auto_scaling,
+                            r.subscribed_blob_store,
+                            r.subscribed_cdn,
+                            r.subscribed_dns,
+                            r.subscribed_email,
+                            r.subscribed_firewall,
+                            r.subscribed_kvdb,
+                            r.subscribed_load_balancer,
+                            r.subscribed_mq,
+                            r.subscribed_machine_image,
+                            r.subscribed_network,
+                            r.subscribed_rdbms,
+                            r.subscribed_server,
+                            r.subscribed_snapshot,
+                            r.subscribed_static_ip,
+                            r.subscribed_vpn,
+                            r.subscribed_volume])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

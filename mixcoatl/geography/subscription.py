@@ -13,21 +13,18 @@ class Subscription(Resource):
         Resource.__init__(self)
         self.__region_id = region_id
 
-    @property
-    def region_id(self):
-        return self.__region_id
-
     @classmethod
-    def region(cls, region_id, **kwargs):
-        """Returns subscription for given Region"""
-        r = Resource(cls.PATH+"/"+str(region_id))
-        r.request_details = 'basic'
-        s = r.get()
-        return s
+    def all(cls, keys_only=False, **kwargs):
+        if 'region_id' in kwargs:
+            r = Resource(cls.PATH+"/"+str(kwargs['region_id']))
+        else:
+            r = Resource(cls.PATH)
 
-    @classmethod
-    def all(cls, keys_only=False):
-        r = Resource(cls.PATH)
+        if 'details' in kwargs:
+            r.request_details = kwargs['details']
+        else:
+            r.request_details = 'basic'
+
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
