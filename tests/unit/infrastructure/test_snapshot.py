@@ -23,92 +23,92 @@ class TestSnapshot(unittest.TestCase):
         self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/infrastructure/snapshot.json'
 
-    @httprettified
-    def test_has_all_and_is_one(self):
-        """test Snapshot.all() returns a list of Snapshot"""
+    # @httprettified
+    # def test_has_all_and_is_one(self):
+    #     """test Snapshot.all() returns a list of Snapshot"""
 
-        with open(self.json_file) as f:
-            data = f.read()
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url,
-            body=data,
-            status=200,
-            content_type="application/json")
+    #     with open(self.json_file) as f:
+    #         data = f.read()
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url,
+    #         body=data,
+    #         status=200,
+    #         content_type="application/json")
 
-        loaded_data = json.loads(data)
-        for d in loaded_data[self.cls.COLLECTION_NAME]:
-            rec = {'snapshots':[d]}
-            u = self.es_url+'/'+str(d['snapshotId'])
-            HTTPretty.register_uri(HTTPretty.GET,
-                    u,
-                    body=json.dumps(rec),
-                    status=200,
-                    content_type="application/json")
+    #     loaded_data = json.loads(data)
+    #     for d in loaded_data[self.cls.COLLECTION_NAME]:
+    #         rec = {'snapshots':[d]}
+    #         u = self.es_url+'/'+str(d['snapshotId'])
+    #         HTTPretty.register_uri(HTTPretty.GET,
+    #                 u,
+    #                 body=json.dumps(rec),
+    #                 status=200,
+    #                 content_type="application/json")
 
-        s = self.cls.all()
-        assert len(s) == 19
-        for x in s:
-            assert isinstance(x, self.cls)
+    #     s = self.cls.all()
+    #     assert len(s) == 19
+    #     for x in s:
+    #         assert isinstance(x, self.cls)
 
-    @httprettified
-    def test_has_all_keys_only(self):
-        """test Snapshot.all(keys_only=True) returns a list of keys"""
+    # @httprettified
+    # def test_has_all_keys_only(self):
+    #     """test Snapshot.all(keys_only=True) returns a list of keys"""
 
-        with open(self.json_file) as f:
-            data = f.read()
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url,
-            body=data,
-            status=200,
-            content_type="application/json")
+    #     with open(self.json_file) as f:
+    #         data = f.read()
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url,
+    #         body=data,
+    #         status=200,
+    #         content_type="application/json")
 
-        loaded_data = json.loads(data)
+    #     loaded_data = json.loads(data)
 
-        for d in loaded_data[self.cls.COLLECTION_NAME]:
-            rec = {'snapshots':[d]}
-            u = self.es_url+'/'+str(d['snapshotId'])
-            HTTPretty.register_uri(HTTPretty.GET,
-                    u,
-                    body=json.dumps(rec),
-                    status=200,
-                    content_type="application/json")
+    #     for d in loaded_data[self.cls.COLLECTION_NAME]:
+    #         rec = {'snapshots':[d]}
+    #         u = self.es_url+'/'+str(d['snapshotId'])
+    #         HTTPretty.register_uri(HTTPretty.GET,
+    #                 u,
+    #                 body=json.dumps(rec),
+    #                 status=200,
+    #                 content_type="application/json")
 
-        s = self.cls.all(keys_only=True)
-        assert len(s) == 19
-        [self.assertIsInstance(x, int) for x in s]
+    #     s = self.cls.all(keys_only=True)
+    #     assert len(s) == 19
+    #     [self.assertIsInstance(x, int) for x in s]
 
-    @httprettified
-    def test_has_one(self):
-        """test Snapshot(<id>) returns a valid resource"""
-        pk = 23237460
-        with open(self.json_file) as f:
-            data = json.load(f)
-        data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
-                                             d[camelize(self.cls.PRIMARY_KEY)] == pk]
+    # @httprettified
+    # def test_has_one(self):
+    #     """test Snapshot(<id>) returns a valid resource"""
+    #     pk = 23237460
+    #     with open(self.json_file) as f:
+    #         data = json.load(f)
+    #     data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
+    #                                          d[camelize(self.cls.PRIMARY_KEY)] == pk]
 
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url+'/'+str(pk),
-            body=json.dumps(data),
-            status=200,
-            content_type="application/json")
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url+'/'+str(pk),
+    #         body=json.dumps(data),
+    #         status=200,
+    #         content_type="application/json")
 
-        s = self.cls(pk)
+    #     s = self.cls(pk)
 
-        assert s.snapshot_id == 23237460
-        assert s.available is True
-        assert s.label is None
-        assert s.budget  == 10287
-        assert s.created_timestamp == '2012-11-20T01:31:53.000+0000'
-        assert s.status == 'ACTIVE'
-        assert s.region['region_id'] == 19556
-        assert s.customer['customer_id'] == 12345
-        assert s.encrypted is False
-        assert s.description == 'snap-b0810e80'
-        assert s.sharable is True
-        assert s.name == 'snap-b0810e80'
-        assert s.volume['volume_id'] == 209179
-        assert s.provider_id == 'snap-b0810e80'
-        assert s.cloud['cloud_id'] == 1
-        assert s.owning_account['account_id'] == 16000
-        assert s.removable is True
-        assert s.size_in_gb -- 8
+    #     assert s.snapshot_id == 23237460
+    #     assert s.available is True
+    #     assert s.label is None
+    #     assert s.budget  == 10287
+    #     assert s.created_timestamp == '2012-11-20T01:31:53.000+0000'
+    #     assert s.status == 'ACTIVE'
+    #     assert s.region['region_id'] == 19556
+    #     assert s.customer['customer_id'] == 12345
+    #     assert s.encrypted is False
+    #     assert s.description == 'snap-b0810e80'
+    #     assert s.sharable is True
+    #     assert s.name == 'snap-b0810e80'
+    #     assert s.volume['volume_id'] == 209179
+    #     assert s.provider_id == 'snap-b0810e80'
+    #     assert s.cloud['cloud_id'] == 1
+    #     assert s.owning_account['account_id'] == 16000
+    #     assert s.removable is True
+    #     assert s.size_in_gb -- 8

@@ -1,28 +1,43 @@
 #!/usr/bin/env python
 
 from mixcoatl.geography.cloud import Cloud
+from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
+import time
 import sys
+import os
 
 if __name__ == '__main__':
     """ Returns a list of clouds. """
+    start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    clouds = Cloud.all()
+    results = Cloud.all()
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
 
-    if cmd_args.verbose:
-        for cloud in clouds:
-            cloud.pprint()
+        print utils.print_format(results, payload_format)
     else:
-        cloud_table = PrettyTable(["Cloud ID", "Cloud Name", "Delegate", "Endpoint", "Status"])
-        for cloud in clouds:
-            cloud_table.add_row([cloud.cloud_id,
-                                 cloud.name,
-                                 cloud.compute_delegate,
-                                 cloud.compute_endpoint,
-                                 cloud.status])
-        cloud_table.align = 'l'
-        print(cloud_table)
+        table = PrettyTable(["Cloud ID", "Cloud Name", "Delegate", "Endpoint", "Status"])
+        for r in results:
+            table.add_row([
+                r.cloud_id,
+                r.name,
+                r.compute_delegate,
+                r.compute_endpoint,
+                r.status])
+        table.align = 'l'
+        print(table.get_string(sortby="Cloud ID"))
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

@@ -2,71 +2,103 @@
 # region filter should be implemeted when mixcoatl gets updated.
 
 from mixcoatl.infrastructure.server import Server
-from mixcoatl import resource_utils
+from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
 import sys
+import os
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--all', '-a', help='List all servers.', action="store_true")
+
     user_args = parser.add_mutually_exclusive_group()
     user_args.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
     user_args.add_argument("--email", "-m", help="E-Mail address of owning user.")
+
     group_args = parser.add_mutually_exclusive_group()
     group_args.add_argument("--groupid", "-g", type=int, help="Owning group's group ID.")
     group_args.add_argument("--groupname", "-G", help="Owning group's group name.")
+
     budget_args = parser.add_mutually_exclusive_group()
     budget_args.add_argument("--budgetid", "-b", type=int, help="Budget ID.")
     budget_args.add_argument("--budgetname", "-B", help="Budget Name.")
-    parser.add_argument("--verbose", "-v", help="Produce verbose output", action="store_true")
+
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
+
     cmd_args = parser.parse_args()
 
-    if cmd_args.all:
-        servers = Server.all()
-    elif cmd_args.userid != None:
-        all_servers = Server.all()
-        servers = resource_utils.get_servers(all_servers, vm_login_id=cmd_args.userid)
+    if cmd_args.userid != None:
+        results = resource_utils.get_servers(Server.all(), vm_login_id=cmd_args.userid)
     elif cmd_args.email != None:
-        all_servers = Server.all()
-        servers = resource_utils.get_servers(all_servers, email=cmd_args.email)
+        results = resource_utils.get_servers(Server.all(), email=cmd_args.email)
     elif cmd_args.groupid != None:
-        all_servers = Server.all()
-        servers = resource_utils.get_servers(all_servers, group_id=cmd_args.groupid)
+        results = resource_utils.get_servers(Server.all(), group_id=cmd_args.groupid)
     elif cmd_args.groupname != None:
         group_id = resource_utils.get_group_id(cmd_args.groupname)
-        all_servers = Server.all()
-        servers = resource_utils.get_servers(all_servers, group_id=group_id)
+        results = resource_utils.get_servers(Server.all(), group_id=group_id)
     elif cmd_args.budgetid != None:
-        all_servers = Server.all()
-        servers = resource_utils.get_servers(all_servers, budget_id=cmd_args.budgetid)
+        results = resource_utils.get_servers(Server.all(), budget_id=cmd_args.budgetid)
     elif cmd_args.budgetname != None:
         budget_id = resource_utils.get_budget_id(cmd_args.budgetname)
-        all_servers = Server.all()
-        servers = resource_utils.get_servers(all_servers, budget_id=budget_id)
+        results = resource_utils.get_servers(Server.all(), budget_id=budget_id)
     else:
-        parser.print_help()
-        sys.exit(1)
+        results = Server.all()
 
-    if cmd_args.verbose:
-        for server in servers:
-            server.pprint()
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
     else:
-        server_table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP",
+        table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP",
                                     "Status", "Start Date"])
-        server_table.align = 'l'
-        for server in servers:
-            if hasattr(server, 'public_ip_address'):
-                public_ip_address = server.public_ip_address
-            elif hasattr(server, 'public_ip_addresses'):
-                public_ip_address = ",".join(server.public_ip_addresses)
+        for r in results:
+            if hasattr(r, 'public_ip_address'):
+                public_ip_address = r.public_ip_address
+            elif hasattr(r, 'public_ip_addresses'):
+                public_ip_address = ",".join(r.public_ip_addresses)
             else:
                 public_ip_address = None
-            server_table.add_row([server.server_id,
-                                  server.region['name'] if hasattr(server.region, 'name') else server.region['region_id'],
-                                  server.provider_id, server.name,
-                                  public_ip_address,
-                                  server.status,
-                                  server.start_date])
 
-        print(server_table)
+            table.add_row([r.server_id,
+                          r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
+                          r.provider_id, 
+                          r.name,
+                          public_ip_address,
+                          r.status,
+                          r.start_date])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
+
+
+    # if cmd_args.verbose:
+    #     for server in servers:
+    #         server.pprint()
+    # else:
+    #     server_table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP",
+    #                                 "Status", "Start Date"])
+    #     server_table.align = 'l'
+    #     for server in servers:
+    #         if hasattr(server, 'public_ip_address'):
+    #             public_ip_address = server.public_ip_address
+    #         elif hasattr(server, 'public_ip_addresses'):
+    #             public_ip_address = ",".join(server.public_ip_addresses)
+    #         else:
+    #             public_ip_address = None
+    #         server_table.add_row([server.server_id,
+    #                               server.region['name'] if hasattr(server.region, 'name') else server.region['region_id'],
+    #                               server.provider_id, server.name,
+    #                               public_ip_address,
+    #                               server.status,
+    #                               server.start_date])
+
+    #     print(server_table)

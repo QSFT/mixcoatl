@@ -1,18 +1,20 @@
+"""Implements the DCM Firewall API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.network.firewall_rule import FirewallRule
-from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
-
 import json
 
+
 class Firewall(Resource):
+    """ List Firewalls """
     PATH = 'network/Firewall'
     COLLECTION_NAME = 'firewalls'
     PRIMARY_KEY = "firewall_id"
 
-    def __init__(self, firewall_id = None, *args, **kwargs):
+    def __init__(self, firewall_id=None, **kwargs):
         Resource.__init__(self)
 
         if 'detail' in kwargs:
@@ -65,7 +67,7 @@ class Firewall(Resource):
 
     @lazy_property
     def legacy_owner_id(self):
-        """`int` - The old DCM user ID that represents user ID before 07 DEC 2013."""
+        """`int` - DCM user ID that represents user ID before 07 DEC 2013."""
         return self.__legacy_owner_id
 
     @lazy_property
@@ -124,12 +126,12 @@ class Firewall(Resource):
         try:
             return self.__rules
         except AttributeError:
-            rls = FirewallRule.all(self.__firewall_id, detail=self.request_details)
-            if len(rls) < 1:
+            r = FirewallRule.all(self.__firewall_id, detail=self.request_details)
+            if len(r) < 1:
                 self.__rules = []
             else:
-                self.__rules = rls
-            return rls
+                self.__rules = r
+            return r
 
     @required_attrs(['budget', 'region', 'name', 'description'])
     def create(self, **kwargs):
@@ -143,7 +145,7 @@ class Firewall(Resource):
         :raises: :class:`FirewallException`
         """
 
-        payload = {'add_firewall':[{
+        payload = {'add_firewall': [{
             'budget': self.budget,
             'region': self.region,
             'name': self.name,
@@ -174,11 +176,9 @@ class Firewall(Resource):
     def describe(self):
         """Describe a firewall"""
 
-
     @classmethod
     def all(cls, **kwargs):
         """List all firewalls in `region_id`
-
         :param region_id: Limit results to `region_id`
         :type region_id: int.
         :param account_id: limit results to `account_id`
@@ -190,15 +190,13 @@ class Firewall(Resource):
         :returns: `list` of :attr:`firewall_id` or :class:`Firewall`
         :raises: :class:`FirewallException`
         """
-
         params = {}
         r = Resource(cls.PATH)
-        r.request_details = 'none'
 
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
-            request_details = 'extended'
+            request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
@@ -213,43 +211,37 @@ class Firewall(Resource):
 
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
-                firewalls = keys
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                firewalls = []
-                for key in keys:
-                    fw = cls(key, detail=request_details)
-                    fw.load()
-                    firewalls.append(fw)
-            return firewalls
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise FirewallException(r.last_error)
 
-def describe_firewall(firewall_id, **kwargs):
-    """Changes the basic meta-data for a firewall
+    def describe_firewall(firewall_id, **kwargs):
+        """Changes the basic meta-data for a firewall
 
-    :param firewall_id: The id of the firewall to modify
-    :type firewall_id: int.
-    :param description: The description of the firewall
-    :type description: string.
-    :param label: The label to assign the firewall.
-    :type label: string.
-    :param name: The name to give the firewall.
-    :type name: string.
-    :returns: `bool`
-    :raises: :class:`FirewallException`
-    """
+        :param firewall_id: The id of the firewall to modify
+        :type firewall_id: int.
+        :param description: The description of the firewall
+        :type description: string.
+        :param label: The label to assign the firewall.
+        :type label: string.
+        :param name: The name to give the firewall.
+        :type name: string.
+        :returns: `bool`
+        :raises: :class:`FirewallException`
+        """
 
-    if kwargs:
-        f = Firewall(firewall_id)
-        f.label = kwargs.get('label', None)
-        f.description = kwargs.get('name', None)
-        f.label = kwargs.get('label', None)
-        return f.describe()
-    else:
-        raise FirewallException("No attributes were specified to change")
-
+        if kwargs:
+            f = Firewall(firewall_id)
+            f.label = kwargs.get('label', None)
+            f.description = kwargs.get('name', None)
+            f.label = kwargs.get('label', None)
+            return f.describe()
+        else:
+            raise FirewallException("No attributes were specified to change")
 
 
 class FirewallException(BaseException):

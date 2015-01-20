@@ -3,33 +3,22 @@
 import os
 import sys
 import time
-import json
 import argparse
-from prettytable import PrettyTable
-from mixcoatl.network.firewall import Firewall
 from mixcoatl import resource_utils, utils
+from mixcoatl.platform.relational_database import RelationalDatabase
+from prettytable import PrettyTable
 
 if __name__ == '__main__':
-    """ List firewalls."""
+    """ Returns a list of RDBMS. """
     start = time.time()
     parser = argparse.ArgumentParser()
-    firewall_args = parser.add_mutually_exclusive_group()
-    firewall_args.add_argument('--accountid', '-i', type=int, help='Account ID')
-    firewall_args.add_argument('--regionid', '-r', type=int, help='Region ID')
-
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
     group_two.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
     cmd_args = parser.parse_args()
-
-    if cmd_args.regionid is not None:
-        results = Firewall.all(region_id=cmd_args.regionid, detail='basic')
-    elif cmd_args.accountid is not None:
-        results = Firewall.all(account_id=cmd_args.accountid, detail='basic')
-    else:
-        results = Firewall.all()
+    results = RelationalDatabase.all()
 
     if cmd_args.xml is True or cmd_args.json is True:
         if cmd_args.xml is True:
@@ -39,15 +28,16 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Firewall ID", "Name", "Region", "Provider ID", "Status"])
+        table = PrettyTable(["RDBMS Product ID", "Name", "Provider Product ID", "Engine", "Budget Code", "Size"])
         for r in results:
             table.add_row([
-                r.firewall_id,
+                r.relational_database_id,
                 r.name,
-                r.region['region_id'],
-                r.provider_id,
-                r.status])
-        table.align = 'l'
+                r.rdbms_product['product_id'],
+                r.engine,
+                r.budget,
+                r.allocated_storage_in_gb])
+            table.align = 'l'
         print(table)
 
     if 'DCM_DEBUG' in os.environ:

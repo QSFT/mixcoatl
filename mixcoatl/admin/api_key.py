@@ -2,16 +2,17 @@
 mixcoatl.admin.api_key
 ----------------------
 
-Implements access to the enStratus ApiKey API
+Implements access to the DCM ApiKey API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 
-class ApiKey(Resource):
-    """An API key is an access key and secret key that provide API access into enStratus."""
 
+class ApiKey(Resource):
+    """An API key is an access key and secret key that provide API access into DCM."""
     PATH = 'admin/ApiKey'
     COLLECTION_NAME = 'apiKeys'
     PRIMARY_KEY = 'access_key'
@@ -161,7 +162,6 @@ class ApiKey(Resource):
         :type user_id: int.
         :returns: `list` - of :class:`ApiKey` or :attr:`access_key`
         """
-
         r = Resource(cls.PATH)
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
@@ -175,15 +175,24 @@ class ApiKey(Resource):
         else:
             params = {}
 
-        c = r.get(params=params)
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['accessKey'] for i in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['accessKey']) for i in c[cls.COLLECTION_NAME]]
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise ApiKeyException(r.last_error)
 
-class ApiKeyException(BaseException): pass
-class ApiKeyGenerationException(ApiKeyException): pass
-class ApiKeyInvalidationException(ApiKeyException): pass
+
+class ApiKeyException(BaseException):
+    pass
+
+
+class ApiKeyGenerationException(ApiKeyException):
+    pass
+
+
+class ApiKeyInvalidationException(ApiKeyException):
+    pass

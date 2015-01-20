@@ -3,33 +3,30 @@
 import os
 import sys
 import time
-import json
 import argparse
+from mixcoatl import utils
+from mixcoatl.platform.storage_object import StorageObject
 from prettytable import PrettyTable
-from mixcoatl.network.firewall import Firewall
-from mixcoatl import resource_utils, utils
 
 if __name__ == '__main__':
-    """ List firewalls."""
+    """ Returns a list of Storage Objects. """
     start = time.time()
     parser = argparse.ArgumentParser()
-    firewall_args = parser.add_mutually_exclusive_group()
-    firewall_args.add_argument('--accountid', '-i', type=int, help='Account ID')
-    firewall_args.add_argument('--regionid', '-r', type=int, help='Region ID')
+    parser.add_argument('--regionid', '-r', type=int, help='Region ID', required=True)
 
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
     group_two.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
+
     cmd_args = parser.parse_args()
 
     if cmd_args.regionid is not None:
-        results = Firewall.all(region_id=cmd_args.regionid, detail='basic')
-    elif cmd_args.accountid is not None:
-        results = Firewall.all(account_id=cmd_args.accountid, detail='basic')
+        results = StorageObject.all(cmd_args.regionid)
     else:
-        results = Firewall.all()
+        parser.print_help()
+        sys.exit(1)
 
     if cmd_args.xml is True or cmd_args.json is True:
         if cmd_args.xml is True:
@@ -39,13 +36,14 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Firewall ID", "Name", "Region", "Provider ID", "Status"])
+        table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
         for r in results:
             table.add_row([
-                r.firewall_id,
+                r.cm_service_id,
+                cm_system_name,
+                r.customer['customer_id'],
                 r.name,
-                r.region['region_id'],
-                r.provider_id,
+                r.service_endpoint,
                 r.status])
         table.align = 'l'
         print(table)

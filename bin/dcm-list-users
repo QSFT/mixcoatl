@@ -1,37 +1,49 @@
 #!/usr/bin/env python
 
 from mixcoatl.admin.user import User
+from mixcoatl import utils
 from prettytable import PrettyTable
 import argparse
 import pprint
+import time
 import sys
+import os
 
 if __name__ == '__main__':
     """ Returns a list of users. """
+    start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+    parser.add_argument('--accountid', '-i', type=int, help='Account ID')
+    parser.add_argument('--regionid', '-r', type=int, help='Region ID')
 
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    users = User.all()
-    if cmd_args.verbose:
-        for user in users:
-            user.pprint()
-    else:
-        user_table = PrettyTable(["User ID", "VM Login ID", "Last Name", "First Name",
-                                  "Email", "Groups"])
-        for user in users:
-            group_list = []
-            if hasattr(user, 'groups'):
-                for group in user.groups:
-                    group_list.append(group['name']) if hasattr(group, 'name') else group_list.append(
-                        str(group['group_id']))
-            vm_login_id = user.vm_login_id if hasattr(user, 'vm_login_id') else None
-            family_name = user.family_name if hasattr(user, 'family_name') else None
-            given_name = user.given_name if hasattr(user, 'given_name') else None
-            email = user.email if hasattr(user, 'email') else None
-            user_table.add_row([user.user_id, vm_login_id, family_name, given_name,
-                                email, "\n".join(group_list)])
+    results = User.all()
 
-        user_table.align = 'l'
-        print(user_table)
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
+    else:
+        table = PrettyTable(["User ID", "VM Login ID", "Last Name", "First Name", "Email", "Status"])
+        for r in results:
+            table.add_row([
+                r.user_id,
+                r.vm_login_id,
+                r.family_name,
+                r.given_name,
+                r.email,
+                r.status])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

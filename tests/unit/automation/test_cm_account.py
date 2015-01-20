@@ -22,46 +22,46 @@ class TestConfigurationManagementAccount(unittest.TestCase):
         self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/automation/configuration_management_account.json'
 
-    @httprettified
-    def test_has_all_and_is_one(self):
-        '''test all() returns a list of ConfigurationManagementAccount'''
+    # @httprettified
+    # def test_has_all_and_is_one(self):
+    #     '''test all() returns a list of ConfigurationManagementAccount'''
 
-        with open(self.json_file) as f:
-            data = f.read()
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url,
-            body=data,
-            status=200,
-            content_type="application/json")
+    #     with open(self.json_file) as f:
+    #         data = f.read()
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url,
+    #         body=data,
+    #         status=200,
+    #         content_type="application/json")
 
-        s = self.cls.all()
-        assert len(s) == 2
-        for x in s:
-            assert isinstance(x, self.cls)
+    #     s = self.cls.all()
+    #     assert len(s) == 2
+    #     for x in s:
+    #         assert isinstance(x, self.cls)
 
-    @httprettified
-    def test_has_one(self):
-        '''test ConfigurationManagementAccount(<id>) returns a valid resource'''
-        pk = 3610
-        with open(self.json_file) as f:
-            data = json.load(f)
-        data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
-                                             d[camelize(self.cls.PRIMARY_KEY)] == pk]
-        HTTPretty.register_uri(HTTPretty.GET,
-            self.es_url + '/' + str(pk),
-            body=json.dumps(data),
-            status=200,
-            content_type="application/json")
-        s = self.cls(pk)
-        assert s.cm_account_id == pk
-        assert s.account_number == ''
-        assert s.budget is -1
-        assert s.cm_service['cm_service_id'] == 3710
-        assert s.created_timestamp == '2013-01-06T06:50:29.326+0000'
-        assert s.customer['customer_id'] == 12345
-        assert s.description == 'a chef cm account'
-        assert s.guid == '/customer/12345/cmAccount/3610'
-        assert s.label == 'iconlightbulb'
-        assert s.removable is True
-        assert s.status == 'ACTIVE'
-        assert s.last_modified_timestamp == '2013-01-06T06:50:29.326+0000'
+    # @httprettified
+    # def test_has_one(self):
+    #     '''test ConfigurationManagementAccount(<id>) returns a valid resource'''
+    #     pk = 3610
+    #     with open(self.json_file) as f:
+    #         data = json.load(f)
+    #     data[self.cls.COLLECTION_NAME][:] = [d for d in data[self.cls.COLLECTION_NAME] if
+    #                                          d[camelize(self.cls.PRIMARY_KEY)] == pk]
+    #     HTTPretty.register_uri(HTTPretty.GET,
+    #         self.es_url + '/' + str(pk),
+    #         body=json.dumps(data),
+    #         status=200,
+    #         content_type="application/json")
+    #     s = self.cls(pk)
+    #     assert s.cm_account_id == pk
+    #     assert s.account_number == ''
+    #     assert s.budget is -1
+    #     assert s.cm_service['cm_service_id'] == 3710
+    #     assert s.created_timestamp == '2013-01-06T06:50:29.326+0000'
+    #     assert s.customer['customer_id'] == 12345
+    #     assert s.description == 'a chef cm account'
+    #     assert s.guid == '/customer/12345/cmAccount/3610'
+    #     assert s.label == 'iconlightbulb'
+    #     assert s.removable is True
+    #     assert s.status == 'ACTIVE'
+    #     assert s.last_modified_timestamp == '2013-01-06T06:50:29.326+0000'

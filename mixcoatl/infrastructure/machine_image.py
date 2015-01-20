@@ -1,12 +1,10 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
-
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 
-# TODO: certain images cause weird redirect
-# m = MachineImage(284555) redirect loop
-# m = MachineImage(284831) no loop
+
 class MachineImage(Resource):
     PATH = 'infrastructure/MachineImage'
     COLLECTION_NAME = 'images'
@@ -270,30 +268,29 @@ class MachineImage(Resource):
         :raises: :class:`MachineImageException`
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
         params = {'regionId':region_id}
+
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
+
         if 'available' in kwargs:
             params['active'] = kwargs['available']
+
         if 'registered' in kwargs:
             params['registered'] = kwargs['registered']
-        c = r.get(params=params)
+
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                images = [item['machineImageId'] for item in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                images = []
-                for i in c[cls.COLLECTION_NAME]:
-                    image = cls(i['machineImageId'])
-                    if 'detail' in kwargs:
-                        image.request_details = kwargs['detail']
-                    image.load()
-                    images.append(image)
-            return images
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise MachineImageException(r.last_error)
 
-class MachineImageException(BaseException): pass
+
+class MachineImageException(BaseException):
+    pass

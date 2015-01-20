@@ -1,13 +1,11 @@
 """
 mixcoatl.admin.job
 ------------------
-
-Implements access to the enStratus Job API
+Implements access to the DCM Job API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
-
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import time
 
 class Job(Resource):
@@ -54,8 +52,6 @@ class Job(Resource):
     @classmethod
     def all(cls, keys_only=False):
         """Get all jobs
-
-
         :param keys_only: Only return :attr:`job_id` instead of :class:`Job`
         :type keys_only: bool.
         :returns: `list` of :class:`Job` or :attr:`job_id`
@@ -65,9 +61,10 @@ class Job(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i[camelize(cls.PRIMARY_KEY)]) for i in x[cls.COLLECTION_NAME]]
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise JobException(r.last_error)
 
@@ -102,4 +99,6 @@ class Job(Resource):
         else:
             return True
 
-class JobException(BaseException): pass
+
+class JobException(BaseException):
+    pass

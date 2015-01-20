@@ -1,8 +1,8 @@
-"""Implements the enStratus Volume API"""
+"""Implements the DCM Volume API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.infrastructure.snapshot import SnapshotException
 from mixcoatl.admin.job import Job
@@ -104,11 +104,6 @@ class Volume(Resource):
         """`list` - The groups who have ownership of this volume in enStratus"""
         return self.__owning_groups
 
-#    @owning_groups.setter
-#    def owning_groups(self, b):
-        # pylint: disable-msg=C0111,W0201
-#        self.__owning_groups = [{'group_id': b}]
-
     @lazy_property
     def size_in_gb(self):
         """`int` - The size of the volume if reported by the cloud provider"""
@@ -182,9 +177,7 @@ class Volume(Resource):
         :returns: :class:`Volume`
         :raises: :class:`VolumeException`
         """
-
-        payload = {'attach':[{
-                            'server':{'server_id': server_id}}]}
+        payload = {'attach':[{'server':{'server_id': server_id}}]}
 
         if device_id is not None:
             payload['attach'][0]['device_id'] = device_id
@@ -227,7 +220,6 @@ class Volume(Resource):
         :returns: :class:`Job`
         :raises: :class:`VolumeCreationException`
         """
-
         optional_attrs = ['label']
         if self.volume_id is not None:
             raise VolumeCreationException('Cannot create an already created volume: %s' % self.volume_id)
@@ -374,7 +366,6 @@ class Volume(Resource):
     @classmethod
     def all(cls, **kwargs):
         """List all volumes
-
         :param account_id: Restrict to volumes owned by `account_id`
         :type account_id: int.
         :param datacenter_id: Restrict to volumes based in `datacenter_id`
@@ -388,9 +379,10 @@ class Volume(Resource):
         :returns: `list` of :attr:`volume_id` or :class:`Volume`
         :raises: :class:`VolumeException`
         """
-        params = {}
         r = Resource(cls.PATH)
-        r.request_details = 'none'
+        r.request_details = 'basic'
+        params = {}
+
         if 'detail' in kwargs:
             request_details = kwargs['detail']
         else:
@@ -410,18 +402,11 @@ class Volume(Resource):
 
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
-                volumes = keys
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                volumes = []
-                for i in x[cls.COLLECTION_NAME]:
-                    key = i[camelize(cls.PRIMARY_KEY)]
-                    volume = cls(key)
-                    volume.request_details = request_details
-                    volume.load()
-                    volumes.append(volume)
-            return volumes
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise VolumeException(r.last_error)
 

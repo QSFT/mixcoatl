@@ -2,54 +2,52 @@
 
 from mixcoatl.admin.group import Group
 from mixcoatl.admin.user import User
-from mixcoatl import resource_utils
+from mixcoatl import utils, resource_utils
 from prettytable import PrettyTable
 import argparse
 import pprint
+import time
 import sys
+import os
 
 if __name__ == '__main__':
     """ Returns a list of groups where a user belongs to. """
+    start = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('--userid', '-u', help='User ID. For example, p100')
     parser.add_argument('--email', '-m', help='E-Mail address of user')
-    parser.add_argument('--all', '-a', help='List all groups', action="store_true")
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
 
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    if cmd_args.all:
-        all_groups = Group.all()
-    elif cmd_args.userid != None:
-        users = User.all()
-        user = resource_utils.get_user(users, vm_login_id=cmd_args.userid)
+    if cmd_args.userid != None:
+        results = resource_utils.get_user(User.all(), vm_login_id=cmd_args.userid)
     elif cmd_args.email != None:
-        users = User.all()
-        user = resource_utils.get_user(users, email=cmd_args.email)
+        results = resource_utils.get_user(User.all(), email=cmd_args.email)
     else:
-        parser.print_help()
-        sys.exit(1)
+        results = Group.all()
 
-    if cmd_args.verbose:
-        if cmd_args.all:
-            for group in all_groups:
-                group.pprint()
-        elif hasattr(user, 'groups'):
-            for group in user.groups:
-                pprint.pprint(group)
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
     else:
-        group_table = PrettyTable(["Group ID", "Group Name", "Description", "Status"])
-        group_table.align['Description'] = 'l'
+        table = PrettyTable(["Group ID", "Group Name", "Description", "Status"])
+        for r in results:
+            table.add_row([
+                r.group_id,
+                r.name,
+                r.description,
+                r.status])
+        table.align = 'l'
+        print(table)
 
-        if cmd_args.all:
-            for group in all_groups:
-                group_table.add_row([group.group_id, group.name, group.description, group.status])
-        elif hasattr(user, 'groups'):
-            for group in user.groups:
-                group_table.add_row([group['group_id'],
-                                     group['name'],
-                                     group['description'],
-                                     group['status']])
-
-        group_table.align = 'l'
-        print(group_table)
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

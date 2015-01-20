@@ -1,29 +1,40 @@
 #!/usr/bin/env python
 
+import os, sys, argparse, time
 from mixcoatl.geography.region import Region
+from mixcoatl import utils
 from prettytable import PrettyTable
-import argparse
-import sys
 
 if __name__ == '__main__':
     """ List regions. """
+    start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
-
+    group_one = parser.add_mutually_exclusive_group()
+    group_one.add_argument('--json', action='store_true', help='print API response in JSON format.')
+    group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
     cmd_args = parser.parse_args()
-    regions = Region.all()
 
-    if cmd_args.verbose:
-        for region in regions:
-            region.pprint()
+    results = Region.all()
+
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
     else:
-        region_table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
-        for region in regions:
-            region_table.add_row([region.region_id,
-            region.provider_id,
-            region.cloud['cloud_provider_name'] if hasattr(region,'cloud_provider_name') else region.cloud['cloud_id'],
-            region.name if hasattr(region, 'name') else region.region_id,
-            region.description,
-            region.status])
-        region_table.align = 'l'
-        print(region_table)
+        table = PrettyTable(["Region ID", "Provider ID", "Cloud", "Region Name", "Description", "Status"])
+        for r in results:
+            table.add_row([
+                r.region_id,
+                r.provider_id,
+                r.cloud['cloud_id'],
+                r.name,
+                r.description,
+                r.status])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

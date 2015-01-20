@@ -1,10 +1,11 @@
 from mixcoatl.resource import Resource
 from mixcoatl.admin.job import Job
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
+
 
 class StorageObject(Resource):
     """A blob or container in which blobs are stored in a cloud storage system."""
-
     PATH = 'platform/StorageObject'
     COLLECTION_NAME = 'storageObjects'
     PRIMARY_KEY = 'storage_object_id'
@@ -148,15 +149,28 @@ class StorageObject(Resource):
         :raises: StorageObjectException
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
+        params = {'regionId': region_id}
 
-        qopts = {'regionId': region_id}
-        s = r.get(params=qopts)
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
 
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
+        else:
+            keys_only = False
+
+        x = r.get(params=params)
         if r.last_error is None:
-            storage_objects = [cls(storage_object['storageObjectId']) for storage_object in s[cls.COLLECTION_NAME]]
-            return storage_objects
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+            return results
         else:
             raise StorageObjectException(r.last_error)
 
-class StorageObjectException(BaseException): pass
+
+class StorageObjectException(BaseException):
+    pass

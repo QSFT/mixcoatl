@@ -2,7 +2,7 @@
 mixcoatl.analytics.server_analytics
 -----------------------------------
 
-Implements access to the enStratus ServerAnalytics API
+Implements access to the DCM ServerAnalytics API
 
 .. note::
 
@@ -13,6 +13,7 @@ Implements access to the enStratus ServerAnalytics API
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize
+
 
 class ServerAnalytics(Resource):
     """Server analytics represent the performance of an individual server over
@@ -27,7 +28,6 @@ class ServerAnalytics(Resource):
     :param period_end: The end time in UNIX milliseconds for the last datapoint
     :param period_end: int.
     """
-
     PATH = 'analytics/ServerAnalytics'
     COLLECTION_NAME = 'analytics'
     PRIMARY_KEY = 'server_id'
@@ -64,7 +64,7 @@ class ServerAnalytics(Resource):
         return self.__interval_in_minutes
 
     @classmethod
-    def all(cls, server_id, data_only=False, **kwargs):
+    def all(cls, server_id, keys_only=False, **kwargs):
         """Get all analytics for `server_id`
 
         :param server_id: The server represented in the analytics
@@ -79,27 +79,26 @@ class ServerAnalytics(Resource):
         :param period_end: int.
         :returns: :class:`ServerAnalytics` or `list` of :attr:`data_points`
         """
-
+        r = Resource(cls.PATH)
         params = {}
-        if 'interval' in kwargs:
-            params['interval'] = kwargs['interval']
-        if 'period_end' in kwargs:
-            params['periodEnd'] = kwargs['period_end']
-        if 'period_start' in kwargs:
-            params['periodStart'] = kwargs['period_start']
-        s = cls(server_id)
-        if 'details' in kwargs:
-            s.request_details = kwargs['details']
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
         else:
-            s.request_details = 'basic'
-        s.params = params
-        s.load()
-        if s.last_error is None:
-            if data_only is True:
-                return s.data_points
-            else:
-                return s
-        else:
-            raise ServerAnalyticsException(s.last_error)
+            r.request_details = 'basic'
 
-class ServerAnalyticsException(BaseException): pass
+        if 'server_id' in kwargs:
+            params['server_id'] = kwargs['server_id']
+
+        x = r.get(params=params)
+        if r.last_error is None:
+            if keys_only is True:
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+            else:
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
+        else:
+            raise ServerAnalyticsException(r.last_error)
+
+
+class ServerAnalyticsException(BaseException):
+    pass

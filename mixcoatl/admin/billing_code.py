@@ -2,18 +2,17 @@
 mixcoatl.admin.billing_code
 ---------------------------
 
-Implements access to the enStratus Billingcode API
+Implements access to the DCM Billingcode API
 """
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 import json
 
 class BillingCode(Resource):
     """A billing code is a budget item with optional hard and soft quotas
     against which cloud resources may be provisioned and tracked."""
-
     PATH = 'admin/BillingCode'
     COLLECTION_NAME = 'billingCodes'
     PRIMARY_KEY = 'billing_code_id'
@@ -121,16 +120,16 @@ class BillingCode(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                return [i['billingCodeId'] for i in x[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                return [cls(i['billingCodeId']) for i in x[cls.COLLECTION_NAME]]
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+            return results
         else:
             raise BillingCodeException(r.last_error)
 
     @required_attrs(['soft_quota','hard_quota', 'name', 'finance_code', 'description'])
     def add(self):
         """Add a new billing code. """
-
         payload = { "addBillingCode":[{
                        "softQuota": {"value": self.soft_quota, "currency": "USD"},
                        "hardQuota": {"value": self.hard_quota, "currency": "USD"},

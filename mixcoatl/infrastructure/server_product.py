@@ -1,4 +1,5 @@
-"""Implements the enStratus ServerProduct API"""
+"""Implements the DCM ServerProduct API"""
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
@@ -99,7 +100,6 @@ class ServerProduct(Resource):
         :returns: `list` of :attr:`product_id` or :class:`ServerProduct`
         :raises: :class:`ServerProductException`
         """
-        from mixcoatl.utils import uncamel_keys
         r = Resource(cls.PATH)
         r.request_details = 'basic'
         params = {'regionId':region_id}
@@ -108,19 +108,13 @@ class ServerProduct(Resource):
         else:
             keys_only = False
 
-        c = r.get(params=params)
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                products = [item['productId'] for item in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                products = []
-                for i in c[cls.COLLECTION_NAME]:
-                    product = cls(i['productId'])
-                    if 'detail' in kwargs:
-                        product.request_details = kwargs['detail']
-                    product.load()
-                    products.append(product)
-            return products
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+            return results
         else:
             raise ServerProductException(r.last_error)
 

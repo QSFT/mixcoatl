@@ -1,6 +1,8 @@
-"""Implements the enStratus DataCenter API"""
+"""Implements the DCM DataCenter API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
+
 
 class DataCenter(Resource):
     """
@@ -58,28 +60,25 @@ class DataCenter(Resource):
         :returns: `list` of :class:`DataCenter` or :attr:`data_center_id`
         :raises: :class:`DataCenterException`
         """
+        r = Resource(cls.PATH)
+        r.request_details = 'basic'
+        params = {'regionId':region_id}
+
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
 
-        r = Resource(cls.PATH)
-        r.request_details = 'basic'
-        params = {'regionId':region_id}
-        c = r.get(params=params)
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                dcs = [i['dataCenterId'] for i in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                dcs = []
-                for i in c[cls.COLLECTION_NAME]:
-                    dc = cls(i['dataCenterId'])
-                    if 'detail' in kwargs:
-                        dc.request_details = kwargs['detail']
-                    dc.load()
-                    dcs.append(dc)
-            return dcs
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+            return results
         else:
             raise DataCenterException(r.last_error)
 
-class DataCenterException(BaseException): pass
+
+class DataCenterException(BaseException):
+    pass

@@ -5,33 +5,47 @@ from prettytable import PrettyTable
 from mixcoatl import resource_utils
 import argparse
 import sys
+import os
 
 if __name__ == '__main__':
     """ List datacenters in a region. """
     parser = argparse.ArgumentParser()
     parser.add_argument('--regionid', '-r', type=int, help='Region ID')
     parser.add_argument('--regionpid', '-R', help='Region Provider ID such as us-east-1')
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
 
     cmd_args = parser.parse_args()
 
     if cmd_args.regionid != None:
-        datacenters = DataCenter.all(cmd_args.regionid)
+        results = DataCenter.all(cmd_args.regionid)
     elif cmd_args.regionpid != None:
-        datacenters = DataCenter.all(resource_utils.get_region_id(cmd_args.regionpid))
+        results = DataCenter.all(resource_utils.get_region_id(cmd_args.regionpid))
     else:
         parser.print_help()
         sys.exit(1)
 
-    if cmd_args.verbose:
-        for datacenter in datacenters:
-            datacenter.pprint()
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
     else:
-        datacenter_table = PrettyTable(["Datacenter ID", "Provider ID", "Description", "Status"])
-        for datacenter in datacenters:
-            datacenter_table.add_row([datacenter.data_center_id,
-                                      datacenter.provider_id,
-                                      datacenter.description,
-                                      datacenter.status])
-        datacenter_table.align = 'l'
-        print(datacenter_table)
+        table = PrettyTable(["Datacenter ID", "Provider ID", "Description", "Status"])
+        for r in results:
+            table.add_row([
+                r.data_center_id,
+                r.provider_id,
+                r.description,
+                r.status])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

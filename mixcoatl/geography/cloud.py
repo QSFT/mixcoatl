@@ -1,7 +1,7 @@
 """Implements the DCM Cloud API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
 class Cloud(Resource):
     PATH = 'geography/Cloud'
@@ -116,20 +116,17 @@ class Cloud(Resource):
         if 'status' in kwargs:
             params['status'] = kwargs['status']
 
-        c = r.get(params=params)
+        if 'keys_only' in kwargs:
+            keys_only = kwargs['keys_only']
+        else:
+            keys_only = False
 
+        x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                return [i['cloudId'] for i in c[cls.COLLECTION_NAME]]
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                clouds = []
-                for i in c[cls.COLLECTION_NAME]:
-                    cloud = cls(i['cloudId'])
-                    if 'detail' in kwargs:
-                        cloud.request_details = kwargs['detail']
-                    cloud.params = params
-                    cloud.load()
-                    clouds.append(cloud)
-                return clouds
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             return r.last_error

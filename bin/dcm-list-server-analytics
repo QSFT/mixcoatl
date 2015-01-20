@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+from mixcoatl.analytics.server_analytics import ServerAnalytics
+from mixcoatl import utils, resource_utils
+from prettytable import PrettyTable
+import argparse
+import pprint
+import time
+import sys
+import os
+
+if __name__ == '__main__':
+    """ Returns server analytics for server_id. """
+    start = time.time()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--server', '-s', type=int, help='Server ID')
+
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
+    cmd_args = parser.parse_args()
+
+    if cmd_args.server != None:
+        results = ServerAnalytics.all(cmd_args.server)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    print results
+    # if cmd_args.xml is True or cmd_args.json is True:
+    #     if cmd_args.xml is True:
+    #         payload_format = "xml"
+    #     else:
+    #         payload_format = "json"
+
+    #     print utils.print_format(results, payload_format)
+    # else:
+    #     table = PrettyTable(["Group ID", "Group Name", "Description", "Status"])
+    #     for r in results:
+    #         table.add_row([
+    #             r.group_id,
+    #             r.name,
+    #             r.description,
+    #             r.status])
+    #     table.align = 'l'
+    #     print(table)
+
+    # if 'DCM_DEBUG' in os.environ:
+    #     print 'Results returned in', time.time()-start, 'seconds.'

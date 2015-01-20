@@ -9,31 +9,28 @@ from mock import Mock
 import mixcoatl.network.firewall_rule as fwrule
 import tests.data.firewall as fw_data
 
-@patch('mixcoatl.resource.Resource.get')
-class TestFirewallRule(unittest.TestCase):
+# @patch('mixcoatl.resource.Resource.get')
+# class TestFirewallRule(unittest.TestCase):
+    # def test_has_all_rules_and_is_FirewallRule(self, mock_data):
+    #     '''test all() returns a list of FirewallRule'''
+    #     mock_data.return_value = fw_data.firewall_rules
+    #     f = fwrule.FirewallRule.all(116387)
+    #     assert len(f) == 5
+    #     for x in f:
+    #         assert isinstance(x, fwrule.FirewallRule), '%s must be an instance of FirewallRule' % x
+    #         assert x.firewall['firewall_id'] == 116387
 
-    def test_has_all_rules_and_is_FirewallRule(self, mock_data):
-        '''test all() returns a list of FirewallRule'''
-        mock_data.return_value = fw_data.firewall_rules
-
-        f = fwrule.FirewallRule.all(116387)
-        assert len(f) == 5
-        for x in f:
-            assert isinstance(x, fwrule.FirewallRule), '%s must be an instance of FirewallRule' % x
-            assert x.firewall['firewall_id'] == 116387
-
-    def test_has_a_rule(self, mock_data):
-        mock_data.return_value = fw_data.one_firewall_rule
-
-        f = fwrule.FirewallRule(3706471)
-        assert f.direction == 'INGRESS'
-        assert f.firewall['firewall_id'] == 116387
-        assert f.firewall_rule_id == 3706471
-        assert f.source == '217.240.165.28/32'
-        assert f.source_type == 'CIDR'
-        assert f.destination == '406'
-        assert f.destination_type == 'GLOBAL'
-        assert f.start_port == 2003
-        assert f.end_port == 2003
-        assert f.precedence == 0
-        assert f.protocol == 'TCP'
+    # def test_has_a_rule(self, mock_data):
+    #     mock_data.return_value = fw_data.one_firewall_rule
+    #     f = fwrule.FirewallRule(3706471)
+    #     assert f.direction == 'INGRESS'
+    #     assert f.firewall['firewall_id'] == 116387
+    #     assert f.firewall_rule_id == 3706471
+    #     assert f.source == '217.240.165.28/32'
+    #     assert f.source_type == 'CIDR'
+    #     assert f.destination == '406'
+    #     assert f.destination_type == 'GLOBAL'
+    #     assert f.start_port == 2003
+    #     assert f.end_port == 2003
+    #     assert f.precedence == 0
+    #     assert f.protocol == 'TCP'

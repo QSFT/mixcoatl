@@ -1,65 +1,78 @@
 #!/usr/bin/env python
-# region filter does not work at the moment. mixcoatl-side problem.
 
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.admin.billing_code import BillingCode
-from mixcoatl import resource_utils
+from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
+import time
 import sys
+import os
 
 if __name__ == '__main__':
+    """ List snapshots from DCM """
+    start = time.time()
     parser = argparse.ArgumentParser()
-    region_args = parser.add_mutually_exclusive_group(required=True)
+    region_args = parser.add_mutually_exclusive_group()
     region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
     region_args.add_argument('--regionpid', '-R', help="Region Provider ID such as us-east-1.")
-    region_args.add_argument('--all', '-a', help="List volumes in all regions.", action="store_true")
+
     group_args = parser.add_mutually_exclusive_group()
     group_args.add_argument("--groupid", "-g", type=int, help="Owning group's group ID.")
     group_args.add_argument("--groupname", "-G", help="Owning group's group name.")
+
     budget_args = parser.add_mutually_exclusive_group()
     budget_args.add_argument("--budgetid", "-b", type=int, help="Budget ID.")
     budget_args.add_argument("--budgetname", "-B", help="Budget Name.")
-    parser.add_argument('--verbose', '-v', help='Produce verbose output', action="store_true")
+
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
+
     cmd_args = parser.parse_args()
 
     if cmd_args.regionid is not None:
-        snapshots = Snapshot.all(region_id=cmd_args.regionid)
+        results = Snapshot.all(region_id=cmd_args.regionid)
     elif cmd_args.regionpid is not None:
-        snapshots = Snapshot.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
-    elif cmd_args.all is True:
-        snapshots = Snapshot.all()
+        results = Snapshot.all(region_id=resource_utils.get_region_id(cmd_args.regionpid))
     else:
-        parser.print_help()
-        sys.exit(1)
+        results = Snapshot.all()
 
-    snapshots = resource_utils.get_snapshots(snapshots, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid)
+    results = resource_utils.get_snapshots(results, group_id=cmd_args.groupid, budget_id=cmd_args.budgetid)
 
     if cmd_args.groupname is not None:
-        snapshots = resource_utils.get_snapshots(snapshots, group_id=resource_utils.get_group_id(cmd_args.groupname))
+        results = resource_utils.get_snapshots(results, group_id=resource_utils.get_group_id(cmd_args.groupname))
     if cmd_args.budgetname is not None:
-        snapshots = resource_utils.get_snapshots(snapshots, budget_id=resource_utils.get_budget_id(cmd_args.budgetname))
+        results = resource_utils.get_snapshots(results, budget_id=resource_utils.get_budget_id(cmd_args.budgetname))
 
-    if snapshots is None:
+    if results is None:
         print("There are no snapshots.")
         sys.exit(1)
 
-    if cmd_args.verbose:
-        for snapshot in snapshots:
-            snapshot.pprint()
-    else:
-        snapshot_table = PrettyTable(["Snapshot ID", "Provider ID", "Snapshot Name", "Group", "Budget", "Date"])
-        budget_name_cache = dict()
-        for snapshot in snapshots:
-            if not budget_name_cache.has_key(snapshot.budget):
-                budget_name_cache[snapshot.budget] = BillingCode(snapshot.budget).name
-            budget_name = budget_name_cache[snapshot.budget]
-            snapshot_table.add_row([snapshot.snapshot_id,
-                                    snapshot.provider_id,
-                                    snapshot.name,
-                                    snapshot.owning_groups[0]['name'] if hasattr(snapshot, 'owning_groups') else None, 
-                                    budget_name,
-                                    snapshot.created_timestamp])
+    if cmd_args.xml is True or cmd_args.json is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        else:
+            payload_format = "json"
 
-        snapshot_table.align = 'l'
-        print(snapshot_table)
+        print utils.print_format(results, payload_format)
+    else:
+        table = PrettyTable(["Snapshot ID", "Provider ID", "Snapshot Name", "Group", "Budget", "Date"])
+        budget_name_cache = dict()
+        for r in results:
+            if not budget_name_cache.has_key(r.budget):
+                budget_name_cache[r.budget] = BillingCode(r.budget).name
+            budget_name = budget_name_cache[r.budget]
+            table.add_row([r.snapshot_id,
+                            r.provider_id,
+                            r.name,
+                            r.owning_groups[0]['name'] if hasattr(r, 'owning_groups') else None, 
+                            budget_name,
+                            r.created_timestamp])
+        table.align = 'l'
+        print(table)
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'

@@ -2,9 +2,8 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
-
 import json
 
 class Network(Resource):
@@ -273,10 +272,8 @@ class Network(Resource):
         :returns: `list` of :attr:`network_id` or :class:`Network`
         :raises: :class:`NetworkException`
         """
-
         params = {}
         r = Resource(cls.PATH)
-        r.request_details = 'none'
 
         if 'detail' in kwargs:
             request_details = kwargs['detail']
@@ -304,16 +301,11 @@ class Network(Resource):
 
         x = r.get(params=params)
         if r.last_error is None:
-            keys = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             if keys_only is True:
-                networks = keys
+                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                networks = []
-                for key in keys:
-                    nw = cls(key, detail=request_details)
-                    nw.load()
-                    networks.append(nw)
-            return networks
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+            return results
         else:
             raise NetworkException(r.last_error)
 

@@ -21,26 +21,30 @@ Usage notes
 
 The following environment variables will need to be set:
 
-- ``ES_SECRET_KEY``
-- ``ES_ACCESS_KEY``
+- ``DCM_SECRET_KEY``
+- ``DCM_ACCESS_KEY``
 
 By default, API calls will be made against the DCM production SaaS and API
-version ``2012-06-15``. These can be overridden with the following variables:
+version ``2014-07-30``. These can be overridden with the following variables:
 
-- ``ES_ENDPOINT``
-- ``ES_API_VERSION``
+- ``DCM_ENDPOINT``
+- ``DCM_API_VERSION``
 
 When overriding the endpoint, it should be in the form:
 
 ``http[s]://api.endpoint.domain/api/enstratus/<api version>``
 
-Note that setting both ``ES_API_VERSION`` and ``ES_ENDPOINT`` is not
+Note that setting both ``DCM_API_VERSION`` and ``DCM_ENDPOINT`` is not
 cumulative. If you wish to use a private endpoint, it must include the version
 in the URL.
 
-- ``ES_SSL_VERIFY``
+- ``DCM_SSL_VERIFY``
 
-By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, ``ES_SSL_VERIFY=0``
+By default, SSL certificate verification is required against HTTPS endpoint. To disable the verfication in case you use a self-signed certificate, set the value to 0. For example, ``DCM_SSL_VERIFY=0``
+
+- ``DCM_DEBUG``
+
+If you desire the ability to see debug information about specific calls, you may set `DCM_DEBUG=1`.  This will provide information such as headers, endpoint, and time to completion information.  Defaults to off.
 
 ``dcm-get``
 -----------
@@ -123,25 +127,7 @@ example:
 ``.all()``
 ----------
 
-All objects should support a call to return all resources of that type. This
-will actually return a list of objects. Note that calling ``.all()`` actually
-deferences the objects so an API call will be made for each object:
-
-example:
-
-.. code-block:: bash
-
-   >>> from mixcoatl.geography.cloud import Cloud
-   >>> c = Cloud.all()
-   >>> # Initial call made for all Clouds
-   >>> c
-   >>> # Delay while each cloud object is dereferenced
-   >>> c[0]
-   {'status': 'ACTIVE', 'current_job': None, 'last_request': '<Response [200]>', 'name': 'Amazon Web Services', 'last_error': None, 'cloud_provider_name': 'Amazon', 'cloud_provider_console_url': 'http://aws.amazon.com', 'cloud_provider_logo_url': '/clouds/aws.gif', 'compute_endpoint': 'https://ec2.us-east-1.amazonaws.com,https://ec2.us-west-1.amazonaws.com,https://ec2.eu-west-1.amazonaws.com', 'compute_secret_key_label': 'AWS_SECRET_ACCESS_KEY', 'documentation_label': None, 'compute_delegate': 'org.dasein.cloud.aws.AWSCloud', 'path': 'geography/Cloud/1', 'compute_account_number_label': 'AWS_ACCOUNT_NUMBER', 'private_cloud': False}
-   >>> type(c[0])
-   mixcoatl.geography.cloud.Cloud
-   >>> c[0].__class__.__name__
-   'Cloud'
+Returns an object list of resource results.
 
 Pretty-printing
 ---------------

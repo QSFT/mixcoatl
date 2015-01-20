@@ -18,45 +18,62 @@ class Config(object):
         self.user_agent = 'mixcoatl'
         self.api_version = None
         self.basepath = None
-        self.default_api_version = '2012-06-15'
+        self.default_api_version = '2014-07-30'
         self.ssl_verify = None
 
     def configure(self):
         if self.access_key is None:
-            if 'ES_ACCESS_KEY' in os.environ:
-                self.set_access_key(os.environ['ES_ACCESS_KEY'])
-            else:
-                raise ConfigException('missing ES_ACCESS_KEY')
-        if self.secret_key is None:
-            if 'ES_SECRET_KEY' in os.environ:
-                self.set_secret_key(os.environ['ES_SECRET_KEY'])
-            else:
-                raise ConfigException('missing ES_SECRET_KEY')
-        if self.api_version is None:
-            if 'ES_API_VERSION' in os.environ:
-                self.set_api_version(os.environ['ES_API_VERSION'])
-            else:
-                if 'ES_ENDPOINT' in os.environ:
-                  str = os.environ['ES_ENDPOINT'].split('/')
+            if 'ES_ACCESS_KEY' in os.environ and 'DCM_ACCESS_KEY' not in os.environ:
+                os.environ['DCM_ACCESS_KEY'] = os.environ['ES_ACCESS_KEY']
 
-                  if validate(str[-1]):
-                    self.set_api_version(str[-1])
-                  else:
-                    self.set_api_version(self.default_api_version)
+            if 'DCM_ACCESS_KEY' in os.environ:
+                self.set_access_key(os.environ['DCM_ACCESS_KEY'])
+            else:
+                raise ConfigException('missing DCM_ACCESS_KEY')
+
+        if self.secret_key is None:
+            if 'ES_SECRET_KEY' in os.environ and 'DCM_SECRET_KEY' not in os.environ:
+                os.environ['DCM_SECRET_KEY'] = os.environ['ES_SECRET_KEY']
+
+            if 'DCM_SECRET_KEY' in os.environ:
+                self.set_secret_key(os.environ['DCM_SECRET_KEY'])
+            else:
+                raise ConfigException('missing DCM_SECRET_KEY')
+
+        if self.api_version is None:
+            if 'ES_API_VERSION' in os.environ and 'DCM_API_VERSION' not in os.environ:
+                os.environ['DCM_API_VERSION'] = os.environ['ES_API_VERSION']
+
+            if 'DCM_API_VERSION' in os.environ:
+                self.set_api_version(os.environ['DCM_API_VERSION'])
+            else:
+                if 'DCM_ENDPOINT' in os.environ:
+                    str = os.environ['DCM_ENDPOINT'].split('/')
+
+                    if validate(str[-1]):
+                        self.set_api_version(str[-1])
+                    else:
+                        self.set_api_version(self.default_api_version)
                 else:
-                  self.set_api_version(self.default_api_version)
+                    self.set_api_version(self.default_api_version)
 
             self.set_basepath('/api/enstratus/%s' % self.api_version)
 
         if self.endpoint is None:
-            if 'ES_ENDPOINT' in os.environ:
-                self.set_endpoint(os.environ['ES_ENDPOINT'])
+            if 'ES_ENDPOINT' in os.environ and 'DCM_ENDPOINT' not in os.environ:
+                os.environ['DCM_ENDPOINT'] = os.environ['ES_ENDPOINT']
+
+            if 'DCM_ENDPOINT' in os.environ:
+                self.set_endpoint(os.environ['DCM_ENDPOINT'])
             else:
                 self.set_endpoint('https://api.enstratus.com'+self.basepath)
 
         if self.ssl_verify is None:
-            if 'ES_SSL_VERIFY' in os.environ:
-                self.set_ssl_verify(os.environ['ES_SSL_VERIFY'])
+            if 'ES_SSL_VERIFY' in os.environ and 'DCM_SSL_VERIFY' not in os.environ:
+                os.environ['DCM_SSL_VERIFY'] = os.environ['ES_SSL_VERIFY']
+
+            if 'DCM_SSL_VERIFY' in os.environ:
+                self.set_ssl_verify(os.environ['DCM_SSL_VERIFY'])
             else:
                 self.set_ssl_verify('1')
 

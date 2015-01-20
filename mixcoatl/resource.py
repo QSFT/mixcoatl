@@ -1,11 +1,11 @@
 """
 mixcoatl.resource
 ------------------
-
 """
-from mixcoatl.settings.load_settings import settings
-import mixcoatl.auth as auth
+import os
 import requests as r
+import mixcoatl.auth as auth
+from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
 
@@ -51,7 +51,6 @@ class Resource(object):
     PRIMARY_KEY = None
 
     def __init__(self, base_path=None, request_details = 'basic', **kwargs):
-
         if base_path is None:
             try:
                 self.__path = self.__class__.PATH
@@ -70,6 +69,7 @@ class Resource(object):
             self.__params = kwargs['params']
         else:
             self.__params = {}
+
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
@@ -223,6 +223,13 @@ class Resource(object):
         'User-Agent': sig['ua']}
 
         results = r.request(method, url, headers=headers, verify=ssl_verify, **kwargs)
+
+        if 'DCM_DEBUG' in os.environ:
+            print "URL: %s" % (url)
+            for key, value in kwargs.iteritems():
+                print "%s = %s" % (key, value)
+            for key, value in results.headers.iteritems():
+                print "Headers: %s = %s" % (key, value)
 
         self.last_error = None
         self.last_request = results
