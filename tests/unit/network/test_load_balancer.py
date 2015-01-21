@@ -23,6 +23,18 @@ class TestLoadBalancer(unittest.TestCase):
         self.json_file = '../../tests/data/unit/network/load_balancer.json'
 
     @httprettified
+    def test_has_all_and_is_one(self):
+        '''test all() returns a list of LoadBalancer'''
+        with open(self.json_file) as f:
+            data = f.read()
+        HTTPretty.register_uri(HTTPretty.GET,
+            self.es_url,
+            body=data,
+            status=200,
+            content_type="application/json")
+        s = self.cls.all()
+
+    @httprettified
     def test_has_one(self):
         '''test LoadBalancer(<id>) returns a valid resource'''
         pk = 12516

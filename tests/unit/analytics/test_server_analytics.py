@@ -25,7 +25,6 @@ class TestServerAnalytics(unittest.TestCase):
     # @httprettified
     # def test_has_all_and_is_one(self):
     #     '''test all() returns a list of ServerAnalytics'''
-
     #     with open(self.json_file) as f:
     #         data = f.read()
     #     HTTPretty.register_uri(HTTPretty.GET,
@@ -33,9 +32,7 @@ class TestServerAnalytics(unittest.TestCase):
     #         body=data,
     #         status=200,
     #         content_type="application/json")
-
     #     s = self.cls.all(331810)
-    #     assert isinstance(s, self.cls)
 
     # @httprettified
     # def test_has_one(self):
