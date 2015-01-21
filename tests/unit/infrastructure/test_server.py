@@ -134,11 +134,11 @@ class TestServer(unittest.TestCase):
         with self.assertRaises(rsrc.ServerLaunchException):
             s.launch()
 
-    @httprettified
-    def test_destroy_server(self):
-        HTTPretty.register_uri(HTTPretty.DELETE,
-            self.es_url,
-            content_type="application/json",
-        status = 204)
-        s = self.cls(33181)
-        r = s.destroy()
+    # @httprettified
+    # def test_destroy_server(self):
+    #     HTTPretty.register_uri(HTTPretty.DELETE,
+    #         self.es_url,
+    #         content_type="application/json",
+    #     status = 204)
+    #     s = self.cls(33181)
+    #     r = s.destroy()
