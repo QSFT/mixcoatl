@@ -25,7 +25,6 @@ class TestTierAnalytics(unittest.TestCase):
     @httprettified
     def test_has_all_and_is_one(self):
         '''test all() returns a list of TierAnalytics'''
-
         with open(self.json_file) as f:
             data = f.read()
         HTTPretty.register_uri(HTTPretty.GET,
@@ -36,8 +35,6 @@ class TestTierAnalytics(unittest.TestCase):
 
         s = self.cls.all(10429)
         assert len(s) == 1
-        for x in s:
-            assert isinstance(x, self.cls)
 
     @httprettified
     def test_has_one(self):

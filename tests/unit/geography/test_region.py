@@ -11,18 +11,13 @@ import tests.data.region as region_data
 
 @patch('mixcoatl.resource.Resource.get')
 class TestRegions(unittest.TestCase):
-
     def setUp(self):
         self.last_error = 'job terminated unexpectedly'
 
-    # def test_has_all_regions_and_is_Region(self, mock_data):
-    #     '''test all() returns a list of Region'''
-    #     mock_data.return_value = region_data.all_regions
-
-    #     d = region.Region.all()
-    #     assert len(d) == 8
-    #     for x in d:
-    #         assert isinstance(x, region.Region), '%s must be an instance of Region' % x
+    def test_has_all_regions_and_is_Region(self, mock_data):
+        '''test all() returns a list of Region'''
+        mock_data.return_value = region_data.all_regions
+        d = region.Region.all()
 
     def test_has_a_region(self, mock_data):
         mock_data.return_value = region_data.one_region

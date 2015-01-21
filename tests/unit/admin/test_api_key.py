@@ -23,7 +23,6 @@ class TestApiKey(unittest.TestCase):
     # @httprettified
     # def test_has_all_and_is_one(self):
     #     '''test ApiKey.all() returns a list of ApiKey'''
-
     #     with open('../../tests/data/unit/admin/apikey.json') as f:
     #         data = f.read()
     #     HTTPretty.register_uri(HTTPretty.GET,
@@ -34,8 +33,6 @@ class TestApiKey(unittest.TestCase):
 
     #     s = api_key.ApiKey.all()
     #     assert len(s) == 3
-    #     for x in s:
-    #         assert isinstance(x, api_key.ApiKey)
 
     # @httprettified
     # def test_has_one(self):
