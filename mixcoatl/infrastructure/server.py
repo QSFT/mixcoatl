@@ -18,12 +18,12 @@ class Server(Resource):
 
     @property
     def server_id(self):
-        """`int` - The enStratus ID of this server"""
+        """`int` - The DCM ID of this server"""
         return self.__server_id
 
     @lazy_property
     def agent_version(self):
-        """`int` - The version of the enStratus agent if installed."""
+        """`int` - The version of the DCM agent if installed."""
         return self.__agent_version
 
     @lazy_property
@@ -354,10 +354,8 @@ class Server(Resource):
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
         payload = {'start':[{}]}
-
         if reason is not None:
             payload['start'][0].update({'reason':reason})
-
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
@@ -369,12 +367,10 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-
         user_dict = {'userId': user_id}
         if admin_role is not None:
             user_dict['adminRole'] = admin_role
         payload = {'provisionUser':[{'user': user_dict}]}
-
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
@@ -386,10 +382,15 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-
         user_dict = {'userId': user_id}
         payload = {'deprovisionUser':[{'user': user_dict}]}
+        return self.put(p, data=json.dumps(payload))
 
+    @required_attrs(['server_id', 'name'])
+    def rename(self):
+        """Rename server"""
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        payload = {'describeServer':[{'name':self.name}]}
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
@@ -530,12 +531,16 @@ class Server(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise ServerException(r.last_error)
 
-class ServerException(BaseException): pass
-class ServerLaunchException(ServerException): pass
+
+class ServerException(BaseException):
+    pass
+
+
+class ServerLaunchException(ServerException):
+    pass
