@@ -23,7 +23,7 @@ class ApiKey(Resource):
 
     @property
     def access_key(self):
-        """The primary identifier of the `ApiKey`. Same as `ES_ACCESS_KEY`"""
+        """The primary identifier of the `ApiKey`. Same as `DCM_ACCESS_KEY`"""
         return self.__access_key
 
     @lazy_property
@@ -85,7 +85,7 @@ class ApiKey(Resource):
 
     @lazy_property
     def system_management_key(self):
-        """`bool` - Identifies if the key can be used for enStratus system management functions"""
+        """`bool` - Identifies if the key can be used for DCM system management functions"""
         return self.__system_management_key
 
     @lazy_property
