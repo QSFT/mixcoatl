@@ -7,7 +7,7 @@ Implements access to the DCM ApiKey API
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.utils import camelize, camel_keys, uncamel_keys
+from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 import json
 
 
@@ -180,7 +180,7 @@ class ApiKey(Resource):
             if keys_only is True:
                 results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
             return results
         else:
             raise ApiKeyException(r.last_error)

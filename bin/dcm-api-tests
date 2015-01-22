@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 
-import os, string, random, argparse, sys, time
+import os
+import sys
+import time
+import random
+import argparse
 from termcolor import colored
-from prettytable import PrettyTable
 from datetime import datetime
 
 from mixcoatl.admin.account import Account
+from mixcoatl.admin.api_key import ApiKey
 from mixcoatl.admin.billing_code import BillingCode
 from mixcoatl.admin.group import Group
 from mixcoatl.admin.job import Job
@@ -58,6 +62,7 @@ if __name__ == '__main__':
 
 		try:
 			region_id = random.choice(Region.all(keys_only=True))
+			#subscriptions = Subscription.all(region_id=region_id)[0]
 			print "++ Defaulting to Region #"+str(region_id)
 		except:
 			print "++ Unable to retrieve any regions."
@@ -74,12 +79,11 @@ if __name__ == '__main__':
 		except:
 			print "++ Unable to retrieve a cm account."
 
-		tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'Account', 'Script', 'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+		tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'ApiKey', 'Account', 'Script', 'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
 
 		for i in sorted(tests):
 			params = None
 			start = time.time()
-
 			if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
 				print i+'.all('+str(region_id)+')',
 				if region_id is not None:
