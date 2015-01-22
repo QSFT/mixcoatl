@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-# Starts a stopped/paused server.
-# Returns Job ID.
 
 from mixcoatl.infrastructure.server import Server
 import argparse
@@ -8,11 +6,14 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('serverid', type=int, help='Server ID')
-
+    parser.add_argument('--server_id', '-s', type=int, help='Server ID')
     cmd_args = parser.parse_args()
 
-    server = Server(cmd_args.serverid)
+    if cmd_args.server_id is None:
+        parser.print_help()
+        sys.exit(1)
+
+    server = Server(cmd_args.server_id)
     result = server.start()
 
     if isinstance(result, dict):
