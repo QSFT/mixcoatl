@@ -22,29 +22,26 @@ if __name__ == '__main__':
 
     results = ApiKey.all()
 
-    print results
-    # if cmd_args.xml is True or cmd_args.json is True:
-    #     if cmd_args.xml is True:
-    #         payload_format = "xml"
-    #     else:
-    #         payload_format = "json"
+    if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        elif cmd_args.csv is True:
+            payload_format = "csv"
+        else:
+            payload_format = "json"
 
-    #     print utils.print_format(results, payload_format)
-    # else:
-    #     table = PrettyTable(["Snapshot ID", "Provider ID", "Snapshot Name", "Group", "Budget", "Date"])
-    #     budget_name_cache = dict()
-    #     for r in results:
-    #         if not budget_name_cache.has_key(r.budget):
-    #             budget_name_cache[r.budget] = BillingCode(r.budget).name
-    #         budget_name = budget_name_cache[r.budget]
-    #         table.add_row([r.snapshot_id,
-    #                         r.provider_id,
-    #                         r.name,
-    #                         r.owning_groups[0]['name'] if hasattr(r, 'owning_groups') else None, 
-    #                         budget_name,
-    #                         r.created_timestamp])
-    #     table.align = 'l'
-    #     print(table)
+        print utils.print_format(results, payload_format)
+    else:
+        table = PrettyTable(["State", "Account", "Name", "Description", "Access Key"])
+        budget_name_cache = dict()
+        for r in results:
+            table.add_row([r.state,
+                            r.account['account_id'],
+                            r.name,
+                            r.description, 
+                            r.access_key])
+        table.align = 'l'
+        print(table)
 
-    # if 'DCM_DEBUG' in os.environ:
-    #     print 'Results returned in', time.time()-start, 'seconds.'
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
