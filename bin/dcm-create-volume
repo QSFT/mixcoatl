@@ -8,11 +8,12 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--budgetid', '-b', type=int, help='Budget ID.')
-    parser.add_argument('--datacenter', '-d', type=int, help='Data Center ID in which to create the volume.')
-    parser.add_argument('--description', '-D', help='The description of the volume.')
-    parser.add_argument('--name', '-n', help='The name of the volume.')
-    parser.add_argument('--size', '-s', type=int, help="The size of the volume in GB.")
+    group = parser.add_argument_group("required arguments")
+    group.add_argument('--budgetid', '-b', type=int, help='Budget ID.', required=True)
+    group.add_argument('--datacenter', '-d', type=int, help='Data Center ID in which to create the volume.', required=True)
+    group.add_argument('--description', '-D', help='The description of the volume.', required=True)
+    group.add_argument('--name', '-n', help='The name of the volume.', required=True)
+    group.add_argument('--size', '-s', type=int, help="The size of the volume in GB.", required=True)
 
     cmd_args = parser.parse_args()
 
@@ -21,13 +22,10 @@ if __name__ == '__main__':
         sys.exit(1)
 
     new_volume = Volume()
-
     new_volume.data_center = cmd_args.datacenter
     new_volume.description = cmd_args.description
     new_volume.name = cmd_args.name
     new_volume.size_in_gb = cmd_args.size
     new_volume.budget = cmd_args.budgetid
-
     result = new_volume.create()
-
     print(result.job_id)
