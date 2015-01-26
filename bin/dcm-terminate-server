@@ -8,16 +8,15 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--serverid', '-s', type=int, help='Server ID')
+    parser.add_argument('--server_id', '-s', type=int, help='Server ID')
     parser.add_argument('--reason', '-r', help='The reason for terminating the server.')
-
     cmd_args = parser.parse_args()
 
-    if cmd_args.serverid is None:
+    if cmd_args.server_id is None:
         parser.print_help()
         sys.exit(1)
 
-    server = Server(cmd_args.serverid)
+    server = Server(cmd_args.server_id)
 
     if server.load() is not None:
         print("Cannot find the server.")
