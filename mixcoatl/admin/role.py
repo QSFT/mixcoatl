@@ -14,7 +14,6 @@ import json
 
 class Role(Resource):
     """A role defines a common set of permissions that govern access into a given account"""
-
     PATH = 'admin/Role'
     COLLECTION_NAME = 'roles'
     PRIMARY_KEY = 'role_id'
@@ -60,21 +59,14 @@ class Role(Resource):
 
     @lazy_property
     def status(self):
-        """`str` - The status of the role in enStratus"""
+        """`str` - The status of the role in DCM"""
         return self.__status
 
     @required_attrs(['role_id'])
-    def grant(self,role_id,resource_type, action, qualifier):
-        """Adds a new ACL to a role."""
-
-        parms = [{'acl': [{'resourceType' : resource_type,
-                    'action' : action,
-                    'qualifier' : qualifier}]}]
-
+    def grant(self, acls):
+        """Updates Roles ACL list."""
         p = '%s/%s' % (self.PATH, str(self.role_id))
-
-        payload = {'grant':camel_keys(parms)}
-
+        payload = {'grant': [{'acl': camel_keys(acls.values()[0])}]}
         return self.put(p, data=json.dumps(payload))
         if self.last_error is None:
             self.load()
