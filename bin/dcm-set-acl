@@ -33,7 +33,6 @@
 #         }
 # 	]
 # }
-
 # The script will check to see if the file is in proper JSON format before trying
 # to use it to add ACL rules to a role.
 #
@@ -87,10 +86,7 @@ def update_acl_from_file(role_id):
     if is_valid_file(parser,filename):
         f=open(filename,'r')
         json_object = json.load(f)
-
-    for value in json_object.values():
-        for v in range(0,len(value)):
-            r.grant(role_id, value[v]['resourceType'], value[v]['action'], value[v]['qualifier'])
+    r.grant(json_object)
 
 def update_acl_from_url(role_id,url):
     """Loop through the contents of the remotely specified ACL file and add the specified ACL."""
@@ -123,14 +119,11 @@ def update_acl_from_url(role_id,url):
         else:
             json.loads(data)
             json_object = json.loads(data) 
-            for value in json_object.values():
-                for v in range(0,len(value)):
-                    r.grant(role_id, value[v]['resourceType'], value[v]['action'], value[v]['qualifier'])
+            r.grant(json_object)
 
 def update_acl(role_id,resource,action,qualifier):
     """Add this single rule."""
     r=Role(role_id)
-
     result = r.grant(role_id,resource,action,qualifier)
 
 if __name__ == '__main__':
