@@ -4,11 +4,13 @@ from mixcoatl.infrastructure.machine_image import MachineImage
 from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
+import time
 import sys
 import os
 
 if __name__ == '__main__':
     """ List machine images in a region. """
+    start = time.time()
     parser = argparse.ArgumentParser()
     region_args = parser.add_mutually_exclusive_group(required=True)
     region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")

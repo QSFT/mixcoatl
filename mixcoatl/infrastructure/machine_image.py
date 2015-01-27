@@ -198,6 +198,20 @@ class MachineImage(Resource):
         qopts = {'reason':reason}
         return self.delete(p, params=qopts)
 
+    @required_attrs(['machine_image_id'])
+    def deprecate(self, callback=None):
+        """Deprecates a machine image by id"""
+        p = '%s/%s' % (self.PATH, str(self.machine_image_id))
+        payload = {'deprecateImage':[{}]}
+        self.put(p, data=json.dumps(payload))
+        if self.last_error is None:
+            if callback is not None:
+                callback(self.current_job)
+            else:
+                return self.current_job
+        else:
+            raise MachineImageException(self.last_error)
+
     @required_attrs(['server_id', 'name', 'budget', 'description', 'owning_groups'])
     def create(self, callback=None):
         """Creates a machine image from server_id
