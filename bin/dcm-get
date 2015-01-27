@@ -12,26 +12,48 @@ if __name__ == '__main__':
     parser.add_argument('basepath', type=str, help='base path')
     parser.add_argument('parameter', nargs='?', default=None, help='query parameter')
     parser.add_argument('--extended', action='store_true', help='set level of API response detail to extended.')
+    
     group_one = parser.add_mutually_exclusive_group()
     group_one.add_argument('--json', action='store_true', help='print API response in JSON format.')
     group_one.add_argument('--xml', action='store_true', help='print API response in XML format.')
+
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--statuscode', action='store_true', help='print HTTP status code along with API response.')
     group_two.add_argument('--statuscodeonly', action='store_true', help='print HTTP status code only.')
 
     cmd_args = parser.parse_args()
+    base = cmd_args.basepath.split("?")
 
-    r = resource.Resource(cmd_args.basepath)
+    if len(base) > 1:
+        p = {}
+        params = base[1].split("&")
+
+        for i in params:
+            values = i.split("=")
+
+            if values[1].isdigit() is True:
+                v = int(values[1])
+            else:
+                v = values[1]
+
+            p[values[0]] = v
+
+        p = eval(str(p))
+        basepath = base[0]
+    else:
+        p = None if cmd_args.parameter is None else eval(cmd_args.parameter)
+        basepath = cmd_args.basepath
+
+    r = resource.Resource(basepath)
     if cmd_args.extended is True:
         r.request_details = 'extended'
     else:
         r.request_details = 'basic'
+
     if cmd_args.xml is True:
         r.payload_format = 'xml'
     else:
         r.payload_format = 'json'
-
-    p = None if cmd_args.parameter is None else eval(cmd_args.parameter)
 
     result = r.get(params=p)
 
