@@ -19,7 +19,7 @@ class MachineImage(Resource):
 
     @property
     def machine_image_id(self):
-        """`int` - The unique enStratus id for this machine image"""
+        """`int` - The unique DCM id for this machine image"""
         return self.__machine_image_id
 
     @lazy_property
@@ -70,7 +70,7 @@ class MachineImage(Resource):
 
     @lazy_property
     def description(self):
-        """`str` - The description of the machine image established in enStratus"""
+        """`str` - The description of the machine image established in DCM"""
         return self.__description
 
     @description.setter
@@ -79,26 +79,25 @@ class MachineImage(Resource):
 
     @lazy_property
     def owning_account(self):
-        """`dict` - The enStratus cloud account that is the account under which
+        """`dict` - The DCM cloud account that is the account under which
             the machine image is registered
 
             .. .note::
 
                 This value may be empty if the machine image belongs to an account
-                not using enStratus
-
+                not using DCM
         """
         return self.__owning_account
 
     @lazy_property
     def owning_cloud_account_number(self):
-        """`str` - The enstratus cloud account that is the account under which
+        """`str` - The DCM cloud account that is the account under which
             the machine image is registered.
 
             .. .note::
 
                 This value is empty for public images and in rare circumstances
-                when enStratus is unable to determine the ownership
+                when DCM is unable to determine the ownership
 
         """
         return self.__owning_cloud_account_number
@@ -118,6 +117,10 @@ class MachineImage(Resource):
     def owning_groups(self):
         """`list` - The groups who have ownership over this machine image"""
         return self.__owning_groups
+
+    @owning_groups.setter
+    def owning_groups(self, d):
+        self.__owning_groups = d
 
     @lazy_property
     def platform(self):
@@ -163,7 +166,7 @@ class MachineImage(Resource):
 
     @lazy_property
     def agent_version(self):
-        """`int` - The version of the enStratus agent if installed on the machine image"""
+        """`int` - The version of the DCM agent if installed on the machine image"""
         return self.__agent_version
 
     @lazy_property
@@ -195,7 +198,7 @@ class MachineImage(Resource):
         qopts = {'reason':reason}
         return self.delete(p, params=qopts)
 
-    @required_attrs(['server_id', 'name', 'budget'])
+    @required_attrs(['server_id', 'name', 'budget', 'description', 'owning_groups'])
     def create(self, callback=None):
         """Creates a machine image from server_id
 
@@ -208,13 +211,13 @@ class MachineImage(Resource):
         
         :returns: int -- The job id of the create request
         """
-
         payload = {'imageServer':
                     [{
-                        'budget': self.budget,
-                        'description': "Created as a test",
+                        'budget': int(self.budget),
+                        'description': self.description,
                         'name': self.name,
-                        'server': {"serverId":self.server_id}
+                        'server': {"serverId":int(self.server_id)},
+                        'owningGroups': [{"groupId": self.owning_groups}],
                     }]}
 
         self.post(data=json.dumps(payload))
@@ -224,7 +227,7 @@ class MachineImage(Resource):
             else:
                 return self.current_job
         else:
-            raise ServerLaunchException(self.last_error)
+            raise MachineImageException(self.last_error)
 
     @required_attrs(['machine_image_id'])
     def update(self, **kwargs):
@@ -260,7 +263,7 @@ class MachineImage(Resource):
         :type keys_only: bool.
         :param available: Return only available images. Default is `true`
         :type available: str.
-        :param registered: Return only images with the enStratus agent installed. Default is `false`
+        :param registered: Return only images with the DCM agent installed. Default is `false`
         :type registered: str.
         :param detail: The level of detail to return - `basic` or `extended`
         :type detail: str.

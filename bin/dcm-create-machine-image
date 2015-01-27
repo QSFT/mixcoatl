@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+from mixcoatl.infrastructure.machine_image import MachineImage
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--description', '-D', help='Description', required=True)
+    parser.add_argument('--name', '-n', help='Server Name', required=True)
+    parser.add_argument('--budget', '-b', help='Budget ID', required=True)
+    parser.add_argument('--server', '-s', help='Server ID', required=True)
+    parser.add_argument('--group', '-g', help='Group ID', required=True)
+    cmd_args = parser.parse_args()
+
+    if (cmd_args.description is None or
+        cmd_args.name is None or 
+        cmd_args.budget is None or
+        cmd_args.group is None or
+        cmd_args.server is None):
+        parser.print_help()
+        sys.exit(1)
+
+    m = MachineImage()
+    m.server_id = cmd_args.server
+    m.name = cmd_args.name
+    m.description = cmd_args.description
+    m.owning_groups = cmd_args.group
+    m.budget = cmd_args.budget
+    result = m.create()
+
+    if isinstance(result, dict):
+        print(result['jobs'][0]['jobId'])
+    elif isinstance(result, unicode):
+        print(result)
+        sys.exit(1)
