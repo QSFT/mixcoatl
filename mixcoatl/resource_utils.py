@@ -23,26 +23,38 @@ def get_servers(servers, **kwargs):
 
     if 'account_user_id' in kwargs and kwargs['account_user_id'] is not None:
         filtered_servers = [server for server in servers if hasattr(server, 'owning_user') and
-                            server.owning_user.has_key('account_user_id') and
+                            'account_user_id' in server.owning_user and
                             server.owning_user['account_user_id'] == kwargs['account_user_id']]
+
     if 'vm_login_id' in kwargs and kwargs['vm_login_id'] is not None:
-        if filtered_servers is not None: servers = filtered_servers
+        if filtered_servers is not None:
+            servers = filtered_servers
         filtered_servers = [server for server in servers if hasattr(server, 'owning_user') and
-                            server.owning_user.has_key('vm_login_id') and
+                            'vm_login_id' in server.owning_user and
                             server.owning_user['vm_login_id'] == kwargs['vm_login_id']]
+
     if 'email' in kwargs and kwargs['email'] is not None:
-        if filtered_servers is not None: servers = filtered_servers
+        if filtered_servers is not None:
+            servers = filtered_servers
+
         filtered_servers = [server for server in servers if hasattr(server, 'owning_user') and
                             server.owning_user.has_key('email') and
                             server.owning_user['email'] == kwargs['email']]
+
     if 'group_id' in kwargs and kwargs['group_id'] is not None:
-        if filtered_servers is not None: servers = filtered_servers
+        if filtered_servers is not None:
+            servers = filtered_servers
+
         filtered_servers = [server for server in servers if hasattr(server, 'owning_groups')
                             for group in server.owning_groups if group['group_id'] == int(kwargs['group_id'])]
+
     if 'budget_id' in kwargs and kwargs['budget_id'] is not None:
-        if filtered_servers is not None: servers = filtered_servers
+        if filtered_servers is not None:
+            servers = filtered_servers
+
         filtered_servers = [server for server in servers if hasattr(server, 'budget') and
                             server.budget == int(kwargs['budget_id'])]
+
     return filtered_servers
 
 
