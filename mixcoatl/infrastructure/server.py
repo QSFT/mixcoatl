@@ -1,18 +1,19 @@
 from mixcoatl.resource import Resource
 from mixcoatl.admin.job import Job
-from mixcoatl.utils import camel_keys, uncamel_keys
+from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
-import json, sys, time
+import json
+import time
+
 
 class Server(Resource):
     """A server is a virtual machine running within a data center."""
-
     PATH = 'infrastructure/Server'
     COLLECTION_NAME = 'servers'
     PRIMARY_KEY = 'server_id'
 
-    def __init__(self, server_id=None, *args, **kwargs):
+    def __init__(self, server_id=None):
         Resource.__init__(self)
         self.__server_id = server_id
 
@@ -85,11 +86,10 @@ class Server(Resource):
 
     @cm_scripts.setter
     def cm_scripts(self, c):
-    	s = c.split(",")
-    	sc = []
-    	for cm in s:
-    		sc.append({u'sharedScriptCode': cm})
-
+        s = c.split(",")
+        sc = []
+        for cm in s:
+            sc.append({u'sharedScriptCode': cm})
         self.__cm_scripts = sc
 
     @lazy_property
@@ -257,7 +257,7 @@ class Server(Resource):
 
     @terminate_after.setter
     def terminate_after(self, t):
-	    self.__terminate_after = t
+        self.__terminate_after = t
 
     @lazy_property
     def pause_after(self):
@@ -319,7 +319,7 @@ class Server(Resource):
         :returns: bool -- Result of API call
         """
         p = self.PATH+"/"+str(self.server_id)
-        qopts = {'reason':reason}
+        qopts = {'reason': reason}
         return self.delete(p, params=qopts)
 
     @required_attrs(['server_id'])
@@ -331,7 +331,7 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        payload = {'pause':[{}]}
+        payload = {'pause': [{}]}
 
         if reason is not None:
             payload['pause'][0].update({'reason':reason})
@@ -341,7 +341,7 @@ class Server(Resource):
     @required_attrs(['server_id'])
     def extend_terminate(self, extend):
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        qopts = {'terminateAfter':extend}
+        qopts = {'terminateAfter': extend}
         return self.delete(p, params=qopts)
 
     @required_attrs(['server_id'])
@@ -353,9 +353,9 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        payload = {'start':[{}]}
+        payload = {'start': [{}]}
         if reason is not None:
-            payload['start'][0].update({'reason':reason})
+            payload['start'][0].update({'reason': reason})
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
@@ -370,7 +370,7 @@ class Server(Resource):
         user_dict = {'userId': user_id}
         if admin_role is not None:
             user_dict['adminRole'] = admin_role
-        payload = {'provisionUser':[{'user': user_dict}]}
+        payload = {'provisionUser': [{'user': user_dict}]}
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
@@ -383,14 +383,14 @@ class Server(Resource):
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
         user_dict = {'userId': user_id}
-        payload = {'deprovisionUser':[{'user': user_dict}]}
+        payload = {'deprovisionUser': [{'user': user_dict}]}
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id', 'name'])
     def rename(self):
         """Rename server"""
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        payload = {'describeServer':[{'name':self.name}]}
+        payload = {'describeServer': [{'name': self.name}]}
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['server_id'])
@@ -402,16 +402,13 @@ class Server(Resource):
         :returns: Job -- Result of API call
         """
         p = '%s/%s' % (self.PATH, str(self.server_id))
-        payload = {'stop':[{}]}
+        payload = {'stop': [{}]}
 
         if reason is not None:
             payload['stop'][0].update({'reason':reason})
 
         return self.put(p, data=json.dumps(payload))
 
-    # TODO: Refactor this a bit. We should be raising exceptions instead of
-    # this madness of returning the last error. Makes no sense. I should have
-    # never done it.
     @required_attrs(['provider_product_id', 'machine_image', 'description',
                     'name', 'data_center', 'budget'])
     def launch(self, callback=None):
@@ -432,19 +429,17 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['userData', 'vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
+        optional_attrs = ['userData', 'vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment',
+                          'cm_scripts', 'p_scripts', 'volumeConfiguration']
         if self.server_id is not None:
             raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
 
-        payload = {'launch':
-                    [{
-                        'productId': self.provider_product_id,
-                        'budget': self.budget,
-                        'machineImage': camel_keys(self.machine_image),
-                        'description': self.description,
-                        'name': self.name,
-                        'dataCenter': camel_keys(self.data_center)
-                    }]}
+        payload = {'launch': [{'productId': self.provider_product_id,
+                               'budget': self.budget,
+                               'machineImage': camel_keys(self.machine_image),
+                               'description': self.description,
+                               'name': self.name,
+                               'dataCenter': camel_keys(self.data_center)}]}
 
         for oa in optional_attrs:
             try:
@@ -456,9 +451,9 @@ class Server(Resource):
                     elif oa == 'volumeConfiguration':
                         payload['launch'][0].update({'volumeConfiguration': getattr(self, oa)})
                     elif oa == 'vlan':
-                        payload['launch'][0].update({'vlan':camel_keys(getattr(self, oa))})
+                        payload['launch'][0].update({'vlan': camel_keys(getattr(self, oa))})
                     else:
-                        payload['launch'][0].update({oa:getattr(self, oa)})
+                        payload['launch'][0].update({oa: getattr(self, oa)})
             except AttributeError:
                 pass
 
@@ -512,6 +507,7 @@ class Server(Resource):
         :raises: ServerException
         """
         r = Resource(cls.PATH)
+        params = {}
 
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
@@ -523,10 +519,8 @@ class Server(Resource):
         else:
             keys_only = False
 
-        if 'params' in kwargs:
-            params = kwargs['params']
-        else:
-            params = []
+        if 'region_id' in kwargs:
+            params['regionId'] = kwargs['region_id']
 
         x = r.get(params=params)
         if r.last_error is None:
