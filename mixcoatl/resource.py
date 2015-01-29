@@ -13,7 +13,7 @@ from mixcoatl.utils import camel_keys
 class Resource(object):
     """The base class for all resources returned from an DCM API call
     By default all resources are largely represented as a `dict`-alike object
-    that mirrors the JSON response from the enStratus API with keys converted
+    that mirrors the JSON response from the DCM API with keys converted
     from camel-case to snake-case.
 
     For instance:
@@ -200,7 +200,7 @@ class Resource(object):
         * calls `auth.get_sig` for signed headers
         * issues the requested :attr:`method` against the API endpoint
         * Handles requests appropriately based on sync/async nature of the call
-            based on enStratus API documentation
+            based on DCM API documentation
         """
         failures = [400, 403, 404, 409, 500, 501, 503]
         sig = auth.get_sig(method, self.path)
@@ -295,11 +295,17 @@ class Resource(object):
                 except ValueError:
                     self.last_error = results.content
                 return False
+        if method == 'HEAD':
+            if results.status_code in [200]:
+                try:
+                    err = results.json()
+                    self.last_error = err['error']['message']
+                except ValueError:
+                    self.last_error = results.content
+                return False
 
     def set_path(self, path=None):
-        if path is None:
-            path = self.path
-        else:
+        if path is not None:
             self.path = path
 
     def get(self, path=None, **kwargs):
@@ -316,6 +322,11 @@ class Resource(object):
         """Perform an HTTP `PUT` against the API endpoint for the current resource"""
         self.set_path(path)
         return self.__doreq('PUT', **kwargs)
+
+    def head(self, path=None, **kwargs):
+        """Perform an HTTP `HEAD` against the API endpoint for the current resource"""
+        self.set_path(path)
+        return self.__doreq('HEAD', **kwargs)
 
     def delete(self, path=None, **kwargs):
         """Perform an HTTP `DELETE` against the API endpoint for the current resource"""
