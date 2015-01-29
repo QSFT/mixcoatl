@@ -12,11 +12,9 @@ if __name__ == '__main__':
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--xml', type=str)
     group.add_argument('--json', type=str)
-
     cmd_args = parser.parse_args()
 
     r = resource.Resource(cmd_args.basepath)
-    r.request_details = 'extended'
 
     if cmd_args.xml is not None:
         r.payload_format = 'xml'
