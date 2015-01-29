@@ -6,10 +6,9 @@ from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.infrastructure.snapshot import SnapshotException
 from mixcoatl.admin.job import Job
-
 import json
-
 import time
+
 
 class Volume(Resource):
     """A volume is a block storage device that may be mounted by servers"""
@@ -17,7 +16,7 @@ class Volume(Resource):
     COLLECTION_NAME = 'volumes'
     PRIMARY_KEY = 'volume_id'
 
-    def __init__(self, volume_id=None, *args, **kwargs):
+    def __init__(self, volume_id=None, **kwargs):
         # pylint: disable-msg=W0613
         Resource.__init__(self)
         if 'detail' in kwargs:
@@ -224,12 +223,8 @@ class Volume(Resource):
         if self.volume_id is not None:
             raise VolumeCreationException('Cannot create an already created volume: %s' % self.volume_id)
 
-        parms = {
-                    'name': self.name,
-                    'description': self.description,
-                    'data_center': self.data_center,
-                    'size_in_gb': self.size_in_gb,
-                    'budget' : self.budget}
+        parms = {'name': self.name, 'description': self.description, 'data_center': self.data_center,
+                 'size_in_gb': self.size_in_gb, 'budget': self.budget}
 
         for oa in optional_attrs:
             try:
@@ -238,7 +233,7 @@ class Volume(Resource):
             except AttributeError:
                 pass
 
-        payload = {'addVolume':[camel_keys(parms)]}
+        payload = {'addVolume': [camel_keys(parms)]}
         self.post(data=json.dumps(payload))
         if self.last_error is None:
             j = Job(self.current_job)
@@ -264,7 +259,7 @@ class Volume(Resource):
         else:
             self._change_metadata()
 
-    def destroy(self,reason=None):
+    def destroy(self, reason=None):
         """Deletes the volume
 
         :param reason: Reason for removing the volume
@@ -302,7 +297,7 @@ class Volume(Resource):
         if changes is None:
             pass
         else:
-            payload = {'assignBudget':[{'budget': self.budget}]}
+            payload = {'assignBudget': [{'budget': self.budget}]}
             self.put(self.PATH+'/'+str(self.volume_id), data=json.dumps(payload))
             if self.last_error is None:
                 self.load()
@@ -354,12 +349,7 @@ class Volume(Resource):
         else:
             callback = None
         try:
-            s = Snapshot.add_snapshot(self.volume_id,
-                                    name,
-                                    description,
-                                    budget,
-                                    callback=callback)
-            return s
+            return Snapshot.add_snapshot(self.volume_id, name, description, budget, callback=callback)
         except SnapshotException, e:
             raise VolumeSnapshotException(str(e))
 
@@ -380,13 +370,12 @@ class Volume(Resource):
         :raises: :class:`VolumeException`
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
         params = {}
 
         if 'detail' in kwargs:
-            request_details = kwargs['detail']
+            r.request_details = kwargs['detail']
         else:
-            request_details = 'basic'
+            r.request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
@@ -410,121 +399,125 @@ class Volume(Resource):
         else:
             raise VolumeException(r.last_error)
 
-def assign_budget(volume_id, budget):
-    """Change the budget associated with a volume
+    def assign_budget(volume_id, budget):
+        """Change the budget associated with a volume
 
-    :param volume_id: The volume id to work with
-    :type volume_id: int.
-    :param budget: The budget code to assign
-    :type budget: int.
-    :returns: `bool`
-    :raises: :class:`VolumeException`
-    """
-    v = Volume(volume_id)
-    v.budget = budget
-    return v.update()
+        :param volume_id: The volume id to work with
+        :type volume_id: int.
+        :param budget: The budget code to assign
+        :type budget: int.
+        :returns: `bool`
+        :raises: :class:`VolumeException`
+        """
+        v = Volume(volume_id)
+        v.budget = budget
+        return v.update()
 
-def assign_groups(volume_id, group_id):
-    """Change the group ownership of a volume
+    def assign_groups(volume_id, group_id):
+        """Change the group ownership of a volume
 
-    :param volume_id: The volume id to work with
-    :type volume_id: int.
-    :param group_id: The group id to assign
-    :type group_id: int.
-    :returns: bool.
-    :raises: :class:`VolumeException`
-    """
-    pass
-
-def attach_volume(volume_id, server_id, device_id=None, callback=None):
-    """Attach a volume to a server
-
-        .. note::
-
-            Attaching a volume is an asynchronous task.
-
-    :param volume_id: The volume id to work with
-    :type volume_id: int.
-    :param server_id: The server to attach the volume
-    :type server_id: int.
-    :param device_id: Optional device id to assign the volume on the system
-    :type device_id: str.
-    :param callback: Optional callback to call with the results
-    :type callback: func.
-    :returns: :class:`Job`
-    :raises: :class:`VolumeException`
-    """
-
-    v = Volume(volume_id)
-    v.request_details = 'basic'
-    v.attach(server_id, device_id, callback)
-
-def describe_volume(volume_id, **kwargs):
-    """Change the enStratus meta-data of a volume
-
-    :param volume_id: The volume to modify
-    :type volume_id: int.
-    :param description: Change the description
-    :type description: str.
-    :param name: Change the name
-    :type name: str.
-    :param label: Change the label. To remove the label, set to `None`
-    :type label: str.
-    :returns: :class:`Volume`
-    :raises: :class:`VolumeException`
-    """
-
-    if kwargs is None:
+        :param volume_id: The volume id to work with
+        :type volume_id: int.
+        :param group_id: The group id to assign
+        :type group_id: int.
+        :returns: bool.
+        :raises: :class:`VolumeException`
+        """
         pass
-    else:
+
+    def attach_volume(volume_id, server_id, device_id=None, callback=None):
+        """Attach a volume to a server
+
+            .. note::
+
+                Attaching a volume is an asynchronous task.
+
+        :param volume_id: The volume id to work with
+        :type volume_id: int.
+        :param server_id: The server to attach the volume
+        :type server_id: int.
+        :param device_id: Optional device id to assign the volume on the system
+        :type device_id: str.
+        :param callback: Optional callback to call with the results
+        :type callback: func.
+        :returns: :class:`Job`
+        :raises: :class:`VolumeException`
+        """
+
         v = Volume(volume_id)
         v.request_details = 'basic'
+        v.attach(server_id, device_id, callback)
+
+    def describe_volume(volume_id, **kwargs):
+        """Change the enStratus meta-data of a volume
+
+        :param volume_id: The volume to modify
+        :type volume_id: int.
+        :param description: Change the description
+        :type description: str.
+        :param name: Change the name
+        :type name: str.
+        :param label: Change the label. To remove the label, set to `None`
+        :type label: str.
+        :returns: :class:`Volume`
+        :raises: :class:`VolumeException`
+        """
+
+        if kwargs is None:
+            pass
+        else:
+            v = Volume(volume_id)
+            v.request_details = 'basic'
+            for attr in kwargs:
+                setattr(v, attr, kwargs[attr])
+            v.update()
+            return v
+
+
+    def add_volume(**kwargs):
+        """Create a new volume
+
+        :param name: The name of the new volume
+        :param size_in_gb: The size for the new volume
+        :param data_center: The location of the new volume
+        :param budget: The budget code for the new volume
+        :param description: The description of the new volume
+        :param callback: Optional callback to recieve the created Job
+        :returns: :class:`Job`
+        :raises: :class:`VolumeCreationException`
+        """
+
+        v = Volume()
+        cb = kwargs.pop('callback', None)
+
         for attr in kwargs:
             setattr(v, attr, kwargs[attr])
-        v.update()
-        return v
 
-def add_volume(**kwargs):
-    """Create a new volume
+        v.create(callback=cb)
 
-    :param name: The name of the new volume
-    :param size_in_gb: The size for the new volume
-    :param data_center: The location of the new volume
-    :param budget: The budget code for the new volume
-    :param description: The description of the new volume
-    :param callback: Optional callback to recieve the created Job
-    :returns: :class:`Job`
-    :raises: :class:`VolumeCreationException`
-    """
+    def detach_volume(volume_id, callback=None):
+        """Detach a volume from a server
 
-    v = Volume()
-    cb = kwargs.pop('callback', None)
+        :param volume_id: The volume to detach
+        :type volume_id: int.
+        :param callback: Optional callback to send the results
+        :returns: :class:`Volume`
+        :raises: :class:`VolumeException`
+        """
 
-    for attr in kwargs:
-        setattr(v, attr, kwargs[attr])
+        v = Volume(volume_id)
+        v.detach(callback=callback)
 
-    v.create(callback=cb)
-
-def detach_volume(volume_id, callback=None):
-    """Detach a volume from a server
-
-    :param volume_id: The volume to detach
-    :type volume_id: int.
-    :param callback: Optional callback to send the results
-    :returns: :class:`Volume`
-    :raises: :class:`VolumeException`
-    """
-
-    v = Volume(volume_id)
-    v.detach(callback=callback)
 
 class VolumeException(BaseException):
     """Generic Volume Exception"""
     pass
 
+
 class VolumeSnapshotException(VolumeException):
     """Volume Snapshot Exception"""
     pass
+
 
 class VolumeCreationException(VolumeException):
     """Volume Creation Exception"""
