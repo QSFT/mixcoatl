@@ -3,6 +3,7 @@ from mixcoatl.geography.region import Region
 from mixcoatl.admin.group import Group
 from mixcoatl.admin.user import User
 
+
 def get_servers(servers, **kwargs):
     """ Returns a list of servers
 
@@ -45,6 +46,7 @@ def get_servers(servers, **kwargs):
 
     return filtered_servers
 
+
 def get_snapshots(snapshots, **kwargs):
     """ Returns a list of snapshots
 
@@ -68,6 +70,7 @@ def get_snapshots(snapshots, **kwargs):
                               snapshot.budget == int(kwargs['budget_id'])]
 
     return filtered_snapshots
+
 
 def get_volumes(volumes, **kwargs):
     """ Returns a list of volumes
@@ -109,6 +112,7 @@ def get_volumes(volumes, **kwargs):
 
     return filtered_volumes
 
+
 def get_user(users, **kwargs):
     """ Returns a user that matches with arguments.
 
@@ -134,6 +138,7 @@ def get_user(users, **kwargs):
 
     return selected_user
 
+
 def get_account_user_id(**kwargs):
     """ Returns account_user_id from arguments
 
@@ -153,6 +158,7 @@ def get_account_user_id(**kwargs):
 
     return selected_user.account_user_id
 
+
 def get_vm_login_id(**kwargs):
     """ Returns vm_login_id from arguments
 
@@ -167,6 +173,7 @@ def get_vm_login_id(**kwargs):
         selected_user = get_user(users, email=kwargs['email'])
 
     return selected_user.vm_login_id
+
 
 def get_budget_id(budget_name):
     """ Returns budget_id from arguments
@@ -184,6 +191,7 @@ def get_budget_id(budget_name):
 
     return selected_budget.billing_code_id
 
+
 def get_group_id(group_name):
     """ Returns a group ID from group name
 
@@ -199,6 +207,7 @@ def get_group_id(group_name):
             selected_group = group
 
     return selected_group.group_id
+
 
 def get_region_id(region_pid):
     """ Returns a region ID from provider_id such as us-east-1.

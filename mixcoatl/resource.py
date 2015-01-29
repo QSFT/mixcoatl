@@ -9,6 +9,7 @@ from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
 
+
 class Resource(object):
     """The base class for all resources returned from an DCM API call
     By default all resources are largely represented as a `dict`-alike object
@@ -83,7 +84,6 @@ class Resource(object):
         p = [k for k, v in self.__class__.__dict__.items() if type(v) in [lazy_property, property]]
         rp = ['last_error', 'path', 'last_request', 'current_job', 'request_details']
         return p + rp
-
 
     def __repr__(self):
         from mixcoatl.utils import convert
@@ -177,7 +177,6 @@ class Resource(object):
         else:
             params = camel_keys(self.params)
 
-        #self.request_details = 'extended'
         s = self.get(p, params=params)
         if self.last_error is None:
             scope = uncamel_keys(s[self.__class__.COLLECTION_NAME][0])
@@ -195,7 +194,7 @@ class Resource(object):
         else:
             return self.last_error
 
-    def __doreq(self, method, *args, **kwargs):
+    def __doreq(self, method, **kwargs):
         """Performs the actual API call
 
         * calls `auth.get_sig` for signed headers
@@ -216,11 +215,11 @@ class Resource(object):
             raise AttributeError('Wrong payload format: %s' % self.payload_format)
 
         headers = {'x-esauth-access': sig['access_key'],
-        'x-esauth-timestamp': str(sig['timestamp']),
-        'x-esauth-signature': str(sig['signature']),
-        'x-es-details': self.request_details,
-        'Accept': payload_format,
-        'User-Agent': sig['ua']}
+                   'x-esauth-timestamp': str(sig['timestamp']),
+                   'x-esauth-signature': str(sig['signature']),
+                   'x-es-details': self.request_details,
+                   'Accept': payload_format,
+                   'User-Agent': sig['ua']}
 
         results = r.request(method, url, headers=headers, verify=ssl_verify, **kwargs)
 
