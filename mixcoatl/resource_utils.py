@@ -89,12 +89,13 @@ def get_volumes(volumes, **kwargs):
 
     if 'vm_login_id' in kwargs and kwargs['vm_login_id'] is not None:
         filtered_volumes = [volume for volume in volumes if hasattr(volume, 'owning_user') and
-                            volume.owning_user.has_key('vm_login_id') and
+                            'vm_login_id' in volume.owning_user and
                             volume.owning_user['vm_login_id'] == kwargs['vm_login_id']]
     if 'email' in kwargs and kwargs['email'] is not None:
-        if filtered_volumes is not None: volumes = filtered_volumes
+        if filtered_volumes is not None:
+            volumes = filtered_volumes
         filtered_volumes = [volume for volume in volumes if hasattr(volume, 'owning_user') and
-                            volume.owning_user.has_key('email') and
+                            'email' in volume.owning_user and
                             volume.owning_user['email'] == kwargs['email']]
     if 'group_id' in kwargs and kwargs['group_id'] is not None:
         if filtered_volumes is not None:
