@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+import argparse
+import xml.etree.ElementTree as ET
+from mixcoatl import resource
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('basepath', type=str, help='base path')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--xml', type=str)
+    cmd_args = parser.parse_args()
+
+    r = resource.Resource(cmd_args.basepath)
+
+    if cmd_args.xml is not None:
+        r.payload_format = 'xml'
+        xml_string = ET.tostring(ET.parse(cmd_args.xml).getroot())
+        result = r.head(data=xml_string)
+        print(result)
+    else:
+        r.payload_format = 'json'
+        result = r.head()
+        print(result)
