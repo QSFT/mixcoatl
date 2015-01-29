@@ -5,12 +5,13 @@ from mixcoatl.infrastructure.server import Server
 from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
+import time
 import sys
 import os
 
 if __name__ == '__main__':
+    start = time.time()
     parser = argparse.ArgumentParser()
-
     user_args = parser.add_mutually_exclusive_group()
     user_args.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
     user_args.add_argument("--email", "-m", help="E-Mail address of owning user.")
