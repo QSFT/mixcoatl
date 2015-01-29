@@ -25,7 +25,7 @@ class Volume(Resource):
 
     @property
     def volume_id(self):
-        """`str` - The unique enStratus id of the volume"""
+        """`str` - The unique DCM id of the volume"""
         return self.__volume_id
 
     @lazy_property
@@ -75,7 +75,7 @@ class Volume(Resource):
 
     @lazy_property
     def encrypted(self):
-        """`bool` - Indicates if the volume is known by enStratus as encrypted"""
+        """`bool` - Indicates if the volume is known by DCM as encrypted"""
         return self.__encrypted
 
     @lazy_property
@@ -100,7 +100,7 @@ class Volume(Resource):
 
     @lazy_property
     def owning_groups(self):
-        """`list` - The groups who have ownership of this volume in enStratus"""
+        """`list` - The groups who have ownership of this volume in DCM"""
         return self.__owning_groups
 
     @lazy_property
@@ -114,7 +114,7 @@ class Volume(Resource):
 
     @lazy_property
     def status(self):
-        """`str` - The status of the volume in enStratus"""
+        """`str` - The status of the volume in DCM"""
         return self.__status
 
     @lazy_property
@@ -133,7 +133,7 @@ class Volume(Resource):
 
     @lazy_property
     def owning_account(self):
-        """`dict` - the enStratus account under which this volume is registered"""
+        """`dict` - the DCM account under which this volume is registered"""
         return self.__owning_account
 
     @lazy_property
@@ -148,7 +148,7 @@ class Volume(Resource):
 
     @lazy_property
     def owning_user(self):
-        """`dict` - The enStratus user who is the owner of this volume"""
+        """`dict` - The DCM user who is the owner of this volume"""
         return self.__owning_user
 
     @lazy_property
@@ -158,7 +158,7 @@ class Volume(Resource):
 
     @lazy_property
     def description(self):
-        """`str` - The description of the volume in enStratus"""
+        """`str` - The description of the volume in DCM"""
         return self.__description
 
     @description.setter
@@ -308,7 +308,7 @@ class Volume(Resource):
     def snapshot(self, **kwargs):
         """Make a snapshot from a volume
 
-        *This is not a part of the enStratus API for Volume resources.
+        *This is not a part of the DCM API for Volume resources.
         It is a convenience wrapper around the Snapshot API from the
         perspective of an individual* :class:`Volume`
 
@@ -330,7 +330,6 @@ class Volume(Resource):
         :returns: :class:`Snapshot`
         :raises: :class:`VolumeSnapshotException`
         """
-
         tstamp = str(int(time.time()))
         if 'name' in kwargs:
             name = kwargs['name']
@@ -399,7 +398,8 @@ class Volume(Resource):
         else:
             raise VolumeException(r.last_error)
 
-    def assign_budget(volume_id, budget):
+    @classmethod
+    def assign_budget(cls, volume_id, budget):
         """Change the budget associated with a volume
 
         :param volume_id: The volume id to work with
@@ -413,7 +413,8 @@ class Volume(Resource):
         v.budget = budget
         return v.update()
 
-    def assign_groups(volume_id, group_id):
+    @classmethod
+    def assign_groups(cls, volume_id, group_id):
         """Change the group ownership of a volume
 
         :param volume_id: The volume id to work with
@@ -425,7 +426,8 @@ class Volume(Resource):
         """
         pass
 
-    def attach_volume(volume_id, server_id, device_id=None, callback=None):
+    @classmethod
+    def attach_volume(cls, volume_id, server_id, device_id=None, callback=None):
         """Attach a volume to a server
 
             .. note::
@@ -443,13 +445,13 @@ class Volume(Resource):
         :returns: :class:`Job`
         :raises: :class:`VolumeException`
         """
-
         v = Volume(volume_id)
         v.request_details = 'basic'
         v.attach(server_id, device_id, callback)
 
-    def describe_volume(volume_id, **kwargs):
-        """Change the enStratus meta-data of a volume
+    @classmethod
+    def describe_volume(cls, volume_id, **kwargs):
+        """Change the DCM meta-data of a volume
 
         :param volume_id: The volume to modify
         :type volume_id: int.
@@ -462,7 +464,6 @@ class Volume(Resource):
         :returns: :class:`Volume`
         :raises: :class:`VolumeException`
         """
-
         if kwargs is None:
             pass
         else:
@@ -473,8 +474,8 @@ class Volume(Resource):
             v.update()
             return v
 
-
-    def add_volume(**kwargs):
+    @classmethod
+    def add_volume(cls, **kwargs):
         """Create a new volume
 
         :param name: The name of the new volume
@@ -486,7 +487,6 @@ class Volume(Resource):
         :returns: :class:`Job`
         :raises: :class:`VolumeCreationException`
         """
-
         v = Volume()
         cb = kwargs.pop('callback', None)
 
@@ -495,7 +495,8 @@ class Volume(Resource):
 
         v.create(callback=cb)
 
-    def detach_volume(volume_id, callback=None):
+    @classmethod
+    def detach_volume(cls, volume_id, callback=None):
         """Detach a volume from a server
 
         :param volume_id: The volume to detach
@@ -504,7 +505,6 @@ class Volume(Resource):
         :returns: :class:`Volume`
         :raises: :class:`VolumeException`
         """
-
         v = Volume(volume_id)
         v.detach(callback=callback)
 
