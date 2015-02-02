@@ -12,12 +12,13 @@ import json
 
 
 class ApiKey(Resource):
+
     """An API key is an access key and secret key that provide API access into DCM."""
     PATH = 'admin/ApiKey'
     COLLECTION_NAME = 'apiKeys'
     PRIMARY_KEY = 'access_key'
 
-    def __init__(self, access_key = None, *args, **kwargs):
+    def __init__(self, access_key=None, *args, **kwargs):
         Resource.__init__(self)
         self.__access_key = access_key
 
@@ -97,7 +98,8 @@ class ApiKey(Resource):
     def create(self):
         """Call the API to generate an API key from the current instance of `ApiKey`"""
 
-        payload = {'generateApiKey':[{'description':self.description, 'name':self.name}]}
+        payload = {
+            'generateApiKey': [{'description': self.description, 'name': self.name}]}
         s = self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.__access_key = s['apiKeys'][0]['accessKey']
@@ -162,26 +164,33 @@ class ApiKey(Resource):
         :type user_id: int.
         :returns: `list` - of :class:`ApiKey` or :attr:`access_key`
         """
-        r = Resource(cls.PATH)
-        if 'detail' in kwargs:
-            r.request_details = kwargs['detail']
-        else:
-            r.request_details = 'basic'
 
-        if 'account_id' in kwargs:
-            params = {'accountId': kwargs['account_id']}
-        elif 'user_id' in kwargs:
-            params = {'userId': kwargs['user_id']}
-        else:
+        if 'access_key' in kwargs:
+            r = Resource(cls.PATH+"/"+kwargs['access_key'])
             params = {}
+        else:
+            r = Resource(cls.PATH)
+
+            if 'detail' in kwargs:
+                r.request_details = kwargs['detail']
+            else:
+                r.request_details = 'basic'
+
+            if 'account_id' in kwargs:
+                params = {'accountId': kwargs['account_id']}
+            elif 'user_id' in kwargs:
+                params = {'userId': kwargs['user_id']}
+            else:
+                params = {}
 
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                           for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                           for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
             raise ApiKeyException(r.last_error)
 
