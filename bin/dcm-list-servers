@@ -5,6 +5,7 @@ from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
 import time
+import sys
 import os
 
 if __name__ == '__main__':

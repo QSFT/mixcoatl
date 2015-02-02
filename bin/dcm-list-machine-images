@@ -11,6 +11,7 @@ if __name__ == '__main__':
     """ List machine images in a region. """
     parser = argparse.ArgumentParser()
     region_args = parser.add_mutually_exclusive_group(required=True)
+    region_args.add_argument('--image', '-i', type=int, help="Machine Image ID")
     region_args.add_argument('--regionid', '-r', type=int, help="Region ID.")
     region_args.add_argument('--regionpid', '-R', help="Region Provider ID such as us-east-1.")
 
@@ -26,10 +27,12 @@ if __name__ == '__main__':
 
     cmd_args = parser.parse_args()
 
-    if cmd_args.regionid != None:
-        results = MachineImage.all(cmd_args.regionid, registered=cmd_args.registered)
-    elif cmd_args.regionpid != None:
-        results = MachineImage.all(resource_utils.get_region_id(cmd_args.regionpid), registered=cmd_args.registered)
+    if cmd_args.image is not None:
+        results = MachineImage.all(machine_image_id=cmd_args.image)
+    elif cmd_args.regionid is not None:
+        results = MachineImage.all(region_id=cmd_args.regionid, registered=cmd_args.registered)
+    elif cmd_args.regionpid is not None:
+        results = MachineImage.all(region_id=resource_utils.get_region_id(cmd_args.regionpid), registered=cmd_args.registered)
     else:
         parser.print_help()
         sys.exit(1)
