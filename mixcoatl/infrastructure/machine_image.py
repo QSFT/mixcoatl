@@ -10,7 +10,7 @@ class MachineImage(Resource):
     COLLECTION_NAME = 'images'
     PRIMARY_KEY = 'machine_image_id'
 
-    def __init__(self, machine_image_id = None, *args, **kwargs):
+    def __init__(self, machine_image_id=None, *args, **kwargs):
         """A machine image is the baseline image or template from which
             virtual machines may be provisioned.
         """
@@ -171,7 +171,8 @@ class MachineImage(Resource):
 
     @lazy_property
     def public(self):
-        """`bool` - Indicates whether or not this image is publicly shared. This value may be modified only for machine images that belong to your account. """
+        """`bool` - Indicates whether or not this image is publicly shared. 
+        This value may be modified only for machine images that belong to your account. """
         return self.__public
 
     @public.setter
@@ -194,8 +195,8 @@ class MachineImage(Resource):
         :type reason: str.
         :returns: bool -- Result of API call
         """
-        p = self.PATH+"/"+str(self.machine_image_id)
-        qopts = {'reason':reason}
+        p = self.PATH + "/" + str(self.machine_image_id)
+        qopts = {'reason': reason}
         return self.delete(p, params=qopts)
 
     @required_attrs(['server_id', 'name', 'budget', 'description', 'owning_groups'])
@@ -208,17 +209,17 @@ class MachineImage(Resource):
         >>> m.name = 'image-1-test'
         >>> m.budget = 12345
         >>> m.create(callback=cb)
-        
+
         :returns: int -- The job id of the create request
         """
         payload = {'imageServer':
-                    [{
-                        'budget': int(self.budget),
-                        'description': self.description,
-                        'name': self.name,
-                        'server': {"serverId":int(self.server_id)},
-                        'owningGroups': [{"groupId": self.owning_groups}],
-                    }]}
+                   [{
+                       'budget': int(self.budget),
+                       'description': self.description,
+                       'name': self.name,
+                       'server': {"serverId": int(self.server_id)},
+                       'owningGroups': [{"groupId": self.owning_groups}],
+                   }]}
 
         self.post(data=json.dumps(payload))
         if self.last_error is None:
@@ -254,7 +255,7 @@ class MachineImage(Resource):
         return self.put(p, data=json.dumps(payload))
 
     @classmethod
-    def all(cls, region_id, **kwargs):
+    def all(cls, **kwargs):
         """Return all machine images
 
         :param region_id: The region to search for machine images
@@ -270,13 +271,20 @@ class MachineImage(Resource):
         :returns: `list` of :class:`MachineImage` or :attr:`machine_image_id`
         :raises: :class:`MachineImageException`
         """
-        r = Resource(cls.PATH)
-        params = {'regionId':region_id}
+        if 'machine_image_id' in kwargs:
+            r = Resource(cls.PATH+"/"+str(kwargs['machine_image_id']))
+        else:
+            r = Resource(cls.PATH)
+
+        params = {}
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
+
+        if 'region_id' in kwargs:
+            params['regionId'] = kwargs['region_id']
 
         if 'available' in kwargs:
             params['active'] = kwargs['available']
@@ -287,10 +295,11 @@ class MachineImage(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                           for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                           for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise MachineImageException(r.last_error)
 

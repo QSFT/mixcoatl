@@ -88,9 +88,8 @@ class ConfigurationManagementAccount(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
             return x.last_error
