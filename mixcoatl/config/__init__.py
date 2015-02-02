@@ -1,6 +1,8 @@
-import os, datetime
+import os
+import datetime
 
 from mixcoatl.exceptions import ConfigException
+
 
 def validate(date_text):
     try:
@@ -9,8 +11,10 @@ def validate(date_text):
     except ValueError:
         raise ValueError("Incorrect data format, should be YYYY-MM-DD")
 
+
 class Config(object):
     # pylint: disable-msg=E0710
+
     def __init__(self):
         self.access_key = None
         self.secret_key = None
@@ -66,7 +70,7 @@ class Config(object):
             if 'DCM_ENDPOINT' in os.environ:
                 self.set_endpoint(os.environ['DCM_ENDPOINT'])
             else:
-                self.set_endpoint('https://api.enstratus.com'+self.basepath)
+                self.set_endpoint('https://api.enstratus.com' + self.basepath)
 
         if self.ssl_verify is None:
             if 'ES_SSL_VERIFY' in os.environ and 'DCM_SSL_VERIFY' not in os.environ:
