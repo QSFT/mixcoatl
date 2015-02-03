@@ -46,6 +46,19 @@ By default, SSL certificate verification is required against HTTPS endpoint. To 
 
 If you desire the ability to see debug information about specific calls, you may set `DCM_DEBUG=1`.  This will provide information such as headers, endpoint, and time to completion information.  Defaults to off.
 
+**Configuration File(s) (Optional)**
+
+A mixcoatl (~/.mixcoatl) directory can be created and contain files in the format of name.config.
+
+Example:  Create a file called ~/.mixcoatl/MyDCM.config with the following format:
+
+.. code-block:: bash
+
+          DCM_ACCESS_KEY=EQJPYTDIXFIKDHUEZOPR
+          DCM_SECRET_KEY=1Wy1pISoTLwL3ZqeJ5K6JWyTF8=klphOCIZ4C2pl
+          DCM_ENDPOINT=https://your.dcm.endpoint/api/enstratus/2014-07-30
+          DCM_SSL_VERIFY=0
+
 ``dcm-get``
 -----------
 
