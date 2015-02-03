@@ -88,17 +88,17 @@ if __name__ == '__main__':
         sys.exit(1)
 
     def needs_region_id(i, region_id, start):
-        print i+'.all('+str(region_id)+')',
+        print i + '.all(' + str(region_id) + ')',
         if region_id is not None:
             try:
-                call = getattr(sys.modules[__name__],i).all(region_id)
-                print 'returned in', round(time.time()-start,3), 'seconds. ',
-                print '[ '+colored('OK', 'green')+' ]'
+                call = getattr(sys.modules[__name__], i).all(region_id)
+                print 'returned in', round(time.time() - start, 3), 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
             except:
-                print '[ '+colored('FAIL', 'red')+' ]'
+                print '[ ' + colored('FAIL', 'red') + ' ]'
                 pass
         else:
-            print '[ '+colored('NO REGION_ID, SKIPPING', 'yellow')+' ]'
+            print '[ ' + colored('NO REGION_ID, SKIPPING', 'yellow') + ' ]'
 
     def needs_firewall_id(i, firewall_id, start):
         print i + '.all(' + str(firewall_id) + ')',
