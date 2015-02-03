@@ -31,7 +31,7 @@ class TestMachineImage(unittest.TestCase):
             status = 200,
             content_type = "application/json")
 
-        m = mi.MachineImage.all(19344)
+        m = mi.MachineImage.all(region_id=19344)
 
     @httprettified
     def test_all_keys_only(self):
@@ -43,7 +43,7 @@ class TestMachineImage(unittest.TestCase):
             status = 200,
             content_type = "application/json")
 
-        m = mi.MachineImage.all(19344, keys_only=True)
+        m = mi.MachineImage.all(region_id=19344, keys_only=True)
         assert len(m) == 1
         assert m[0] == 284542
 

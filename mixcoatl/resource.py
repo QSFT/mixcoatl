@@ -225,10 +225,11 @@ class Resource(object):
 
         if 'DCM_DEBUG' in os.environ:
             print "URL: %s" % (url)
+            print "method: %s" % (method)
             for key, value in kwargs.iteritems():
                 print "%s = %s" % (key, value)
             for key, value in results.headers.iteritems():
-                print "Headers: %s = %s" % (key, value)
+                print "headers: %s = %s" % (key, value)
 
         self.last_error = None
         self.last_request = results

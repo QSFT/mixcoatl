@@ -11,6 +11,7 @@ import time
 
 
 class Volume(Resource):
+
     """A volume is a block storage device that may be mounted by servers"""
     PATH = 'infrastructure/Volume'
     COLLECTION_NAME = 'volumes'
@@ -176,12 +177,13 @@ class Volume(Resource):
         :returns: :class:`Volume`
         :raises: :class:`VolumeException`
         """
-        payload = {'attach':[{'server':{'server_id': server_id}}]}
+        payload = {'attach': [{'server': {'server_id': server_id}}]}
 
         if device_id is not None:
             payload['attach'][0]['device_id'] = device_id
 
-        self.put(self.PATH+'/'+str(self.volume_id), data=json.dumps(camel_keys(payload)))
+        self.put(self.PATH + '/' + str(self.volume_id),
+                 data=json.dumps(camel_keys(payload)))
 
         if self.last_error is None:
             if callback is None:
@@ -199,7 +201,7 @@ class Volume(Resource):
         :raises: :class:`VolumeException`
         """
         payload = '{"detach":[{}]}'
-        path = self.PATH+'/'+str(self.volume_id)
+        path = self.PATH + '/' + str(self.volume_id)
         s = self.put(path, data=payload)
         if self.last_error is None:
             self.load()
@@ -221,7 +223,8 @@ class Volume(Resource):
         """
         optional_attrs = ['label']
         if self.volume_id is not None:
-            raise VolumeCreationException('Cannot create an already created volume: %s' % self.volume_id)
+            raise VolumeCreationException(
+                'Cannot create an already created volume: %s' % self.volume_id)
 
         parms = {'name': self.name, 'description': self.description, 'data_center': self.data_center,
                  'size_in_gb': self.size_in_gb, 'budget': self.budget}
@@ -282,8 +285,9 @@ class Volume(Resource):
         if len(new_vals) == 0:
             pass
         else:
-            payload = {'describeVolume':[new_vals]}
-            self.put(self.PATH+'/'+str(self.volume_id), data=json.dumps(payload))
+            payload = {'describeVolume': [new_vals]}
+            self.put(
+                self.PATH + '/' + str(self.volume_id), data=json.dumps(payload))
             if self.last_error is None:
                 self.load()
                 return True
@@ -298,7 +302,8 @@ class Volume(Resource):
             pass
         else:
             payload = {'assignBudget': [{'budget': self.budget}]}
-            self.put(self.PATH+'/'+str(self.volume_id), data=json.dumps(payload))
+            self.put(
+                self.PATH + '/' + str(self.volume_id), data=json.dumps(payload))
             if self.last_error is None:
                 self.load()
                 return True
@@ -348,7 +353,11 @@ class Volume(Resource):
         else:
             callback = None
         try:
-            return Snapshot.add_snapshot(self.volume_id, name, description, budget, callback=callback)
+            return Snapshot.add_snapshot(self.volume_id,
+                                         name,
+                                         description,
+                                         budget,
+                                         callback=callback)
         except SnapshotException, e:
             raise VolumeSnapshotException(str(e))
 
@@ -391,10 +400,9 @@ class Volume(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise VolumeException(r.last_error)
 
@@ -510,15 +518,18 @@ class Volume(Resource):
 
 
 class VolumeException(BaseException):
+
     """Generic Volume Exception"""
     pass
 
 
 class VolumeSnapshotException(VolumeException):
+
     """Volume Snapshot Exception"""
     pass
 
 
 class VolumeCreationException(VolumeException):
+
     """Volume Creation Exception"""
     pass
