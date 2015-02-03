@@ -6,7 +6,8 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--productid', '-p', help="Provider's product ID such as m1.large")
+    parser.add_argument(
+        '--productid', '-p', help="Provider's product ID such as m1.large")
     parser.add_argument('--machineimage', '-m', help='Machine image ID')
     parser.add_argument('--datacenter', '-d', help='Data Center ID')
     parser.add_argument('--description', '-D', help='Description')
@@ -23,8 +24,8 @@ if __name__ == '__main__':
     cmd_args = parser.parse_args()
 
     if (cmd_args.productid is None or cmd_args.machineimage is None or
-        cmd_args.name is None or cmd_args.datacenter is None or 
-        cmd_args.description is None):
+            cmd_args.name is None or cmd_args.datacenter is None or
+            cmd_args.description is None):
         parser.print_help()
         sys.exit(1)
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
         if cmd_args.userdata.startswith('@'):
             ud_path = cmd_args.userdata[1:]
             with open(ud_path, 'r') as fptr:
-               new_server.userData = fptr.read()
+                new_server.userData = fptr.read()
         else:
             new_server.userData = cmd_args.userdata
 

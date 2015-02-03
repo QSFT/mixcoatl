@@ -12,6 +12,7 @@ if __name__ == '__main__':
     """ List API Keys from DCM """
     start = time.time()
     parser = argparse.ArgumentParser()
+    parser.add_argument('--key', '-k', help='Access Key')
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
@@ -20,7 +21,10 @@ if __name__ == '__main__':
     group_two.add_argument('--csv', action='store_true', help='print API response in CSV format.')
     cmd_args = parser.parse_args()
 
-    results = ApiKey.all()
+    if cmd_args.key is not None:
+        results = ApiKey.all(access_key=cmd_args.key)
+    else:
+        results = ApiKey.all()
 
     if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
         if cmd_args.xml is True:
@@ -32,14 +36,16 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["State", "Account", "Name", "Description", "Access Key"])
+        table = PrettyTable(["State", "Account", "Name", "Description", "Access Key", "Is System Key?", "Is Customer Key?"])
         budget_name_cache = dict()
         for r in results:
             table.add_row([r.state,
                             r.account['account_id'],
                             r.name,
                             r.description, 
-                            r.access_key])
+                            r.access_key,
+                            r.system_management_key,
+                            r.customer_management_key])
         table.align = 'l'
         print(table)
 

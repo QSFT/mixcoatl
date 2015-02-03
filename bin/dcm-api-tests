@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
-import os
+import csv
 import sys
 import time
+import string
 import random
 import argparse
 from termcolor import colored
 from datetime import datetime
+from prettytable import PrettyTable
 
 from mixcoatl.admin.account import Account
 from mixcoatl.admin.api_key import ApiKey
@@ -40,106 +42,784 @@ from mixcoatl.network.load_balancer import LoadBalancer
 
 from mixcoatl.platform.relational_database import RelationalDatabase
 from mixcoatl.platform.relational_database_product import RelationalDatabaseProduct
-# StorageObject service is disabled in Kraken
-# from mixcoatl.platform.storage_object import StorageObject
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('--get', action='store_true', help='Perform API (GET) Tests.')
-	cmd_args = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--log', '-l', action='store_true', help='Writes a /tmp/dcm-api-test.log file with results.')
+    parser.add_argument(
+        '--full', '-f', action='store_true', help='Perform FULL API (GET) Tests.')
+    parser.add_argument(
+        '--get', action='store_true', help='Perform API (GET) Tests.')
+    parser.add_argument(
+        '--post', action='store_true', help='Perform API (POST) Tests.')
 
-	if cmd_args.get is not True:
-		parser.print_help()
-		sys.exit(1)
+    parser.add_argument('--account', '-a', help='Account ID')
+    parser.add_argument('--region', '-r', help='Region ID')
+    parser.add_argument('--servers', '-s', help='Total Servers to Launch')
+    parser.add_argument(
+        '--product', '-p', help='Server Product (ie: t1.micro)')
+    parser.add_argument('--datacenter', '-d', help='Datacenter ID')
+    parser.add_argument('--machineimage', '-m', help='Machine Image ID')
+    parser.add_argument('--network', '-n', help='Network ID')
+    parser.add_argument(
+        '--cm_account_id', '-cm', help='Configuration Management Account ID')
+    parser.add_argument(
+        '--cm_environment', '-ce', help='Configuration Management Environment ID')
+    parser.add_argument(
+        '--cm_personalities', '-cp', help='Configuration Management Personalities (comma delimited - no spaces)')
+    parser.add_argument(
+        '--cm_scripts', '-cs', help='Configuration Management Scripts (comma delimited - no spaces)')
+    parser.add_argument('--budget', '-b', help='Budget Code ID')
+    parser.add_argument(
+        '--noimaging', '-ni', help='Skip Server Imaging', action='store_true')
+    parser.add_argument(
+        '--nosnapshots', '-ns', help='Skip Volume Snapshotting', action='store_true')
+    parser.add_argument(
+        '--novolumes', '-nv', help='Skip Volume Creation/Attaching', action='store_true')
+    parser.add_argument(
+        '--vol_type', '-vt', help='Volume Type (1 for volume during launch and 2 for volume after launch)')
+    parser.add_argument(
+        '--wait', '-w', help='Wait N minutes before cleaning up.')
+    cmd_args = parser.parse_args()
 
-	if cmd_args.get is True:
-		region_id = None
-		firewall_id = None
-		cm_id = None
+    if cmd_args.get is not True and cmd_args.post is not True:
+        parser.print_help()
+        sys.exit(1)
 
-		print "Starting Mixcoatl 'GET' testing ..."
-		total_start = time.time()
+    def needs_region_id(i, region_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(region_id) + ')',
+        if region_id is not None:
+            try:
+                if i == 'MachineImage':
+                    call = getattr(sys.modules[__name__], i).all(
+                        region_id=region_id)
+                else:
+                    call = getattr(sys.modules[__name__], i).all(region_id)
+                print 'returned in', round(time.time() - start, 3), 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+            except:
+                print '[ ' + colored('FAIL', 'red') + ' ]'
+                pass
+        else:
+            print str(prefix) + '[ ' + colored('NO REGION_ID, SKIPPING', 'yellow') + ' ]'
 
-		try:
-			region_id = random.choice(Region.all(keys_only=True))
-			#subscriptions = Subscription.all(region_id=region_id)[0]
-			print "++ Defaulting to Region #"+str(region_id)
-		except:
-			print "++ Unable to retrieve any regions."
+    def needs_firewall_id(i, firewall_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(firewall_id) + ')',
+        if firewall_id is not None:
+            try:
+                call = getattr(sys.modules[__name__], i).all(firewall_id)
+                timestr = round(time.time() - start, 3)
+                print 'returned in', timestr, 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+                resource.append(timestr)
+            except:
+                print str(prefix) + '[ ' + colored('FAIL', 'red') + ' ]'
+                resource.append("")
+                pass
+        else:
+            resource.append("")
+            print '[ ' + colored('NO FIREWALL_ID, SKIPPING', 'yellow') + ' ]'
 
-		try:
-			firewall_id = random.choice(Firewall.all(keys_only=True))
-			print "++ Defaulting to Firewall #"+str(firewall_id)
-		except:
-			print "++ Unable to retrieve a firewall."
+    def needs_cm_id(i, cm_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(cm_id) + ')',
+        if cm_id is not None:
+            try:
+                call = getattr(sys.modules[__name__], i).all(cm_id)
+                timestr = round(time.time() - start, 3)
+                print 'returned in', timestr, 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+                resource.append(timestr)
+            except:
+                print '[ ' + colored('FAIL', 'red') + ' ]'
+                resource.append("")
+                pass
+        else:
+            resource.append("")
+            print str(prefix) + '[ ' + colored('NO CM_ID, SKIPPING', 'yellow') + ' ]'
 
-		try:
-			cm_id = random.choice(ConfigurationManagementAccount.all(keys_only=True))
-			print "++ Defaulting to CM Account #"+str(cm_id)
-		except:
-			print "++ Unable to retrieve a cm account."
+    def needs_rdbms(i, region_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(region_id) + ',"MYSQL")',
+        if region_id is not None:
+            try:
+                call = getattr(sys.modules[__name__], i).all(
+                    region_id, 'MYSQL')
+                timestr = round(time.time() - start, 3)
+                print 'returned in', timestr, 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+                resource.append(timestr)
+            except:
+                print '[ ' + colored('FAIL', 'red') + ' ]'
+                resource.append("")
+                pass
+        else:
+            resource.append("")
+            print str(prefix) + '[ ' + colored('NO region_id, SKIPPING', 'yellow') + ' ]'
 
-		tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'ApiKey', 'Account', 'Script', 'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter', 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume', 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount', 'ConfigurationManagementService', 'Job', 'User']
+    tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'ApiKey', 'Account', 'Script',
+             'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter',
+             'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume',
+             'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount',
+             'ConfigurationManagementService', 'Job', 'User']
 
-		for i in sorted(tests):
-			params = None
-			start = time.time()
-			if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
-				print i+'.all('+str(region_id)+')',
-				if region_id is not None:
-					try:
-						call = getattr(sys.modules[__name__],i).all(region_id)
-						print 'returned in', round(time.time()-start,3), 'seconds. ',
-						print '[ '+colored('OK', 'green')+' ]'
-					except:
-						print '[ '+colored('FAIL', 'red')+' ]'
-						pass
-				else:
-					print '[ '+colored('NO REGION_ID, SKIPPING', 'yellow')+' ]'
-			elif i == 'FirewallRule':
-				print i+'.all('+str(firewall_id)+')',
-				if firewall_id is not None:
-					try:
-						call = getattr(sys.modules[__name__],i).all(firewall_id)
-						print 'returned in', round(time.time()-start,3), 'seconds. ',
-						print '[ '+colored('OK', 'green')+' ]'
-					except:
-						print '[ '+colored('FAIL', 'red')+' ]'
-						pass
-				else:
-					print '[ '+colored('NO FIREWALL_ID, SKIPPING', 'yellow')+' ]'
-			elif i == 'Script' or i == 'Personality' or i == 'Environment':
-				print i+'.all('+str(cm_id)+')',
-				if cm_id is not None:
-					try:
-						call = getattr(sys.modules[__name__],i).all(cm_id)
-						print 'returned in', round(time.time()-start,3), 'seconds. ',
-						print '[ '+colored('OK', 'green')+' ]'
-					except:
-						print '[ '+colored('FAIL', 'red')+' ]'
-						pass
-				else:
-					print '[ '+colored('NO CM_ID, SKIPPING', 'yellow')+' ]'
-			elif i == 'RelationalDatabaseProduct':
-				print i+'.all('+str(region_id)+',"MYSQL")',
-				if region_id is not None:
-					try:
-						call = getattr(sys.modules[__name__],i).all(region_id, 'MYSQL')
-						print 'returned in', round(time.time()-start,3), 'seconds. ',
-						print '[ '+colored('OK', 'green')+' ]'
-					except:
-						print '[ '+colored('FAIL', 'red')+' ]'
-						pass
-				else:
-					print '[ '+colored('NO region_id, SKIPPING', 'yellow')+' ]'
-			else:
-				print i+'.all()',
-				try:
-					call = getattr(sys.modules[__name__],i).all()
-					print 'returned in', round(time.time()-start,3), 'seconds. ',
-					print '[ '+colored('OK', 'green')+' ]'
-				except:
-					print '[ '+colored('FAIL', 'red')+' ]'
-					pass
-		
-		print '++ Script finished in', round(time.time()-total_start,3), 'seconds.'
+    if cmd_args.get is True and cmd_args.full is False:
+        data = []
+        resource = []
+        region_id = None
+        firewall_id = None
+        cm_id = None
+        vol_type = None
+        total_start = time.time()
+
+        print "Starting Mixcoatl 'GET' testing ..."
+
+        try:
+            region_id = random.choice(Region.all(keys_only=True))
+            print "++ Defaulting to Region #" + str(region_id)
+        except:
+            print "++ Unable to retrieve any regions."
+
+        try:
+            firewall_id = random.choice(Firewall.all(keys_only=True))
+            print "++ Defaulting to Firewall #" + str(firewall_id)
+        except:
+            print "++ Unable to retrieve a firewall."
+
+        try:
+            cm_id = random.choice(
+                ConfigurationManagementAccount.all(keys_only=True))
+            print "++ Defaulting to CM Account #" + str(cm_id)
+        except:
+            print "++ Unable to retrieve a CM account."
+
+        for i in sorted(tests):
+            params = None
+            start = time.time()
+            if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
+                needs_region_id(i, region_id, start)
+            elif i == 'FirewallRule':
+                needs_firewall_id(i, firewall_id, start)
+            elif i == 'Script' or i == 'Personality' or i == 'Environment':
+                needs_cm_id(i, cm_id, start)
+            elif i == 'RelationalDatabaseProduct':
+                needs_rdbms(i, region_id, start)
+            else:
+                print i + '.all()',
+                try:
+                    call = getattr(sys.modules[__name__], i).all()
+                    timestr = round(time.time() - start, 3)
+                    print 'returned in', timestr, 'seconds. ',
+                    print '[ ' + colored('OK', 'green') + ' ]'
+                    resource.append(timestr)
+                except:
+                    print '[ ' + colored('FAIL', 'red') + ' ]'
+                    resource.append("")
+                    pass
+
+            data.append(resource)
+
+        if cmd_args.log:
+            logfile = '/tmp/api-test.log'
+            with open(logfile, 'w') as fp:
+                a = csv.writer(fp, delimiter=',')
+                a.writerows(data)
+            print "Wrote ", logfile
+
+        print '++ Script finished in', round(time.time() - total_start, 3), 'seconds.'
+    elif cmd_args.get is True and cmd_args.full is True:
+        data = []
+        resource = []
+        region_id = None
+        firewall_id = None
+        cm_id = None
+        vol_type = None
+        total_start = time.time()
+
+        print "Starting FULL 'GET' Testing ..."
+        regions = Region.all()
+
+        for region in regions:
+            region_id = region.region_id
+            region_name = region.name
+
+            try:
+                firewall_id = random.choice(Firewall.all(keys_only=True))
+                print "++ Defaulting to Firewall #" + str(firewall_id)
+            except:
+                print "++ Unable to retrieve a firewall."
+
+            try:
+                cm_id = random.choice(
+                    ConfigurationManagementAccount.all(keys_only=True))
+                print "++ Defaulting to CM Account #" + str(cm_id)
+            except:
+                print "++ Unable to retrieve a CM account."
+
+            print "Results for " + region_name + " (" + str(region_id) + ")"
+
+            for i in sorted(tests):
+                params = None
+                start = time.time()
+                if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
+                    needs_region_id(i, region_id, start, '\t\t')
+                elif i == 'FirewallRule':
+                    needs_firewall_id(i, firewall_id, start, '\t\t')
+                elif i == 'Script' or i == 'Personality' or i == 'Environment':
+                    needs_cm_id(i, cm_id, start, '\t\t')
+                elif i == 'RelationalDatabaseProduct':
+                    needs_rdbms(i, region_id, start, '\t\t')
+                else:
+                    print '\t\t' + i + '.all()',
+                    try:
+                        call = getattr(sys.modules[__name__], i).all()
+                        timestr = round(time.time() - start, 3)
+                        print 'returned in', timestr, 'seconds. ',
+                        print '[ ' + colored('OK', 'green') + ' ]'
+                        resource.append(timestr)
+                    except:
+                        print '[ ' + colored('FAIL', 'red') + ' ]'
+                        resource.append("")
+                        pass
+
+                data.append(resource)
+
+            if cmd_args.log:
+                logfile = '/tmp/api-test.log'
+                with open(logfile, 'w') as fp:
+                    a = csv.writer(fp, delimiter=',')
+                    a.writerows(data)
+                print "Wrote ", logfile
+
+        print '++ Script finished in', round(time.time() - total_start, 3), 'seconds.'
+    elif cmd_args.post is True:
+        jobs = []
+        servers_launched = []
+        volumes_created = []
+        server_launch_avg = []
+        snapshots_created = []
+        images_created = []
+        averages = [int(time.time())]
+        t_wait = 3
+        total_servers = 5
+
+        def name_generator(size=6, chars=string.ascii_uppercase + string.digits):
+            return ''.join(random.choice(chars) for x in range(size))
+
+        def watch_jobs():
+            job_averages = []
+            print("Processing jobs... Please hold.")
+            job_table = PrettyTable(
+                ["ID", "Status", "Description", "Minutes to Complete"])
+
+            while len(jobs) > 0:
+                for i in jobs:
+                    if Job.wait_for(i) is True:
+                        the_job = Job(i)
+                        start = datetime.strptime(
+                            the_job.start_date.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
+                        end = datetime.strptime(
+                            the_job.end_date.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
+                        min_to_comp = (end - start).seconds
+                        job_averages.append(min_to_comp)
+                        job_table.add_row(
+                            [the_job.job_id, the_job.status, the_job.description, round((min_to_comp / 60), 3)])
+
+                        if 'Launch server' in the_job.description:
+                            servers_launched.append(int(the_job.message))
+                        elif 'CREATE VOLUME' in the_job.description:
+                            volumes_created.append(int(the_job.message))
+                        elif 'Snapshot of' in the_job.description:
+                            snapshots_created.append(int(the_job.message))
+                        elif 'Create Image' in the_job.description:
+                            images_created.append(int(the_job.message))
+
+                        jobs.remove(i)
+
+            if len(job_averages) > 0:
+                sum_job_averages = sum(job_averages)
+                len_job_averages = len(job_averages)
+                average = round((sum_job_averages / 60) / len_job_averages, 3)
+                averages.append(average)
+                job_table.add_row(["--", "--", "--", average])
+                print job_table
+
+        if cmd_args.account is not None and cmd_args.region is not None and cmd_args.servers is not None and \
+                cmd_args.product is not None and cmd_args.datacenter is not None and \
+                cmd_args.machineimage is not None and cmd_args.budget is not None:
+
+            account_id = cmd_args.account
+            region_id = int(cmd_args.region)
+            total_servers = int(cmd_args.servers)
+            server_product_id = cmd_args.product
+            data_center_id = cmd_args.datacenter
+            machine_image_id = cmd_args.machineimage
+            billing_code_id = cmd_args.budget
+            network_id = cmd_args.network
+            cm_account_id = cmd_args.cm_account_id
+            cm_environment = cmd_args.cm_environment
+            cm_scripts = cmd_args.cm_scripts
+            p_scripts = cmd_args.cm_personalities
+            t_wait = cmd_args.wait
+            vol_type = cmd_args.vol_type
+        else:
+            start = time.time()
+            table = PrettyTable(["Account ID", "Account Name"])
+
+            for account in Account.all():
+                if account.status == 'ACTIVE':
+                    table.add_row([account.account_id, account.name])
+
+            print 'Results returned in', time.time() - start, 'seconds.'
+            table.align = 'l'
+            print table
+
+            account_id = input("Enter an Account ID: ")
+
+            table = PrettyTable(["Region ID", "Region Name"])
+            start = time.time()
+
+            params = {'account_id': account_id}
+            for region in Region(params).all():
+                table.add_row([region.region_id, region.name])
+
+            print 'Results returned in', time.time() - start, 'seconds.'
+            table.align = 'l'
+            print table
+
+            region_id = input("Enter a Region ID: ")
+
+            table = PrettyTable(
+                ["Datacenter ID", "Datacenter Name"])
+            start = time.time()
+
+            for dc in DataCenter.all(region_id):
+                table.add_row(
+                    [dc.data_center_id, dc.description])
+
+            print 'Results returned in', time.time() - start, 'seconds.'
+            table.align = 'l'
+            print table
+
+            data_center_id = input("Enter a Datacenter ID: ")
+
+            table = PrettyTable(
+                ["Machine Image ID", "Machine Image Name", "Platform", "Arch", "Provider ID"])
+            start = time.time()
+
+            for mi in MachineImage.all(region_id=region_id):
+                table.add_row(
+                    [mi.machine_image_id, mi.description, mi.platform, mi.architecture, mi.provider_id])
+
+            print 'Results returned in', time.time() - start, 'seconds.'
+            table.align = 'l'
+            print table
+
+            machine_image_id = input("Enter a Machine Image ID: ")
+
+            for_sp = MachineImage.all(
+                machine_image_id=machine_image_id)
+
+            if for_sp[0].platform not in ['WINDOWS', 'UNKNOWN']:
+                for_sp_platform = 'UNIX'
+            else:
+                for_sp_platform = for_sp[0].platform
+
+            table = PrettyTable(
+                ["Provider Product ID", "Name", "Platform", "Currency", "Hourly Rate"])
+            start = time.time()
+
+            for sp in ServerProduct.all(region_id):
+                if sp.platform == for_sp_platform and sp.architecture == for_sp[0].architecture:
+                    table.add_row(
+                        [sp.provider_product_id, sp.name, sp.platform, sp.currency, sp.hourly_rate])
+
+            print 'Results returned in', time.time() - start, 'seconds.'
+            table.align = 'l'
+            print table.get_string(sortby="Provider Product ID")
+
+            server_product_id = raw_input("Enter a Server Product: ")
+
+            table = PrettyTable(
+                ["Budget ID", "Budget Name", "Budget Code", "Status"])
+            start = time.time()
+
+            for budget in BillingCode.all():
+                table.add_row(
+                    [budget.billing_code_id, budget.name, budget.finance_code, budget.budget_state])
+
+            print 'Results returned in', time.time() - start, 'seconds.'
+            table.align = 'l'
+            print table
+
+            billing_code_id = input("Enter a Billing Code ID: ")
+
+            yes = set(['yes', 'y', 'ye', ''])
+            no = set(['no', 'n'])
+
+            do_network = raw_input(
+                "Would you like to launch with a specific Network? (type yes or no): ")
+
+            if do_network is not None and do_network in yes:
+                if len(Network.all(region_id=region_id)) > 0:
+                    table = PrettyTable(
+                        ["ID", "Name", "Network Range"])
+                    start = time.time()
+                    for n in Network.all(region_id=region_id):
+                        table.add_row(
+                            [n.network_id, n.name, n.network_address])
+
+                    table.align = 'l'
+                    print table
+
+                    network_id = raw_input(
+                        "Enter a Network (Hit Enter for None): ")
+
+                    if network_id is None:
+                        network_id = 0
+                else:
+                    network_id = 0
+            else:
+                network_id = 0
+
+            do_cm = raw_input(
+                "Would you like to launch with Configuration Management? (type yes or no): ")
+
+            if do_cm is not None and do_cm in yes:
+                table = PrettyTable(
+                    ["CM ID#", "Name", "Endpoint", "Status"])
+                start = time.time()
+
+                if len(ConfigurationManagementAccount.all()) > 0:
+                    for cm in ConfigurationManagementAccount.all():
+                        if cm.status == 'ACTIVE':
+                            table.add_row(
+                                [cm.cm_account_id, cm.name, cm.description, cm.status])
+
+                    print 'Results returned in', time.time() - start, 'seconds.'
+                    table.align = 'l'
+                    print table
+
+                    cm_account_id = input(
+                        "Enter a Configuration Management Account ID (Hit Enter for None): ")
+
+                    if cm_account_id is not None:
+                        table = PrettyTable(
+                            ["ID", "Description", "Status"])
+                        start = time.time()
+                        for env in Environment.all(cm_account_id):
+                            if env.status == 'ACTIVE':
+                                table.add_row(
+                                    [env.shared_environment_code, env.description, env.status])
+
+                        print 'Results returned in', time.time() - start, 'seconds.'
+                        table.align = 'l'
+                        print table
+
+                        cm_environment = raw_input(
+                            "Enter Environment ID: ")
+
+                        table = PrettyTable(
+                            ["Personality ID", "Name"])
+                        start = time.time()
+                        for p in Personality().all(cm_account_id):
+                            if p.status == 'ACTIVE':
+                                table.add_row(
+                                    [p.shared_personality_code, p.name])
+
+                        print 'Results returned in', time.time() - start, 'seconds.'
+                        table.align = 'l'
+                        print table
+
+                        p_scripts = raw_input(
+                            "Enter Personality IDs (comma delimited - no spaces; enter for none): ") or None
+
+                        table = PrettyTable(["Script ID", "Name"])
+                        start = time.time()
+                        for sc in Script().all(cm_account_id):
+                            if sc.status == 'ACTIVE':
+                                table.add_row(
+                                    [sc.shared_script_code, sc.name])
+
+                        print 'Results returned in', time.time() - start, 'seconds.'
+                        table.align = 'l'
+                        print table
+
+                        cm_scripts = raw_input(
+                            "Enter Script IDs (comma delimited - no spaces; enter for none): ") or None
+            else:
+                cm_account_id = None
+                cm_environment = None
+                p_scripts = None
+                cm_scripts = None
+
+            yes = set(['yes', 'y', 'ye', ''])
+            no = set(['no', 'n'])
+
+            skip_volumes = raw_input(
+                "Would you like to skip volume creation and attachment? (type yes or no): ")
+
+            if skip_volumes in yes:
+                cmd_args.novolumes = True
+                cmd_args.vol_type = None
+                vol_type = None
+            else:
+                during = set(['during', 'd', ''])
+                after = set(['after', 'a'])
+
+                vol_type = raw_input(
+                    "Would you like volume creation to happen during server launch or after launch? (type during or after): ")
+
+                if vol_type in during:
+                    cmd_args.vol_type = 1
+                else:
+                    cmd_args.vol_type = 2
+
+            yes = set(['yes', 'y', 'ye', ''])
+            no = set(['no', 'n'])
+
+            skip_snapshots = raw_input(
+                "Would you like to skip snapshot creation? (type yes or no): ")
+
+            if skip_snapshots in yes:
+                cmd_args.nosnapshots = True
+
+            yes = set(['yes', 'y', 'ye', ''])
+            no = set(['no', 'n'])
+
+            skip_imaging = raw_input(
+                "Would you like to skip machine imaging? (type yes or no): ")
+
+            if skip_imaging in yes:
+                cmd_args.noimaging = True
+
+            total_servers = input(
+                "How many resources would you like to create at a time (ie: 3)? ")
+
+            t_wait = input(
+                "How many minutes do you want to wait before cleaning up the mess (ie: 5)? ")
+
+        print "###"
+        print "# Started:\t\t%s" % (time.strftime("%c"))
+        print "# Account:\t\t%s" % account_id
+        print "# Region:\t\t%s" % region_id
+        print "# Datacenter:\t\t%s" % data_center_id
+        print "# Machine Image:\t%s" % machine_image_id
+        print "# Server Product:\t%s" % server_product_id
+        print "# Budget Code:\t\t%s" % billing_code_id
+
+        if cm_account_id is not None:
+            print "# CM Account:\t\t%s" % cm_account_id
+
+        if cm_environment is not None:
+            print "# CM Environment:\t%s" % cm_environment
+
+        if p_scripts is not None:
+            print "# CM Personalities:\t%s" % p_scripts
+
+        if cm_scripts is not None:
+            print "# CM Scripts:\t\t%s" % cm_scripts
+
+        if cmd_args.network == "0" or network_id == "0" or network_id == 0 or network_id is None:
+            print "# Network:\t\tNone"
+            network_id = None
+        else:
+            print "# Network:\t\t%s" % network_id
+
+        if t_wait is not None:
+            print "# Cleanup Wait:\t\t%s" % t_wait
+
+        print "###"
+
+        run = "# Run again with:\tdcm-api-tests --post -a ", str(account_id), " -r ", str(region_id), " -d ", str(
+            data_center_id), " -m ", str(machine_image_id), " -b ", str(billing_code_id), " -p ", str(server_product_id)
+
+        run = ''.join(run)
+
+        if network_id is not None:
+            run += " -n " + str(network_id)
+
+        if cm_account_id is not None:
+            run += " -cm " + str(cm_account_id)
+
+        if cm_environment is not None:
+            run += " -ce " + str(cm_environment)
+
+        if cm_scripts is not None:
+            run += ' -cs ' + str(cm_scripts)
+
+        if p_scripts is not None:
+            run += ' -cp ' + str(p_scripts)
+
+        if cmd_args.novolumes:
+            run += ' -nv'
+
+        if cmd_args.vol_type:
+            run += ' -vt ' + str(cmd_args.vol_type)
+
+        if cmd_args.nosnapshots:
+            run += ' -ns'
+
+        if cmd_args.noimaging:
+            run += ' -ni'
+
+        if cmd_args.wait:
+            run += ' -w ' + str(t_wait)
+
+        run += ' -s ' + str(total_servers)
+
+        print run
+
+        print "###"
+        print "# Subscriptions:"
+
+        sub = Subscription.all(region_id=region_id)
+
+        if sub[0].subscribed_server:
+            print "# Server:\t\t[OK]"
+        else:
+            print "# Server:\t\t[UNSUPPORTED]"
+
+        if cmd_args.novolumes is False:
+            if sub[0].subscribed_volume:
+                print "# Volumes:\t\t[OK]"
+            else:
+                print "# Volumes:\t\t[UNSUPPORTED]"
+        else:
+            print "# Volumes:\t\t[SKIPPING]"
+
+        if cmd_args.nosnapshots is False:
+            if sub[0].subscribed_snapshot:
+                print "# Snapshots:\t\t[OK]"
+            else:
+                print "# Snapshots:\t\t[UNSUPPORTED]"
+        else:
+            print "# Snapshots:\t\t[SKIPPING]"
+
+        if cmd_args.noimaging is False:
+            if sub[0].subscribed_machine_image:
+                print "# Image:\t\t[OK]"
+            else:
+                print "# Image:\t\t[UNSUPPORTED]"
+        else:
+            print "# Image:\t\t[SKIPPING]"
+
+        print "###"
+
+        if sub[0].subscribed_server:
+            for ts in range(0, total_servers):
+                server_name = "test-server-" + name_generator()
+                print "Launching server : %s" % (server_name)
+                new_server = Server()
+                new_server.provider_product_id = server_product_id
+                new_server.machine_image = int(machine_image_id)
+                new_server.data_center = int(data_center_id)
+                new_server.description = server_name
+                new_server.name = server_name
+                new_server.budget = int(billing_code_id)
+
+                if network_id is not None and network_id != '0':
+                    new_server.vlan = int(network_id)
+
+                if vol_type is not None and vol_type == '1':
+                    new_server.volumeConfiguration = vol_type
+
+                if cm_account_id is not None:
+                    new_server.cmAccount = int(cm_account_id)
+                    new_server.environment = cm_environment
+
+                    if p_scripts is not None:
+                        new_server.p_scripts = p_scripts
+
+                    if cm_scripts is not None:
+                        new_server.cm_scripts = cm_scripts
+
+                job_id = new_server.launch()
+                jobs.append(job_id)
+
+            # Watch server launch jobs
+            watch_jobs()
+
+        if sub[0].subscribed_volume and cmd_args.novolumes is False and cmd_args.vol_type == '2':
+            for vc in range(0, total_servers):
+                name = "test-volume-" + name_generator()
+                new_volume = Volume()
+                new_volume.data_center = data_center_id
+                new_volume.description = name
+                new_volume.name = name
+                new_volume.size_in_gb = 5
+                new_volume.budget = billing_code_id
+                result = new_volume.create()
+                print("Creating Volume : %s" % name)
+                jobs.append(result.job_id)
+
+            # Watch volume create jobs
+            watch_jobs()
+
+            if sub[0].subscribed_server:
+                si = 0
+                for av in servers_launched:
+                    print "Attaching Volume #", volumes_created[si], "to Server #", av
+                    result = Volume(volumes_created[si]).attach(av)
+                    jobs.append(result.current_job)
+                    si += 1
+
+                # Watch volume attach jobs
+                watch_jobs()
+
+        if sub[0].subscribed_snapshot and cmd_args.nosnapshots is False and cmd_args.novolumes is False:
+            # TODO: Does not seem to change snapshot name during create.
+            for sc in volumes_created:
+                volume = Volume(sc)
+                volume.name = "test-snapshot-" + name_generator()
+                volume.budget = billing_code_id
+                result = volume.snapshot()
+                print "Snapshoting volume : #%s" % (sc)
+                jobs.append(result.current_job)
+
+            # Watch snapshot jobs
+            watch_jobs()
+
+        if sub[0].subscribed_machine_image and sub[0].subscribed_server and cmd_args.noimaging is False:
+            sv = 0
+            for mi in servers_launched:
+                m = MachineImage()
+                m.server_id = servers_launched[sv]
+                m.name = "test-machine-image-" + name_generator()
+                m.budget = billing_code_id
+                results = m.create()
+                print "Imaging server : #%s" % (mi)
+                jobs.append(results)
+                sv += 1
+
+            # Watch imaging jobs
+            watch_jobs()
+
+        if t_wait is not None:
+            print "All runs complete.  Waiting " + str(t_wait) + " minute(s) to clean up."
+            time.sleep(float(t_wait) * 60)
+
+        print "Cleaning up the mess..."
+
+        if sub[0].subscribed_server:
+            for st in servers_launched:
+                server = Server(st)
+                result = server.destroy()
+                print "Terminating server : #%s" % (st)
+
+        if sub[0].subscribed_volume and cmd_args.novolumes is False:
+            for vd in volumes_created:
+                volume = Volume(vd)
+                result = volume.destroy()
+                print "Deleting volume : #%s" % (vd)
+
+        if sub[0].subscribed_snapshot and cmd_args.nosnapshots is True and cmd_args.novolumes is False:
+            for sd in snapshots_created:
+                snapshot = Snapshot(sd)
+                result = snapshot.destroy()
+                print "Deleting snapshot : #%s" % (sd)
+
+        if sub[0].subscribed_machine_image and cmd_args.noimaging is False:
+            for md in images_created:
+                m = MachineImage(md)
+                result = m.destroy()
+                print "Deleting image : #%s" % (md)

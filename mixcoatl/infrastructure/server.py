@@ -4,10 +4,12 @@ from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 import json
+import sys
 import time
 
 
 class Server(Resource):
+
     """A server is a virtual machine running within a data center."""
     PATH = 'infrastructure/Server'
     COLLECTION_NAME = 'servers'
@@ -98,10 +100,10 @@ class Server(Resource):
 
     @p_scripts.setter
     def p_scripts(self, c):
-    	s = c.split(",")
-    	p = []
-    	for cm in s:
-    		p.append({'sharedPersonalityCode': cm})
+        s = c.split(",")
+        p = []
+        for cm in s:
+            p.append({'sharedPersonalityCode': cm})
 
         self.__p_scripts = p
 
@@ -318,7 +320,7 @@ class Server(Resource):
         :type reason: str.
         :returns: bool -- Result of API call
         """
-        p = self.PATH+"/"+str(self.server_id)
+        p = self.PATH + "/" + str(self.server_id)
         qopts = {'reason': reason}
         return self.delete(p, params=qopts)
 
@@ -334,7 +336,7 @@ class Server(Resource):
         payload = {'pause': [{}]}
 
         if reason is not None:
-            payload['pause'][0].update({'reason':reason})
+            payload['pause'][0].update({'reason': reason})
 
         return self.put(p, data=json.dumps(payload))
 
@@ -405,12 +407,12 @@ class Server(Resource):
         payload = {'stop': [{}]}
 
         if reason is not None:
-            payload['stop'][0].update({'reason':reason})
+            payload['stop'][0].update({'reason': reason})
 
         return self.put(p, data=json.dumps(payload))
 
     @required_attrs(['provider_product_id', 'machine_image', 'description',
-                    'name', 'data_center', 'budget'])
+                     'name', 'data_center', 'budget'])
     def launch(self, callback=None):
         """Launches a server with the configured parameters
 
@@ -429,29 +431,37 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['userData', 'vlan', 'firewalls', 'keypair', 'label', 'cmAccount', 'environment',
-                          'cm_scripts', 'p_scripts', 'volumeConfiguration']
+        optional_attrs = ['userData', 'vlan', 'firewalls', 'keypair', 'label',
+                          'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
         if self.server_id is not None:
-            raise ServerLaunchException('Cannot launch an already running server: %s' % self.server_id)
+            raise ServerLaunchException(
+                'Cannot launch an already running server: %s' % self.server_id)
 
-        payload = {'launch': [{'productId': self.provider_product_id,
-                               'budget': self.budget,
-                               'machineImage': camel_keys(self.machine_image),
-                               'description': self.description,
-                               'name': self.name,
-                               'dataCenter': camel_keys(self.data_center)}]}
+        payload = {'launch':
+                   [{
+                       'product': {"productId": self.provider_product_id},
+                       'budget': self.budget,
+                       'machineImage': camel_keys(self.machine_image),
+                       'description': self.description,
+                       'name': self.name,
+                       'dataCenter': camel_keys(self.data_center)
+                   }]}
 
         for oa in optional_attrs:
             try:
                 if getattr(self, oa) is not None:
                     if oa == 'cm_scripts':
-                        payload['launch'][0].update({'scripts':getattr(self, oa)})
+                        payload['launch'][0].update(
+                            {'scripts': getattr(self, oa)})
                     elif oa == 'p_scripts':
-                        payload['launch'][0].update({'personalities':getattr(self, oa)})
+                        payload['launch'][0].update(
+                            {'personalities': getattr(self, oa)})
                     elif oa == 'volumeConfiguration':
-                        payload['launch'][0].update({'volumeConfiguration': getattr(self, oa)})
+                        payload['launch'][0].update(
+                            {'volumeConfiguration': getattr(self, oa)})
                     elif oa == 'vlan':
-                        payload['launch'][0].update({'vlan': camel_keys(getattr(self, oa))})
+                        payload['launch'][0].update(
+                            {'vlan': camel_keys(getattr(self, oa))})
                     else:
                         payload['launch'][0].update({oa: getattr(self, oa)})
             except AttributeError:
@@ -469,7 +479,7 @@ class Server(Resource):
     def duplicate(self, server):
         pass
 
-    def wait_for(self, status='RUNNING', callback = None):
+    def wait_for(self, status='RUNNING', callback=None):
         """Blocks execution until the current server has status of :attr:`status`
 
         :param status: The status to expect before continuing *(i.e. `RUNNING` or `PAUSED`)*
