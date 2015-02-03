@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 
-import json, urllib2, argparse, sys
+import os
+import json
+import urllib2
+import argparse
+import sys
 from distutils.version import StrictVersion
 from mixcoatl import __version__
+
 
 def versions(package_name):
     url = "https://pypi.python.org/pypi/%s/json" % (package_name,)
@@ -14,13 +19,21 @@ def versions(package_name):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--version', '-v', help='List current and available versions.', action="store_true")
+    parser.add_argument(
+        '--version', '-v', help='List current and available versions.', action="store_true")
+    parser.add_argument(
+        '--reset_config', '-r', help='Resets the "Default" Mixcoatl config (If Applicable)', action="store_true")
     cmd_args = parser.parse_args()
 
     if cmd_args.version:
-		print "Mixcoatl version installed:",__version__
-		print "All available versions:"
-		print "\t".join(versions("mixcoatl"))
+        print "Mixcoatl version installed:", __version__
+        print "All available versions:"
+        print "\t".join(versions("mixcoatl"))
+    elif cmd_args.reset_config:
+        filename = os.path.expanduser('~').strip() + "/.mixcoatl/default"
+        if os.path.exists(filename):
+            os.remove(filename)
+            print "Default configuration removed."
     else:
         parser.print_help()
         sys.exit(1)

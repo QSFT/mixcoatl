@@ -62,28 +62,31 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP", "Platform", "Budget",
-                             "Product", "Status", "Start Date"])
-        for r in results:
-            if hasattr(r, 'public_ip_address'):
-                public_ip_address = r.public_ip_address
-            elif hasattr(r, 'public_ip_addresses'):
-                public_ip_address = ",".join(r.public_ip_addresses)
-            else:
-                public_ip_address = None
+        if len(results) > 0:
+            table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP", "Platform", "Budget",
+                                 "Product", "Status", "Start Date"])
+            for r in results:
+                if hasattr(r, 'public_ip_address'):
+                    public_ip_address = r.public_ip_address
+                elif hasattr(r, 'public_ip_addresses'):
+                    public_ip_address = ",".join(r.public_ip_addresses)
+                else:
+                    public_ip_address = None
 
-            table.add_row([r.server_id,
-                           r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
-                           r.provider_id,
-                           r.name,
-                           public_ip_address,
-                           r.platform,
-                           r.budget,
-                           r.provider_product_id,
-                           r.status,
-                           r.start_date])
-        table.align = 'l'
-        print(table)
+                table.add_row([r.server_id,
+                               r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
+                               r.provider_id,
+                               r.name,
+                               public_ip_address,
+                               r.platform,
+                               r.budget,
+                               r.provider_product_id,
+                               r.status,
+                               r.start_date])
+            table.align = 'l'
+            print(table)
+        else:
+            print "No results found."
 
     if 'DCM_DEBUG' in os.environ:
         print 'Results returned in', time.time()-start, 'seconds.'
