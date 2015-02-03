@@ -92,7 +92,8 @@ if __name__ == '__main__':
         if region_id is not None:
             try:
                 if i == 'MachineImage':
-                    call = getattr(sys.modules[__name__], i).all(region_id=region_id)
+                    call = getattr(sys.modules[__name__], i).all(
+                        region_id=region_id)
                 else:
                     call = getattr(sys.modules[__name__], i).all(region_id)
                 print 'returned in', round(time.time() - start, 3), 'seconds. ',
@@ -312,7 +313,6 @@ if __name__ == '__main__':
 
             while len(jobs) > 0:
                 for i in jobs:
-                    print i
                     if Job.wait_for(i) is True:
                         the_job = Job(i)
                         start = datetime.strptime(
@@ -335,13 +335,13 @@ if __name__ == '__main__':
 
                         jobs.remove(i)
 
-            print job_averages
-            sum_job_averages = sum(job_averages)
-            len_job_averages = len(job_averages)
-            average = round((sum_job_averages / 60) / len_job_averages, 3)
-            averages.append(average)
-            job_table.add_row(["--", "--", "--", average])
-            print job_table
+            if len(job_averages) > 0:
+                sum_job_averages = sum(job_averages)
+                len_job_averages = len(job_averages)
+                average = round((sum_job_averages / 60) / len_job_averages, 3)
+                averages.append(average)
+                job_table.add_row(["--", "--", "--", average])
+                print job_table
 
         if cmd_args.account is not None and cmd_args.region is not None and cmd_args.servers is not None and \
                 cmd_args.product is not None and cmd_args.datacenter is not None and \
@@ -421,6 +421,8 @@ if __name__ == '__main__':
 
             if for_sp[0].platform not in ['WINDOWS', 'UNKNOWN']:
                 for_sp_platform = 'UNIX'
+            else:
+                for_sp_platform = for_sp[0].platform
 
             table = PrettyTable(
                 ["Provider Product ID", "Name", "Platform", "Currency", "Hourly Rate"])
@@ -559,6 +561,7 @@ if __name__ == '__main__':
             if skip_volumes in yes:
                 cmd_args.novolumes = True
                 cmd_args.vol_type = None
+                vol_type = None
             else:
                 during = set(['during', 'd', ''])
                 after = set(['after', 'a'])
