@@ -87,8 +87,74 @@ if __name__ == '__main__':
         parser.print_help()
         sys.exit(1)
 
+    def needs_region_id(i, region_id, start):
+        print i+'.all('+str(region_id)+')',
+        if region_id is not None:
+            try:
+                call = getattr(sys.modules[__name__],i).all(region_id)
+                print 'returned in', round(time.time()-start,3), 'seconds. ',
+                print '[ '+colored('OK', 'green')+' ]'
+            except:
+                print '[ '+colored('FAIL', 'red')+' ]'
+                pass
+        else:
+            print '[ '+colored('NO REGION_ID, SKIPPING', 'yellow')+' ]'
+
+    def needs_firewall_id(i, firewall_id, start):
+        print i + '.all(' + str(firewall_id) + ')',
+        if firewall_id is not None:
+            try:
+                call = getattr(sys.modules[__name__], i).all(firewall_id)
+                timestr = round(time.time() - start, 3)
+                print 'returned in', timestr, 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+                resource.append(timestr)
+            except:
+                print '[ ' + colored('FAIL', 'red') + ' ]'
+                resource.append("")
+                pass
+        else:
+            resource.append("")
+            print '[ ' + colored('NO FIREWALL_ID, SKIPPING', 'yellow') + ' ]'
+
+    def needs_cm_id(i, cm_id, start):
+        print i + '.all(' + str(cm_id) + ')',
+        if cm_id is not None:
+            try:
+                call = getattr(sys.modules[__name__], i).all(cm_id)
+                timestr = round(time.time() - start, 3)
+                print 'returned in', timestr, 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+                resource.append(timestr)
+            except:
+                print '[ ' + colored('FAIL', 'red') + ' ]'
+                resource.append("")
+                pass
+        else:
+            resource.append("")
+            print '[ ' + colored('NO CM_ID, SKIPPING', 'yellow') + ' ]'
+
+    def needs_rdbms(i, region_id, start):
+        print i + '.all(' + str(region_id) + ',"MYSQL")',
+        if region_id is not None:
+            try:
+                call = getattr(sys.modules[__name__], i).all(
+                    region_id, 'MYSQL')
+                timestr = round(time.time() - start, 3)
+                print 'returned in', timestr, 'seconds. ',
+                print '[ ' + colored('OK', 'green') + ' ]'
+                resource.append(timestr)
+            except:
+                print '[ ' + colored('FAIL', 'red') + ' ]'
+                resource.append("")
+                pass
+        else:
+            resource.append("")
+            print '[ ' + colored('NO region_id, SKIPPING', 'yellow') + ' ]'
+
     if cmd_args.get is True and cmd_args.full is False:
         data = []
+        resource = []
         region_id = None
         firewall_id = None
         cm_id = None
@@ -122,71 +188,6 @@ if __name__ == '__main__':
                  'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount',
                  'ConfigurationManagementService', 'Job', 'User']
 
-        def needs_region_id(i, region_id, start):
-            print i+'.all('+str(region_id)+')',
-            if region_id is not None:
-                try:
-                    call = getattr(sys.modules[__name__],i).all(region_id)
-                    print 'returned in', round(time.time()-start,3), 'seconds. ',
-                    print '[ '+colored('OK', 'green')+' ]'
-                except:
-                    print '[ '+colored('FAIL', 'red')+' ]'
-                    pass
-            else:
-                print '[ '+colored('NO REGION_ID, SKIPPING', 'yellow')+' ]'
-
-        def needs_firewall_id(i, firewall_id, start):
-            print i + '.all(' + str(firewall_id) + ')',
-            if firewall_id is not None:
-                try:
-                    call = getattr(sys.modules[__name__], i).all(firewall_id)
-                    timestr = round(time.time() - start, 3)
-                    print 'returned in', timestr, 'seconds. ',
-                    print '[ ' + colored('OK', 'green') + ' ]'
-                    resource.append(timestr)
-                except:
-                    print '[ ' + colored('FAIL', 'red') + ' ]'
-                    resource.append("")
-                    pass
-            else:
-                resource.append("")
-                print '[ ' + colored('NO FIREWALL_ID, SKIPPING', 'yellow') + ' ]'
-
-        def needs_cm_id(i, cm_id, start):
-            print i + '.all(' + str(cm_id) + ')',
-            if cm_id is not None:
-                try:
-                    call = getattr(sys.modules[__name__], i).all(cm_id)
-                    timestr = round(time.time() - start, 3)
-                    print 'returned in', timestr, 'seconds. ',
-                    print '[ ' + colored('OK', 'green') + ' ]'
-                    resource.append(timestr)
-                except:
-                    print '[ ' + colored('FAIL', 'red') + ' ]'
-                    resource.append("")
-                    pass
-            else:
-                resource.append("")
-                print '[ ' + colored('NO CM_ID, SKIPPING', 'yellow') + ' ]'
-
-        def rdbms(i, region_id, start):
-            print i + '.all(' + str(region_id) + ',"MYSQL")',
-            if region_id is not None:
-                try:
-                    call = getattr(sys.modules[__name__], i).all(
-                        region_id, 'MYSQL')
-                    timestr = round(time.time() - start, 3)
-                    print 'returned in', timestr, 'seconds. ',
-                    print '[ ' + colored('OK', 'green') + ' ]'
-                    resource.append(timestr)
-                except:
-                    print '[ ' + colored('FAIL', 'red') + ' ]'
-                    resource.append("")
-                    pass
-            else:
-                resource.append("")
-                print '[ ' + colored('NO region_id, SKIPPING', 'yellow') + ' ]'
-
         for i in sorted(tests):
             params = None
             start = time.time()
@@ -197,7 +198,7 @@ if __name__ == '__main__':
             elif i == 'Script' or i == 'Personality' or i == 'Environment':
                 needs_cm_id(i, cm_id, start)
             elif i == 'RelationalDatabaseProduct':
-                rbdms(i, region_id, start)
+                needs_rdbms(i, region_id, start)
             else:
                 print i + '.all()',
                 try:
