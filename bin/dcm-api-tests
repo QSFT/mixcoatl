@@ -324,7 +324,7 @@ if __name__ == '__main__':
                         job_table.add_row(
                             [the_job.job_id, the_job.status, the_job.description, round((min_to_comp / 60), 3)])
 
-                        if 'Launch Server' in the_job.description:
+                        if 'Launch server' in the_job.description:
                             servers_launched.append(int(the_job.message))
                         elif 'CREATE VOLUME' in the_job.description:
                             volumes_created.append(int(the_job.message))
@@ -755,16 +755,16 @@ if __name__ == '__main__':
             # Watch volume create jobs
             watch_jobs()
 
-        if sub[0].subscribed_server:
-            si = 0
-            for av in servers_launched:
-                print "Attaching Volume #", volumes_created[si], "to Server #", av
-                result = Volume(volumes_created[si]).attach(av)
-                jobs.append(result.current_job)
-                si += 1
+            if sub[0].subscribed_server:
+                si = 0
+                for av in servers_launched:
+                    print "Attaching Volume #", volumes_created[si], "to Server #", av
+                    result = Volume(volumes_created[si]).attach(av)
+                    jobs.append(result.current_job)
+                    si += 1
 
-            # Watch volume attach jobs
-            watch_jobs()
+                # Watch volume attach jobs
+                watch_jobs()
 
         if sub[0].subscribed_snapshot and cmd_args.nosnapshots is False and cmd_args.novolumes is False:
             # TODO: Does not seem to change snapshot name during create.
