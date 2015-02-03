@@ -87,21 +87,24 @@ if __name__ == '__main__':
         parser.print_help()
         sys.exit(1)
 
-    def needs_region_id(i, region_id, start):
-        print i + '.all(' + str(region_id) + ')',
+    def needs_region_id(i, region_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(region_id) + ')',
         if region_id is not None:
             try:
-                call = getattr(sys.modules[__name__], i).all(region_id)
+                if i == 'MachineImage':
+                    call = getattr(sys.modules[__name__], i).all(region_id=region_id)
+                else:
+                    call = getattr(sys.modules[__name__], i).all(region_id)
                 print 'returned in', round(time.time() - start, 3), 'seconds. ',
                 print '[ ' + colored('OK', 'green') + ' ]'
             except:
                 print '[ ' + colored('FAIL', 'red') + ' ]'
                 pass
         else:
-            print '[ ' + colored('NO REGION_ID, SKIPPING', 'yellow') + ' ]'
+            print str(prefix) + '[ ' + colored('NO REGION_ID, SKIPPING', 'yellow') + ' ]'
 
-    def needs_firewall_id(i, firewall_id, start):
-        print i + '.all(' + str(firewall_id) + ')',
+    def needs_firewall_id(i, firewall_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(firewall_id) + ')',
         if firewall_id is not None:
             try:
                 call = getattr(sys.modules[__name__], i).all(firewall_id)
@@ -110,15 +113,15 @@ if __name__ == '__main__':
                 print '[ ' + colored('OK', 'green') + ' ]'
                 resource.append(timestr)
             except:
-                print '[ ' + colored('FAIL', 'red') + ' ]'
+                print str(prefix) + '[ ' + colored('FAIL', 'red') + ' ]'
                 resource.append("")
                 pass
         else:
             resource.append("")
             print '[ ' + colored('NO FIREWALL_ID, SKIPPING', 'yellow') + ' ]'
 
-    def needs_cm_id(i, cm_id, start):
-        print i + '.all(' + str(cm_id) + ')',
+    def needs_cm_id(i, cm_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(cm_id) + ')',
         if cm_id is not None:
             try:
                 call = getattr(sys.modules[__name__], i).all(cm_id)
@@ -132,10 +135,10 @@ if __name__ == '__main__':
                 pass
         else:
             resource.append("")
-            print '[ ' + colored('NO CM_ID, SKIPPING', 'yellow') + ' ]'
+            print str(prefix) + '[ ' + colored('NO CM_ID, SKIPPING', 'yellow') + ' ]'
 
-    def needs_rdbms(i, region_id, start):
-        print i + '.all(' + str(region_id) + ',"MYSQL")',
+    def needs_rdbms(i, region_id, start, prefix=''):
+        print str(prefix) + i + '.all(' + str(region_id) + ',"MYSQL")',
         if region_id is not None:
             try:
                 call = getattr(sys.modules[__name__], i).all(
@@ -150,7 +153,13 @@ if __name__ == '__main__':
                 pass
         else:
             resource.append("")
-            print '[ ' + colored('NO region_id, SKIPPING', 'yellow') + ' ]'
+            print str(prefix) + '[ ' + colored('NO region_id, SKIPPING', 'yellow') + ' ]'
+
+    tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'ApiKey', 'Account', 'Script',
+             'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter',
+             'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume',
+             'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount',
+             'ConfigurationManagementService', 'Job', 'User']
 
     if cmd_args.get is True and cmd_args.full is False:
         data = []
@@ -180,13 +189,7 @@ if __name__ == '__main__':
                 ConfigurationManagementAccount.all(keys_only=True))
             print "++ Defaulting to CM Account #" + str(cm_id)
         except:
-            print "++ Unable to retrieve a cm account."
-
-        tests = ['Region', 'Environment', 'Firewall', 'FirewallRule', 'Cloud', 'ApiKey', 'Account', 'Script',
-                 'Personality', 'RelationalDatabase', 'RelationalDatabaseProduct', 'Group', 'DataCenter',
-                 'MachineImage', 'Network', 'LoadBalancer', 'BillingCode', 'Server', 'ServerProduct', 'Volume',
-                 'Role', 'Snapshot', 'Subscription', 'ConfigurationManagementAccount',
-                 'ConfigurationManagementService', 'Job', 'User']
+            print "++ Unable to retrieve a CM account."
 
         for i in sorted(tests):
             params = None
@@ -223,7 +226,70 @@ if __name__ == '__main__':
 
         print '++ Script finished in', round(time.time() - total_start, 3), 'seconds.'
     elif cmd_args.get is True and cmd_args.full is True:
-        print "Getting here..."
+        data = []
+        resource = []
+        region_id = None
+        firewall_id = None
+        cm_id = None
+        vol_type = None
+        total_start = time.time()
+
+        print "Starting FULL 'GET' Testing ..."
+        regions = Region.all()
+
+        for region in regions:
+            region_id = region.region_id
+            region_name = region.name
+
+            try:
+                firewall_id = random.choice(Firewall.all(keys_only=True))
+                print "++ Defaulting to Firewall #" + str(firewall_id)
+            except:
+                print "++ Unable to retrieve a firewall."
+
+            try:
+                cm_id = random.choice(
+                    ConfigurationManagementAccount.all(keys_only=True))
+                print "++ Defaulting to CM Account #" + str(cm_id)
+            except:
+                print "++ Unable to retrieve a CM account."
+
+            print "Results for " + region_name + " (" + str(region_id) + ")"
+
+            for i in sorted(tests):
+                params = None
+                start = time.time()
+                if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
+                    needs_region_id(i, region_id, start, '\t\t')
+                elif i == 'FirewallRule':
+                    needs_firewall_id(i, firewall_id, start, '\t\t')
+                elif i == 'Script' or i == 'Personality' or i == 'Environment':
+                    needs_cm_id(i, cm_id, start, '\t\t')
+                elif i == 'RelationalDatabaseProduct':
+                    needs_rdbms(i, region_id, start, '\t\t')
+                else:
+                    print '\t\t' + i + '.all()',
+                    try:
+                        call = getattr(sys.modules[__name__], i).all()
+                        timestr = round(time.time() - start, 3)
+                        print 'returned in', timestr, 'seconds. ',
+                        print '[ ' + colored('OK', 'green') + ' ]'
+                        resource.append(timestr)
+                    except:
+                        print '[ ' + colored('FAIL', 'red') + ' ]'
+                        resource.append("")
+                        pass
+
+                data.append(resource)
+
+            if cmd_args.log:
+                logfile = '/tmp/api-test.log'
+                with open(logfile, 'w') as fp:
+                    a = csv.writer(fp, delimiter=',')
+                    a.writerows(data)
+                print "Wrote ", logfile
+
+        print '++ Script finished in', round(time.time() - total_start, 3), 'seconds.'
     elif cmd_args.post is True:
         jobs = []
         servers_launched = []
