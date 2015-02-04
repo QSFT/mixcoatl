@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# fab -P gen_configs
 
 import os
 import re
