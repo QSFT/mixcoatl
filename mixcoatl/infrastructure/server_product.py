@@ -3,18 +3,23 @@ from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 
+
 class ServerProduct(Resource):
+
+    """The Server Agent resource provides methods by which you can query the output of the Dell
+    Cloud Manager agent and retrieve its log output. In the future this will be expanded such that
+    you can also query for basic health information of the server on which the agent is installed. """
     PATH = 'infrastructure/ServerProduct'
     COLLECTION_NAME = 'serverProducts'
     PRIMARY_KEY = 'product_id'
 
-    def __init__(self, product_id = None, *args, **kwargs):
+    def __init__(self, product_id=None, *args, **kwargs):
         Resource.__init__(self)
         self.__product_id = product_id
 
     @property
     def product_id(self):
-        """`int` - The unique enStratus id for this product"""
+        """`int` - The unique DCM id for this product"""
         return self.__product_id
 
     @lazy_property
@@ -102,7 +107,7 @@ class ServerProduct(Resource):
         """
         r = Resource(cls.PATH)
         r.request_details = 'basic'
-        params = {'regionId':region_id}
+        params = {'regionId': region_id}
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
@@ -111,11 +116,12 @@ class ServerProduct(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
             raise ServerProductException(r.last_error)
 
-class ServerProductException(BaseException): pass
+
+class ServerProductException(BaseException):
+    pass

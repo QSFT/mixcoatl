@@ -1,21 +1,23 @@
-"""Implements the enStratus Region API"""
+"""Implements the DCM Region API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
+
 class Region(Resource):
+
     """A region is a logical sub-infrastructure within a cloud"""
     PATH = 'geography/Region'
     COLLECTION_NAME = 'regions'
     PRIMARY_KEY = 'region_id'
 
-    def __init__(self, region_id = None, *args, **kwargs):
+    def __init__(self, region_id=None, *args, **kwargs):
         Resource.__init__(self)
         self.__region_id = region_id
 
     @property
     def region_id(self):
-        """`int` - The unique enStratus id for this region"""
+        """`int` - The unique DCM id for this region"""
         return self.__region_id
 
     @lazy_property
@@ -86,11 +88,12 @@ class Region(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                resturn[type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise RegionException(r.last_error)
 
-class RegionException(BaseException): pass
+
+class RegionException(BaseException):
+    pass

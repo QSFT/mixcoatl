@@ -1,26 +1,27 @@
-"""Implements access to the enStratus Snapshot API"""
+"""Implements access to the DCM Snapshot API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
-
 import json
 
+
 class Snapshot(Resource):
+
     """A snapshot is a point-in-time snapshot of a volume"""
     PATH = 'infrastructure/Snapshot'
     COLLECTION_NAME = 'snapshots'
     PRIMARY_KEY = 'snapshot_id'
 
-    def __init__(self, snapshot_id = None, *args, **kwargs):
+    def __init__(self, snapshot_id=None, *args, **kwargs):
         # pylint: disable-msg=W0613
         Resource.__init__(self)
         self.__snapshot_id = snapshot_id
 
     @property
     def snapshot_id(self):
-        """`int` - The unique enStratus id for this snapshot"""
+        """`int` - The unique DCM id for this snapshot"""
         return self.__snapshot_id
 
     @lazy_property
@@ -56,7 +57,7 @@ class Snapshot(Resource):
 
     @lazy_property
     def description(self):
-        """`str` - The description of the snapshot established in enStratus"""
+        """`str` - The description of the snapshot established in DCM"""
         # pylint: disable-msg=E0202
         return self.__description
 
@@ -67,7 +68,7 @@ class Snapshot(Resource):
 
     @lazy_property
     def encrypted(self):
-        """`bool` - Is the snapshot known to be encrypted by enStratus"""
+        """`bool` - Is the snapshot known to be encrypted by DCM"""
         return self.__encrypted
 
     @lazy_property
@@ -93,17 +94,17 @@ class Snapshot(Resource):
 
     @lazy_property
     def owning_account(self):
-        """`dict` or `None` - The enStratus account where the snapshot is registered"""
+        """`dict` or `None` - The DCM account where the snapshot is registered"""
         return self.__owning_account
 
     @lazy_property
     def owning_user(self):
-        """`dict` or `None` - The enStratus user who has ownership of this snapshot"""
+        """`dict` or `None` - The DCM user who has ownership of this snapshot"""
         return self.__owning_user
 
     @lazy_property
     def owning_groups(self):
-        """`dict` - The enStratus groups who have ownership of this snapshot"""
+        """`dict` - The DCM groups who have ownership of this snapshot"""
         return self.__owning_groups
 
     @lazy_property
@@ -133,7 +134,7 @@ class Snapshot(Resource):
 
     @lazy_property
     def status(self):
-        """`str` - The enStratus status of the snapshot *(`ACTIVE`|`INACTIVE`)*"""
+        """`str` - The DCM status of the snapshot *(`ACTIVE`|`INACTIVE`)*"""
         return self.__status
 
     @lazy_property
@@ -156,10 +157,10 @@ class Snapshot(Resource):
         :returns: `bool`
         :raises: :class:`SnapshotException`
         """
-        params = {'reason':reason}
+        params = {'reason': reason}
 
         try:
-            return self.delete(self.PATH+'/'+str(self.snapshot_id), params=params)
+            return self.delete(self.PATH + '/' + str(self.snapshot_id), params=params)
         except:
             raise SnapshotException(self.last_error)
 
@@ -173,7 +174,7 @@ class Snapshot(Resource):
         if self.pending_changes is None:
             pass
         else:
-            payload = {'describeSnapshot':[{}]}
+            payload = {'describeSnapshot': [{}]}
             for x in ['name', 'description', 'label']:
                 if x in self.pending_changes:
                     new_val = self.pending_changes[x]['new']
@@ -182,7 +183,8 @@ class Snapshot(Resource):
             if len(payload['describeSnapshot'][0]) == 0:
                 pass
             else:
-                self.put(self.PATH+'/'+str(self.snapshot_id), data=json.dumps(payload))
+                self.put(
+                    self.PATH + '/' + str(self.snapshot_id), data=json.dumps(payload))
 
             if self.last_error is None:
                 self.load()
@@ -199,9 +201,10 @@ class Snapshot(Resource):
         """
 
         if self.snapshot_id is not None:
-            raise SnapshotException('Cannot snapshot a snapshot: %s' % self.snapshot_id)
+            raise SnapshotException(
+                'Cannot snapshot a snapshot: %s' % self.snapshot_id)
 
-        payload = {'addSnapshot':[{}]}
+        payload = {'addSnapshot': [{}]}
         payload['addSnapshot'][0]['volume'] = camel_keys(self.volume)
         payload['addSnapshot'][0]['name'] = self.name
         payload['addSnapshot'][0]['description'] = self.description
@@ -211,7 +214,8 @@ class Snapshot(Resource):
         for oa in optional_attrs:
             try:
                 if getattr(self, oa) is not None:
-                    payload['addSnapshot'][0].update(camel_keys({oa:getattr(self, oa)}))
+                    payload['addSnapshot'][0].update(
+                        camel_keys({oa: getattr(self, oa)}))
             except AttributeError:
                 # We did say optional....
                 pass
@@ -249,7 +253,7 @@ class Snapshot(Resource):
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
-            
+
         if 'region_id' in kwargs:
             params['regionId'] = kwargs['region_id']
         if 'account_id' in kwargs:
@@ -260,10 +264,9 @@ class Snapshot(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise SnapshotException(r.last_error)
 
@@ -293,7 +296,7 @@ class Snapshot(Resource):
     def delete_snapshot(cls, snapshot_id, reason):
         """delete a snapshot
 
-        :param snapshot_id: The enStratus snapshot id
+        :param snapshot_id: The DCM snapshot id
         :type snapshot_id: int
         :param reason: A reason for deleting the snapshot
         :type reason: str.
@@ -349,6 +352,8 @@ class Snapshot(Resource):
             else:
                 return s
 
+
 class SnapshotException(BaseException):
+
     """Generic exception for Snapshots"""
     pass

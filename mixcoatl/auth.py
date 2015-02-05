@@ -6,13 +6,13 @@ from mixcoatl.settings.load_settings import settings
 
 
 def get_sig(http_method, path):
-    """Return a signature valid for use in making enStratus API calls
+    """Return a signature valid for use in making DCM API calls
 
     :param http_method: The `http_method` used to make the API call
     :param path: The `path` used in the API call
     """
     timestamp = int(round(time.time() * 1000))
-    signpath = settings.basepath+'/'+path
+    signpath = settings.basepath + '/' + path
     parts = []
     parts.append(settings.access_key)
     parts.append(http_method)

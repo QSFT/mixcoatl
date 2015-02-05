@@ -1,4 +1,4 @@
-"""Implements the enStratus Group API"""
+"""Implements the DCM Group API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
@@ -9,7 +9,13 @@ from mixcoatl.admin.job import Job
 import json
 import time
 
+
 class Group(Resource):
+
+    """A group is a collection of users. Groups map to roles that define what their access rights are for
+    a specific account. Some operations may not be possible if your groups are being managed in
+    LDAP or ActiveDirectory as Dell Cloud Manager is not the authority for that data in those
+    instances. """
     PATH = 'admin/Group'
     COLLECTION_NAME = 'groups'
     PRIMARY_KEY = 'group_id'
@@ -20,7 +26,7 @@ class Group(Resource):
 
     @property
     def group_id(self):
-        """`int` - The unique id of this group in enStratus"""
+        """`int` - The unique id of this group in DCM"""
         return self.__group_id
 
     @lazy_property
@@ -45,7 +51,7 @@ class Group(Resource):
 
     @lazy_property
     def status(self):
-        """`str` - The current status of the group in enStratus"""
+        """`str` - The current status of the group in DCM"""
         return self.__status
 
     @lazy_property
@@ -114,16 +120,16 @@ class Group(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                        for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise GroupException(r.last_error)
 
     @required_attrs(['group_id'])
     def set_role(self, role_id, account_id):
-
         """Updates the role applied to the group specified by group_id.
            account_id is technically optional, but we're making it required
            here because making it optional may result in user problems.
@@ -134,31 +140,35 @@ class Group(Resource):
            credentials for the given user."""
 
         p = '%s/%s' % (self.PATH, str(self.group_id))
-        payload = {'setRole':{'group':{'role':{'roleId':role_id},'account':{'accountId':account_id}}}}
+        payload = {'setRole': {
+            'group': {'role': {'roleId': role_id}, 'account': {'accountId': account_id}}}}
 
         return self.put(p, data=json.dumps(payload))
 
-    @required_attrs(['group_id','name','description'])
+    @required_attrs(['group_id', 'name', 'description'])
     def update(self, name, description):
         """Updates the group name and description."""
         p = '%s/%s' % (self.PATH, str(self.group_id))
-        payload = {'describeGroup':{'group':{'name':str(name),'description':str(description)}}}
+        payload = {'describeGroup': {
+            'group': {'name': str(name), 'description': str(description)}}}
 
         return self.put(p, data=json.dumps(payload))
 
-    @required_attrs(['group_id','name'])
+    @required_attrs(['group_id', 'name'])
     def update_name(self, name):
         """Updates the group name. An update to one parameter requires both arguments."""
         p = '%s/%s' % (self.PATH, str(self.group_id))
-        payload = {'describeGroup':{'group':{'name':str(name),'description':self.description}}}
+        payload = {'describeGroup': {
+            'group': {'name': str(name), 'description': self.description}}}
 
         return self.put(p, data=json.dumps(payload))
 
-    @required_attrs(['group_id','description'])
+    @required_attrs(['group_id', 'description'])
     def update_description(self, description):
         """Updates the group description. An update to one parameter requires both arguments."""
         p = '%s/%s' % (self.PATH, str(self.group_id))
-        payload = {'describeGroup':{'group':{'name':self.name,'description':str(description)}}}
+        payload = {'describeGroup': {
+            'group': {'name': self.name, 'description': str(description)}}}
 
         return self.put(p, data=json.dumps(payload))
 
@@ -170,18 +180,22 @@ class Group(Resource):
         :raises: :class:`GroupCreationException`
         """
         parms = {'group': {'name': self.name,
-                    'description': self.description}}
-        payload = {'addGroup':camel_keys(parms)}
+                           'description': self.description}}
+        payload = {'addGroup': camel_keys(parms)}
 
-        response=self.post(data=json.dumps(payload))
+        response = self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
             return response
         else:
             raise GroupCreationException(self.last_error)
 
-class GroupException(BaseException): pass
+
+class GroupException(BaseException):
+    pass
+
 
 class GroupCreationException(GroupException):
+
     """Group Creation Exception"""
     pass

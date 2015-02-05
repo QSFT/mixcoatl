@@ -16,6 +16,7 @@ from mixcoatl.utils import camelize
 
 
 class ServerAnalytics(Resource):
+
     """Server analytics represent the performance of an individual server over
         a specified period of time
 
@@ -38,7 +39,7 @@ class ServerAnalytics(Resource):
 
     @property
     def server_id(self):
-        """`int` The unique enStratus id for the server in the request"""
+        """`int` The unique DCM id for the server in the request"""
         return self.__server_id
 
     @lazy_property
@@ -92,10 +93,9 @@ class ServerAnalytics(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise ServerAnalyticsException(r.last_error)
 

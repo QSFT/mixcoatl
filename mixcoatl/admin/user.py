@@ -11,7 +11,9 @@ from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 import time
 
+
 class User(Resource):
+
     """A user within the DCM environment"""
     PATH = 'admin/User'
     COLLECTION_NAME = 'users'
@@ -23,12 +25,12 @@ class User(Resource):
 
     @property
     def user_id(self):
-        """`int` The enStratus unique id of this user across all customer accounts"""
+        """`int` The DCM unique id of this user across all customer accounts"""
         return self.__user_id
 
     @lazy_property
     def account(self):
-        """`dict` The enStratus account"""
+        """`dict` The DCM account"""
         return self.__account
 
     @account.setter
@@ -92,7 +94,7 @@ class User(Resource):
     @lazy_property
     def email(self):
         """`str` Email is a unique identifier that enables a given user to
-            identify themselves to enStratus
+            identify themselves to DCM
         """
         return self.__email
 
@@ -158,7 +160,7 @@ class User(Resource):
 
     @lazy_property
     def status(self):
-        """`str` The current status of this user in enStratus"""
+        """`str` The current status of this user in DCM"""
         return self.__status
 
     @lazy_property
@@ -208,9 +210,9 @@ class User(Resource):
         for billing_code in billing_codes:
             billing_code_list.append({"billingCodeId": billing_code})
 
-        payload = {"grant":[{"account": {"accountId": account_id},
-                             "groups": group_list,
-                             "billingCodes": billing_code_list}]}
+        payload = {"grant": [{"account": {"accountId": account_id},
+                              "groups": group_list,
+                              "billingCodes": billing_code_list}]}
 
         return self.put(p, data=json.dumps(payload))
 
@@ -222,19 +224,19 @@ class User(Resource):
         for billing_code in self.billing_codes:
             billing_code_list.append({"billingCodeId": billing_code})
 
-        parms = [{'givenName':self.given_name,
+        parms = [{'givenName': self.given_name,
                   'familyName': self.family_name,
                   'email': self.email,
-                  'groups': [{'groupId':self.groups}],
-                  'account': {'accountId':self.account},
+                  'groups': [{'groupId': self.groups}],
+                  'account': {'accountId': self.account},
                   'billingCodes': billing_code_list}]
 
         if self.password is not None:
             parms[0].update({'password': self.password})
 
-        payload = {'addUser':camel_keys(parms)}
+        payload = {'addUser': camel_keys(parms)}
 
-        response=self.post(data=json.dumps(payload))
+        response = self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
             return response
@@ -265,10 +267,9 @@ class User(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise UserException(r.last_error)
 
@@ -278,5 +279,6 @@ class UserException(BaseException):
 
 
 class UserCreationException(UserException):
+
     """User Creation Exception"""
     pass

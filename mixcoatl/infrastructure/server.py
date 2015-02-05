@@ -154,12 +154,12 @@ class Server(Resource):
 
     @lazy_property
     def owning_groups(self):
-        """`list` - The enStratus groups owning the server."""
+        """`list` - The DCM groups owning the server."""
         return self.__owning_groups
 
     @lazy_property
     def owning_user(self):
-        """`dict` - The enStratus user owning the server."""
+        """`dict` - The DCM user owning the server."""
         return self.__owning_user
 
     @lazy_property
@@ -209,7 +209,7 @@ class Server(Resource):
 
     @lazy_property
     def product(self):
-        """`dict` - The enStratus product record for the server"""
+        """`dict` - The DCM product record for the server"""
         return self.__product
 
     @lazy_property
@@ -289,7 +289,7 @@ class Server(Resource):
         """`str` - The keypair to assign
 
             .. note::
-                enStratus does not track keypairs used to launch servers.
+                DCM does not track keypairs used to launch servers.
                 This attribute is used only in the `launch()` call.
         """
         return self.__keypair
