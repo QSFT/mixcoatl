@@ -14,7 +14,7 @@ class Network(Resource):
     * Standard networks such as an AWS VPC or Cloud.com network that represent a 
       network as known to a cloud provider
     * Overlay networks such as a VPNCubed, CloudSwitch, or vCider network in which 
-      the network is an overlay on top of the cloud provider’s network 
+      the network is an overlay on top of the cloud providers network 
     """
     PATH = 'network/Network'
     COLLECTION_NAME = 'networks'

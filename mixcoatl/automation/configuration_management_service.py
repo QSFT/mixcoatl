@@ -10,7 +10,7 @@ class ConfigurationManagementService(Resource):
     """ A configuration management service is an actual service endpoint running a supported
     configuration management system. Some services like the public OpsCode Platform for Chef
     may be available to all customers, or you may define your own configuration management
-    service for your company’s private use. """
+    service for your companys private use. """
     PATH = 'automation/ConfigurationManagementService'
     COLLECTION_NAME = 'cmServices'
     PRIMARY_KEY = 'cm_system_id'

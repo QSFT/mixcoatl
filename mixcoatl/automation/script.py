@@ -8,7 +8,7 @@ class Script(Resource):
 
     """ A Dell Cloud Manager script represents some kind of scriptable item of code managed in a
     configuration management account. It may or may not actually be what you would think of as a
-    shell script. How Dell Cloud Manager maps a “script” to a specific configuration management
+    shell script. How Dell Cloud Manager maps a script to a specific configuration management
     account depends on the underlying configuration management system. A Chef script is a recipe
     and a Puppet script is a class. An Object Store script is an executable file. """
     PATH = 'automation/Script'
