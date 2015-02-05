@@ -74,8 +74,13 @@ class Region(Resource):
         :raises: :class:`RegionException`
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
         params = {}
+
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
+
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
@@ -90,7 +95,7 @@ class Region(Resource):
             if keys_only is True:
                 return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                resturn[type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise RegionException(r.last_error)
 
