@@ -167,6 +167,8 @@ class Account(Resource):
         :raises: :class:`AccountException`
         """
         r = Resource(cls.PATH)
+        params = {}
+
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:
@@ -174,8 +176,6 @@ class Account(Resource):
 
         if 'cloud_id' in kwargs:
             params = {'cloudId': kwargs['cloud_id']}
-        else:
-            params = {}
 
         x = r.get(params=params)
         if r.last_error is None:

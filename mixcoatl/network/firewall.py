@@ -9,6 +9,7 @@ import json
 
 
 class Firewall(Resource):
+
     """ List Firewalls """
     PATH = 'network/Firewall'
     COLLECTION_NAME = 'firewalls'
@@ -126,7 +127,8 @@ class Firewall(Resource):
         try:
             return self.__rules
         except AttributeError:
-            r = FirewallRule.all(self.__firewall_id, detail=self.request_details)
+            r = FirewallRule.all(
+                self.__firewall_id, detail=self.request_details)
             if len(r) < 1:
                 self.__rules = []
             else:
@@ -150,7 +152,7 @@ class Firewall(Resource):
             'region': self.region,
             'name': self.name,
             'description': self.description
-            }]}
+        }]}
 
         if 'label' in kwargs:
             payload['add_firewall'][0]['label'] = kwargs['label']
@@ -190,13 +192,13 @@ class Firewall(Resource):
         :returns: `list` of :attr:`firewall_id` or :class:`Firewall`
         :raises: :class:`FirewallException`
         """
-        params = {}
         r = Resource(cls.PATH)
+        params = {}
 
         if 'detail' in kwargs:
-            request_details = kwargs['detail']
+            r.request_details = kwargs['detail']
         else:
-            request_details = 'basic'
+            r.request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
@@ -212,10 +214,11 @@ class Firewall(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                        for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise FirewallException(r.last_error)
 
@@ -245,5 +248,6 @@ class Firewall(Resource):
 
 
 class FirewallException(BaseException):
+
     """Generic Firewall Exception"""
     pass

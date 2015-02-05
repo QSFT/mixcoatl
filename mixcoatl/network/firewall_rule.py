@@ -7,11 +7,14 @@ import json
 
 
 class FirewallRule(Resource):
+
+    """ A firewall rule is an ingress or egress permission that grants or denies the right 
+    for traffic from a specific network source to a specific network destination."""
     PATH = 'network/FirewallRule'
     COLLECTION_NAME = 'rules'
     PRIMARY_KEY = 'firewall_rule_id'
 
-    def __init__(self, firewall_rule_id = None, *args, **kwargs):
+    def __init__(self, firewall_rule_id=None, *args, **kwargs):
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
 
@@ -25,12 +28,14 @@ class FirewallRule(Resource):
 
     @lazy_property
     def destination(self):
-        """`str` - The endpoint for the firewall rule. This could describe a different value depending on the destination type."""
+        """`str` - The endpoint for the firewall rule. This could describe a different value 
+        depending on the destination type."""
         return self.__destination
 
     @lazy_property
     def destination_type(self):
-        """`enum` - Describes the type of the destination value. Most clouds do not support every destination type."""
+        """`enum` - Describes the type of the destination value. Most clouds do not 
+        support every destination type."""
         return self.__destination_type
 
     @lazy_property
@@ -71,12 +76,14 @@ class FirewallRule(Resource):
 
     @lazy_property
     def source(self):
-        """`str` - The starting point for the firewall rule. This could describe a different value depending on the source type."""
+        """`str` - The starting point for the firewall rule. This could describe a 
+        different value depending on the source type."""
         return self.__source
 
     @lazy_property
     def source_type(self):
-        """`enum` - Describes the type of the source value. Most clouds do not support every source type."""
+        """`enum` - Describes the type of the source value. Most clouds do 
+        not support every source type."""
         return self.__source_type
 
     @lazy_property
@@ -100,7 +107,8 @@ class FirewallRule(Resource):
 
     @lazy_property
     def precedence(self):
-        """`int` - A value indicating the position in the order list by which the firewall should process the rules. Not all clouds support precedence for rule ordering."""
+        """`int` - A value indicating the position in the order list by which the firewall should 
+        process the rules. Not all clouds support precedence for rule ordering."""
         return self.__precedence
 
     @required_attrs(['firewall', 'source', 'source_type', 'destination', 'destination_type', 'direction', 'permission', 'protocol'])
@@ -122,7 +130,7 @@ class FirewallRule(Resource):
         else:
             reason = kwargs['reason']
 
-        payload = {'add_rule':[{
+        payload = {'add_rule': [{
             'firewall_id': self.firewall['firewall_id'],
             'source': self.source,
             'source_type': self.source_type,
@@ -131,7 +139,7 @@ class FirewallRule(Resource):
             'direction': self.direction,
             'permission': self.permission,
             'protocol': self.protocol,
-            'reason': reason }]}
+            'reason': reason}]}
 
         if self.firewall_rule_id is not None:
             raise FirewallRuleException('Cannot modify existing firewall rule')
@@ -157,7 +165,8 @@ class FirewallRule(Resource):
         """
 
         params = {'reason': reason}
-        self.delete(self.PATH+'/'+str(self.firewall_rule_id), params=params)
+        self.delete(
+            self.PATH + '/' + str(self.firewall_rule_id), params=params)
 
         if self.last_error is None:
             return True
@@ -178,32 +187,34 @@ class FirewallRule(Resource):
         :raises: :class:`FirewallRuleException`
         """
 
+        r = Resource(cls.PATH)
+        params = {}
+
         if 'detail' in kwargs:
-            request_details = kwargs['detail']
+            r.request_details = kwargs['detail']
         else:
-            request_details = 'basic'
+            r.request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
 
-        params = {}
-        r = Resource(cls.PATH)
-        r.request_details = 'none'
-
         params['firewallId'] = firewall_id
+
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                        for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise FirewallRuleException(r.last_error)
 
 
 class FirewallRuleException(BaseException):
+
     """Generic Exception for FirewallRules"""
     pass

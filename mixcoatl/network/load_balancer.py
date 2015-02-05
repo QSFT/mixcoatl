@@ -2,7 +2,13 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 
+
 class LoadBalancer(Resource):
+
+    """ A load balancer is a virtual load balancer such as an AWS Elastic Load Balancer. It is specifically
+    not a VM-hosted load balancer. Load balancers vary wildly from cloud provider to cloud
+    provider. As a result, you should check with your cloud meta-data to see what elements are
+    necessary in order to create a load balancer. """
     PATH = 'network/LoadBalancer'
     COLLECTION_NAME = 'loadBalancers'
     PRIMARY_KEY = 'load_balancer_id'
@@ -99,4 +105,8 @@ class LoadBalancer(Resource):
             else:
                 return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
-            return r.last_error
+            raise LoadBalancerException(r.last_error)
+
+
+class LoadBalancerException(BaseException):
+    pass

@@ -7,6 +7,10 @@ from mixcoatl.admin.job import Job
 
 
 class Environment(Resource):
+
+    """ An Dell Cloud Manager environment represents a Chef environment and is managed in a
+    configuration management account.  Environments are NOT uniquely identified by their environmentId. 
+    The unique identifier is sharedEnvironmentCode. """
     PATH = 'automation/Environment'
     COLLECTION_NAME = 'environments'
     PRIMARY_KEY = 'environmentId'

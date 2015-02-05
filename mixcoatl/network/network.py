@@ -8,6 +8,14 @@ import json
 
 
 class Network(Resource):
+
+    """ Dell Cloud Manager models two distinct kinds of networks as network resources:
+
+    * Standard networks such as an AWS VPC or Cloud.com network that represent a 
+      network as known to a cloud provider
+    * Overlay networks such as a VPNCubed, CloudSwitch, or vCider network in which 
+      the network is an overlay on top of the cloud provider’s network 
+    """
     PATH = 'network/Network'
     COLLECTION_NAME = 'networks'
     PRIMARY_KEY = "network_id"
@@ -125,12 +133,14 @@ class Network(Resource):
 
     @lazy_property
     def agent_communication(self):
-        """`bool` - Indicates whether communication between DCM and the agents on the guest operating systems in the cloud occur over a public or private channel."""
+        """`bool` - Indicates whether communication between DCM and the agents on the guest operating systems 
+        in the cloud occur over a public or private channel."""
         return self.__agent_communication
 
     @lazy_property
     def allow_subnet_creation(self):
-        """`bool` - Indicates whether or not you can POST to the Subnet resource to dynamically create subnets against this network."""
+        """`bool` - Indicates whether or not you can POST to the Subnet resource to dynamically create subnets 
+        against this network."""
         return self.__allow_subnet_creation
 
     @lazy_property
@@ -145,7 +155,8 @@ class Network(Resource):
 
     @lazy_property
     def flat(self):
-        """`bool` - Indicates whether this network is a flat network or is part of a more fine-grained network hierarchy."""
+        """`bool` - Indicates whether this network is a flat network or is part of a more fine-grained 
+        network hierarchy."""
         return self.__flat
 
     @lazy_property

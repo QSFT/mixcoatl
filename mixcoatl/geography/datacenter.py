@@ -62,13 +62,18 @@ class DataCenter(Resource):
         :raises: :class:`DataCenterException`
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
-        params = {'regionId': region_id}
+
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']
         else:
             keys_only = False
+
+        params = {'regionId': region_id}
 
         x = r.get(params=params)
         if r.last_error is None:

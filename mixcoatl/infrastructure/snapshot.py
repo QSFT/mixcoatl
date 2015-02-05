@@ -246,8 +246,12 @@ class Snapshot(Resource):
         :raises: :class:`SnapshotException`
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
         params = {}
+
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
 
         if 'keys_only' in kwargs:
             keys_only = kwargs['keys_only']

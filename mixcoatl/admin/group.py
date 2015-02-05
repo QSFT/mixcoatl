@@ -107,6 +107,8 @@ class Group(Resource):
         :raises: :class:`GroupException`
         """
         r = Resource(cls.PATH)
+        params = {}
+
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:
@@ -114,8 +116,6 @@ class Group(Resource):
 
         if 'account_id' in kwargs:
             params = {'accountId': kwargs['account_id']}
-        else:
-            params = {}
 
         x = r.get(params=params)
         if r.last_error is None:
