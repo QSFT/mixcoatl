@@ -29,11 +29,12 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Account ID", "Account Name", "Default Budget", "Status"])
+        table = PrettyTable(["Account ID", "Account Name", "Customer", "Default Budget", "Status"])
         for r in results:
             table.add_row([
                 r.account_id,
                 r.name,
+                r.customer['customer_id'],
                 r.default_budget,
                 r.status])
         table.align = 'l'
