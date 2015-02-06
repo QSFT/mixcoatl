@@ -259,6 +259,28 @@ class MachineImage(Resource):
         p = self.PATH + "/" + str(self.machine_image_id)
         return self.put(p, data=json.dumps(payload))
 
+    @required_attrs(['machine_image_id'])
+    def register_agent(self, agent_version, **kwargs):
+        """Registers an agent with the machine image.
+
+        :param agent_version: The agent protocol version to be registered.
+        :type name: int.
+        :returns: True if successful or an error message if fails.
+        """
+        payload = {'registerAgent': [{"agentVersion": agent_version}]}
+        p = self.PATH + "/" + str(self.machine_image_id)
+        return self.put(p, data=json.dumps(payload))
+
+    @required_attrs(['machine_image_id'])
+    def unregister_agent(self, **kwargs):
+        """Unregisters an agent from the machine image.
+
+        :returns: True if successful or an error message if fails.
+        """
+        payload = {'unRegisterAgent': [{}]}
+        p = self.PATH + "/" + str(self.machine_image_id)
+        return self.put(p, data=json.dumps(payload))
+
     @classmethod
     def all(cls, **kwargs):
         """Return all machine images
