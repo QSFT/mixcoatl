@@ -6,6 +6,11 @@ import json
 
 
 class MachineImage(Resource):
+
+    """ A machine image is the baseline image or template from which virtual machines may be
+    provisioned. Some clouds allow machine image/template sharing. In those clouds, Dell Cloud
+    Manager creates multiple machine image records referencing the shared machine image object
+    to enable users to maintain separate meta-data over those shared images. """
     PATH = 'infrastructure/MachineImage'
     COLLECTION_NAME = 'images'
     PRIMARY_KEY = 'machine_image_id'
@@ -258,6 +263,8 @@ class MachineImage(Resource):
     def all(cls, **kwargs):
         """Return all machine images
 
+        :param machine_image_id: The id of the machine image
+        :type machine_image_id: int.
         :param region_id: The region to search for machine images
         :type region_id: int.
         :param keys_only: Return :attr:`machine_image_id` instead of :class:`MachineImage`
@@ -272,7 +279,7 @@ class MachineImage(Resource):
         :raises: :class:`MachineImageException`
         """
         if 'machine_image_id' in kwargs:
-            r = Resource(cls.PATH+"/"+str(kwargs['machine_image_id']))
+            r = Resource(cls.PATH + "/" + str(kwargs['machine_image_id']))
         else:
             r = Resource(cls.PATH)
 
@@ -296,10 +303,10 @@ class MachineImage(Resource):
         if r.last_error is None:
             if keys_only is True:
                 return [i[camelize(cls.PRIMARY_KEY)]
-                           for i in x[cls.COLLECTION_NAME]]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
                 return [type(cls.__name__, (object,), i)
-                           for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+                        for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise MachineImageException(r.last_error)
 

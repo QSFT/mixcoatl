@@ -12,6 +12,7 @@ import json
 
 
 class Account(Resource):
+
     """An account object represents an DCM account held by an DCM customer."""
     PATH = 'admin/Account'
     COLLECTION_NAME = 'accounts'
@@ -83,7 +84,7 @@ class Account(Resource):
 
     @lazy_property
     def provisioned(self):
-        """`bool` - Is this account in goodstanding and managed by enStratus"""
+        """`bool` - Is this account in goodstanding and managed by DCM"""
         return self.__provisioned
 
     @lazy_property
@@ -138,7 +139,8 @@ class Account(Resource):
 
     @required_attrs(['account_name', 'account_number', 'cloud_id', 'api_key_id', 'api_key_secret'])
     def add(self):
-        payload = {'addAccount':[{'name':self.account_name,'cloudSubscription':{'accountNumber':self.account_number,'cloudId':int(self.cloud_id),'apiKeyId':self.api_key_id,'apiKeySecret':self.api_key_secret}}]}
+        payload = {'addAccount': [{'name': self.account_name, 'cloudSubscription': {'accountNumber': self.account_number, 'cloudId': int(
+            self.cloud_id), 'apiKeyId': self.api_key_id, 'apiKeySecret': self.api_key_secret}}]}
         response = self.post(self.PATH, data=json.dumps(payload))
         if self.last_error is None:
             return response
@@ -165,6 +167,8 @@ class Account(Resource):
         :raises: :class:`AccountException`
         """
         r = Resource(cls.PATH)
+        params = {}
+
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:
@@ -172,16 +176,15 @@ class Account(Resource):
 
         if 'cloud_id' in kwargs:
             params = {'cloudId': kwargs['cloud_id']}
-        else:
-            params = {}
 
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                           for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                           for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise AccountException(r.last_error)
 
@@ -202,12 +205,12 @@ class Account(Resource):
 
         p = "%s/%s" % (self.PATH, str(self.account_id))
         payload = {'assignCloud': {
-                       'accounts': {
-                           'cloudSubscription': {
-                               'cloudId': cloud_id,
-                               'accountNumber': account_number,
-                               'apiKeyId': api_key_id,
-                               'apiKeySecret': api_key_secret}}}}
+            'accounts': {
+                'cloudSubscription': {
+                    'cloudId': cloud_id,
+                    'accountNumber': account_number,
+                    'apiKeyId': api_key_id,
+                    'apiKeySecret': api_key_secret}}}}
         self.put(p, data=json.dumps(payload))
         if self.last_error is None:
             self.load()

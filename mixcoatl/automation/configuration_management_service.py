@@ -4,7 +4,13 @@ from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 import json
 
+
 class ConfigurationManagementService(Resource):
+
+    """ A configuration management service is an actual service endpoint running a supported
+    configuration management system. Some services like the public OpsCode Platform for Chef
+    may be available to all customers, or you may define your own configuration management
+    service for your companys private use. """
     PATH = 'automation/ConfigurationManagementService'
     COLLECTION_NAME = 'cmServices'
     PRIMARY_KEY = 'cm_system_id'
@@ -23,7 +29,7 @@ class ConfigurationManagementService(Resource):
     @lazy_property
     def properties(self):
         return self.__properties
-                
+
     @lazy_property
     def cm_service_id(self):
         return self.__cm_service_id
@@ -39,7 +45,7 @@ class ConfigurationManagementService(Resource):
     @lazy_property
     def removable(self):
         return self.__removable
-                             
+
     @lazy_property
     def description(self):
         return self.__description
@@ -77,16 +83,17 @@ class ConfigurationManagementService(Resource):
         payload = {"addService": camel_keys(parms)}
         print json.dumps(payload)
 
-	response = self.post(data=json.dumps(payload))
-	if self.last_error is None:
-		self.load()
-		return response
-	else:
-		raise CMCreationException(self.last_error)
-        
+        response = self.post(data=json.dumps(payload))
+        if self.last_error is None:
+            self.load()
+            return response
+        else:
+            raise CMCreationException(self.last_error)
+
     @classmethod
     def all(cls, **kwargs):
         r = Resource(cls.PATH)
+
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -100,18 +107,18 @@ class ConfigurationManagementService(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
-            return x.last_error
+            raise CMException(r.last_error)
 
 
 class CMException(BaseException):
     pass
-	
+
 
 class CMCreationException(CMException):
+
     """CM Creation Exception"""
     pass

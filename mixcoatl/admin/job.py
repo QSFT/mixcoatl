@@ -8,18 +8,23 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import time
 
+
 class Job(Resource):
+
+    """A job is an asynchronous process resulting from a client request that resulted in a 202
+    ACCEPTED response. If the client cares about the ultimate result of the original request, it can
+    query for the job returned in the initial response until the job completes."""
     PATH = 'admin/Job'
     COLLECTION_NAME = 'jobs'
     PRIMARY_KEY = 'job_id'
 
-    def __init__(self, job_id = None, **kwargs):
+    def __init__(self, job_id=None, **kwargs):
         Resource.__init__(self)
         self.__job_id = job_id
 
     @property
     def job_id(self):
-        """`int` The unique enStratus id for this job"""
+        """`int` The unique DCM id for this job"""
         return self.__job_id
 
     @lazy_property
@@ -61,15 +66,16 @@ class Job(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i)
+                        for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise JobException(r.last_error)
 
     @classmethod
-    def wait_for(cls, job_id, status='COMPLETE', callback = None):
+    def wait_for(cls, job_id, status='COMPLETE', callback=None):
         """Blocks execution until :attr:`job_id` returns :attr:`status`
 
         :param job_id: The ID of the job to wait on

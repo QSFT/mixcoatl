@@ -4,6 +4,10 @@ from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 
 
 class ConfigurationManagementAccount(Resource):
+
+    """ A configuration management account is an account with a configuration management service.
+    A typical Dell Cloud Manager installation will have any number of configuration management
+    services for different configuration management systems (Chef, Puppet, etc.) installed."""
     PATH = 'automation/ConfigurationManagementAccount'
     COLLECTION_NAME = 'cmAccounts'
     PRIMARY_KEY = 'cm_account_id'
@@ -92,4 +96,8 @@ class ConfigurationManagementAccount(Resource):
             else:
                 return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
-            return x.last_error
+            raise ConfigurationManagementAccountException(r.last_error)
+
+
+class ConfigurationManagementAccountException(BaseException):
+    pass

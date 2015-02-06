@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import csv
 import sys
 import time
@@ -46,7 +47,7 @@ from mixcoatl.platform.relational_database_product import RelationalDatabaseProd
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--log', '-l', action='store_true', help='Writes a /tmp/dcm-api-test.log file with results.')
+        '--log', '-l', action='store_true', help='Writes a /tmp/api-test.log file with results.')
     parser.add_argument(
         '--full', '-f', action='store_true', help='Perform FULL API (GET) Tests.')
     parser.add_argument(
@@ -163,19 +164,23 @@ if __name__ == '__main__':
              'ConfigurationManagementService', 'Job', 'User']
 
     if cmd_args.get is True and cmd_args.full is False:
-        data = []
-        resource = []
         region_id = None
         firewall_id = None
         cm_id = None
         vol_type = None
         total_start = time.time()
+        data = []
+        resource = []
+        fieldnames = ["Date", "RegionID"]
+        headings = []
 
         print "Starting Mixcoatl 'GET' testing ..."
 
         try:
             region_id = random.choice(Region.all(keys_only=True))
             print "++ Defaulting to Region #" + str(region_id)
+            resource.append(time.time())
+            resource.append(region_id)
         except:
             print "++ Unable to retrieve any regions."
 
@@ -193,6 +198,9 @@ if __name__ == '__main__':
             print "++ Unable to retrieve a CM account."
 
         for i in sorted(tests):
+            if cmd_args.log:
+                fieldnames.append(i)
+
             params = None
             start = time.time()
             if i == 'DataCenter' or i == 'MachineImage' or i == 'ServerProduct' or i == 'StorageObject':
@@ -216,24 +224,34 @@ if __name__ == '__main__':
                     resource.append("")
                     pass
 
-            data.append(resource)
+        data.append(resource)
+        headings.append(fieldnames)
 
         if cmd_args.log:
             logfile = '/tmp/api-test.log'
-            with open(logfile, 'w') as fp:
-                a = csv.writer(fp, delimiter=',')
-                a.writerows(data)
-            print "Wrote ", logfile
+            if not os.path.exists(logfile):
+                with open(logfile, 'a+') as fp:
+                    a = csv.writer(fp, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
+                    a.writerows(headings)
+                    a.writerows(data)
+            else:
+                with open(logfile, 'w') as fp:
+                    a = csv.writer(fp, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
+                    a.writerows(data)
+
+            print "Wrote", logfile
 
         print '++ Script finished in', round(time.time() - total_start, 3), 'seconds.'
     elif cmd_args.get is True and cmd_args.full is True:
-        data = []
-        resource = []
         region_id = None
         firewall_id = None
         cm_id = None
         vol_type = None
         total_start = time.time()
+        data = []
+        resource = []
+        fieldnames = ["Date", "RegionID"]
+        headings = []
 
         print "Starting FULL 'GET' Testing ..."
         regions = Region.all()
@@ -281,14 +299,22 @@ if __name__ == '__main__':
                         resource.append("")
                         pass
 
-                data.append(resource)
+            data.append(resource)
+            headings.append(fieldnames)
 
             if cmd_args.log:
                 logfile = '/tmp/api-test.log'
-                with open(logfile, 'w') as fp:
-                    a = csv.writer(fp, delimiter=',')
-                    a.writerows(data)
-                print "Wrote ", logfile
+                if not os.path.exists(logfile):
+                    with open(logfile, 'a+') as fp:
+                        a = csv.writer(fp, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
+                        a.writerows(headings)
+                        a.writerows(data)
+                else:
+                    with open(logfile, 'w') as fp:
+                        a = csv.writer(fp, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
+                        a.writerows(data)
+
+                print "Wrote", logfile
 
         print '++ Script finished in', round(time.time() - total_start, 3), 'seconds.'
     elif cmd_args.post is True:

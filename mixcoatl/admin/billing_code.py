@@ -10,14 +10,16 @@ from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
 import json
 
+
 class BillingCode(Resource):
+
     """A billing code is a budget item with optional hard and soft quotas
     against which cloud resources may be provisioned and tracked."""
     PATH = 'admin/BillingCode'
     COLLECTION_NAME = 'billingCodes'
     PRIMARY_KEY = 'billing_code_id'
 
-    def __init__(self, billing_code_id = None, *args, **kwargs):
+    def __init__(self, billing_code_id=None, *args, **kwargs):
         Resource.__init__(self)
         self.__billing_code_id = billing_code_id
 
@@ -54,7 +56,7 @@ class BillingCode(Resource):
     def finance_code(self):
         """`str` - The alphanumeric identifier of this billing code"""
         return self.__finance_code
-    
+
     @finance_code.setter
     def finance_code(self, f):
         self.__finance_code = f
@@ -97,7 +99,7 @@ class BillingCode(Resource):
         self.__soft_quota = s
 
     @classmethod
-    def all(cls, keys_only = False, **kwargs):
+    def all(cls, keys_only=False, **kwargs):
         """Get all visible billing codes
 
         .. note::
@@ -112,6 +114,8 @@ class BillingCode(Resource):
         :raises: :class:`BillingCodeException`
         """
         r = Resource(cls.PATH)
+        params = {}
+
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:
@@ -120,23 +124,22 @@ class BillingCode(Resource):
         x = r.get()
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
             raise BillingCodeException(r.last_error)
 
-    @required_attrs(['soft_quota','hard_quota', 'name', 'finance_code', 'description'])
+    @required_attrs(['soft_quota', 'hard_quota', 'name', 'finance_code', 'description'])
     def add(self):
         """Add a new billing code. """
-        payload = { "addBillingCode":[{
-                       "softQuota": {"value": self.soft_quota, "currency": "USD"},
-                       "hardQuota": {"value": self.hard_quota, "currency": "USD"},
-                       "status": "ACTIVE",
-                       "name": self.name,
-                       "financeCode": self.finance_code,
-                       "description": self.description }]}
+        payload = {"addBillingCode": [{
+            "softQuota": {"value": self.soft_quota, "currency": "USD"},
+            "hardQuota": {"value": self.hard_quota, "currency": "USD"},
+            "status": "ACTIVE",
+            "name": self.name,
+            "financeCode": self.finance_code,
+            "description": self.description}]}
         response = self.post(data=json.dumps(payload))
         if self.last_error is None:
             return response
@@ -153,14 +156,22 @@ class BillingCode(Resource):
         :type replacement_code: int.
         :returns: bool -- Result of API call
         """
-        p = self.PATH+"/"+str(self.billing_code_id)
-        qopts = {'reason':reason, 'replacementCode':replacement_code}
+        p = self.PATH + "/" + str(self.billing_code_id)
+        qopts = {'reason': reason, 'replacementCode': replacement_code}
         self.delete(p, params=qopts)
         if self.last_error is None:
             return True
         else:
             raise BillingCodeDestroyException(self.last_error)
 
-class BillingCodeException(BaseException): pass
-class BillingCodeAddException(BillingCodeException): pass
-class BillingCodeDestroyException(BillingCodeException): pass
+
+class BillingCodeException(BaseException):
+    pass
+
+
+class BillingCodeAddException(BillingCodeException):
+    pass
+
+
+class BillingCodeDestroyException(BillingCodeException):
+    pass

@@ -13,6 +13,7 @@ import json
 
 
 class Role(Resource):
+
     """A role defines a common set of permissions that govern access into a given account"""
     PATH = 'admin/Role'
     COLLECTION_NAME = 'roles'
@@ -78,12 +79,12 @@ class Role(Resource):
         """Creates a new role. Status is hard-coded to ACTIVE for now. """
 
         parms = [{'status': "ACTIVE",
-                    'name':self.name,
-                    'description': self.description}]
+                  'name': self.name,
+                  'description': self.description}]
 
-        payload = {'addRole':camel_keys(parms)}
+        payload = {'addRole': camel_keys(parms)}
 
-        response=self.post(data=json.dumps(payload))
+        response = self.post(data=json.dumps(payload))
         if self.last_error is None:
             self.load()
             return response
@@ -91,7 +92,7 @@ class Role(Resource):
             raise RoleCreationException(self.last_error)
 
     @classmethod
-    def all(cls, keys_only = False, **kwargs):
+    def all(cls, keys_only=False, **kwargs):
         """Get all roles
 
         .. note::
@@ -111,6 +112,7 @@ class Role(Resource):
         """
         r = Resource(cls.PATH)
         params = {}
+
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:
@@ -125,10 +127,9 @@ class Role(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise RoleException(r.last_error)
 
@@ -138,10 +139,12 @@ class RoleException(BaseException):
 
 
 class setACLException(RoleException):
+
     """Role Creation Exception"""
     pass
 
 
 class RoleCreationException(RoleException):
+
     """Role Creation Exception"""
     pass

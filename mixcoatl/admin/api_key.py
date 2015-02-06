@@ -166,7 +166,7 @@ class ApiKey(Resource):
         """
 
         if 'access_key' in kwargs:
-            r = Resource(cls.PATH+"/"+kwargs['access_key'])
+            r = Resource(cls.PATH + "/" + kwargs['access_key'])
             params = {}
         else:
             r = Resource(cls.PATH)
@@ -187,10 +187,10 @@ class ApiKey(Resource):
         if r.last_error is None:
             if keys_only is True:
                 return [i[camelize(cls.PRIMARY_KEY)]
-                           for i in x[cls.COLLECTION_NAME]]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
                 return [type(cls.__name__, (object,), i)
-                           for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
+                        for i in uncamel_keys(x)[uncamel(cls.COLLECTION_NAME)]]
         else:
             raise ApiKeyException(r.last_error)
 

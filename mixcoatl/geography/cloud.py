@@ -3,12 +3,16 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 
+
 class Cloud(Resource):
+
+    """A cloud is a distinct infrastructure providing cloud services. It may be a private cloud or a public
+    cloud and may provide infrastructure or platform services. """
     PATH = 'geography/Cloud'
     COLLECTION_NAME = 'clouds'
     PRIMARY_KEY = 'cloud_id'
 
-    def __init__(self, cloud_id = None, *args, **kwargs):
+    def __init__(self, cloud_id=None, *args, **kwargs):
         Resource.__init__(self)
         self.__cloud_id = cloud_id
 
@@ -108,11 +112,16 @@ class Cloud(Resource):
         :returns: `list` of :class:`Cloud` or :attr:`cloud_id`
         """
         r = Resource(cls.PATH)
-        r.request_details = 'basic'
         params = {}
+
+        if 'detail' in kwargs:
+            r.request_details = kwargs['detail']
+        else:
+            r.request_details = 'basic'
 
         if 'public_only' in kwargs:
             params['publicOnly'] = kwargs['public_only']
+
         if 'status' in kwargs:
             params['status'] = kwargs['status']
 
@@ -124,9 +133,14 @@ class Cloud(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
-            return r.last_error
+            raise CloudException(r.last_error)
+
+
+class CloudException(BaseException):
+
+    """Generic Cloud Exception"""
+    pass

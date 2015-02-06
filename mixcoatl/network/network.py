@@ -1,4 +1,4 @@
-"""Implements the enStratus Network API"""
+"""Implements the DCM Network API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
@@ -6,12 +6,21 @@ from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
 import json
 
+
 class Network(Resource):
+
+    """ Dell Cloud Manager models two distinct kinds of networks as network resources:
+
+    * Standard networks such as an AWS VPC or Cloud.com network that represent a 
+      network as known to a cloud provider
+    * Overlay networks such as a VPNCubed, CloudSwitch, or vCider network in which 
+      the network is an overlay on top of the cloud providers network 
+    """
     PATH = 'network/Network'
     COLLECTION_NAME = 'networks'
     PRIMARY_KEY = "network_id"
 
-    def __init__(self, network_id = None, *args, **kwargs):
+    def __init__(self, network_id=None, *args, **kwargs):
         Resource.__init__(self)
 
         if 'detail' in kwargs:
@@ -67,7 +76,7 @@ class Network(Resource):
 
     @lazy_property
     def owning_groups(self):
-        """`list` - The enStratus groups that have ownership of this network"""
+        """`list` - The DCM groups that have ownership of this network"""
         return self.__owning_groups
 
     @owning_groups.setter
@@ -76,7 +85,7 @@ class Network(Resource):
 
     @lazy_property
     def cloud(self):
-        """`dict` - The enStratus cloud account in which this network lives"""
+        """`dict` - The DCM cloud account in which this network lives"""
         return self.__cloud
 
     @lazy_property
@@ -105,7 +114,7 @@ class Network(Resource):
 
     @lazy_property
     def budget(self):
-        """`int` - The enStratus billing code costs are associated with"""
+        """`int` - The DCM billing code costs are associated with"""
         return self.__budget
 
     @budget.setter
@@ -114,22 +123,24 @@ class Network(Resource):
 
     @lazy_property
     def customer(self):
-        """`dict` - The enStratus customer to which this network belongs"""
+        """`dict` - The DCM customer to which this network belongs"""
         return self.__customer
 
     @lazy_property
     def guid(self):
-        """`str` - The permanent unique URI identifier for this network in enStratus."""
+        """`str` - The permanent unique URI identifier for this network in DCM."""
         return self.__guid
 
     @lazy_property
     def agent_communication(self):
-        """`bool` - Indicates whether communication between enStratus and the agents on the guest operating systems in the cloud occur over a public or private channel."""
+        """`bool` - Indicates whether communication between DCM and the agents on the guest operating systems 
+        in the cloud occur over a public or private channel."""
         return self.__agent_communication
 
     @lazy_property
     def allow_subnet_creation(self):
-        """`bool` - Indicates whether or not you can POST to the Subnet resource to dynamically create subnets against this network."""
+        """`bool` - Indicates whether or not you can POST to the Subnet resource to dynamically create subnets 
+        against this network."""
         return self.__allow_subnet_creation
 
     @lazy_property
@@ -144,7 +155,8 @@ class Network(Resource):
 
     @lazy_property
     def flat(self):
-        """`bool` - Indicates whether this network is a flat network or is part of a more fine-grained network hierarchy."""
+        """`bool` - Indicates whether this network is a flat network or is part of a more fine-grained 
+        network hierarchy."""
         return self.__flat
 
     @lazy_property
@@ -209,13 +221,14 @@ class Network(Resource):
         :raises: :class:`NetworkException`
         """
 
-        optional_attrs = ['owning_groups','ntp_servers', 'dns_servers', 'label']
-        payload = {'add_network':[{
+        optional_attrs = [
+            'owning_groups', 'ntp_servers', 'dns_servers', 'label']
+        payload = {'add_network': [{
                    'budget': self.budget,
                    'name': self.name,
                    'network_address': self.network_address,
                    'description': self.description,
-                   'region': self.region }]}
+                   'region': self.region}]}
 
         if 'label' in kwargs:
             payload['add_network'][0]['label'] = kwargs['label']
@@ -225,7 +238,7 @@ class Network(Resource):
         for oa in optional_attrs:
             try:
                 if getattr(self, oa) is not None:
-                    payload['add_network'][0].update({oa:getattr(self, oa)})
+                    payload['add_network'][0].update({oa: getattr(self, oa)})
             except AttributeError:
                 pass
 
@@ -249,8 +262,8 @@ class Network(Resource):
         :type reason: str.
         :returns: bool -- Result of API call
         """
-        p = self.PATH+"/"+str(self.network_id)
-        qopts = {'reason':reason}
+        p = self.PATH + "/" + str(self.network_id)
+        qopts = {'reason': reason}
         return self.delete(p, params=qopts)
 
     @classmethod
@@ -302,13 +315,14 @@ class Network(Resource):
         x = r.get(params=params)
         if r.last_error is None:
             if keys_only is True:
-                results = [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
+                return [i[camelize(cls.PRIMARY_KEY)] for i in x[cls.COLLECTION_NAME]]
             else:
-                results = [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
-            return results
+                return [type(cls.__name__, (object,), i) for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise NetworkException(r.last_error)
 
+
 class NetworkException(BaseException):
+
     """Generic Network Exception"""
     pass
