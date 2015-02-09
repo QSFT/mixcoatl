@@ -137,10 +137,28 @@ class Account(Resource):
     def cloud_id(self, n):
         self.__cloud_id = n
 
+    @customer.setter
+    def customer(self, n):
+        self.__customer = n
+
     @required_attrs(['account_name', 'account_number', 'cloud_id', 'api_key_id', 'api_key_secret'])
     def add(self):
-        payload = {'addAccount': [{'name': self.account_name, 'cloudSubscription': {'accountNumber': self.account_number, 'cloudId': int(
-            self.cloud_id), 'apiKeyId': self.api_key_id, 'apiKeySecret': self.api_key_secret}}]}
+        payload = {'addAccount': [
+            {
+                'name': self.account_name,
+                'cloudSubscription':
+                {
+                    'accountNumber': self.account_number,
+                    'cloudId': int(self.cloud_id),
+                    'apiKeyId': self.api_key_id,
+                    'apiKeySecret': self.api_key_secret
+                }
+            }
+        ]}
+
+        if self.customer:
+            payload['addAccount'].append({'customer': {'customerId': int(self.customer)}})
+
         response = self.post(self.PATH, data=json.dumps(payload))
         if self.last_error is None:
             return response
@@ -181,10 +199,10 @@ class Account(Resource):
         if r.last_error is None:
             if keys_only is True:
                 return [i[camelize(cls.PRIMARY_KEY)]
-                           for i in x[cls.COLLECTION_NAME]]
+                        for i in x[cls.COLLECTION_NAME]]
             else:
                 return [type(cls.__name__, (object,), i)
-                           for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
+                        for i in uncamel_keys(x)[cls.COLLECTION_NAME]]
         else:
             raise AccountException(r.last_error)
 

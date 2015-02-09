@@ -11,6 +11,7 @@ from mixcoatl.utils import camel_keys
 
 
 class Resource(object):
+
     """The base class for all resources returned from an DCM API call
     By default all resources are largely represented as a `dict`-alike object
     that mirrors the JSON response from the DCM API with keys converted
@@ -51,7 +52,7 @@ class Resource(object):
     #: The unique identifier of an individual resource
     PRIMARY_KEY = None
 
-    def __init__(self, base_path=None, request_details = 'basic', **kwargs):
+    def __init__(self, base_path=None, request_details='basic', **kwargs):
         if base_path is None:
             try:
                 self.__path = self.__class__.PATH
@@ -81,8 +82,10 @@ class Resource(object):
 
     def __props(self):
         """List of properties and lazy properties for a given resource"""
-        p = [k for k, v in self.__class__.__dict__.items() if type(v) in [lazy_property, property]]
-        rp = ['last_error', 'path', 'last_request', 'current_job', 'request_details']
+        p = [k for k, v in self.__class__.__dict__.items() if type(
+            v) in [lazy_property, property]]
+        rp = ['last_error', 'path', 'last_request',
+              'current_job', 'request_details']
         return p + rp
 
     def __repr__(self):
@@ -170,7 +173,7 @@ class Resource(object):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
         reserved_words = ['type']
-        p = self.PATH+"/"+str(getattr(self, self.__class__.PRIMARY_KEY))
+        p = self.PATH + "/" + str(getattr(self, self.__class__.PRIMARY_KEY))
 
         if 'params' in kwargs:
             params = kwargs['params']
@@ -182,7 +185,7 @@ class Resource(object):
             scope = uncamel_keys(s[self.__class__.COLLECTION_NAME][0])
             for k in scope.keys():
                 if k in reserved_words:
-                    the_key = 'e_'+k
+                    the_key = 'e_' + k
                 else:
                     the_key = k
                 nk = '_%s__%s' % (self.__class__.__name__, the_key)
@@ -204,7 +207,7 @@ class Resource(object):
         """
         failures = [400, 403, 404, 409, 500, 501, 503]
         sig = auth.get_sig(method, self.path)
-        url = settings.endpoint+'/'+self.path
+        url = settings.endpoint + '/' + self.path
         ssl_verify = settings.ssl_verify
 
         if self.payload_format == 'xml':
@@ -212,7 +215,8 @@ class Resource(object):
         elif self.payload_format == 'json':
             payload_format = 'application/json'
         else:
-            raise AttributeError('Wrong payload format: %s' % self.payload_format)
+            raise AttributeError(
+                'Wrong payload format: %s' % self.payload_format)
 
         headers = {'x-esauth-access': sig['access_key'],
                    'x-esauth-timestamp': str(sig['timestamp']),
@@ -221,7 +225,8 @@ class Resource(object):
                    'Accept': payload_format,
                    'User-Agent': sig['ua']}
 
-        results = r.request(method, url, headers=headers, verify=ssl_verify, **kwargs)
+        results = r.request(
+            method, url, headers=headers, verify=ssl_verify, **kwargs)
 
         if 'DCM_DEBUG' in os.environ:
             print "URL: %s" % (url)
@@ -347,4 +352,4 @@ class Resource(object):
         if prev == new:
             pass
         else:
-            self.pending_changes[var] = {'old': prev, 'new':new}
+            self.pending_changes[var] = {'old': prev, 'new': new}

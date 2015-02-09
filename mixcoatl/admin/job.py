@@ -54,6 +54,10 @@ class Job(Resource):
         """
         return self.__end_date
 
+    @lazy_property
+    def job_message(self):
+        return self.__job_message
+
     @classmethod
     def all(cls, keys_only=False):
         """Get all jobs
