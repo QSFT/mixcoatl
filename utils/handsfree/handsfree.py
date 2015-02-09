@@ -13,9 +13,6 @@ class FabricSupport:
     def __init__(self):
         pass
 
-    def hostname(self):
-        run("hostname")
-
     def df(self):
         run("df -h")
 
