@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.customer import Customer
+from mixcoatl import resource_utils, utils
+from prettytable import PrettyTable
+import argparse
+import time
+import sys
+import os
+
+if __name__ == '__main__':
+    """ Returns a list of clouds. """
+    start = time.time()
+    parser = argparse.ArgumentParser()
+    group_two = parser.add_mutually_exclusive_group()
+    group_two.add_argument('--json', action='store_true',
+        help='print API response in JSON format.')
+    group_two.add_argument('--xml', action='store_true',
+        help='print API response in XML format.')
+    group_two.add_argument('--csv', action='store_true',
+        help='print API response in CSV format.')
+    cmd_args = parser.parse_args()
+
+    results = Customer.all()
+    if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
+        if cmd_args.xml is True:
+            payload_format = "xml"
+        elif cmd_args.csv is True:
+            payload_format = "csv"
+        else:
+            payload_format = "json"
+
+        print utils.print_format(results, payload_format)
+    else:
+        table = PrettyTable(["Customer ID", "Name", "Created", "Status"])
+        for r in results:
+            table.add_row([
+                r.customer_id,
+                r.business_name,
+                r.created_timestamp,
+                r.status])
+        table.align = 'l'
+        print(table.get_string(sortby="Customer ID"))
+
+    if 'DCM_DEBUG' in os.environ:
+        print 'Results returned in', time.time()-start, 'seconds.'
