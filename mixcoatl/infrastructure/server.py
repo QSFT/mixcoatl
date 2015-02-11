@@ -30,6 +30,10 @@ class Server(Resource):
         return self.__agent_version
 
     @lazy_property
+    def legacy_owner_id(self):
+        return self.__legacy_owner_id
+
+    @lazy_property
     def cloud(self):
         """`dict` - The cloud provided where the instance is located."""
         return self.__cloud
