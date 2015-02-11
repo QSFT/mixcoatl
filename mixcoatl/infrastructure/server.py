@@ -147,6 +147,10 @@ class Server(Resource):
     def firewalls(self, f):
         self.__firewalls = f
 
+    @legacy_owner_id.setter
+    def legacy_owner_id(self, f):
+        self.__legacy_owner_id = f
+
     @lazy_property
     def name(self):
         """`str` - The name assigned/to assign to the server"""

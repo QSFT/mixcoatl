@@ -14,7 +14,6 @@ if __name__ == '__main__':
 
     s = Server(cmd_args.serverid)
     result = s.load()
-    print s
 
     if result is not None:
         print("Cannot find the server by the ID.")
@@ -57,10 +56,16 @@ if __name__ == '__main__':
         server_table.add_row(["Budget ID", s.budget])
         if hasattr(s, 'owning_user'):
             server_table.add_row(["Owning User ID", s.owning_user['user_id']])
-            server_table.add_row(
-                ["Owning User Name", s.owning_user['user_id']])
+
+            if hasattr(s.owning_user, 'alpha_name'):
+                server_table.add_row(
+                    ["Owning User Name", s.owning_user['alpha_name']])
+            else:
+                server_table.add_row(["Owning User Name", None])
+
             if hasattr(s.owning_user, 'email'):
-                server_table.add_row(["Owning User Email", s.owning_user['email']])
+                server_table.add_row(
+                    ["Owning User Email", s.owning_user['email']])
             else:
                 server_table.add_row(["Owning User Email", None])
         else:
