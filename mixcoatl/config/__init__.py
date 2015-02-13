@@ -1,4 +1,5 @@
 import os
+import sys
 import glob
 import shutil
 import datetime
@@ -34,18 +35,48 @@ class Config(object):
 
                 cfg_num = 0
                 file_list = glob.glob(self.mixcoatl_dir + "/*.config")
-                for i in file_list:
-                    print ">>> Type", cfg_num, "for", i.replace(self.mixcoatl_dir + "/", "").replace(".config", "")
-                    cfg_num += 1
 
-                cfg_pick = prompt("Which config would you like to use? ")
+                if len(file_list) > 0:
+                    for i in file_list:
+                        print ">>> Type", cfg_num, "for", i.replace(self.mixcoatl_dir + "/", "").replace(".config", "")
+                        cfg_num += 1
 
-                with open(file_list[int(cfg_pick)]) as f:
+                    cfg_pick = prompt("Which config would you like to use? ")
+
+                    shutil.copy(
+                        file_list[int(cfg_pick)], self.mixcoatl_dir + "/default")
+                else:
+                    results = []
+                    print "No config file(s) found.  Let us generate one now:"
+                    dcm_host = prompt(
+                        "What API endpoint would you like to connect to (Example: http[s]://api.endpoint.domain/api/enstratus/<api version>)?\n")
+                    dcm_api_access = prompt("What is the API Access Key?\n")
+                    dcm_api_secret = prompt("What is the API Secret Key?\n")
+                    dcm_ssl_verify = prompt(
+                        "Would you like to disable SSL verification (Y/N)?\n")
+                    dcm_config_name = prompt(
+                        "What would you like to call this connection (No spaces allowed in name)?\n")
+
+                    if dcm_ssl_verify is ['N', 'n', 'no', 'NO', 'No', 'nO']:
+                        dcm_ssl_verify_chk = 0
+                    else:
+                        dcm_ssl_verify_chk = 1
+
+                    results = ['DCM_ENDPOINT=' + str(dcm_host), 'DCM_ACCESS_KEY=' + str(
+                        dcm_api_access), 'DCM_SECRET_KEY=' + str(dcm_api_secret), 'DCM_SSL_VERIFY=' + str(dcm_ssl_verify_chk)]
+
+                    new_file = self.mixcoatl_dir + "/" + \
+                        dcm_config_name.replace(' ', '') + ".config"
+
+                    with open(new_file, "w") as out_file:
+                        out_file.write('\n'.join(results))
+
+                    shutil.copy(new_file, self.mixcoatl_dir + "/default")
+
+                with open(self.mixcoatl_dir + "/default") as f:
                     for line in f:
                         k, v = line.split('=', 1)
                         os.environ[k] = v.strip()
-                shutil.copy(
-                    file_list[int(cfg_pick)], self.mixcoatl_dir + "/default")
             else:
                 with open(self.mixcoatl_dir + "/default") as f:
                     for line in f:
@@ -78,10 +109,10 @@ class Config(object):
                 self.set_api_version(os.environ['DCM_API_VERSION'])
             else:
                 if 'DCM_ENDPOINT' in os.environ:
-                    str = os.environ['DCM_ENDPOINT'].split('/')
+                    thestring = os.environ['DCM_ENDPOINT'].split('/')
 
-                    if self.validate(str[-1]):
-                        self.set_api_version(str[-1])
+                    if self.validate(thestring[-1]):
+                        self.set_api_version(thestring[-1])
                     else:
                         self.set_api_version(self.default_api_version)
                 else:
