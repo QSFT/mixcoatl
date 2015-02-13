@@ -11,6 +11,8 @@ from fabric.contrib.files import exists
 
 
 class FabricSupport:
+    MASTER_API_KEY = None
+    MASTER_SECRET_KEY = None
 
     def __init__(self, hosts, version, console_host, license_key, download_pass, release_path, email, first_name, last_name, company_name):
         self.hosts = hosts
@@ -35,70 +37,65 @@ class FabricSupport:
         print "*** OS Detected:  " + parse_string[0] + " " + parse_string[1]
 
     def deps(self):
-        print "Installing dependencies ",
+        print "{:80}".format("Installing dependencies "),
         sudo('apt-get install unzip -y')
-        print '\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def fetch_release(self):
         if exists(self.release_path, use_sudo=True):
-            print "DCM Directory (" + self.release_path + ") detected. ",
-            print '\t\t\t\t[ ' + colored('SKIPPING FETCH', 'yellow') + ' ]'
+            print "{:80} {:}".format("DCM Directory (" + self.release_path + ") detected. ", '[ ' + colored('SKIPPING FETCH', 'yellow') + ' ]')
         else:
-            print "Fetching release " + self.version,
+            print "{:80}".format("Fetching release " + self.version),
             with cd("/tmp"):
                 run("wget -P /tmp https://dl.dropboxusercontent.com/u/3728203/es-onpremise-chef-solo-" +
                     self.version + ".zip")
-                print '\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+                print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
-                print "Extracting release to " + self.release_path,
+                print "{:80}".format("Extracting release to " + self.release_path),
                 run("unzip es-onpremise-chef-solo-" +
                     self.version + ".zip -d /tmp")
-                print '\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+                print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def run_setup(self):
         setup_file = self.release_path + \
             "/local_settings/handsfree/single_node.json"
         if exists(setup_file, use_sudo=True):
-            print "Setup File detected. ",
-            print '\t\t\t\t\t\t\t\t\t[ ' + colored('SKIPPING SETUP', 'yellow') + ' ]'
+            print "{:80} {:}".format("Setup File detected. ", '[ ' + colored('SKIPPING SETUP', 'yellow') + ' ]')
         else:
-            print "Running DCM setup",
+            print "{:80}".format("Running DCM setup"),
             with cd(self.release_path):
                 sudo("./setup.sh -s handsfree -l " +
                      self.license_key + " -p " + self.download_pass + " -c " + self.console_host)
-            print '\t\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def install_release(self):
         flags_file = "/tmp/feature-flags-rules.json"
         if exists(flags_file, use_sudo=True):
-            print "Installation already completed. ",
-            print '\t\t\t\t\t\t\t[ ' + colored('SKIPPING DCM INSTALL', 'yellow') + ' ]'
+            print "{:80} {:}".format("Installation already completed. ", '[ ' + colored('SKIPPING DCM INSTALL', 'yellow') + ' ]')
         else:
-            print "Running DCM install",
+            print "{:80}".format("Running DCM install"),
             with path('/opt/dmcm-base/bin:/opt/dmcm-base/embedded/bin:/opt/dmcm-base/bin:/opt/dmcm-base/embedded/bin'):
                 with cd(self.release_path):
                     sudo(
                         "chef-solo -j local_settings/handsfree/single_node.json -c solo.rb -o 'role[single_node]'")
-            print '\t\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def create_master_api_key(self):
         master_apikey = "/tmp/master-apikey.json"
         if exists(master_apikey, use_sudo=True):
-            print "Master Key file exists. ",
-            print '\t\t\t\t\t\t\t\t[ ' + colored('SKIPPING KEYGEN', 'yellow') + ' ]'
+            print "{:80} {:}".format("Master Key file exists. ", '[ ' + colored('SKIPPING KEYGEN', 'yellow') + ' ]')
         else:
-            print "Generating Master Keys",
+            print "{:80}".format("Generating Master Keys"),
             sudo(
                 '/services/backend/sbin/create-master-apikey.sh -o /tmp/master-apikey.json')
-            print '\t\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def create_initial_user(self):
         initial_user = "/tmp/initial_user.json"
         if exists(initial_user, use_sudo=True):
-            print "Initial User file exists. ",
-            print '\t\t\t\t\t\t\t\t[ ' + colored('SKIPPING USER CREATION', 'yellow') + ' ]'
+            print "{:80} {:}".format("Initial User file exists. ", '[ ' + colored('SKIPPING USER CREATION', 'yellow') + ' ]')
         else:
-            print "Creating Initial User",
+            print "{:80}".format("Creating Initial User"),
             with open("users/initial_user.json", "r") as myfile:
                 data = json.loads(myfile.read())
 
@@ -114,21 +111,21 @@ class FabricSupport:
 
             data['sshPublicKey'] = key
 
-            sudo("echo "+ json.dumps(data) + " > /tmp/initial_user.json")
-            sudo('/services/backend/sbin/create-initial-user.py --context /tmp/master-apikey.json /tmp/initial_user.json')
-            print '\t\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+            sudo('echo \'' + json.dumps(data) + '\' > /tmp/initial_user.json')
+            sudo(
+                '/services/backend/sbin/create-initial-user.py --context /tmp/master-apikey.json /tmp/initial_user.json')
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def install_parachute(self):
         install_file = "/opt/parachute/app/cfg/config.ini"
         if exists(install_file, use_sudo=True):
-            print "Parachute already installed. ",
-            print '\t\t\t\t\t\t\t\t[ ' + colored('SKIPPING PARACHUTE INSTALL', 'yellow') + ' ]'
+            print "{:80} {:}".format("Parachute already installed. ", '[ ' + colored('SKIPPING PARACHUTE INSTALL', 'yellow') + ' ]')
         else:
-            print "Installing Parachute",
+            print "{:80}".format("Installing Parachute"),
             with cd("/tmp"):
                 sudo(
                     "curl http://download.parachuteapp.net/install.sh | sudo bash -s - -v k30-rc1")
-            print '\t\t\t\t\t\t\t\t\t[ ' + colored('OK', 'green') + ' ]'
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def execute(self, task):
         with hide('output', 'running', 'warnings'), settings(warn_only=True):
