@@ -52,12 +52,17 @@ if __name__ == '__main__':
     else:
         table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
         for r in results:
+            if hasattr(r, 'server'):
+                server = r.server['server_id'] if hasattr(r.server, 'server_id') else 'Not Mounted'
+            else:
+                server = 'Not Mounted'
+
             table.add_row([
                 r.volume_id,
                 r.provider_id,
                 r.data_center['data_center_id'],
                 r.name,
-                r.server['server_id'],
+                server,
                 r.size_string,
                 r.owning_account['account_id'],
                 r.budget,
