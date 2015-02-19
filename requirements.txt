@@ -8,4 +8,4 @@ prettytable==0.7.2
 termcolor==1.1.0
 sphinx_rtd_theme
 dicttoxml
-BeautifulSoup
+BeautifulSoup==3.2.1

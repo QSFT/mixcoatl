@@ -103,22 +103,26 @@ def get_volumes(volumes, **kwargs):
         filtered_volumes = [volume for volume in volumes if hasattr(volume, 'owning_user') and
                             'vm_login_id' in volume.owning_user and
                             volume.owning_user['vm_login_id'] == kwargs['vm_login_id']]
+
     if 'email' in kwargs and kwargs['email'] is not None:
         if filtered_volumes is not None:
             volumes = filtered_volumes
         filtered_volumes = [volume for volume in volumes if hasattr(volume, 'owning_user') and
                             'email' in volume.owning_user and
                             volume.owning_user['email'] == kwargs['email']]
+
     if 'group_id' in kwargs and kwargs['group_id'] is not None:
         if filtered_volumes is not None:
             volumes = filtered_volumes
         filtered_volumes = [volume for volume in volumes if hasattr(volume, 'owning_groups')
                             for group in volume.owning_groups if group['group_id'] == int(kwargs['group_id'])]
+
     if 'budget_id' in kwargs and kwargs['budget_id'] is not None:
         if filtered_volumes is not None:
             volumes = filtered_volumes
         filtered_volumes = [volume for volume in volumes if hasattr(volume, 'budget') and
                             volume.budget == int(kwargs['budget_id'])]
+
     if 'size' in kwargs and kwargs['size'] is not None:
         if filtered_volumes is not None:
             volumes = filtered_volumes
