@@ -2,6 +2,7 @@
 # fab -P gen_configs
 
 import os
+
 import re
 import sys
 import json
@@ -11,22 +12,59 @@ env.hosts = []
 env.skip_bad_hosts = True
 env.user = 'root'
 env.key_filename = os.path.expanduser('~') + '/.ssh/id_rsa'
-envsfile = os.path.expanduser('~') + '/.mixcoatl/envs'
 configpath = os.path.expanduser('~') + '/.mixcoatl'
 
-if os.path.exists(envsfile):
-    with open(envsfile, "r") as myfile:
-        data = myfile.read()
-        myString_list = [item for item in data.split(" ")]
-        for item in myString_list:
-            try:
-                env.hosts.append(
-                    re.search("(?P<url>https?://[^\s]+)", item).group("url")[8:])
-            except:
-                pass
-else:
-    print "No envs file"
-    sys.exit(1)
+API_URL = 'https://slack.com/api/{api}'
+
+def get_rc_nodes(token, count):
+
+    '''
+    This function
+    :param token: slack web API token from https://api.slack.com/web
+    :param count: controls the number of messages returned. A result is not
+    necessarily an RC, as not all messages are RC node related.
+    :return: a list of recent RC node URL
+    '''
+
+    search_str = '^Latest'
+
+    channel_list='channels.list'
+    channel_history='channels.history'
+
+    channel_list_response = requests.get(API_URL.format(api=channel_list)+'?token='+token)
+
+    all_channels = json.loads(channel_list_response.content)['channels']
+
+    for channel in all_channels:
+        if channel['name'] == 'dcm-latestdevinstance':
+            dev_instance_channel_id = str(channel['id'])
+
+    dev_channel_history = json.loads(requests.get(API_URL.format(api=channel_history)+
+                                                  '?channel='+dev_instance_channel_id+
+                                                  '&token='+token+'&count='+str(count)).content)
+
+    # print dev_channel_history
+    for message in dev_channel_history['messages']:
+        if re.search(search_str, message['text']):
+            env.hosts.append(message['text'].split()[4][9:].replace(">",""))
+
+    return env.hosts
+
+
+token=os.environ.get('SLACK_TOKEN')
+
+if not token:
+    print '''
+    This function requires a slack token.
+
+    Please visit: https://api.slack.com/web to get your token.
+
+    Once you have your token, run:
+
+    export SLACK_TOKEN='<your token>'
+
+    '''
+    sys.exit(99)
 
 
 def gen_configs():
