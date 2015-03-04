@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Note: this tool is almost explicitly built for Iara releases.
 
 from mixcoatl.infrastructure.server import Server
 from prettytable import PrettyTable
@@ -13,9 +14,9 @@ if __name__ == '__main__':
 
     if cmd_args.all or cmd_args.serverid:
         if cmd_args.serverid:
-            servers = [Server(cmd_args.serverid)]
+            servers = [Server(cmd_args.serverid, detail='extended')]
         else:
-            servers = Server.all()
+            servers = Server.all(detail='extended')
 
         server_table = PrettyTable(
             ["ID", "Cloud", "Region", "Provider ID", "Server Name", "Owner", "Status", "Termination"])
@@ -25,13 +26,13 @@ if __name__ == '__main__':
 
         for server in servers:
             if hasattr(server, 'owning_user'):
-                if hasattr(server.owning_user, 'email'):
+                try:
+                    owning_user = server.owning_user['email']
+                except AttributeError:
                     try:
-                        owning_user = server.owning_user['email']
+                        owning_user = server.owning_user['alpha_name']
                     except AttributeError:
                         owning_user = "Not Found"
-                else:
-                    owning_user = "Not Found"
             else:
                 owning_user = "Not Found"
 
@@ -44,7 +45,6 @@ if __name__ == '__main__':
                 terminate_after = None
                 newdiff = "Never"
 
-            # if terminate_after is not None:
             server_table.add_row(
                 [server.server_id,
                  server.cloud['cloud_provider_name'] if hasattr(server.cloud,'cloud_provider_name') else server.cloud['cloud_id'],
