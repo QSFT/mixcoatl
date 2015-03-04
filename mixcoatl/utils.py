@@ -36,7 +36,7 @@ def print_format(data, payload_format):
 
         return csv
     else:
-        return json.dumps(newdata)
+        return json.dumps(newdata, indent=4, sort_keys=True)
 
 
 def uncamel(val):
