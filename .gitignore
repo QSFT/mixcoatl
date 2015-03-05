@@ -21,3 +21,5 @@ utils/handsfree/clouds/credentials/*.json
 utils/handsfree/clouds/descriptors/*.json
 utils/handsfree/users/*
 initial.json
+utils/handsfree/config.txt
+utils/handsfree/userkeys.json
