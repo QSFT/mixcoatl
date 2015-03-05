@@ -16,8 +16,8 @@ _ghpages/
 mixcoatl.sublime-*
 .DS_Store
 test.sh
-utils/handsfree/clouds/credentials/*
-utils/handsfree/clouds/descriptors/*
-utils/handsfree/clouds/*
+utils/handsfree/clouds/*.json
+utils/handsfree/clouds/credentials/*.json
+utils/handsfree/clouds/descriptors/*.json
 utils/handsfree/users/*
 initial.json
