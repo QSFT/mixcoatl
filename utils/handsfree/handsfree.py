@@ -88,7 +88,7 @@ class FabricSupport:
         if exists(master_apikey, use_sudo=True):
             print "{:80} {:}".format("Master Key file exists. ", '[ ' + colored('SKIPPING KEYGEN', 'yellow') + ' ]')
         else:
-            print "{:80}".format("Generating Master Keys"),
+            print "{:80}".format("Generating Master API Key"),
             sudo('/services/backend/sbin/create-master-apikey.sh -o /tmp/master-apikey.json')
             print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
@@ -137,33 +137,32 @@ class FabricSupport:
         Adds the initial cloud accounts credential
         '''
 
-        print "{:80}".format("Creating Initial Cloud Account(s)")
         put('./clouds/initial.json', '/tmp/initial_cloud.json')
+        print "{:80}".format("Creating Initial Cloud Account(s)"),
         cmd = '{}/create-initial-cloudaccount.py {} /tmp/initial_cloud.json --context /tmp/master-apikey.json'.format(self.sbin_dir, self.email)
-        print cmd
         sudo(cmd)
-
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
 
     def add_private_clouds(self):
 
-        print "{:80}".format("Adding Private Clouds"),
+        print "{:80}".format("Adding Private Cloud Definitions"),
         for private_cloud in os.listdir(self.cloud_descriptors_dir):
 
-             put(self.cloud_descriptors_dir+'/'+private_cloud, '/tmp/private-cloud.json')
-             cmd = 'bash {}/add-cloud.sh /tmp/private-cloud.json'.format(self.sbin_dir)
-             print cmd
+            put(self.cloud_descriptors_dir+'/'+private_cloud, '/tmp/private-cloud.json')
+            cmd = 'bash {}/add-cloud.sh /tmp/private-cloud.json'.format(self.sbin_dir)
 
-             sudo(cmd)
+            sudo(cmd)
 
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
 
     def create_user_api_key(self):
         '''
         Creates a user API key and stores it locally in a file called userkeys.json
         '''
 
-        print "{:80}".format("Create User API Key")
+        print "{:80}".format("Create User API Key"),
 
         cmd='{}/create-initial-apikeys.py ' \
             '--genUserKey ' \
@@ -172,20 +171,17 @@ class FabricSupport:
             '--output /tmp/userkeys.json ' \
             '--context /tmp/master-apikey.json'.format(self.sbin_dir)
 
-        print cmd
         sudo(cmd)
-
-        get('/tmp/userkeys.json', './userkeys.json')
-
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
+        get('/tmp/userkeys.json', './userkeys.json')
 
     def set_user_credentials(self):
         '''
         Creates a local config file.
         '''
 
-        print "{:80}".format("Adding Additional Clouds")
+        print "{:80}".format("Adding Additional Clouds"),
 
         with open('./userkeys.json','r') as f:
             contents=json.loads(f.read())
