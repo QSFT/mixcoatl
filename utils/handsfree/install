@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import time
+import argparse
+from fabric.api import env
+from handsfree import FabricSupport
+
+parser = argparse.ArgumentParser()
+required_group = parser.add_argument_group("required arguments")
+required_group.add_argument('--host', '-H', help='VM Hostname')
+required_group.add_argument('--version', '-v', help='DCM Version')
+required_group.add_argument('--console_host', '-c', help='Console Hostname')
+required_group.add_argument('--license_key', '-l', help='License Key')
+required_group.add_argument('--download_pass', '-d', help='Download Password')
+required_group.add_argument('--email', '-E', help='DCM Email Address')
+required_group.add_argument('--first_name', '-F', help='DCM First Name')
+required_group.add_argument('--last_name', '-L', help='DCM Last Name')
+required_group.add_argument('--company_name', '-C', help='DCM Company Name')
+
+parser.add_argument('--shelluser', '-u', help='VM Shell User (Default: root)')
+parser.add_argument('--shellkey', '-s', help='VM Shell User Key (Default: ~/.ssh/id_rsa)')
+
+cmd_args = parser.parse_args()
+
+if cmd_args.host is not None and cmd_args.version is not None and cmd_args.console_host is not None and cmd_args.license_key is not None and cmd_args.download_pass is not None and cmd_args.email is not None and cmd_args.first_name is not None and cmd_args.last_name is not None and cmd_args.company_name is not None:
+    env.skip_bad_hosts = True
+
+    if cmd_args.shelluser is None:
+        env.user = 'root'
+    else:
+        env.user = cmd_args.shelluser
+
+    if cmd_args.shellkey is None:
+        env.key_filename = os.path.expanduser('~') + '/.ssh/id_rsa'
+    else:
+        env.key_filename = cmd_args.shellkey
+
+    total_start = time.time()
+    fab = FabricSupport(cmd_args.host, cmd_args.version, cmd_args.console_host,
+                        cmd_args.license_key, cmd_args.download_pass,
+                        "/tmp/es-onpremise-chef-solo-" + cmd_args.version,
+                        cmd_args.email, cmd_args.first_name, cmd_args.last_name,
+                        cmd_args.company_name)
+
+    print "Starting install of DCM version " + cmd_args.version
+
+    # tasks = ['fetch_vm_info', 'deps', 'fetch_release',
+    #          'run_setup', 'install_release', 'create_master_api_key',
+    #          'create_initial_user', 'create_initial_cloud_accounts',
+    #          'add_private_clouds', 'create_user_api_key', 'set_user_credentials']
+    tasks = ['create_initial_cloud_accounts',
+             'add_private_clouds', 'create_user_api_key', 'set_user_credentials']
+    for task in tasks:
+        fab.execute(task)
+
+    print '*** Script finished in', round(time.time() - total_start, 3), 'seconds.'
+else:
+    parser.print_help()
+    sys.exit(1)
