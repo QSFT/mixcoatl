@@ -197,10 +197,11 @@ class FabricSupport:
             mixcoatl_config.write("export DCM_ACCESS_KEY={}\n".format(access_key))
             mixcoatl_config.write("export DCM_SECRET_KEY={}\n".format(secret_key))
             mixcoatl_config.write("export DCM_ENDPOINT=https://{}:15000/api/enstratus/2015-01-28\n".format(self.hosts))
+            mixcoatl_config.write("export DCM_SSL_VERIFY=0\n")
 
         os.environ["DCM_ACCESS_KEY"] = access_key
         os.environ["DCM_SECRET_KEY"] = secret_key
-        os.environ["DCM_ENDPOINT"] = 'https://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
         os.environ["DCM_SSL_VERIFY"] = '0'
 
         for credentials_file in os.listdir(self.cloud_credentials_dir):
