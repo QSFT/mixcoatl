@@ -15,7 +15,7 @@ class FabricSupport:
     MASTER_API_KEY = None
     MASTER_SECRET_KEY = None
 
-    def __init__(self, hosts, version, console_host, license_key, download_pass, release_path, email, first_name, last_name, company_name):
+    def __init__(self, hosts, version, console_host, license_key, download_pass, release_path, email, first_name, last_name, company_name, setup_dir):
         self.hosts = hosts
         self.version = version
         self.console_host = console_host
@@ -27,8 +27,13 @@ class FabricSupport:
         self.last_name = last_name
         self.company_name = company_name
         self.sbin_dir = '/services/backend/sbin'
-        self.cloud_descriptors_dir = './clouds/descriptors'
-        self.cloud_credentials_dir = './clouds/credentials'
+        self.setup_dir = setup_dir
+        self.cloud_descriptors_dir = '{}/clouds/descriptors'.format(setup_dir)
+        self.cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
+        self.user_dir = '{}/users'.format(setup_dir)
+        self.groups= '{}/groups'.format(setup_dir)
+        self.roles= '{}/roles'.format(setup_dir)
+        self.billing= '{}/billing'.format(setup_dir)
         pass
 
     def random_pass(self):
@@ -79,8 +84,7 @@ class FabricSupport:
             print "{:80}".format("Running DCM install"),
             with path('/opt/dmcm-base/bin:/opt/dmcm-base/embedded/bin:/opt/dmcm-base/bin:/opt/dmcm-base/embedded/bin'):
                 with cd(self.release_path):
-                    sudo(
-                        "chef-solo -j local_settings/handsfree/single_node.json -c solo.rb -o 'role[single_node]'")
+                    sudo("chef-solo -j local_settings/handsfree/single_node.json -c solo.rb -o 'role[single_node]'")
             print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def create_master_api_key(self):
@@ -93,14 +97,14 @@ class FabricSupport:
             print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def create_initial_user(self):
-
         '''
         This method creates the initial user account in DCM.
 
         It completes the "registration" step for a newly installed environment.
         '''
 
-        with open('users/initial-account.json', 'r') as initial_account:
+        print "{:80}".format("Registering Initial User Account"),
+        with open('{}/initial-account.json'.format(self.user_dir), 'r') as initial_account:
 
             put(initial_account, '/tmp/initial-account.json')
 
@@ -108,41 +112,18 @@ class FabricSupport:
         sudo(cmd)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
-        # initial_user = "/tmp/initial_user.json"
-        # if exists(initial_user, use_sudo=True):
-        #     print "{:80} {:}".format("Initial User file exists. ", '[ ' + colored('SKIPPING USER CREATION', 'yellow') + ' ]')
-        # else:
-        #     print "{:80}".format("Creating Initial User"),
-        #     with open("users/initial_user.json", "r") as myfile:
-        #         data = json.loads(myfile.read())
-        #
-        #     data['firstName'] = self.first_name
-        #     data['lastName'] = self.last_name
-        #     data['email'] = self.email
-        #     data['businessName'] = self.company_name
-        #     data['password'] = self.random_pass()
-        #     data['windowsPassword'] = self.random_pass()
-        #
-        #     with open(os.path.expanduser('~') + '/.ssh/id_rsa.pub', "r") as sshkey:
-        #         key = sshkey.read().rstrip('\n')
-        #
-        #     data['sshPublicKey'] = key
-        #
-        #     sudo('echo \'' + json.dumps(data) + '\' > /tmp/initial_user.json')
-        #     sudo('/services/backend/sbin/create-initial-user.py --context /tmp/master-apikey.json /tmp/initial_user.json')
-        #     print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
-
     def create_initial_cloud_accounts(self):
         '''
         Adds the initial cloud accounts credential
+
+        Depends on the presence of an initial set of cloud credentials.
         '''
 
-        put('./clouds/initial.json', '/tmp/initial_cloud.json')
+        put('{}/clouds/initial_cloud.json'.format(self.setup_dir), '/tmp/initial_cloud.json')
         print "{:80}".format("Creating Initial Cloud Account(s)"),
         cmd = '{}/create-initial-cloudaccount.py {} /tmp/initial_cloud.json --context /tmp/master-apikey.json'.format(self.sbin_dir, self.email)
         sudo(cmd)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
-
 
     def add_private_clouds(self):
 
@@ -174,22 +155,22 @@ class FabricSupport:
         sudo(cmd)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
-        get('/tmp/userkeys.json', './userkeys.json')
+        get('/tmp/userkeys.json', '{}/userkeys.json'.format(self.setup_dir))
 
     def set_user_credentials(self):
         '''
         Creates a local config file.
         '''
 
-        print "{:80}".format("Adding Additional Clouds"),
+        print "{:80}".format("Adding Additional Cloud Credentials"),
 
-        with open('./userkeys.json','r') as f:
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
             contents=json.loads(f.read())
 
         secret_key=contents['secretKey']
         access_key=contents['accessKey']
 
-        with open('./config.txt','w') as mixcoatl_config:
+        with open('{}/config.txt'.format(self.setup_dir), 'w') as mixcoatl_config:
             mixcoatl_config.write("export DCM_ACCESS_KEY={}\n".format(access_key))
             mixcoatl_config.write("export DCM_SECRET_KEY={}\n".format(secret_key))
             mixcoatl_config.write("export DCM_ENDPOINT=https://{}:15000/api/enstratus/2015-01-28\n".format(self.hosts))
