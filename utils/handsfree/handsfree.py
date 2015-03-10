@@ -137,7 +137,6 @@ class FabricSupport:
 
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
-
     def create_user_api_key(self):
         '''
         Creates a user API key and stores it locally in a file called userkeys.json

@@ -93,8 +93,6 @@ if cmd_args.host is not None \
               'create_initial_user', 'create_initial_cloud_accounts',
               'add_private_clouds', 'create_user_api_key', 'set_user_credentials']
 
-    #tasks = ['create_user_api_key', 'set_user_credentials']
-
     if num_private_clouds == 0:
         tasks.remove('add_private_clouds')
 
