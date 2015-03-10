@@ -31,9 +31,9 @@ class FabricSupport:
         self.cloud_descriptors_dir = '{}/clouds/descriptors'.format(setup_dir)
         self.cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
         self.user_dir = '{}/users'.format(setup_dir)
-        self.groups= '{}/groups'.format(setup_dir)
-        self.roles= '{}/roles'.format(setup_dir)
-        self.billing= '{}/billing'.format(setup_dir)
+        self.groups = '{}/groups'.format(setup_dir)
+        self.roles = '{}/roles'.format(setup_dir)
+        self.billing = '{}/billing'.format(setup_dir)
         pass
 
     def random_pass(self):
@@ -173,7 +173,7 @@ class FabricSupport:
         with open('{}/config.txt'.format(self.setup_dir), 'w') as mixcoatl_config:
             mixcoatl_config.write("export DCM_ACCESS_KEY={}\n".format(access_key))
             mixcoatl_config.write("export DCM_SECRET_KEY={}\n".format(secret_key))
-            mixcoatl_config.write("export DCM_ENDPOINT=https://{}:15000/api/enstratus/2015-01-28\n".format(self.hosts))
+            mixcoatl_config.write("export DCM_ENDPOINT=http://{}:15000/api/enstratus/2015-01-28\n".format(self.hosts))
             mixcoatl_config.write("export DCM_SSL_VERIFY=0\n")
 
         os.environ["DCM_ACCESS_KEY"] = access_key
