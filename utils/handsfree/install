@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-
 import pre_run
 import json
 import glob

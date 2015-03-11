@@ -11,7 +11,6 @@ def validate_input(update_file):
         json.load(open(update_file))
         return True
     except ValueError:
-        exit(-1)
         return False
 
 
@@ -101,15 +100,27 @@ def dry_run(setup_dir):
     :return:
     '''
 
-    find_essential_files(setup_dir)
-
     cloud_descriptors_dir = '{}/clouds/descriptors'.format(setup_dir)
     cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
-
-    parse_descriptors_and_credentials(setup_dir)
 
     for cloud_descriptor in os.listdir(cloud_descriptors_dir):
         is_valid = validate_input('{}/clouds/descriptors/'.format(setup_dir)+cloud_descriptor)
 
+        if not is_valid:
+            print "{:} Has invalid JSON".format(cloud_descriptor),
+            print "Exiting for safety reasons."
+            sys.exit(99)
+
     for cloud_credential in os.listdir(cloud_credentials_dir):
         is_valid = validate_input('{}/clouds/credentials/'.format(setup_dir)+cloud_credential)
+
+        if not is_valid:
+            print "{:} Has invalid JSON".format(cloud_descriptor),
+            print "Exiting for safety reasons."
+            sys.exit(99)
+
+    find_essential_files(setup_dir)
+    parse_descriptors_and_credentials(setup_dir)
+    print "\n\nLooks OK, please proceed."
+
+
