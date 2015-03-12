@@ -229,8 +229,6 @@ class User(Resource):
         for billing_code in self.billing_codes:
             billing_code_list.append({"billingCodeId": billing_code})
 
-        print self
-
         parms = [{'givenName': self.given_name,
                   'familyName': self.family_name,
                   'email': self.email,
