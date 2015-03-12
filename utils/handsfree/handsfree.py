@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-
 import json
 import string
 import random
@@ -187,7 +186,6 @@ class FabricSupport:
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def install_parachute(self):
-
         install_file = "/opt/parachute/app/cfg/config.ini"
         if exists(install_file, use_sudo=True):
             print "{:80} {:}".format("Parachute already installed. ", '[ ' + colored('SKIPPING PARACHUTE INSTALL', 'yellow') + ' ]')
