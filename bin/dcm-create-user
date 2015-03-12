@@ -31,7 +31,7 @@ import os.path
 def print_verbose(name,rid):
     print name, rid
 
-def create_user(account_id, given_name, family_name, email, billing_codes, groups, password=None):
+def create_user(account_id, given_name, family_name, email, billing_codes, groups, password=None, ssh_key=None):
     u = User()
     u.account = account_id
     u.given_name = given_name
@@ -40,6 +40,7 @@ def create_user(account_id, given_name, family_name, email, billing_codes, group
     u.billing_codes = billing_codes
     u.groups = groups
     u.password = password
+    u.ssh_public_key = ssh_key
 
     result = u.create()
 
@@ -86,6 +87,6 @@ if __name__ == '__main__':
     else:
         for user in user_list:
             result = create_user(user['account_id'], user['given_name'], user['family_name'],
-                                 user['email'], user['billing_code_id'], user['group_id'],
-                                 user['password'])
+                                 user['email_address'], user['billing_code_id'], user['group_id'],
+                                 user['password'], user['ssh_key'])
             print result['users'][0]['userId']
