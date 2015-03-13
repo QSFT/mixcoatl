@@ -15,6 +15,7 @@ class FabricSupport:
     MASTER_SECRET_KEY = None
 
     def __init__(self, hosts, version, console_host, license_key, download_pass, release_path, email, first_name, last_name, company_name, setup_dir):
+
         self.hosts = hosts
         self.version = version
         self.console_host = console_host
