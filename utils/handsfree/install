@@ -95,7 +95,8 @@ if cmd_args.host is not None \
     tasks = ['fetch_vm_info', 'deps', 'fetch_release',
               'run_setup', 'install_release', 'create_master_api_key',
               'create_initial_user', 'install_admin', 'create_initial_cloud_accounts',
-              'add_private_clouds', 'create_user_api_key', 'set_user_credentials']
+              'add_private_clouds', 'create_user_api_key', 'set_user_credentials',
+              'install_parachute']
 
     if num_private_clouds == 0:
         tasks.remove('add_private_clouds')
