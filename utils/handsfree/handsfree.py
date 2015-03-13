@@ -144,7 +144,7 @@ class FabricSupport:
 
         print "{:80}".format("Create User API Key"),
 
-        cmd='{}/create-initial-apikeys.py ' \
+        cmd = '{}/create-initial-apikeys.py ' \
             '--genUserKey ' \
             '--initialUser /tmp/initial-account.json ' \
             '--initialAccount /tmp/initial_cloud.json ' \
@@ -155,6 +155,19 @@ class FabricSupport:
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
         get('/tmp/userkeys.json', '{}/userkeys.json'.format(self.setup_dir))
+
+    def install_admin(self):
+        '''
+        Adds the user in initial-account.json as an installation admin.
+        This means the user will have access to the DCM operator console.
+        '''
+
+        print "{:80}".format("Setting Install Admin"),
+
+        cmd = '{}/manage-install-admins.sh add -e {}'.format(self.sbin_dir, self.email)
+
+        sudo(cmd)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def set_user_credentials(self):
         '''
