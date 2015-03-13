@@ -180,6 +180,11 @@ class User(Resource):
         """`str` The public key to grant the user access to Unix instances"""
         return self.__ssh_public_key
 
+    @ssh_public_key.setter
+    def ssh_public_key(self, s):
+        """`str` The public key to grant the user access to Unix instances"""
+        self.__ssh_public_key = s
+
     @lazy_property
     def password(self):
         """`str` DCM login password"""
@@ -230,6 +235,9 @@ class User(Resource):
                   'groups': [{'groupId': self.groups}],
                   'account': {'accountId': self.account},
                   'billingCodes': billing_code_list}]
+
+        if self.ssh_public_key is not None:
+            parms[0].update({'sshPublicKey': self.ssh_public_key})
 
         if self.password is not None:
             parms[0].update({'password': self.password})
