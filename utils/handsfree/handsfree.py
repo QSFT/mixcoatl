@@ -200,14 +200,14 @@ class FabricSupport:
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def install_parachute(self):
-        install_file = "/opt/parachute/app/cfg/config.ini"
+        install_file = "/opt/parachute/bin/parachute"
         if exists(install_file, use_sudo=True):
             print "{:80} {:}".format("Parachute already installed. ", '[ ' + colored('SKIPPING PARACHUTE INSTALL', 'yellow') + ' ]')
         else:
             print "{:80}".format("Installing Parachute"),
             with cd("/tmp"):
                 sudo(
-                    "curl http://download.parachuteapp.net/install.sh | sudo bash -s - -v k30-rc1")
+                    "bash -s - -v k.36 < <( curl http://download.parachuteapp.net/install.sh )")
             print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def execute(self, task):
