@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import subprocess
 import json
 import string
 import random
@@ -32,7 +33,8 @@ class FabricSupport:
         self.cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
         self.user_dir = '{}/users'.format(setup_dir)
         self.groups = '{}/groups'.format(setup_dir)
-        self.roles = '{}/roles'.format(setup_dir)
+        self.roles_dir = '{}/roles'.format(setup_dir)
+        self.acl_dir = '{}/roles/acl'.format(setup_dir)
         self.billing = '{}/billing'.format(setup_dir)
         pass
 
@@ -198,6 +200,43 @@ class FabricSupport:
             call(cmd, shell=True)
 
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+    def add_roles(self):
+        '''
+        Creates roles and sets ACL for those roles.
+        Looks in setup_dir/roles/roles and setup_dir/roles/acl
+
+        Uses the mixcoatl command line helpers:
+        1. dcm-create-role
+        2. dcm-set-acl
+        :return:
+        '''
+
+        print "{:80}".format("Adding Roles")
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for role_file in os.listdir(self.roles_dir):
+            if os.path.isfile(self.roles_dir+'/'+role_file):
+                print role_file
+                cmd = "dcm-post admin/Role --json {}".format(self.roles_dir+'/'+role_file)
+                call(cmd, shell=True)
+
+        # result = subprocess.check_output(['dcm-list-roles', '--json'])
+
+        # role_json = json.loads(result)
+
+        # for r in role_json:
+        #     print r['name'], r['role_id']
+
 
     def install_parachute(self):
         install_file = "/opt/parachute/bin/parachute"
