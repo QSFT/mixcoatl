@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import subprocess
 import json
 import string
 import random
@@ -32,7 +33,8 @@ class FabricSupport:
         self.cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
         self.user_dir = '{}/users'.format(setup_dir)
         self.groups = '{}/groups'.format(setup_dir)
-        self.roles = '{}/roles'.format(setup_dir)
+        self.roles_dir = '{}/roles'.format(setup_dir)
+        self.acl_dir = '{}/roles/acl'.format(setup_dir)
         self.billing = '{}/billing'.format(setup_dir)
         pass
 
@@ -195,9 +197,63 @@ class FabricSupport:
 
         for credentials_file in os.listdir(self.cloud_credentials_dir):
             cmd = "dcm-post admin/Account --json {}".format(self.cloud_credentials_dir+'/'+credentials_file)
-            call(cmd, shell=True)
+            call(cmd, shell=True, stdout=subprocess.PIPE)
 
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+    def add_roles(self):
+        '''
+        Creates roles and sets ACL for those roles.
+        Looks in setup_dir/roles/roles and setup_dir/roles/acl
+
+        Uses the mixcoatl REST utilities:
+        1. dcm-post (for adding the roles)
+        2. dcm-set-acl (for setting the acl)
+
+        This method relies on a "role" parameter set in the role_acl like this:
+        {
+          "role" : "Developer",
+          "grant": [
+
+        This allows for the programmatic setting of ACL for each role.
+        :return:
+        '''
+
+        print "{:80}".format("Adding Roles"),
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for role_file in os.listdir(self.roles_dir):
+            if os.path.isfile(self.roles_dir+'/'+role_file):
+                cmd = "dcm-post admin/Role --json {}".format(self.roles_dir+'/'+role_file)
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+        result = subprocess.check_output(['dcm-list-roles', '--json'])
+
+        role_json = json.loads(result)
+
+        role_dict = dict((r['name'], r['role_id']) for r in role_json)
+
+        print "{:80}".format("Setting ACL"),
+        for acl_file in os.listdir(self.acl_dir):
+            if os.path.isfile(self.acl_dir + '/' + acl_file):
+                with open(self.acl_dir + '/' + acl_file, 'r') as f:
+                    acl_json = json.loads(f.read())
+                    role_name = acl_json['role']
+
+                    cmd = "dcm-put admin/Role/{} --json {}".format(role_dict[role_name], self.acl_dir + '/' + acl_file)
+                    call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
 
     def install_parachute(self):
         install_file = "/opt/parachute/bin/parachute"
