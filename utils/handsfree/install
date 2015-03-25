@@ -92,20 +92,25 @@ if cmd_args.host is not None \
 
     print "Starting install of DCM version " + cmd_args.version
 
-    tasks = ['fetch_vm_info', 'deps', 'fetch_release',
-              'run_setup', 'install_release', 'create_master_api_key',
-              'create_initial_user', 'install_admin', 'create_initial_cloud_accounts',
-              'add_private_clouds', 'create_user_api_key', 'set_user_credentials', 'add_roles']
+    install_tasks = ['fetch_vm_info', 'deps', 'fetch_release',
+              'run_setup', 'install_release', 'create_master_api_key']
 
-    # tasks = ['add_roles']
+    configure_tasks = ['create_initial_user', 'install_admin', 'create_initial_cloud_accounts',
+              'add_private_clouds', 'create_user_api_key', 'set_user_credentials', 'add_roles', 'add_billing_codes']
 
     if num_private_clouds == 0:
-        tasks.remove('add_private_clouds')
+        configure_tasks.remove('add_private_clouds')
 
     if num_cloud_credentials == 0:
-        tasks.remove('set_user_credentials')
+        configure_tasks.remove('set_user_credentials')
 
-    for task in tasks:
+    for task in install_tasks:
+        fab.execute(task)
+
+    print "Sleeping for a bit, please stand by."
+    time.sleep(300)
+
+    for task in configure_tasks:
         fab.execute(task)
 
     print '*** Script finished in', round(time.time() - total_start, 3), 'seconds.'

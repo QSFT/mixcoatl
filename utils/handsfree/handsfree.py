@@ -254,6 +254,89 @@ class FabricSupport:
                     call(cmd, shell=True, stdout=subprocess.PIPE)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
+    def add_groups(self):
+        '''
+        Creates groups
+        Looks in setup_dir/groups
+
+        Uses the mixcoatl REST utilities:
+        1. dcm-post (for adding the groups)
+        2. (for associating roles to groups)
+
+        This method relies on a "role" parameter set in the role_acl like this:
+        {
+          "role" : "Developer",
+          "grant": [
+
+        This allows for the programmatic setting of ACL for each role.
+        :return:
+        '''
+
+        print "{:80}".format("Adding Groups"),
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for role_file in os.listdir(self.roles_dir):
+            if os.path.isfile(self.roles_dir+'/'+role_file):
+                cmd = "dcm-post admin/Role --json {}".format(self.roles_dir+'/'+role_file)
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+        result = subprocess.check_output(['dcm-list-roles', '--json'])
+
+        role_json = json.loads(result)
+
+        role_dict = dict((r['name'], r['role_id']) for r in role_json)
+
+        print "{:80}".format("Setting ACL"),
+        for acl_file in os.listdir(self.acl_dir):
+            if os.path.isfile(self.acl_dir + '/' + acl_file):
+                with open(self.acl_dir + '/' + acl_file, 'r') as f:
+                    acl_json = json.loads(f.read())
+                    role_name = acl_json['role']
+
+                    cmd = "dcm-put admin/Role/{} --json {}".format(role_dict[role_name], self.acl_dir + '/' + acl_file)
+                    call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+    def add_billing_codes(self):
+        '''
+        Creates billing codes
+        Looks in setup_dir/billing
+
+        Uses the mixcoatl REST utilities:
+        1. dcm-post (for adding the billing codes)
+
+        :return: DCM ID for the created billing code.
+        '''
+
+        print "{:80}".format("Adding Billing Codes"),
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for billing_file in os.listdir(self.billing):
+            if os.path.isfile(self.billing+'/'+billing_file):
+                print billing_file
+                cmd = "dcm-post admin/BillingCode --json {}".format(self.billing+'/'+billing_file)
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
 
     def install_parachute(self):
         install_file = "/opt/parachute/bin/parachute"
