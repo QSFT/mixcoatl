@@ -32,7 +32,7 @@ class FabricSupport:
         self.cloud_descriptors_dir = '{}/clouds/descriptors'.format(setup_dir)
         self.cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
         self.user_dir = '{}/users'.format(setup_dir)
-        self.groups = '{}/groups'.format(setup_dir)
+        self.groups_dir = '{}/groups'.format(setup_dir)
         self.roles_dir = '{}/roles'.format(setup_dir)
         self.acl_dir = '{}/roles/acl'.format(setup_dir)
         self.billing = '{}/billing'.format(setup_dir)
@@ -261,15 +261,8 @@ class FabricSupport:
 
         Uses the mixcoatl REST utilities:
         1. dcm-post (for adding the groups)
-        2. (for associating roles to groups)
 
-        This method relies on a "role" parameter set in the role_acl like this:
-        {
-          "role" : "Developer",
-          "grant": [
-
-        This allows for the programmatic setting of ACL for each role.
-        :return:
+        :return: ID of the created group
         '''
 
         print "{:80}".format("Adding Groups"),
@@ -284,28 +277,28 @@ class FabricSupport:
         os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
         os.environ["DCM_SSL_VERIFY"] = '0'
 
-        for role_file in os.listdir(self.roles_dir):
-            if os.path.isfile(self.roles_dir+'/'+role_file):
-                cmd = "dcm-post admin/Role --json {}".format(self.roles_dir+'/'+role_file)
+        for group_file in os.listdir(self.groups_dir):
+            if os.path.isfile(self.groups_dir+'/'+group_file):
+                cmd = "dcm-post admin/Group --json {}".format(self.groups_dir+'/'+group_file)
                 call(cmd, shell=True, stdout=subprocess.PIPE)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
-        result = subprocess.check_output(['dcm-list-roles', '--json'])
-
-        role_json = json.loads(result)
-
-        role_dict = dict((r['name'], r['role_id']) for r in role_json)
-
-        print "{:80}".format("Setting ACL"),
-        for acl_file in os.listdir(self.acl_dir):
-            if os.path.isfile(self.acl_dir + '/' + acl_file):
-                with open(self.acl_dir + '/' + acl_file, 'r') as f:
-                    acl_json = json.loads(f.read())
-                    role_name = acl_json['role']
-
-                    cmd = "dcm-put admin/Role/{} --json {}".format(role_dict[role_name], self.acl_dir + '/' + acl_file)
-                    call(cmd, shell=True, stdout=subprocess.PIPE)
-        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+        # result = subprocess.check_output(['dcm-list-roles', '--json'])
+        #
+        # role_json = json.loads(result)
+        #
+        # role_dict = dict((r['name'], r['role_id']) for r in role_json)
+        #
+        # print "{:80}".format("Setting ACL"),
+        # for acl_file in os.listdir(self.acl_dir):
+        #     if os.path.isfile(self.acl_dir + '/' + acl_file):
+        #         with open(self.acl_dir + '/' + acl_file, 'r') as f:
+        #             acl_json = json.loads(f.read())
+        #             role_name = acl_json['role']
+        #
+        #             cmd = "dcm-put admin/Role/{} --json {}".format(role_dict[role_name], self.acl_dir + '/' + acl_file)
+        #             call(cmd, shell=True, stdout=subprocess.PIPE)
+        # print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
     def add_billing_codes(self):
         '''
