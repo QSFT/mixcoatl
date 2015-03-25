@@ -332,7 +332,6 @@ class FabricSupport:
 
         for billing_file in os.listdir(self.billing):
             if os.path.isfile(self.billing+'/'+billing_file):
-                print billing_file
                 cmd = "dcm-post admin/BillingCode --json {}".format(self.billing+'/'+billing_file)
                 call(cmd, shell=True, stdout=subprocess.PIPE)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
