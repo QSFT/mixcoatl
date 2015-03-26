@@ -261,6 +261,7 @@ class FabricSupport:
 
         Uses the mixcoatl REST utilities:
         1. dcm-post (for adding the groups)
+        2. dcm-put (for associating the account-role)
 
         :return: ID of the created group
         '''
@@ -283,12 +284,55 @@ class FabricSupport:
                 call(cmd, shell=True, stdout=subprocess.PIPE)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
-        # result = subprocess.check_output(['dcm-list-roles', '--json'])
+        role_result = subprocess.check_output(['dcm-list-roles', '--json'])
+        role_json = json.loads(role_result)
+        role_dict = dict((r['name'], r['role_id']) for r in role_json)
+
+        group_result = subprocess.check_output(['dcm-list-groups', '--json'])
+        group_json = json.loads(group_result)
+        group_dict = dict((r['name'], r['group_id']) for r in group_json)
+
+        account_result = subprocess.check_output(['dcm-list-accounts', '--json'])
+        account_json = json.loads(account_result)
+        account_list = [a['account_id'] for a in account_json]
+
+        billing_code_result = subprocess.check_output(['dcm-list-billing-codes', '--json'])
+        billing_code_json = json.loads(billing_code_result)
+
+        billing_code_list = [b['billing_code_id'] for b in billing_code_json]
+
+        print "\n"
+        for group_name, group_id in group_dict.iteritems():
+            role_assignments = []
+            billing_assignments = []
+            if group_name != 'Administrators':
+                try:
+                    for a in account_list:
+                        role_assignment = {"accountId": a, "roleId": role_dict[group_name[:-1]]}
+                        role_assignments.append(role_assignment)
+                        billing_assignment = {"accountId": a, "budgetCodes": billing_code_list}
+                        billing_assignments.append(billing_assignment)
+                except KeyError:
+                    pass
+
+                payload = {"addRoleAssignments": {"group": {"roleAssignments": role_assignments, "groupAccountBudgetCodes": billing_assignments}}}
+                with open('/tmp/role_assignment.json','w') as ra:
+                    ra.write(json.dumps(payload))
+                cmd = "dcm-put admin/Group/{} --json {}".format(group_id, '/tmp/role_assignment.json')
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+
+        # for account_id in account_list:
+        #     a = account_id
+        #     for role_name, role_id in role_dict.iteritems():
+        #         rn, ri = role_name, role_id
         #
-        # role_json = json.loads(result)
+        #         role_assignment = {"accountId": a, "roleId": ri}
         #
-        # role_dict = dict((r['name'], r['role_id']) for r in role_json)
+        #     role_assignments.append(role_assignment)
         #
+        #     print "\n"
+        #     print role_assignments
+        #     print "\n"
         # print "{:80}".format("Setting ACL"),
         # for acl_file in os.listdir(self.acl_dir):
         #     if os.path.isfile(self.acl_dir + '/' + acl_file):
