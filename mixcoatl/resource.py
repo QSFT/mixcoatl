@@ -169,6 +169,32 @@ class Resource(object):
     def params(self, p):
         self.__params = p
 
+    def _add_method(self, prop_name):
+        """Adds setter, getter and property for field `prop_name`"""
+        def set_attribute(self, val):
+            setattr(self, '__'+prop_name, val)
+
+        def get_attribute(self):
+            return getattr(self, '__'+prop_name)
+
+        setattr(self.__class__, 'set_'+prop_name, set_attribute)
+        setattr(self.__class__, 'get_'+prop_name, get_attribute)
+        setattr(self.__class__,
+                prop_name,
+                property(
+                    getattr(self, 'get_'+prop_name),
+                    getattr(self, 'set_'+prop_name)
+                ))
+
+    def add_property(self, prop_name):
+        self._add_method(prop_name)
+
+    def del_property(self, prop_name):
+        setvalue = 'set_'+prop_name
+        getvalue = 'get_'+prop_name
+        delattr(self.__class__, setvalue)
+        delattr(self.__class__, getvalue)
+
     def load(self, **kwargs):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
@@ -190,10 +216,9 @@ class Resource(object):
                     the_key = k
                 nk = '_%s__%s' % (self.__class__.__name__, the_key)
                 if the_key not in self.__props():
-                    raise AttributeError('Key found without accessor: %s' % k)
-                else:
-                    setattr(self, nk, scope[k])
-                    self.loaded = True
+                    self.add_property(k)
+                setattr(self, nk, scope[k])
+                self.loaded = True
         else:
             return self.last_error
 
