@@ -169,7 +169,7 @@ class Resource(object):
     def params(self, p):
         self.__params = p
 
-    def _add_method(self, prop_name):
+    def add_property(self, prop_name):
         """Adds setter, getter and property for field `prop_name`"""
         def set_attribute(self, val):
             setattr(self, '__'+prop_name, val)
@@ -185,9 +185,6 @@ class Resource(object):
                     getattr(self, 'get_'+prop_name),
                     getattr(self, 'set_'+prop_name)
                 ))
-
-    def add_property(self, prop_name):
-        self._add_method(prop_name)
 
     def del_property(self, prop_name):
         setvalue = 'set_'+prop_name
