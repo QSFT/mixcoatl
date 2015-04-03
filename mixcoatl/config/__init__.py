@@ -26,11 +26,11 @@ class Config(object):
         if not self.api_version:
             self.set_api_version(self.default_api_version)
 
-        self.set_basepath('/api/enstratus/%s' % self.api_version)
+        if not self.basepath:
+            self.set_basepath('/api/enstratus/%s' % self.api_version)
 
         if not self.endpoint:
             self.set_endpoint('https://api.enstratus.com' + self.basepath)
-
 
     def configure(self):
         if not os.path.exists(self.mixcoatl_dir):
