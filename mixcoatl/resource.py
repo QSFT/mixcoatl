@@ -186,12 +186,6 @@ class Resource(object):
                     getattr(self, 'set_'+prop_name)
                 ))
 
-    def del_property(self, prop_name):
-        setvalue = 'set_'+prop_name
-        getvalue = 'get_'+prop_name
-        delattr(self.__class__, setvalue)
-        delattr(self.__class__, getvalue)
-
     def load(self, **kwargs):
         """(Re)load the current object's attributes from an API call"""
         from mixcoatl.utils import uncamel_keys
