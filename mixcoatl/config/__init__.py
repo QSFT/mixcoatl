@@ -1,5 +1,4 @@
 import os
-import sys
 import glob
 import shutil
 import datetime
@@ -10,7 +9,6 @@ class Config(object):
     # pylint: disable-msg=E0710
 
     def __init__(self, *args, **kwargs):
-        self.dcm = None
         self.access_key = None
         self.secret_key = None
         self.endpoint = None
@@ -18,8 +16,20 @@ class Config(object):
         self.api_version = None
         self.basepath = None
         self.default_api_version = '2014-07-30'
-        self.ssl_verify = None
+        self.ssl_verify = True
         self.mixcoatl_dir = os.path.expanduser('~') + "/.mixcoatl"
+
+        # make settings
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+        if not self.api_version:
+            self.set_api_version(self.default_api_version)
+
+        self.set_basepath('/api/enstratus/%s' % self.api_version)
+
+        if not self.endpoint:
+            self.set_endpoint('https://api.enstratus.com' + self.basepath)
 
 
     def configure(self):
