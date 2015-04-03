@@ -1,24 +1,23 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
-from mixcoatl.admin.job import Job
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 import json
 
 
 class FirewallRule(Resource):
 
-    """ A firewall rule is an ingress or egress permission that grants or denies the right 
+    """ A firewall rule is an ingress or egress permission that grants or denies the right
     for traffic from a specific network source to a specific network destination."""
     PATH = 'network/FirewallRule'
     COLLECTION_NAME = 'rules'
     PRIMARY_KEY = 'firewall_rule_id'
 
-    def __init__(self, firewall_rule_id=None, *args, **kwargs):
+    def __init__(self, firewall_rule_id=None, config=None, *args, **kwargs):
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
 
-        Resource.__init__(self)
+        Resource.__init__(self, config=config)
         self.__firewall_rule_id = firewall_rule_id
 
     @property
@@ -28,13 +27,13 @@ class FirewallRule(Resource):
 
     @lazy_property
     def destination(self):
-        """`str` - The endpoint for the firewall rule. This could describe a different value 
+        """`str` - The endpoint for the firewall rule. This could describe a different value
         depending on the destination type."""
         return self.__destination
 
     @lazy_property
     def destination_type(self):
-        """`enum` - Describes the type of the destination value. Most clouds do not 
+        """`enum` - Describes the type of the destination value. Most clouds do not
         support every destination type."""
         return self.__destination_type
 
@@ -76,13 +75,13 @@ class FirewallRule(Resource):
 
     @lazy_property
     def source(self):
-        """`str` - The starting point for the firewall rule. This could describe a 
+        """`str` - The starting point for the firewall rule. This could describe a
         different value depending on the source type."""
         return self.__source
 
     @lazy_property
     def source_type(self):
-        """`enum` - Describes the type of the source value. Most clouds do 
+        """`enum` - Describes the type of the source value. Most clouds do
         not support every source type."""
         return self.__source_type
 
@@ -107,7 +106,7 @@ class FirewallRule(Resource):
 
     @lazy_property
     def precedence(self):
-        """`int` - A value indicating the position in the order list by which the firewall should 
+        """`int` - A value indicating the position in the order list by which the firewall should
         process the rules. Not all clouds support precedence for rule ordering."""
         return self.__precedence
 

@@ -1,7 +1,7 @@
 from mixcoatl.resource import Resource
 from mixcoatl.admin.job import Job
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
+from mixcoatl.utils import uncamel, camelize, uncamel_keys
 
 
 class StorageObject(Resource):
@@ -10,8 +10,8 @@ class StorageObject(Resource):
     COLLECTION_NAME = 'storageObjects'
     PRIMARY_KEY = 'storage_object_id'
 
-    def __init__(self, storage_object_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, storage_object_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__storage_object_id = storage_object_id
 
     @property

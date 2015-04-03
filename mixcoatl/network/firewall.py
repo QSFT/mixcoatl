@@ -5,6 +5,7 @@ from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.network.firewall_rule import FirewallRule
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
+
 import json
 
 
@@ -15,8 +16,8 @@ class Firewall(Resource):
     COLLECTION_NAME = 'firewalls'
     PRIMARY_KEY = "firewall_id"
 
-    def __init__(self, firewall_id=None, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, firewall_id=None, config=None, **kwargs):
+        Resource.__init__(self, config=config)
 
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']

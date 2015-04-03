@@ -19,8 +19,8 @@ class Customer(Resource):
     COLLECTION_NAME = 'customers'
     PRIMARY_KEY = 'customer_id'
 
-    def __init__(self, role_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, role_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__customer_id = customer_id
 
     @property

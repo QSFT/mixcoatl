@@ -18,8 +18,8 @@ class Job(Resource):
     COLLECTION_NAME = 'jobs'
     PRIMARY_KEY = 'job_id'
 
-    def __init__(self, job_id=None, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, job_id=None, config=None, **kwargs):
+        Resource.__init__(self, config=config)
         self.__job_id = job_id
 
     @property

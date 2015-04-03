@@ -17,8 +17,8 @@ class ConfigurationManagementSystem(Resource):
     COLLECTION_NAME = 'cmSystems'
     PRIMARY_KEY = 'cm_system_id'
 
-    def __init__(self, cm_account_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cm_account_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
 
     @classmethod
     def all(cls, **kwargs):

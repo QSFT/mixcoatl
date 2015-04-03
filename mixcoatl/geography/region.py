@@ -1,7 +1,7 @@
 """Implements the DCM Region API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize, camel_keys, uncamel_keys
+from mixcoatl.utils import camelize, uncamel_keys
 
 
 class Region(Resource):
@@ -11,8 +11,8 @@ class Region(Resource):
     COLLECTION_NAME = 'regions'
     PRIMARY_KEY = 'region_id'
 
-    def __init__(self, region_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, region_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__region_id = region_id
 
     @property

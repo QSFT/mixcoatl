@@ -8,13 +8,13 @@ import mixcoatl.infrastructure.server_product as sp
 import tests.data.server_product as sp_data
 from httpretty import HTTPretty
 from httpretty import httprettified
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 
 class TestServerProduct(unittest.TestCase):
     """Test ServerProduct API"""
 
     def setUp(self):
-        self.es_url = settings.endpoint+'/'+sp.ServerProduct.PATH
+        self.es_url = config.endpoint+'/'+sp.ServerProduct.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):

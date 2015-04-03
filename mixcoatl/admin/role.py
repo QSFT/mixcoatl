@@ -19,8 +19,8 @@ class Role(Resource):
     COLLECTION_NAME = 'roles'
     PRIMARY_KEY = 'role_id'
 
-    def __init__(self, role_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, role_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__role_id = role_id
 
     @property

@@ -19,8 +19,8 @@ class User(Resource):
     COLLECTION_NAME = 'users'
     PRIMARY_KEY = 'user_id'
 
-    def __init__(self, user_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, user_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__user_id = user_id
 
     @property

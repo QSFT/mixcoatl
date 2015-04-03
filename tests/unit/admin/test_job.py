@@ -13,14 +13,14 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.admin.job as rsrc
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 from mixcoatl.utils import camelize
 
 class TestJob(unittest.TestCase):
 
     def setUp(self):
         self.cls = rsrc.Job
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
+        self.es_url = '%s/%s' % (config.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/admin/job.json'
         with open(self.json_file) as f:
             self.data = f.read()

@@ -7,8 +7,8 @@ class TierAnalytics(Resource):
     COLLECTION_NAME = 'analytics'
     PRIMARY_KEY = 'tier_id'
 
-    def __init__(self, tier_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, tier_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__tier_id = tier_id
 
     @property

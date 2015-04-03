@@ -6,6 +6,7 @@ from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.infrastructure.snapshot import Snapshot
 from mixcoatl.infrastructure.snapshot import SnapshotException
 from mixcoatl.admin.job import Job
+
 import json
 import time
 
@@ -17,9 +18,9 @@ class Volume(Resource):
     COLLECTION_NAME = 'volumes'
     PRIMARY_KEY = 'volume_id'
 
-    def __init__(self, volume_id=None, **kwargs):
+    def __init__(self, volume_id=None, config=None, **kwargs):
         # pylint: disable-msg=W0613
-        Resource.__init__(self)
+        Resource.__init__(self, config=config)
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
         self.__volume_id = volume_id

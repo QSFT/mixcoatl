@@ -1,7 +1,7 @@
 """Implements the DCM DataCenter API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
+from mixcoatl.utils import uncamel, camelize, uncamel_keys
 
 
 class DataCenter(Resource):
@@ -14,8 +14,8 @@ class DataCenter(Resource):
     COLLECTION_NAME = 'dataCenters'
     PRIMARY_KEY = 'data_center_id'
 
-    def __init__(self, data_center_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, data_center_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__data_center_id = data_center_id
 
     @property

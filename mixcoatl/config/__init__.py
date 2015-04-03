@@ -9,7 +9,8 @@ from mixcoatl.exceptions import ConfigException
 class Config(object):
     # pylint: disable-msg=E0710
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        self.dcm = None
         self.access_key = None
         self.secret_key = None
         self.endpoint = None
@@ -19,6 +20,7 @@ class Config(object):
         self.default_api_version = '2014-07-30'
         self.ssl_verify = None
         self.mixcoatl_dir = os.path.expanduser('~') + "/.mixcoatl"
+
 
     def configure(self):
         if not os.path.exists(self.mixcoatl_dir):

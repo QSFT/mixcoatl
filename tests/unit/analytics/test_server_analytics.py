@@ -13,13 +13,13 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.analytics.server_analytics as rsrc
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 from mixcoatl.utils import camelize
 
 class TestServerAnalytics(unittest.TestCase):
     def setUp(self):
         self.cls = rsrc.ServerAnalytics
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
+        self.es_url = '%s/%s' % (config.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/analytics/server_analytics.json'
 
     # @httprettified

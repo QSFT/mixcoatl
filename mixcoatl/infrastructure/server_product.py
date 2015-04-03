@@ -13,8 +13,8 @@ class ServerProduct(Resource):
     COLLECTION_NAME = 'serverProducts'
     PRIMARY_KEY = 'product_id'
 
-    def __init__(self, product_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, product_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__product_id = product_id
 
     @property

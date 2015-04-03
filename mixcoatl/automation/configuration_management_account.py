@@ -1,6 +1,6 @@
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import uncamel, camelize, camel_keys, uncamel_keys
+from mixcoatl.utils import uncamel, camelize, uncamel_keys
 
 
 class ConfigurationManagementAccount(Resource):
@@ -12,8 +12,8 @@ class ConfigurationManagementAccount(Resource):
     COLLECTION_NAME = 'cmAccounts'
     PRIMARY_KEY = 'cm_account_id'
 
-    def __init__(self, cm_account_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cm_account_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__cm_account_id = cm_account_id
 
     @property

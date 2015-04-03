@@ -13,12 +13,12 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.admin.api_key as api_key
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 
 
 class TestApiKey(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint + '/' + api_key.ApiKey.PATH
+        self.es_url = config.endpoint + '/' + api_key.ApiKey.PATH
 
     # @httprettified
     # def test_has_all_and_is_one(self):

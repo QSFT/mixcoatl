@@ -2,6 +2,7 @@ from mixcoatl.resource import Resource
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
+
 import json
 
 
@@ -15,11 +16,11 @@ class MachineImage(Resource):
     COLLECTION_NAME = 'images'
     PRIMARY_KEY = 'machine_image_id'
 
-    def __init__(self, machine_image_id=None, *args, **kwargs):
+    def __init__(self, machine_image_id=None, config=None, *args, **kwargs):
         """A machine image is the baseline image or template from which
             virtual machines may be provisioned.
         """
-        Resource.__init__(self, request_details='basic')
+        Resource.__init__(self, request_details='basic', config=config)
         self.__machine_image_id = machine_image_id
 
     @property

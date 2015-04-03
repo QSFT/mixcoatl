@@ -5,9 +5,9 @@ mixcoatl.resource
 import os
 import requests as r
 import mixcoatl.auth as auth
-from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
+from mixcoatl.config import Config
 
 
 class Resource(object):
@@ -52,7 +52,19 @@ class Resource(object):
     #: The unique identifier of an individual resource
     PRIMARY_KEY = None
 
-    def __init__(self, base_path=None, request_details='basic', **kwargs):
+    def __init__(self,
+                 base_path=None,
+                 request_details='basic',
+                 config=None,
+                 **kwargs):
+
+        if config:
+            self.config = config
+        else:
+            # use the default config.
+            self.config = Config()
+            self.config.configure()
+
         if base_path is None:
             try:
                 self.__path = self.__class__.PATH
@@ -206,9 +218,9 @@ class Resource(object):
             based on DCM API documentation
         """
         failures = [400, 403, 404, 409, 500, 501, 503]
-        sig = auth.get_sig(method, self.path)
-        url = settings.endpoint + '/' + self.path
-        ssl_verify = settings.ssl_verify
+        sig = auth.get_sig(method, self.config, self.path)
+        url = self.config.endpoint + '/' + self.path
+        ssl_verify = self.config.ssl_verify
 
         if self.payload_format == 'xml':
             payload_format = 'application/xml'

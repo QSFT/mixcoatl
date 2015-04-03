@@ -14,13 +14,13 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.infrastructure.server as rsrc
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 from mixcoatl.utils import camelize
 
 class TestServer(unittest.TestCase):
     def setUp(self):
         self.cls = rsrc.Server
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
+        self.es_url = '%s/%s' % (config.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/infrastructure/server.json'
 
     @httprettified
