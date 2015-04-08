@@ -127,7 +127,7 @@ class Config(object):
             if 'DCM_ENDPOINT' in os.environ:
                 self.set_endpoint(os.environ['DCM_ENDPOINT'])
             else:
-                self.set_endpoint('https://api.enstratus.com' + self.basepath)
+                self.set_endpoint('https://dcm.enstratius.com' + self.basepath)
 
         if self.ssl_verify is None:
             if 'ES_SSL_VERIFY' in os.environ and 'DCM_SSL_VERIFY' not in os.environ:
