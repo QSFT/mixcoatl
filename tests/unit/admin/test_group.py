@@ -13,11 +13,11 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.admin.group as grp
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 
 class TestGroups(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint + '/' + grp.Group.PATH
+        self.es_url = config.endpoint + '/' + grp.Group.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):

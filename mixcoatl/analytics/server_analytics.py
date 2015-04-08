@@ -22,6 +22,8 @@ class ServerAnalytics(Resource):
 
     :param server_id: The server represented in the analytics
     :type server_id: int.
+    :param config
+    :type config instance
     :param interval: The interval in minutes for the requested data points
     :type interval: int.
     :param period_start: The start time in UNIX milliseconds for the first datapoint

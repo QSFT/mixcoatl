@@ -18,8 +18,8 @@ class ApiKey(Resource):
     COLLECTION_NAME = 'apiKeys'
     PRIMARY_KEY = 'access_key'
 
-    def __init__(self, access_key=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, access_key=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__access_key = access_key
 
     @property

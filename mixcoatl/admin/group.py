@@ -20,8 +20,8 @@ class Group(Resource):
     COLLECTION_NAME = 'groups'
     PRIMARY_KEY = 'group_id'
 
-    def __init__(self, group_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, group_id=None, config=None,*args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__group_id = group_id
 
     @property

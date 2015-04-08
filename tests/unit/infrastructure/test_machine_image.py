@@ -8,11 +8,11 @@ import mixcoatl.infrastructure.machine_image as mi
 import tests.data.machine_image as mi_data
 from httpretty import HTTPretty
 from httpretty import httprettified
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 
 class TestMachineImage(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint+'/'+mi.MachineImage.PATH
+        self.es_url = config.endpoint+'/'+mi.MachineImage.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):

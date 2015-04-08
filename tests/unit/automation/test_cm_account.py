@@ -13,13 +13,13 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.automation.configuration_management_account as rsrc
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 from mixcoatl.utils import camelize
 
 class TestConfigurationManagementAccount(unittest.TestCase):
     def setUp(self):
         self.cls = rsrc.ConfigurationManagementAccount
-        self.es_url = '%s/%s' % (settings.endpoint, self.cls.PATH)
+        self.es_url = '%s/%s' % (config.endpoint, self.cls.PATH)
         self.json_file = '../../tests/data/unit/automation/configuration_management_account.json'
 
     @httprettified

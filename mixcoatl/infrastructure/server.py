@@ -4,7 +4,6 @@ from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
 import json
-import sys
 import time
 
 
@@ -15,8 +14,8 @@ class Server(Resource):
     COLLECTION_NAME = 'servers'
     PRIMARY_KEY = 'server_id'
 
-    def __init__(self, server_id=None):
-        Resource.__init__(self)
+    def __init__(self, server_id=None, config=None):
+        Resource.__init__(self, config=config)
         self.__server_id = server_id
 
     @property

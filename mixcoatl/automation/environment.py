@@ -15,8 +15,8 @@ class Environment(Resource):
     COLLECTION_NAME = 'environments'
     PRIMARY_KEY = 'environmentId'
 
-    def __init__(self, environmentId=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, environmentId=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__environmentId = environmentId
 
     @classmethod

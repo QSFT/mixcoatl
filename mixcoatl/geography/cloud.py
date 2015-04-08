@@ -1,7 +1,7 @@
 """Implements the DCM Cloud API"""
 from mixcoatl.resource import Resource
 from mixcoatl.decorators.lazy import lazy_property
-from mixcoatl.utils import camelize, camel_keys, uncamel_keys
+from mixcoatl.utils import camelize, uncamel_keys
 
 
 class Cloud(Resource):
@@ -12,8 +12,8 @@ class Cloud(Resource):
     COLLECTION_NAME = 'clouds'
     PRIMARY_KEY = 'cloud_id'
 
-    def __init__(self, cloud_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cloud_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__cloud_id = cloud_id
 
     @property

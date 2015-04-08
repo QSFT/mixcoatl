@@ -4,6 +4,7 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
+
 import json
 
 
@@ -11,17 +12,17 @@ class Network(Resource):
 
     """ Dell Cloud Manager models two distinct kinds of networks as network resources:
 
-    * Standard networks such as an AWS VPC or Cloud.com network that represent a 
+    * Standard networks such as an AWS VPC or Cloud.com network that represent a
       network as known to a cloud provider
-    * Overlay networks such as a VPNCubed, CloudSwitch, or vCider network in which 
-      the network is an overlay on top of the cloud providers network 
+    * Overlay networks such as a VPNCubed, CloudSwitch, or vCider network in which
+      the network is an overlay on top of the cloud providers network
     """
     PATH = 'network/Network'
     COLLECTION_NAME = 'networks'
     PRIMARY_KEY = "network_id"
 
-    def __init__(self, network_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, network_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
 
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
@@ -133,13 +134,13 @@ class Network(Resource):
 
     @lazy_property
     def agent_communication(self):
-        """`bool` - Indicates whether communication between DCM and the agents on the guest operating systems 
+        """`bool` - Indicates whether communication between DCM and the agents on the guest operating systems
         in the cloud occur over a public or private channel."""
         return self.__agent_communication
 
     @lazy_property
     def allow_subnet_creation(self):
-        """`bool` - Indicates whether or not you can POST to the Subnet resource to dynamically create subnets 
+        """`bool` - Indicates whether or not you can POST to the Subnet resource to dynamically create subnets
         against this network."""
         return self.__allow_subnet_creation
 
@@ -155,7 +156,7 @@ class Network(Resource):
 
     @lazy_property
     def flat(self):
-        """`bool` - Indicates whether this network is a flat network or is part of a more fine-grained 
+        """`bool` - Indicates whether this network is a flat network or is part of a more fine-grained
         network hierarchy."""
         return self.__flat
 

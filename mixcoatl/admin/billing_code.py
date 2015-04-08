@@ -19,8 +19,8 @@ class BillingCode(Resource):
     COLLECTION_NAME = 'billingCodes'
     PRIMARY_KEY = 'billing_code_id'
 
-    def __init__(self, billing_code_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, billing_code_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__billing_code_id = billing_code_id
 
     @property

@@ -13,8 +13,8 @@ class LoadBalancer(Resource):
     COLLECTION_NAME = 'loadBalancers'
     PRIMARY_KEY = 'load_balancer_id'
 
-    def __init__(self, load_balancer_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, load_balancer_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__load_balancer_id = load_balancer_id
 
     @property

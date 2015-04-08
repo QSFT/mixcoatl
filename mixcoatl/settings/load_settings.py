@@ -1,4 +1,4 @@
 from mixcoatl.config import Config
 
-settings = Config()
-settings.configure()
+config = Config()
+config.configure()

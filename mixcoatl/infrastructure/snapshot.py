@@ -4,6 +4,7 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.admin.job import Job
+
 import json
 
 
@@ -14,9 +15,9 @@ class Snapshot(Resource):
     COLLECTION_NAME = 'snapshots'
     PRIMARY_KEY = 'snapshot_id'
 
-    def __init__(self, snapshot_id=None, *args, **kwargs):
+    def __init__(self, snapshot_id=None, config=None, *args, **kwargs):
         # pylint: disable-msg=W0613
-        Resource.__init__(self)
+        Resource.__init__(self, config=config)
         self.__snapshot_id = snapshot_id
 
     @property

@@ -15,8 +15,8 @@ class Script(Resource):
     COLLECTION_NAME = 'scripts'
     PRIMARY_KEY = 'cmAccountId'
 
-    def __init__(self, cmAccountId=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cmAccountId=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__cmAccountId = cmAccountId
 
     @property

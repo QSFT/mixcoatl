@@ -13,12 +13,12 @@ from httpretty import HTTPretty
 from httpretty import httprettified
 
 import mixcoatl.admin.billing_code as billing_code
-from mixcoatl.settings.load_settings import settings
+from mixcoatl.settings.load_settings import config
 
 
 class TestApiKey(unittest.TestCase):
     def setUp(self):
-        self.es_url = settings.endpoint + '/' + billing_code.BillingCode.PATH
+        self.es_url = config.endpoint + '/' + billing_code.BillingCode.PATH
 
     @httprettified
     def test_has_all_and_is_one(self):

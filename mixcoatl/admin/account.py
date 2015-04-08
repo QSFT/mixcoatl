@@ -18,8 +18,8 @@ class Account(Resource):
     COLLECTION_NAME = 'accounts'
     PRIMARY_KEY = 'account_id'
 
-    def __init__(self, account_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, account_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__account_id = account_id
 
     @property

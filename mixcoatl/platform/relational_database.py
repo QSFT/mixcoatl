@@ -3,7 +3,8 @@ from mixcoatl.admin.job import Job
 from mixcoatl.utils import camelize, camel_keys, uncamel_keys
 from mixcoatl.decorators.validations import required_attrs
 from mixcoatl.decorators.lazy import lazy_property
-import json, sys, time
+import json, time
+
 
 class RelationalDatabase(Resource):
     """A relational database is a database as a service offering supporting a relational model."""
@@ -11,8 +12,8 @@ class RelationalDatabase(Resource):
     COLLECTION_NAME = 'relational_databases'
     PRIMARY_KEY = 'relational_database_id'
 
-    def __init__(self, relational_database_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, relational_database_id=None, config=None, *args, **kwargs):
+        Resource.__init__(self, config=config)
         self.__relational_database_id = relational_database_id
 
     @property

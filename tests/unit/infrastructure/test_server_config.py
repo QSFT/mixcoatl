@@ -1,21 +1,20 @@
 import sys
-# These have to be set before importing any mixcoatl modules
-import os
-os.environ['ES_ACCESS_KEY'] = 'abcdefg'
-os.environ['ES_SECRET_KEY'] = 'gfedcba'
 import json
+
+from httpretty import HTTPretty
+from httpretty import httprettified
+
+import mixcoatl.infrastructure.server as rsrc
+from mixcoatl.utils import camelize
+from mixcoatl.config import Config
 
 if sys.version_info < (2, 7):
     import unittest2 as unittest
 else:
     import unittest
 
-from httpretty import HTTPretty
-from httpretty import httprettified
+config = Config(access_key='abcdefg', secret_key='gfedcba')
 
-import mixcoatl.infrastructure.server as rsrc
-from mixcoatl.settings.load_settings import config
-from mixcoatl.utils import camelize
 
 class TestServer(unittest.TestCase):
     def setUp(self):
@@ -29,11 +28,13 @@ class TestServer(unittest.TestCase):
 
         with open(self.json_file) as f:
             data = f.read()
-        HTTPretty.register_uri(HTTPretty.GET,
+        HTTPretty.register_uri(
+            HTTPretty.GET,
             self.es_url,
-            body = data,
-            status = 200,
-            content_type = "application/json")
+            body=data,
+            status=200,
+            content_type="application/json"
+        )
         s = self.cls.all()
 
     @httprettified
