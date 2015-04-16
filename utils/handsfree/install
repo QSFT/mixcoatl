@@ -90,6 +90,7 @@ if cmd_args.host is not None \
     private_clouds = '{}/clouds/descriptors'.format(cmd_args.setup)
     cloud_credentials = '{}/clouds/credentials'.format(cmd_args.setup)
     num_private_clouds=len(glob.glob(private_clouds+'/*.json'))
+    num_private_clouds_pricing=len(glob.glob(private_clouds+'/*pricing.sql'))
     num_cloud_credentials=len(glob.glob(cloud_credentials+'/*.json'))
 
     print "Starting install of DCM version " + cmd_args.version
@@ -97,12 +98,16 @@ if cmd_args.host is not None \
     install_tasks = ['fetch_vm_info', 'deps', 'fetch_release',
               'run_setup', 'install_release', 'create_master_api_key']
 
-    configure_tasks = ['create_initial_user', 'install_admin', 'create_initial_cloud_accounts',
-              'add_private_clouds', 'create_user_api_key', 'set_user_credentials', 'add_roles',
-              'add_billing_codes', 'add_groups']
+    configure_tasks = ['create_initial_user', 'install_admin', 'add_private_clouds', 
+              'add_private_clouds_pricing', 'create_initial_cloud_accounts', 'create_user_api_key',
+              'set_user_credentials', 'add_roles', 'add_billing_codes', 'add_groups',
+              'configure_dirsync', 'configure_auth', 'setup_marketplace']
 
     if num_private_clouds == 0:
         configure_tasks.remove('add_private_clouds')
+
+    if num_private_clouds_pricing == 0:
+        configure_tasks.remove('add_private_clouds_pricing')
 
     if num_cloud_credentials == 0:
         configure_tasks.remove('set_user_credentials')
