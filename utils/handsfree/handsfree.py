@@ -36,7 +36,9 @@ class FabricSupport:
         self.groups_dir = '{}/groups'.format(setup_dir)
         self.roles_dir = '{}/roles'.format(setup_dir)
         self.acl_dir = '{}/roles/acl'.format(setup_dir)
-        self.billing = '{}/billing'.format(setup_dir)
+        self.billing_dir = '{}/billing'.format(setup_dir)
+        self.auth_dir = '{}/auth'.format(setup_dir)
+        self.marketplace_dir = '{}/marketplace'.format(setup_dir)
         pass
 
     def random_pass(self):
@@ -370,9 +372,9 @@ class FabricSupport:
         os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
         os.environ["DCM_SSL_VERIFY"] = '0'
 
-        for billing_file in os.listdir(self.billing):
-            if os.path.isfile(self.billing+'/'+billing_file):
-                cmd = "dcm-post admin/BillingCode --json {}".format(self.billing+'/'+billing_file)
+        for billing_file in os.listdir(self.billing_dir):
+            if os.path.isfile(self.billing_dir+'/'+billing_file):
+                cmd = "dcm-post admin/BillingCode --json {}".format(self.billing_dir+'/'+billing_file)
                 call(cmd, shell=True, stdout=subprocess.PIPE)
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
 
@@ -390,9 +392,9 @@ class FabricSupport:
 
 
     def configure_auth(self):
-        auth_config_file = '{}/auth/auth_config.json'.format(self.setup_dir)
-        if exists(auth_config_file, use_sudo=True):
-            with open('{}/auth/auth_config.json'.format(self.setup_dir), 'r') as f:
+        auth_config_file = '{}/auth_config.json'.format(self.auth_dir)
+        if os.path.exists(auth_config_file):
+            with open(auth_config_file, 'r') as f:
                 contents=json.loads(f.read())
 
             method = contents['authentication_method']
@@ -420,10 +422,12 @@ class FabricSupport:
 
     def configure_dirsync(self):
         dirsync_file = '{}/auth/dirsync.cfg'.format(self.setup_dir)
-        if exists(dirsync_file, use_sudo=True):
+        if os.path.exists(dirsync_file):
             print "{:80}".format("Configure dirsync"),
 
-            cmd = "/services/backend/sbin/dirsync-tool.sh -f {}/auth/dirsync.cfg".format(self.setup_dir)
+            put(dirsync_file, '/tmp/dirsync.cfg')
+
+            cmd = "/services/backend/sbin/dirsync-tool.sh -f /tmp/dirsync.cfg"
             result = sudo(cmd)
 
             cmd = "/services/backend/sbin/dirsync-tool.sh --run"
@@ -447,8 +451,8 @@ class FabricSupport:
 
 
     def setup_marketplace(self):
-        marketplace_cfg_file = '{}/marketplace/marketplace_config.json'.format(self.setup_dir)
-        if exists(marketplace_cfg_file, use_sudo=True):
+        marketplace_cfg_file = '{}/marketplace_config.json'.format(self.marketplace_dir)
+        if os.path.exists(marketplace_cfg_file):
             print "{:80}".format("Setup Marketplace")
 
             with open(marketplace_cfg_file, 'r') as f:
@@ -484,11 +488,10 @@ class FabricSupport:
 
                 secret_key=contents['secretKey']
                 access_key=contents['accessKey']
-                api_endpoint=contents['apiEndpoint']
 
                 os.environ["DCM_ACCESS_KEY"] = access_key
                 os.environ["DCM_SECRET_KEY"] = secret_key
-                os.environ["DCM_ENDPOINT"] = api_endpoint
+                os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
                 os.environ["DCM_SSL_VERIFY"] = '0'
 
                 # This was just to test that mixcoatl calls work
@@ -503,7 +506,9 @@ class FabricSupport:
      
             except CalledProcessError as ex:
                 print "{:}".format('[ ' + colored('ERROR Encountered!', 'yellow') + ' ]')
-                print ex.output
+                print "CMD: {}".format(ex.cmd)
+                print "Output: {}".format(ex.output)
+                
                 return -1
  
             print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
