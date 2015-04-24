@@ -488,7 +488,6 @@ class FabricSupport:
 
                 secret_key=contents['secretKey']
                 access_key=contents['accessKey']
-                #api_endpoint=contents['apiEndpoint']
 
                 os.environ["DCM_ACCESS_KEY"] = access_key
                 os.environ["DCM_SECRET_KEY"] = secret_key
@@ -496,7 +495,7 @@ class FabricSupport:
                 os.environ["DCM_SSL_VERIFY"] = '0'
 
                 # This was just to test that mixcoatl calls work
-                result = check_output("dcm-get admin/Job", shell=True)
+                #result = check_output("dcm-get admin/Job", shell=True)
                 #print "RC06a: {}".format(result)
 
                 result = check_output("{}/marketplace-content/bin/add-catalog --resultpath catalogid 200".format(pwd), shell=True)
