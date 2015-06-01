@@ -76,11 +76,14 @@ if __name__ == '__main__':
         if hasattr(s, 'owning_groups'):
             server_table.add_row(
                 ["Owning Group ID", s.owning_groups[0]['group_id']])
-            server_table.add_row(
-                ["Owning Group Name", s.owning_groups[0]['name']])
-        else:
+            if hasattr(s.owning_groups, 'name'):
+                server_table.add_row(
+                    ["Owning Group Name", s.owning_groups[0]['name']])
+            else:
+                server_table.add_row(["Owning Group Name", None])
+        else:    
             server_table.add_row(["Owning Group ID", None])
-            server_table.add_row(["Owning Group Name", None])
+
         server_table.add_row(["Start Date", s.start_date])
         server_table.add_row(["Description", s.description])
         server_table.add_row(["Agent Version", s.agent_version])
