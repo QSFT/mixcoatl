@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 import os
+import subprocess
 import json
 import string
 import random
-from subprocess import call
+import glob
+from subprocess import call, check_output, CalledProcessError
 from termcolor import colored
 from fabric.api import cd, path, hide, sudo, run, execute, settings, get, put
 from fabric.contrib.files import exists
@@ -31,9 +33,12 @@ class FabricSupport:
         self.cloud_descriptors_dir = '{}/clouds/descriptors'.format(setup_dir)
         self.cloud_credentials_dir = '{}/clouds/credentials'.format(setup_dir)
         self.user_dir = '{}/users'.format(setup_dir)
-        self.groups = '{}/groups'.format(setup_dir)
-        self.roles = '{}/roles'.format(setup_dir)
-        self.billing = '{}/billing'.format(setup_dir)
+        self.groups_dir = '{}/groups'.format(setup_dir)
+        self.roles_dir = '{}/roles'.format(setup_dir)
+        self.acl_dir = '{}/roles/acl'.format(setup_dir)
+        self.billing_dir = '{}/billing'.format(setup_dir)
+        self.auth_dir = '{}/auth'.format(setup_dir)
+        self.marketplace_dir = '{}/marketplace'.format(setup_dir)
         pass
 
     def random_pass(self):
@@ -128,9 +133,11 @@ class FabricSupport:
     def add_private_clouds(self):
 
         print "{:80}".format("Adding Private Cloud Definitions"),
-        for private_cloud in os.listdir(self.cloud_descriptors_dir):
+        #for private_cloud in os.listdir(self.cloud_descriptors_dir):
+        for private_cloud in  glob.glob(self.cloud_descriptors_dir+'/*.json'):
 
-            put(self.cloud_descriptors_dir+'/'+private_cloud, '/tmp/private-cloud.json')
+            #put(self.cloud_descriptors_dir+'/'+private_cloud, '/tmp/private-cloud.json')
+            put(private_cloud, '/tmp/private-cloud.json')
             cmd = 'bash {}/add-cloud.sh /tmp/private-cloud.json'.format(self.sbin_dir)
 
             sudo(cmd)
@@ -195,9 +202,182 @@ class FabricSupport:
 
         for credentials_file in os.listdir(self.cloud_credentials_dir):
             cmd = "dcm-post admin/Account --json {}".format(self.cloud_credentials_dir+'/'+credentials_file)
-            call(cmd, shell=True)
+            call(cmd, shell=True, stdout=subprocess.PIPE)
 
         print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+    def add_roles(self):
+        '''
+        Creates roles and sets ACL for those roles.
+        Looks in setup_dir/roles/roles and setup_dir/roles/acl
+
+        Uses the mixcoatl REST utilities:
+        1. dcm-post (for adding the roles)
+        2. dcm-set-acl (for setting the acl)
+
+        This method relies on a "role" parameter set in the role_acl like this:
+        {
+          "role" : "Developer",
+          "grant": [
+
+        This allows for the programmatic setting of ACL for each role.
+        :return:
+        '''
+
+        print "{:80}".format("Adding Roles"),
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for role_file in os.listdir(self.roles_dir):
+            if os.path.isfile(self.roles_dir+'/'+role_file):
+                cmd = "dcm-post admin/Role --json {}".format(self.roles_dir+'/'+role_file)
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+        result = subprocess.check_output(['dcm-list-roles', '--json'])
+
+        role_json = json.loads(result)
+
+        role_dict = dict((r['name'], r['role_id']) for r in role_json)
+
+        print "{:80}".format("Setting ACL"),
+        for acl_file in os.listdir(self.acl_dir):
+            if os.path.isfile(self.acl_dir + '/' + acl_file):
+                with open(self.acl_dir + '/' + acl_file, 'r') as f:
+                    acl_json = json.loads(f.read())
+                    role_name = acl_json['role']
+
+                    cmd = "dcm-put admin/Role/{} --json {}".format(role_dict[role_name], self.acl_dir + '/' + acl_file)
+                    call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+    def add_groups(self):
+        '''
+        Creates groups
+        Looks in setup_dir/groups
+
+        Uses the mixcoatl REST utilities:
+        1. dcm-post (for adding the groups)
+        2. dcm-put (for associating the account-role)
+
+        :return: ID of the created group
+        '''
+
+        print "{:80}".format("Adding Groups"),
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for group_file in os.listdir(self.groups_dir):
+            if os.path.isfile(self.groups_dir+'/'+group_file):
+                cmd = "dcm-post admin/Group --json {}".format(self.groups_dir+'/'+group_file)
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+        role_result = subprocess.check_output(['dcm-list-roles', '--json'])
+        role_json = json.loads(role_result)
+        role_dict = dict((r['name'], r['role_id']) for r in role_json)
+
+        group_result = subprocess.check_output(['dcm-list-groups', '--json'])
+        group_json = json.loads(group_result)
+        group_dict = dict((r['name'], r['group_id']) for r in group_json)
+
+        account_result = subprocess.check_output(['dcm-list-accounts', '--json'])
+        account_json = json.loads(account_result)
+        account_list = [a['account_id'] for a in account_json]
+
+        billing_code_result = subprocess.check_output(['dcm-list-billing-codes', '--json'])
+        billing_code_json = json.loads(billing_code_result)
+
+        billing_code_list = [b['billing_code_id'] for b in billing_code_json]
+
+        #print "\n"
+        for group_name, group_id in group_dict.iteritems():
+            role_assignments = []
+            billing_assignments = []
+            if group_name != 'Administrators':
+                try:
+                    for a in account_list:
+                        role_assignment = {"accountId": a, "roleId": role_dict[group_name[:-1]]}
+                        role_assignments.append(role_assignment)
+                        billing_assignment = {"accountId": a, "budgetCodes": billing_code_list}
+                        billing_assignments.append(billing_assignment)
+                except KeyError:
+                    pass
+
+                payload = {"addRoleAssignments": {"group": {"roleAssignments": role_assignments, "groupAccountBudgetCodes": billing_assignments}}}
+                with open('/tmp/role_assignment.json','w') as ra:
+                    ra.write(json.dumps(payload))
+                cmd = "dcm-put admin/Group/{} --json {}".format(group_id, '/tmp/role_assignment.json')
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+
+        # for account_id in account_list:
+        #     a = account_id
+        #     for role_name, role_id in role_dict.iteritems():
+        #         rn, ri = role_name, role_id
+        #
+        #         role_assignment = {"accountId": a, "roleId": ri}
+        #
+        #     role_assignments.append(role_assignment)
+        #
+        #     print "\n"
+        #     print role_assignments
+        #     print "\n"
+        # print "{:80}".format("Setting ACL"),
+        # for acl_file in os.listdir(self.acl_dir):
+        #     if os.path.isfile(self.acl_dir + '/' + acl_file):
+        #         with open(self.acl_dir + '/' + acl_file, 'r') as f:
+        #             acl_json = json.loads(f.read())
+        #             role_name = acl_json['role']
+        #
+        #             cmd = "dcm-put admin/Role/{} --json {}".format(role_dict[role_name], self.acl_dir + '/' + acl_file)
+        #             call(cmd, shell=True, stdout=subprocess.PIPE)
+        # print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+    def add_billing_codes(self):
+        '''
+        Creates billing codes
+        Looks in setup_dir/billing
+
+        Uses the mixcoatl REST utilities:
+        1. dcm-post (for adding the billing codes)
+
+        :return: DCM ID for the created billing code.
+        '''
+
+        print "{:80}".format("Adding Billing Codes"),
+        with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+            contents=json.loads(f.read())
+
+        secret_key=contents['secretKey']
+        access_key=contents['accessKey']
+
+        os.environ["DCM_ACCESS_KEY"] = access_key
+        os.environ["DCM_SECRET_KEY"] = secret_key
+        os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+        os.environ["DCM_SSL_VERIFY"] = '0'
+
+        for billing_file in os.listdir(self.billing_dir):
+            if os.path.isfile(self.billing_dir+'/'+billing_file):
+                cmd = "dcm-post admin/BillingCode --json {}".format(self.billing_dir+'/'+billing_file)
+                call(cmd, shell=True, stdout=subprocess.PIPE)
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
 
     def install_parachute(self):
         install_file = "/opt/parachute/bin/parachute"
@@ -209,6 +389,132 @@ class FabricSupport:
                 sudo(
                     "bash -s - -v k.36 < <( curl http://download.parachuteapp.net/install.sh )")
             print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+
+    def configure_auth(self):
+        auth_config_file = '{}/auth_config.json'.format(self.auth_dir)
+        if os.path.exists(auth_config_file):
+            with open(auth_config_file, 'r') as f:
+                contents=json.loads(f.read())
+
+            method = contents['authentication_method']
+            endpoint = contents['sso_endpoint']
+            key = contents['sso_key']
+            saml_issuer = contents['saml_issuer_entity_id']
+
+            print "{:80}".format('Configure ' + method + ' Authentication'),
+        
+            policy_id = sudo("/services/backend/sbin/singlenode/mysql-root-shell.sh provisioning -N -B -e 'select default_security_policy_id from customer_configuration where customer_id = 200;'")
+        
+            sql = "update security_policy set authentication_method = \"{}\"".format(method)
+            if method == 'SAML':
+                sql += ",  sso_key = \"{}\", sso_endpoint = \"{}\"".format(key, endpoint)
+                if saml_issuer != None:
+                    sql += ", saml_issuer_entity_id = {}".format(saml_issuer)
+            sql += " where security_policy_id = {};".format(policy_id)
+
+            result = sudo("/services/backend/sbin/singlenode/mysql-root-shell.sh provisioning -e '{}'".format(sql))
+
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+        else:
+            print "{:80} {:}".format("No auth configuration found", '[ ' + colored('SKIPPING AUTH CONFIG', 'yellow') + ' ]')
+
+
+    def configure_dirsync(self):
+        dirsync_file = '{}/auth/dirsync.cfg'.format(self.setup_dir)
+        if os.path.exists(dirsync_file):
+            print "{:80}".format("Configure dirsync"),
+
+            put(dirsync_file, '/tmp/dirsync.cfg')
+
+            cmd = "/services/backend/sbin/dirsync-tool.sh -f /tmp/dirsync.cfg"
+            result = sudo(cmd)
+
+            cmd = "/services/backend/sbin/dirsync-tool.sh --run"
+            result = sudo(cmd)
+
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+        else:
+            print "{:80} {:}".format("No dirsync configuration found", '[ ' + colored('SKIPPING DIRSYNC', 'yellow') + ' ]')
+
+
+
+    def add_private_clouds_pricing(self):
+        print "{:80}".format("Adding Private Cloud Pricing Definitions"),
+        for private_cloud_pricing in glob.glob(self.cloud_descriptors_dir+'/*pricing.sql'):
+
+            put(private_cloud_pricing, '/tmp/private-cloud-pricing.sql')
+
+            result = sudo("/services/backend/sbin/singlenode/mysql-root-shell.sh provisioning < /tmp/private-cloud-pricing.sql")
+
+        print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+
+
+    def setup_marketplace(self):
+        marketplace_cfg_file = '{}/marketplace_config.json'.format(self.marketplace_dir)
+        if os.path.exists(marketplace_cfg_file):
+            print "{:80}".format("Setup Marketplace")
+
+            with open(marketplace_cfg_file, 'r') as f:
+                contents=json.loads(f.read())
+
+            github_creds = contents['github_credentials']
+
+            pwd = os.getcwd()
+
+            # Similar to mixcoatl, install the marketplace bits/git contents locally via subprocess calls
+
+            try:
+                # TODO: Need a better way to do this, so I don't have to embed personal credentials
+                # - Is there an artifactory download?
+                result = check_output("git clone https://{}@github.com/enStratus/marketplace-content.git".format(github_creds), shell=True)
+        
+                # Using virtualenv complicates things here since all the commands need to run in the same shell
+                # run and sudo create a new shell for each command
+                # NOTE: mixing subprocess commands like 'call' and fabric commands will break things if we actually
+                # perform multi-node installs
+
+                #result = run("virtualenv --no-site-packages venv")
+                #print "RC04: {}".format(result)
+                #result = run("source venv/bin/activate")
+                #print "RC05: {}".format(result)
+        
+                result = check_output("sudo pip install -r {}/marketplace-content/requirements.txt".format(pwd), shell=True)
+        
+                #master api key and user api should already exist, so just reuse
+        
+                with open('{}/userkeys.json'.format(self.setup_dir), 'r') as f:
+                    contents=json.loads(f.read())
+
+                secret_key=contents['secretKey']
+                access_key=contents['accessKey']
+
+                os.environ["DCM_ACCESS_KEY"] = access_key
+                os.environ["DCM_SECRET_KEY"] = secret_key
+                os.environ["DCM_ENDPOINT"] = 'http://{}:15000/api/enstratus/2015-01-28'.format(self.hosts)
+                os.environ["DCM_SSL_VERIFY"] = '0'
+
+                # This was just to test that mixcoatl calls work
+                #result = check_output("dcm-get admin/Job", shell=True)
+                #print "RC06a: {}".format(result)
+
+                result = check_output("{}/marketplace-content/bin/add-catalog --resultpath catalogid 200".format(pwd), shell=True)
+        
+                result = check_output("{}/marketplace-content/bin/mark-catalog-public `cat catalogid` --callback wss://{}/agentManager".format(pwd, self.hosts), shell=True)
+        
+                result = check_output("{}/marketplace-content/bin/add-content.sh `cat catalogid`".format(pwd), shell=True)
+     
+            except CalledProcessError as ex:
+                print "{:}".format('[ ' + colored('ERROR Encountered!', 'yellow') + ' ]')
+                print "CMD: {}".format(ex.cmd)
+                print "Output: {}".format(ex.output)
+                
+                return -1
+ 
+            print "{:}".format('[ ' + colored('OK', 'green') + ' ]')
+        else:
+            print "{:80} {:}".format("No github credentials found", '[ ' + colored('SKIPPING MARKETPLACE SETUP', 'yellow') + ' ]')
+
 
     def execute(self, task):
         with hide('output', 'running', 'warnings'), settings(warn_only=True):
