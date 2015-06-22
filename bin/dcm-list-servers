@@ -76,14 +76,14 @@ if __name__ == '__main__':
 
                 table.add_row([r.server_id,
                                r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
-                               r.provider_id,
-                               r.name,
+                               r.provider_id if hasattr(r,'provider') else None,
+                               r.name if hasattr(r,'name') else None,
                                public_ip_address,
-                               r.platform,
-                               r.budget,
-                               r.provider_product_id,
-                               r.status,
-                               r.start_date])
+                               r.platform if hasattr(r,'platform') else None,
+                               r.budget if hasattr(r,'budget') else None,
+                               r.provider_product_id if hasattr(r,'provider_product_id') else None,
+                               r.status if hasattr(r,'status') else None,
+                               r.start_date if hasattr(r,'start_date') else None])
             table.align = 'l'
             print(table)
         else:
