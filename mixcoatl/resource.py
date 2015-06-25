@@ -8,7 +8,89 @@ import mixcoatl.auth as auth
 from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
+import json
 
+class Endpoint(object):
+    """ A class for representing DCM endpoints and loading them from json files
+    """
+
+    def __init__(self, url = None, basepath=None, api_version=None, secret_key=None, access_key=None, ssl_verify=True, nickname=None):
+        """
+        :param url: The url of the DCM endpoint (e.g https://dcm.enstratius.com/api/enstratus/2015-05-25 )
+        :param basepath: Optional server path to the API (e.g. /api/enstratus/2015-05-25)
+        :param api_version: required API version (e.g. 2015-05-25)
+        :param access_key: DCM access key
+        :param secret_key: DCM secret key
+        :param ssl_verify: Should the endpoints SSL key be verified. Default is True
+        :param nickname: optional arbitrary short nick name to assign this endpoint
+        :
+        """
+        if url:
+            self.url = url
+        else:
+            raise ValueError("endpoint must be specified")
+        if  api_version:
+            self.api_version = api_version
+        else:
+            raise ValueError("api version must be specified")
+        if basepath:
+            self.basepath = basepath
+        else:
+            self.basepath = "/api/enstratus/%s" % self.api_version
+        if access_key:
+            self.access_key = access_key
+        else:
+            raise ValueError("access_key must be specified")
+        if secret_key:
+            self.secret_key = secret_key
+        else:
+            raise ValueError("secret_key must be specified")
+
+        self.ssl_verify = ssl_verify
+        self.nickname = nickname
+
+    @classmethod
+    def from_file(cls,filename):
+        """ Load a DCM endpoint definition from a json file and return and Endpoint object. For an example file see:
+            TODO: add github pointed to example file
+
+            :param filename: the full path to a json file containing and endpoint definition
+            :returns: Endpoint - the endpoint loaded from the file
+        """
+        endpoint_json = open(filename).read()
+        e = json.loads(endpoint_json)
+
+        return Endpoint(url=e['url'],
+                        basepath=e['basepath'] if 'basepath' in e else None,
+                        api_version= e['api_version'],
+                        secret_key=str(e['secret_key']),
+                        access_key=str(e['access_key']),
+                        ssl_verify=e['ssl_verify'] if 'ssl_verify' in e else None,
+                        nickname=e['nickname'] if 'nickname' in e else None)
+
+    @classmethod
+    def multiple_from_file(cls,filename):
+        """ Load multiple DCM endpoint definitions from a json file and return a dictionary indexed by endpont nicknames
+        For an example file see:
+            TODO: add github pointed to example file
+
+            :param filename: the full path to a json file containing and multiple endpoint definitions
+            :returns: Endpoint dictionary - a dictionary indexed by endpoint nicknames
+        """
+        endpoint_json = open(filename).read()
+        endpoint_in = json.loads(endpoint_json)
+        endpoint_dict ={}
+
+        for e in endpoint_in:
+            endpoint_dict[e['nickname']] = Endpoint(url=e['url'],
+                                                    basepath=e['basepath'] if 'basepath' in e else None,
+                                                    api_version=e['api_version'],
+                                                    secret_key=str(e['secret_key']),
+                                                    access_key=str(e['access_key']),
+                                                    ssl_verify=e['ssl_verify'] if 'ssl_verify' in e else None,
+                                                    nickname=e['nickname'] if 'nickname' in e else None)
+
+        return endpoint_dict
 
 class Resource(object):
 
@@ -52,7 +134,7 @@ class Resource(object):
     #: The unique identifier of an individual resource
     PRIMARY_KEY = None
 
-    def __init__(self, base_path=None, request_details='basic', **kwargs):
+    def __init__(self, base_path=None, request_details='basic', endpoint=None, **kwargs):
         if base_path is None:
             try:
                 self.__path = self.__class__.PATH
@@ -71,7 +153,16 @@ class Resource(object):
             self.__params = kwargs['params']
         else:
             self.__params = {}
-
+        if endpoint:
+            self.__endpoint = endpoint
+        else:
+            # no endpoint provided, pull from settings
+            self.__endpoint = Endpoint(url=settings.endpoint,
+                                       basepath=settings.basepath,
+                                       api_version=settings.api_version,
+                                       secret_key=settings.secret_key,
+                                       access_key=settings.access_key,
+                                       ssl_verify=settings.ssl_verify)
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
@@ -226,9 +317,9 @@ class Resource(object):
             based on DCM API documentation
         """
         failures = [400, 403, 404, 409, 500, 501, 503]
-        sig = auth.get_sig(method, self.path)
-        url = settings.endpoint + '/' + self.path
-        ssl_verify = settings.ssl_verify
+        sig = auth.get_sig(method, self.path, endpoint=self.__endpoint)
+        url = self.__endpoint.url + '/' + self.path
+        ssl_verify = self.__endpoint.ssl_verify
 
         if self.payload_format == 'xml':
             payload_format = 'application/xml'

@@ -14,9 +14,9 @@ class Snapshot(Resource):
     COLLECTION_NAME = 'snapshots'
     PRIMARY_KEY = 'snapshot_id'
 
-    def __init__(self, snapshot_id=None, *args, **kwargs):
+    def __init__(self, snapshot_id=None, endpoint=None, *args, **kwargs):
         # pylint: disable-msg=W0613
-        Resource.__init__(self)
+        Resource.__init__(self, endpoint=endpoint)
         self.__snapshot_id = snapshot_id
 
     @property
@@ -229,7 +229,7 @@ class Snapshot(Resource):
             raise SnapshotException(self.last_error)
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """Return a list of snapshots
 
         :param account_id: Restrict to snapshots owned by `account_id`
@@ -245,7 +245,7 @@ class Snapshot(Resource):
         :returns: `list` of :attr:`snapshot_id` or :class:`Snapshot`
         :raises: :class:`SnapshotException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

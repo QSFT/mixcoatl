@@ -15,9 +15,10 @@ class Server(Resource):
     COLLECTION_NAME = 'servers'
     PRIMARY_KEY = 'server_id'
 
-    def __init__(self, server_id=None):
-        Resource.__init__(self)
+    def __init__(self, server_id=None, endpoint=None):
+        Resource.__init__(self, endpoint=endpoint)
         self.__server_id = server_id
+
 
     @property
     def server_id(self):
@@ -540,7 +541,7 @@ class Server(Resource):
                 return self
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """Get a list of all known servers
 
         >>> Server.all()
@@ -549,7 +550,7 @@ class Server(Resource):
         :returns: list -- a list of :class:`Server`
         :raises: ServerException
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

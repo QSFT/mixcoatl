@@ -18,8 +18,8 @@ class Account(Resource):
     COLLECTION_NAME = 'accounts'
     PRIMARY_KEY = 'account_id'
 
-    def __init__(self, account_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, account_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__account_id = account_id
 
     @property
@@ -166,7 +166,7 @@ class Account(Resource):
             raise CreateAccountException(self.last_error)
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Get all accounts
 
         >>> Account.all(detail='basic')
@@ -184,7 +184,7 @@ class Account(Resource):
         :returns: `list` of :class:`Account` or :attr:`account_id`
         :raises: :class:`AccountException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH,endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

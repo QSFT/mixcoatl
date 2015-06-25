@@ -17,9 +17,9 @@ class Volume(Resource):
     COLLECTION_NAME = 'volumes'
     PRIMARY_KEY = 'volume_id'
 
-    def __init__(self, volume_id=None, **kwargs):
+    def __init__(self, volume_id=None, endpoint=None, **kwargs):
         # pylint: disable-msg=W0613
-        Resource.__init__(self)
+        Resource.__init__(self, endpoint=endpoint)
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
         self.__volume_id = volume_id
@@ -362,7 +362,7 @@ class Volume(Resource):
             raise VolumeSnapshotException(str(e))
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """List all volumes
         :param account_id: Restrict to volumes owned by `account_id`
         :type account_id: int.
@@ -377,7 +377,7 @@ class Volume(Resource):
         :returns: `list` of :attr:`volume_id` or :class:`Volume`
         :raises: :class:`VolumeException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

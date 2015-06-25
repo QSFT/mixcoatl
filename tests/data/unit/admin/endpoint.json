@@ -1,0 +1,8 @@
+{
+  "nickname":"saas",
+  "url":"https://dcm.enstratius.com/api/enstratus/2015-05-25",
+  "api_version":"2015-05-25",
+  "access_key":"abcdefg",
+  "secret_key":"gfedcba",
+  "ssl_verify": true
+}

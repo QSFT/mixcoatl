@@ -18,8 +18,8 @@ class ApiKey(Resource):
     COLLECTION_NAME = 'apiKeys'
     PRIMARY_KEY = 'access_key'
 
-    def __init__(self, access_key=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, access_key=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__access_key = access_key
 
     @property
@@ -147,7 +147,7 @@ class ApiKey(Resource):
         return a
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Get all api keys
 
         .. note::
@@ -166,10 +166,10 @@ class ApiKey(Resource):
         """
 
         if 'access_key' in kwargs:
-            r = Resource(cls.PATH + "/" + kwargs['access_key'])
+            r = Resource(cls.PATH + "/" + kwargs['access_key'], endpoint=endpoint)
             params = {}
         else:
-            r = Resource(cls.PATH)
+            r = Resource(cls.PATH, endpoint=endpoint)
 
             if 'detail' in kwargs:
                 r.request_details = kwargs['detail']

@@ -19,8 +19,8 @@ class Role(Resource):
     COLLECTION_NAME = 'roles'
     PRIMARY_KEY = 'role_id'
 
-    def __init__(self, role_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, role_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__role_id = role_id
 
     @property
@@ -92,7 +92,7 @@ class Role(Resource):
             raise RoleCreationException(self.last_error)
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Get all roles
 
         .. note::

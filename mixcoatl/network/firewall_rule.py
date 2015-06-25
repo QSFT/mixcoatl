@@ -14,11 +14,11 @@ class FirewallRule(Resource):
     COLLECTION_NAME = 'rules'
     PRIMARY_KEY = 'firewall_rule_id'
 
-    def __init__(self, firewall_rule_id=None, *args, **kwargs):
+    def __init__(self, firewall_rule_id=None, endpoint=None, *args, **kwargs):
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
 
-        Resource.__init__(self)
+        Resource.__init__(self, endpoint=endpoint)
         self.__firewall_rule_id = firewall_rule_id
 
     @property
@@ -174,7 +174,7 @@ class FirewallRule(Resource):
             raise FirewallRuleException(self.last_error)
 
     @classmethod
-    def all(cls, firewall_id, **kwargs):
+    def all(cls, firewall_id, endpoint=None, **kwargs):
         """List all rules for `firewall_id`
 
         :param firewall_id: The id of the firewall to list rules for
@@ -187,7 +187,7 @@ class FirewallRule(Resource):
         :raises: :class:`FirewallRuleException`
         """
 
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

@@ -15,8 +15,8 @@ class Firewall(Resource):
     COLLECTION_NAME = 'firewalls'
     PRIMARY_KEY = "firewall_id"
 
-    def __init__(self, firewall_id=None, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, firewall_id=None, endpoint=None, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
 
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
@@ -179,7 +179,7 @@ class Firewall(Resource):
         """Describe a firewall"""
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """List all firewalls in `region_id`
         :param region_id: Limit results to `region_id`
         :type region_id: int.
@@ -192,7 +192,7 @@ class Firewall(Resource):
         :returns: `list` of :attr:`firewall_id` or :class:`Firewall`
         :raises: :class:`FirewallException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=None)
         params = {}
 
         if 'detail' in kwargs:

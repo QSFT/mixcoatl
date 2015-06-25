@@ -11,8 +11,8 @@ class RelationalDatabaseProduct(Resource):
     COLLECTION_NAME = 'rdbmsProducts'
     PRIMARY_KEY = 'product_id'
 
-    def __init__(self, product_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, product_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__product_id = product_id
 
     @property
@@ -130,7 +130,7 @@ class RelationalDatabaseProduct(Resource):
                 return self.last_error
 
     @classmethod
-    def all(cls, region_id, engine, **kwargs):
+    def all(cls, region_id, engine, endpoint=None, **kwargs):
         """Get a list of all known relational_databases
 
         >>> RelationalDatabaseProduct.all(region_id=100, engine='MYSQL51')
@@ -139,7 +139,7 @@ class RelationalDatabaseProduct(Resource):
         :returns: list -- a list of :class:`RelationalDatabaseProduct`
         :raises: RelationalDatabaseProductException
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         r.request_details = 'basic'
         params = {'regionId': region_id, 'engine': engine}
 

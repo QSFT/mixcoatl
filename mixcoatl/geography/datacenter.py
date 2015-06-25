@@ -14,8 +14,8 @@ class DataCenter(Resource):
     COLLECTION_NAME = 'dataCenters'
     PRIMARY_KEY = 'data_center_id'
 
-    def __init__(self, data_center_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, data_center_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__data_center_id = data_center_id
 
     @property
@@ -49,7 +49,7 @@ class DataCenter(Resource):
         return self.__status
 
     @classmethod
-    def all(cls, region_id, **kwargs):
+    def all(cls, region_id, endpoint=None, **kwargs):
         """Return all data centers
 
         :param region_id: Required. The region to query against
@@ -61,7 +61,7 @@ class DataCenter(Resource):
         :returns: `list` of :class:`DataCenter` or :attr:`data_center_id`
         :raises: :class:`DataCenterException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
 
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
