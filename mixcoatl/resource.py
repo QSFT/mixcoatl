@@ -9,6 +9,7 @@ from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
 import json
+import datetime
 
 
 class Endpoint(object):
@@ -20,7 +21,8 @@ class Endpoint(object):
         """
         :param url: The url of the DCM endpoint (e.g https://dcm.enstratius.com/api/enstratus/2015-05-25 )
         :param basepath: Optional server path to the API (e.g. /api/enstratus/2015-05-25)
-        :param api_version: required API version (e.g. 2015-05-25)
+        :param api_version: required API version (e.g. 2015-05-25) , if missing an attempt is made to parse it
+                            from from the end of the url
         :param access_key: DCM access key
         :param secret_key: DCM secret key
         :param ssl_verify: Should the endpoints SSL key be verified. Default is True
@@ -30,11 +32,16 @@ class Endpoint(object):
         if url:
             self.url = url
         else:
-            raise ValueError("endpoint must be specified")
+            raise ValueError("endpoint url must be specified")
         if api_version:
-            self.api_version = api_version
+            self.api_version = self._validate_api_version(api_version)
         else:
-            raise ValueError("api version must be specified")
+            try:
+                # attempt to grab the API version from the url
+                self.api_version = self._validate_api_version(self.url.split('/')[-1])
+            except ValueError:
+                raise ValueError("endpoint was created without an api_version and did not contain a " +
+                                 "URL terminated with a valid date in YYYY-MM-DD format")
         if basepath:
             self.basepath = basepath
         else:
@@ -50,6 +57,14 @@ class Endpoint(object):
 
         self.ssl_verify = ssl_verify
         self.nickname = nickname
+
+    @staticmethod
+    def _validate_api_version(date):
+        try:
+            datetime.datetime.strptime(date, '%Y-%m-%d')
+            return date
+        except ValueError:
+            raise ValueError("Incorrectly formatted API version, should be YYYY-MM-DD")
 
     @classmethod
     def from_file(cls, filename):
