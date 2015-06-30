@@ -10,11 +10,13 @@ from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
 import json
 
+
 class Endpoint(object):
     """ A class for representing DCM endpoints and loading them from json files
     """
 
-    def __init__(self, url = None, basepath=None, api_version=None, secret_key=None, access_key=None, ssl_verify=True, nickname=None):
+    def __init__(self, url=None, basepath=None, api_version=None, secret_key=None,
+                 access_key=None, ssl_verify=True, nickname=None):
         """
         :param url: The url of the DCM endpoint (e.g https://dcm.enstratius.com/api/enstratus/2015-05-25 )
         :param basepath: Optional server path to the API (e.g. /api/enstratus/2015-05-25)
@@ -29,7 +31,7 @@ class Endpoint(object):
             self.url = url
         else:
             raise ValueError("endpoint must be specified")
-        if  api_version:
+        if api_version:
             self.api_version = api_version
         else:
             raise ValueError("api version must be specified")
@@ -50,7 +52,7 @@ class Endpoint(object):
         self.nickname = nickname
 
     @classmethod
-    def from_file(cls,filename):
+    def from_file(cls, filename):
         """ Load a DCM endpoint definition from a json file and return and Endpoint object. For an example file see:
             TODO: add github pointed to example file
 
@@ -62,14 +64,14 @@ class Endpoint(object):
 
         return Endpoint(url=e['url'],
                         basepath=e['basepath'] if 'basepath' in e else None,
-                        api_version= e['api_version'],
+                        api_version=e['api_version'],
                         secret_key=str(e['secret_key']),
                         access_key=str(e['access_key']),
                         ssl_verify=e['ssl_verify'] if 'ssl_verify' in e else None,
                         nickname=e['nickname'] if 'nickname' in e else None)
 
     @classmethod
-    def multiple_from_file(cls,filename):
+    def multiple_from_file(cls, filename):
         """ Load multiple DCM endpoint definitions from a json file and return a dictionary indexed by endpont nicknames
         For an example file see:
             TODO: add github pointed to example file
@@ -79,7 +81,7 @@ class Endpoint(object):
         """
         endpoint_json = open(filename).read()
         endpoint_in = json.loads(endpoint_json)
-        endpoint_dict ={}
+        endpoint_dict = {}
 
         for e in endpoint_in:
             endpoint_dict[e['nickname']] = Endpoint(url=e['url'],
@@ -89,8 +91,8 @@ class Endpoint(object):
                                                     access_key=str(e['access_key']),
                                                     ssl_verify=e['ssl_verify'] if 'ssl_verify' in e else None,
                                                     nickname=e['nickname'] if 'nickname' in e else None)
-
         return endpoint_dict
+
 
 class Resource(object):
 
