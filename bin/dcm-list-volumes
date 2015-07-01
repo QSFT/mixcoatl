@@ -53,7 +53,7 @@ if __name__ == '__main__':
         table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
         for r in results:
             if hasattr(r, 'server'):
-                server = r.server['server_id'] if hasattr(r.server, 'server_id') else 'Not Mounted'
+                server = r.server['server_id'] if 'server_id' in r.server else 'Not Mounted'
             else:
                 server = 'Not Mounted'
 
