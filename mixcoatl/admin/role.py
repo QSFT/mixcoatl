@@ -110,7 +110,7 @@ class Role(Resource):
         :returns: `list` of :attr:`role_id` or :class:`Role`
         :raises: :class:`RoleException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

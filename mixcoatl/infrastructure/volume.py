@@ -248,6 +248,15 @@ class Volume(Resource):
         else:
             raise VolumeCreationException(self.last_error)
 
+    def set_from_file(self, filename):
+        """load server attributes from a json file
+        :param filename: str with the full path to the json file containing the volume attributes
+        """
+        volume_file = open(filename).read()
+        volume_dict = json.loads(volume_file)
+        for key, value in volume_dict.items():
+            setattr(self, key, value)
+
     def update(self):
         """Updates a volume with changed values
 

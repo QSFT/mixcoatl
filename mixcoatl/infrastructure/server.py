@@ -510,6 +510,15 @@ class Server(Resource):
         else:
             raise ServerLaunchException(self.last_error)
 
+    def set_from_file(self, filename):
+        """load server attributes from a json file
+        :param filename: str with the full path to the json file containing the server attributes
+        """
+        server_file = open(filename).read()
+        server_dict = json.loads(server_file)
+        for key,value in server_dict.items():
+            setattr(self, key, value)
+
     def duplicate(self, server):
         pass
 

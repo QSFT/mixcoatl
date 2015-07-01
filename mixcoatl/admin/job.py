@@ -42,6 +42,14 @@ class Job(Resource):
         """`str` A message describing the current disposition of the operation"""
         return self.__message
 
+    def latest_message(self):
+        """`str` The *latest* message describing the current disposition of the operation
+            this method forces a reload of the Job attributes from the API. It is often useful
+            after waiting for a for a job to complete with wait_for(job_id)
+        """
+        self.load()
+        return self.message
+
     @lazy_property
     def start_date(self):
         """`str` The date and time when the job was started"""
@@ -79,7 +87,7 @@ class Job(Resource):
             raise JobException(r.last_error)
 
     @classmethod
-    def wait_for(cls, job_id, status='COMPLETE', callback=None):
+    def wait_for(cls, job_id, status='COMPLETE', callback=None, endpoint=None):
         """Blocks execution until :attr:`job_id` returns :attr:`status`
 
         :param job_id: The ID of the job to wait on
@@ -92,7 +100,7 @@ class Job(Resource):
         :returns: `bool` - Result of job exectution
         :raises: :class:`JobException`
         """
-        j = Job(job_id)
+        j = Job(job_id, endpoint=endpoint)
         j.load()
         if j.last_error is not None:
             raise JobException(j.last_error)
