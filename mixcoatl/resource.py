@@ -171,19 +171,20 @@ class Resource(object):
 
     def add_property(self, prop_name):
         """Adds setter, getter and property for field `prop_name`"""
-        def set_attribute(self, val):
-            setattr(self, '__'+prop_name, val)
+        def set_attribute(cls, val):
+            # since we are using __ mangling we need _'+cls.__class__.__name__+
+            setattr(cls, '_'+cls.__class__.__name__+'__'+prop_name, val)
 
-        def get_attribute(self):
-            return getattr(self, '__'+prop_name)
+        def get_attribute(cls):
+            return getattr(cls, '_'+cls.__class__.__name__+'__'+prop_name)
 
         setattr(self.__class__, 'set_'+prop_name, set_attribute)
         setattr(self.__class__, 'get_'+prop_name, get_attribute)
         setattr(self.__class__,
                 prop_name,
                 property(
-                    getattr(self, 'get_'+prop_name),
-                    getattr(self, 'set_'+prop_name)
+                    getattr(self.__class__, 'get_'+prop_name),
+                    getattr(self.__class__, 'set_'+prop_name)
                 ))
 
     def load(self, **kwargs):
@@ -208,6 +209,9 @@ class Resource(object):
                 nk = '_%s__%s' % (self.__class__.__name__, the_key)
                 if the_key not in self.__props():
                     self.add_property(k)
+                    if 'DCM_DEBUG' in os.environ:
+                        print "Missing key found when loading class %s with primary key %s: %s" % \
+                              ( self.__class__.__name__, str(getattr(self, self.__class__.PRIMARY_KEY)), k)
                 setattr(self, nk, scope[k])
                 self.loaded = True
         else:
