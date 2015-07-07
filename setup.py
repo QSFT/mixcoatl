@@ -3,6 +3,7 @@
 import mixcoatl
 import os
 import glob
+import sys
 
 try:
     from setuptools import setup
@@ -25,6 +26,10 @@ packages = [
 ]
 
 requires = ['requests==1.0.4', 'prettytable==0.7.2', 'dicttoxml==1.5.8', 'termcolor==1.1.0', 'BeautifulSoup==3.2.1']
+
+if sys.version_info < (2, 7):
+    requires.append('argparse')
+
 setup(
     name='mixcoatl',
     version=mixcoatl.__version__,
