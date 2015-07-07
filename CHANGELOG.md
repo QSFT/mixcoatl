@@ -1,8 +1,11 @@
 Mixcoatl ChangeLog
 ==================
 
+![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
+
 Unreleased
 ===========
+Placeholder for changes pending in the next release
 
 Release Date: pending
 
@@ -10,28 +13,40 @@ You can now configure multiple alternate DCM endpoint via a new python object En
 
 Features
 ---------
-- Added #225: multiple endpoint support
+- Added [#225][225]: multiple endpoint support
 
 Fixes
 --------
-- Fixed #207: allow configuration via python
+- Fixed [#207][207]: allow configuration via python
+
+[207]:https://github.com/enStratus/mixcoatl/issues/207
+[225]:https://github.com/enStratus/mixcoatl/pull/225
 
 0.10.50
 =============
 
-Release Date: 2015-07-01
+Release Date: 2015-07-07
 
 Features
 --------
-- Added #202: dcm-create-user support for ssh key
-- Added #214: support for ldap dirsync, saml config, private cloud pricing, and marketplace setup
+- Added [#202][202]: dcm-create-user support for ssh key
+- Added [#214][214]: handsfree installer support for ldap dirsync, saml config, private cloud pricing, and marketplace setup
+- Added [#229][229]: runtime adding of access methods for new API attributes
 
 Fixes
 ------
-- Fixed #217 #221:  some dcm-* cli tools crash when pretty printing missing attributes
-- Fixed #226: dcm-list-volumes not reporting server ID
-- Fix default DCM_ENDPOINT for dcm.enstratius.com
-- Automatically add missing resource properties
+- Fixed [#217][217] [#221][221]:  some dcm-* cli tools crash when pretty printing missing attributes
+- Fixed [#226][226]: dcm-list-volumes not reporting server ID
+- Fixed [#212][212]: default DCM_ENDPOINT for dcm.enstratius.com
+
+[202]:https://github.com/enStratus/mixcoatl/pull/202
+[214]:https://github.com/enStratus/mixcoatl/pull/214
+[229]:https://github.com/enStratus/mixcoatl/issues/229
+[217]:https://github.com/enStratus/mixcoatl/pull/217
+[221]:https://github.com/enStratus/mixcoatl/issues/221
+[226]:https://github.com/enStratus/mixcoatl/issues/226
+[229]:https://github.com/enStratus/mixcoatl/issues/229
+[212]:https://github.com/enStratus/mixcoatl/pull/212
 
 
 
