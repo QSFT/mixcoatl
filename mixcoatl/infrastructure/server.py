@@ -131,12 +131,30 @@ class Server(Resource):
 
     @lazy_property
     def vlan(self):
-        """`list` - The vlan to assign/assigned to the server"""
+        """`list` - The vlan to assign/assigned to the server Deprecated in k.50"""
         return self.__vlan
 
     @vlan.setter
     def vlan(self, v):
         self.__vlan = {u'vlan_id': v}
+
+    @lazy_property
+    def network(self):
+        """`list` - The network to assign/assigned to the server"""
+        return self.__network
+
+    @network.setter
+    def network(self, n):
+        self.__network = {u'network_id': n}
+
+    @lazy_property
+    def subnet(self):
+        """`list` - The subnet to assign/assigned to the server"""
+        return self.__subnet
+
+    @subnet.setter
+    def subnet(self, n):
+        self.__subnet = {u'subnet_id': n}
 
     @lazy_property
     def firewalls(self):
@@ -439,7 +457,7 @@ class Server(Resource):
         :returns: int -- The job id of the launch request
         :raises: :class:`ServerLaunchException`, :class:`mixcoatl.decorators.validations.ValidationException`
         """
-        optional_attrs = ['userData', 'vlan', 'firewalls', 'keypair', 'label',
+        optional_attrs = ['userData', 'vlan', 'subnet', 'network', 'firewalls', 'keypair', 'label',
                           'cmAccount', 'environment', 'cm_scripts', 'p_scripts', 'volumeConfiguration']
         if self.server_id is not None:
             raise ServerLaunchException(
@@ -468,8 +486,15 @@ class Server(Resource):
                         payload['launch'][0].update(
                             {'volumeConfiguration': getattr(self, oa)})
                     elif oa == 'vlan':
+                        # this was deprecated in k.50
                         payload['launch'][0].update(
                             {'vlan': camel_keys(getattr(self, oa))})
+                    elif oa == 'network':
+                        payload['launch'][0].update(
+                            {'network': camel_keys(getattr(self, oa))})
+                    elif oa == 'subnet':
+                        payload['launch'][0].update(
+                            {'subnet': camel_keys(getattr(self, oa))})
                     else:
                         payload['launch'][0].update({oa: getattr(self, oa)})
             except AttributeError:

@@ -14,7 +14,9 @@ if __name__ == '__main__':
     parser.add_argument('--name', '-n', help='Server Name')
     parser.add_argument('--budgetid', '-b', help='Budget ID')
     parser.add_argument('--keypair', '-k', help='Keypair Name')
-    parser.add_argument('--vlan', '-v', help='VLAN')
+    parser.add_argument('--vlan', '-v', help='VLAN, deprecated since DCM k.50 use --network')
+    parser.add_argument('--network', '-e', help='Network ID')
+    parser.add_argument('--subnet', '-s', help='Subnet ID')
     parser.add_argument('--userdata', '-u',
                         help='User data that will be added to the metadata '
                              'inside of the VM.  If the value starts with'
@@ -41,6 +43,11 @@ if __name__ == '__main__':
     if cmd_args.budgetid is not None:
         new_server.budget = cmd_args.budgetid
     new_server.keypair = cmd_args.keypair
+
+    if cmd_args.network is not None:
+        new_server.network = cmd_args.network
+    if cmd_args.subnet is not None:
+        new_server.subnet = cmd_args.subnet
 
     if cmd_args.userdata is not None:
         if cmd_args.userdata.startswith('@'):
