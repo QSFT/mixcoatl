@@ -22,6 +22,19 @@ Fixes
 [207]:https://github.com/enStratus/mixcoatl/issues/207
 [225]:https://github.com/enStratus/mixcoatl/pull/225
 
+
+0.10.50.1
+=============
+
+Release Date: 2015-07-10
+
+Fixes
+------
+- Fixed [#216][216]: add network and subnet to the server class and dcm-create-server cli. Thanks to
+  Eoin Kennet at HEAnet for the bug report.
+
+[216]:https://github.com/enStratus/mixcoatl/issues/216
+
 0.10.50
 =============
 
