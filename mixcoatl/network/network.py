@@ -245,7 +245,7 @@ class Network(Resource):
         self.post(self.PATH, data=json.dumps(camel_keys(payload)))
 
         if self.last_error is None:
-            j = Job(self.current_job)
+            j = Job(self.current_job, endpoint=self.endpoint)
             j.load()
             if callback is not None:
                 callback(j)

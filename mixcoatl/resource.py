@@ -212,6 +212,10 @@ class Resource(object):
         return repr(convert(d))
 
     @property
+    def endpoint(self):
+        return self.__endpoint
+
+    @property
     def status_code(self):
         return self.__status_code
 

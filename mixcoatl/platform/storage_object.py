@@ -132,7 +132,7 @@ class StorageObject(Resource):
             self.load()
         else:
             if Job.wait_for(self.current_job):
-                job = Job(self.current_job)
+                job = Job(self.current_job, self.endpoint)
                 self.__storage_object_id = job.message
                 self.load()
             else:

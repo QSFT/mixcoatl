@@ -204,7 +204,7 @@ class RelationalDatabase(Resource):
             self.load()
         else:
             if Job.wait_for(self.current_job):
-                job = Job(self.current_job)
+                job = Job(self.current_job, endpoint=self.endpoint)
                 self.__relational_database_id = job.message
                 self.load()
             else:

@@ -275,7 +275,7 @@ class Snapshot(Resource):
             raise SnapshotException(r.last_error)
 
     @classmethod
-    def describe_snapshot(cls, snapshot_id, **kwargs):
+    def describe_snapshot(cls, snapshot_id, endpoint=None, **kwargs):
         """Changes the basic metadata for a snapshot
 
         :param id: The snapshot to modify
@@ -289,7 +289,7 @@ class Snapshot(Resource):
         :returns: :class:`Snapshot`
         :raises: :class:`SnapshotException`
         """
-        s = cls(snapshot_id)
+        s = cls(snapshot_id, endpoint=endpoint)
         for x in ['name', 'description', 'label']:
             if x in kwargs:
                 setattr(s, x, kwargs[x])
@@ -297,7 +297,7 @@ class Snapshot(Resource):
         return s
 
     @classmethod
-    def delete_snapshot(cls, snapshot_id, reason):
+    def delete_snapshot(cls, snapshot_id, reason, endpoint=None):
         """delete a snapshot
 
         :param snapshot_id: The DCM snapshot id
@@ -307,11 +307,11 @@ class Snapshot(Resource):
         :returns: `bool`
         :raises: :class:`SnapshotException`
         """
-        s = cls(snapshot_id)
+        s = cls(snapshot_id, endpoint=endpoint)
         return s.destroy(reason=reason)
 
     @classmethod
-    def add_snapshot(cls, volume_id, name, description, budget, callback=None):
+    def add_snapshot(cls, volume_id, name, description, budget, callback=None, endpoint=None):
         """Creates a snapshot from `volume_id`
 
             .. warning::
@@ -347,7 +347,7 @@ class Snapshot(Resource):
                 job = Job.wait_for(s.current_job)
                 if job is True:
                     try:
-                        j = Job(s.current_job)
+                        j = Job(s.current_job, endpoint=endpoint)
                         snapshot = cls(j.message)
                         snapshot.load()
                         callback(snapshot)

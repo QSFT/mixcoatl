@@ -239,7 +239,7 @@ class Volume(Resource):
         payload = {'addVolume': [camel_keys(parms)]}
         self.post(data=json.dumps(payload))
         if self.last_error is None:
-            j = Job(self.current_job)
+            j = Job(self.current_job, endpoint=self.endpoint)
             j.load()
             if callback is not None:
                 callback(j)
@@ -366,7 +366,7 @@ class Volume(Resource):
                                          name,
                                          description,
                                          budget,
-                                         callback=callback)
+                                         callback=callback, endpoint=self.endpoint)
         except SnapshotException, e:
             raise VolumeSnapshotException(str(e))
 
@@ -416,17 +416,19 @@ class Volume(Resource):
             raise VolumeException(r.last_error)
 
     @classmethod
-    def assign_budget(cls, volume_id, budget):
+    def assign_budget(cls, volume_id, budget, endpoint=None):
         """Change the budget associated with a volume
 
         :param volume_id: The volume id to work with
         :type volume_id: int.
         :param budget: The budget code to assign
         :type budget: int.
+        :param endpoint: The DCM endpoint
+        :type endpoint: Endpoint
         :returns: `bool`
         :raises: :class:`VolumeException`
         """
-        v = Volume(volume_id)
+        v = Volume(volume_id, endpoint=endpoint)
         v.budget = budget
         return v.update()
 
@@ -444,7 +446,7 @@ class Volume(Resource):
         pass
 
     @classmethod
-    def attach_volume(cls, volume_id, server_id, device_id=None, callback=None):
+    def attach_volume(cls, volume_id, server_id, device_id=None, callback=None, endpoint=None):
         """Attach a volume to a server
 
             .. note::
@@ -459,19 +461,23 @@ class Volume(Resource):
         :type device_id: str.
         :param callback: Optional callback to call with the results
         :type callback: func.
+        :param endpoint: The DCM endpoint
+        :type endpoint: Endpoint
         :returns: :class:`Job`
         :raises: :class:`VolumeException`
         """
-        v = Volume(volume_id)
+        v = Volume(volume_id, endpoint=endpoint)
         v.request_details = 'basic'
         v.attach(server_id, device_id, callback)
 
     @classmethod
-    def describe_volume(cls, volume_id, **kwargs):
+    def describe_volume(cls, volume_id, endpoint=None, **kwargs):
         """Change the DCM meta-data of a volume
 
         :param volume_id: The volume to modify
         :type volume_id: int.
+        :param endpoint: The DCM endpoint
+        :type endpoint: Endpoint
         :param description: Change the description
         :type description: str.
         :param name: Change the name
@@ -484,7 +490,7 @@ class Volume(Resource):
         if kwargs is None:
             pass
         else:
-            v = Volume(volume_id)
+            v = Volume(volume_id, endpoint=endpoint)
             v.request_details = 'basic'
             for attr in kwargs:
                 setattr(v, attr, kwargs[attr])
@@ -492,7 +498,7 @@ class Volume(Resource):
             return v
 
     @classmethod
-    def add_volume(cls, **kwargs):
+    def add_volume(cls, endpoint=None, **kwargs):
         """Create a new volume
 
         :param name: The name of the new volume
@@ -501,10 +507,12 @@ class Volume(Resource):
         :param budget: The budget code for the new volume
         :param description: The description of the new volume
         :param callback: Optional callback to recieve the created Job
+        :param endpoint: The DCM endpoint
+        :type endpoint: Endpoint
         :returns: :class:`Job`
         :raises: :class:`VolumeCreationException`
         """
-        v = Volume()
+        v = Volume(endpoint=endpoint)
         cb = kwargs.pop('callback', None)
 
         for attr in kwargs:
@@ -513,12 +521,14 @@ class Volume(Resource):
         v.create(callback=cb)
 
     @classmethod
-    def detach_volume(cls, volume_id, callback=None):
+    def detach_volume(cls, volume_id, callback=None, endpoint=None):
         """Detach a volume from a server
 
         :param volume_id: The volume to detach
         :type volume_id: int.
         :param callback: Optional callback to send the results
+        :param endpoint: The DCM endpoint
+        :type endpoint: Endpoint
         :returns: :class:`Volume`
         :raises: :class:`VolumeException`
         """
