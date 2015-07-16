@@ -23,6 +23,18 @@ Fixes
 [225]:https://github.com/enStratus/mixcoatl/pull/225
 
 
+0.10.50.2
+=============
+
+Release Date: 2015-07-16
+
+Fixes
+------
+- Fixed [#234][234]: fix missing import statement in dcm-list-datacenters. Thanks Jim Sander for the 
+  report.
+
+[234]:https://github.com/enStratus/mixcoatl/issues/234
+
 0.10.50.1
 =============
 
