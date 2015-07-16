@@ -3,24 +3,30 @@ Mixcoatl ChangeLog
 
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
-Unreleased
-===========
-Placeholder for changes pending in the next release
+0.11.1
+=============
 
-Release Date: pending
+Release Date: 2015-07-16
 
 You can now configure multiple alternate DCM endpoint via a new python object Endpoint.
 
 Features
 ---------
-- Added [#225][225]: multiple endpoint support
+- Added [#225][225]: multiple endpoint support using new Endpoint class
+- Added live endpoint testing for server and volume operations using new Endpoint class
+- Added loading of properties from json file for Server and Volume
+- Added user friendly release notes
+- Added [#233][233] add Job.latest_message() to force reloading of job message from the API.
+
 
 Fixes
 --------
 - Fixed [#207][207]: allow configuration via python
+- Fix pretty printing of dcm-describe-server
 
 [207]:https://github.com/enStratus/mixcoatl/issues/207
 [225]:https://github.com/enStratus/mixcoatl/pull/225
+[233]:https://github.com/enStratus/mixcoatl/issues/233
 
 
 0.10.50.2
