@@ -2,7 +2,7 @@
 
 from mixcoatl.geography.datacenter import DataCenter
 from prettytable import PrettyTable
-from mixcoatl import resource_utils
+from mixcoatl import resource_utils, utils
 import argparse
 import sys
 import os
