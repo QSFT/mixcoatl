@@ -13,8 +13,8 @@ class ServerProduct(Resource):
     COLLECTION_NAME = 'serverProducts'
     PRIMARY_KEY = 'product_id'
 
-    def __init__(self, product_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, product_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__product_id = product_id
 
     @property
@@ -93,7 +93,7 @@ class ServerProduct(Resource):
         return self.__software
 
     @classmethod
-    def all(cls, region_id, **kwargs):
+    def all(cls, region_id, endpoint=None, **kwargs):
         """Return all server products
 
         :param region_id: The region id to search in
@@ -105,7 +105,7 @@ class ServerProduct(Resource):
         :returns: `list` of :attr:`product_id` or :class:`ServerProduct`
         :raises: :class:`ServerProductException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         r.request_details = 'basic'
         params = {'regionId': region_id}
         if 'keys_only' in kwargs:

@@ -65,7 +65,7 @@ class ServerAnalytics(Resource):
         return self.__interval_in_minutes
 
     @classmethod
-    def all(cls, server_id, keys_only=False, **kwargs):
+    def all(cls, server_id, keys_only=False, endpoint=None, **kwargs):
         """Get all analytics for `server_id`
 
         :param server_id: The server represented in the analytics
@@ -80,7 +80,7 @@ class ServerAnalytics(Resource):
         :param period_end: int.
         :returns: :class:`ServerAnalytics` or `list` of :attr:`data_points`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']

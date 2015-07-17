@@ -15,8 +15,8 @@ class Script(Resource):
     COLLECTION_NAME = 'scripts'
     PRIMARY_KEY = 'cmAccountId'
 
-    def __init__(self, cmAccountId=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cmAccountId=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__cmAccountId = cmAccountId
 
     @property
@@ -24,8 +24,8 @@ class Script(Resource):
         return self.__cmAccountId
 
     @classmethod
-    def all(cls, cmAccountId, **kwargs):
-        r = Resource(cls.PATH)
+    def all(cls, cmAccountId, endpoint=None, **kwargs):
+        r = Resource(cls.PATH, endpoint=endpoint)
 
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']

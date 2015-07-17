@@ -13,8 +13,8 @@ class LoadBalancer(Resource):
     COLLECTION_NAME = 'loadBalancers'
     PRIMARY_KEY = 'load_balancer_id'
 
-    def __init__(self, load_balancer_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, load_balancer_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__load_balancer_id = load_balancer_id
 
     @property
@@ -86,8 +86,8 @@ class LoadBalancer(Resource):
         return self.__listeners
 
     @classmethod
-    def all(cls, **kwargs):
-        r = Resource(cls.PATH)
+    def all(cls, endpoint=None, **kwargs):
+        r = Resource(cls.PATH, endpoint=endpoint)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:

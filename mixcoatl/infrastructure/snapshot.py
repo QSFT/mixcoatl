@@ -14,9 +14,9 @@ class Snapshot(Resource):
     COLLECTION_NAME = 'snapshots'
     PRIMARY_KEY = 'snapshot_id'
 
-    def __init__(self, snapshot_id=None, *args, **kwargs):
+    def __init__(self, snapshot_id=None, endpoint=None, *args, **kwargs):
         # pylint: disable-msg=W0613
-        Resource.__init__(self)
+        Resource.__init__(self, endpoint=endpoint)
         self.__snapshot_id = snapshot_id
 
     @property
@@ -229,7 +229,7 @@ class Snapshot(Resource):
             raise SnapshotException(self.last_error)
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """Return a list of snapshots
 
         :param account_id: Restrict to snapshots owned by `account_id`
@@ -245,7 +245,7 @@ class Snapshot(Resource):
         :returns: `list` of :attr:`snapshot_id` or :class:`Snapshot`
         :raises: :class:`SnapshotException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:
@@ -275,7 +275,7 @@ class Snapshot(Resource):
             raise SnapshotException(r.last_error)
 
     @classmethod
-    def describe_snapshot(cls, snapshot_id, **kwargs):
+    def describe_snapshot(cls, snapshot_id, endpoint=None, **kwargs):
         """Changes the basic metadata for a snapshot
 
         :param id: The snapshot to modify
@@ -289,7 +289,7 @@ class Snapshot(Resource):
         :returns: :class:`Snapshot`
         :raises: :class:`SnapshotException`
         """
-        s = cls(snapshot_id)
+        s = cls(snapshot_id, endpoint=endpoint)
         for x in ['name', 'description', 'label']:
             if x in kwargs:
                 setattr(s, x, kwargs[x])
@@ -297,7 +297,7 @@ class Snapshot(Resource):
         return s
 
     @classmethod
-    def delete_snapshot(cls, snapshot_id, reason):
+    def delete_snapshot(cls, snapshot_id, reason, endpoint=None):
         """delete a snapshot
 
         :param snapshot_id: The DCM snapshot id
@@ -307,11 +307,11 @@ class Snapshot(Resource):
         :returns: `bool`
         :raises: :class:`SnapshotException`
         """
-        s = cls(snapshot_id)
+        s = cls(snapshot_id, endpoint=endpoint)
         return s.destroy(reason=reason)
 
     @classmethod
-    def add_snapshot(cls, volume_id, name, description, budget, callback=None):
+    def add_snapshot(cls, volume_id, name, description, budget, callback=None, endpoint=None):
         """Creates a snapshot from `volume_id`
 
             .. warning::
@@ -347,7 +347,7 @@ class Snapshot(Resource):
                 job = Job.wait_for(s.current_job)
                 if job is True:
                     try:
-                        j = Job(s.current_job)
+                        j = Job(s.current_job, endpoint=endpoint)
                         snapshot = cls(j.message)
                         snapshot.load()
                         callback(snapshot)

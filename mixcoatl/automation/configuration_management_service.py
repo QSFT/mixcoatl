@@ -15,8 +15,8 @@ class ConfigurationManagementService(Resource):
     COLLECTION_NAME = 'cmServices'
     PRIMARY_KEY = 'cm_system_id'
 
-    def __init__(self, cm_account_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cm_account_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
 
     @lazy_property
     def cm_system(self):
@@ -91,8 +91,8 @@ class ConfigurationManagementService(Resource):
             raise CMCreationException(self.last_error)
 
     @classmethod
-    def all(cls, **kwargs):
-        r = Resource(cls.PATH)
+    def all(cls, endpoint=None, **kwargs):
+        r = Resource(cls.PATH, endpoint=endpoint)
 
         if 'details' in kwargs:
             r.request_details = kwargs['details']

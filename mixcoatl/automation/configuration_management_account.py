@@ -12,8 +12,8 @@ class ConfigurationManagementAccount(Resource):
     COLLECTION_NAME = 'cmAccounts'
     PRIMARY_KEY = 'cm_account_id'
 
-    def __init__(self, cm_account_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cm_account_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__cm_account_id = cm_account_id
 
     @property
@@ -77,8 +77,8 @@ class ConfigurationManagementAccount(Resource):
         return self.__owning_user
 
     @classmethod
-    def all(cls, **kwargs):
-        r = Resource(cls.PATH)
+    def all(cls, endpoint=None, **kwargs):
+        r = Resource(cls.PATH, endpoint=endpoint)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:

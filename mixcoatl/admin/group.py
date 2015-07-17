@@ -20,8 +20,8 @@ class Group(Resource):
     COLLECTION_NAME = 'groups'
     PRIMARY_KEY = 'group_id'
 
-    def __init__(self, group_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, group_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__group_id = group_id
 
     @property
@@ -90,7 +90,7 @@ class Group(Resource):
         return self.__role_assignments
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Get all groups
 
         .. note::
@@ -106,7 +106,7 @@ class Group(Resource):
         :returns: `list` - List of :class:`Group` or :attr:`group_id`
         :raises: :class:`GroupException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

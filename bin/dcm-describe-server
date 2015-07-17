@@ -73,7 +73,7 @@ if __name__ == '__main__':
         if hasattr(s, 'owning_groups'):
             server_table.add_row(
                 ["Owning Group ID",
-                 s.owning_groups[0]['group_id'] if hasattr(s.owning_group[0],'group_id') else None])
+                 s.owning_groups[0]['group_id'] if hasattr(s.owning_groups[0],'group_id') else None])
             server_table.add_row(
                 ["Owning Group Name",
                  s.owning_groups[0]['name'] if hasattr(s.owning_groups[0],'name') else None])

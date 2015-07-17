@@ -11,8 +11,8 @@ class Region(Resource):
     COLLECTION_NAME = 'regions'
     PRIMARY_KEY = 'region_id'
 
-    def __init__(self, region_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, region_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__region_id = region_id
 
     @property
@@ -56,7 +56,7 @@ class Region(Resource):
         return self.__description
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """Return all regions
 
         :param account_id: Limit results to regions with the specified account
@@ -73,7 +73,7 @@ class Region(Resource):
         :returns: `list` of :class:`Region` or :attr:`region_id`
         :raises: :class:`RegionException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

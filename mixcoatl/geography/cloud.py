@@ -12,8 +12,8 @@ class Cloud(Resource):
     COLLECTION_NAME = 'clouds'
     PRIMARY_KEY = 'cloud_id'
 
-    def __init__(self, cloud_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, cloud_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__cloud_id = cloud_id
 
     @property
@@ -102,7 +102,7 @@ class Cloud(Resource):
         return self.__status
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Return all clouds
 
         :param keys_only: Return :attr:`cloud_id` instead of :class:`Cloud`
@@ -111,7 +111,7 @@ class Cloud(Resource):
         :type detail: str.
         :returns: `list` of :class:`Cloud` or :attr:`cloud_id`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

@@ -20,8 +20,8 @@ class Network(Resource):
     COLLECTION_NAME = 'networks'
     PRIMARY_KEY = "network_id"
 
-    def __init__(self, network_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, network_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
 
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
@@ -245,7 +245,7 @@ class Network(Resource):
         self.post(self.PATH, data=json.dumps(camel_keys(payload)))
 
         if self.last_error is None:
-            j = Job(self.current_job)
+            j = Job(self.current_job, endpoint=self.endpoint)
             j.load()
             if callback is not None:
                 callback(j)
@@ -267,7 +267,7 @@ class Network(Resource):
         return self.delete(p, params=qopts)
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """List all networks in `region_id`
 
         :param region_id: Limit results to `region_id`
@@ -286,7 +286,7 @@ class Network(Resource):
         :raises: :class:`NetworkException`
         """
         params = {}
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH,endpoint=endpoint)
 
         if 'detail' in kwargs:
             request_details = kwargs['detail']
