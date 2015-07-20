@@ -13,21 +13,58 @@ import datetime
 
 
 class Endpoint(object):
-    """ A class for representing DCM endpoints and loading them from json files
+
+    """ A class for representing DCM endpoints and loading them from json files. Each Endpoint contains not only the URL
+    for the endpoint but also the associated API keys.
+
+    :param url: The url of the DCM endpoint (e.g https://dcm.enstratius.com/api/enstratus/2015-05-25 )
+    :param basepath: Optional server path to the API (e.g. /api/enstratus/2015-05-25)
+    :param api_version: required API version (e.g. 2015-05-25) , if missing an attempt is made to parse it
+                        from from the end of the url
+    :param access_key: DCM access key
+    :param secret_key: DCM secret key
+    :param ssl_verify: Should the endpoints SSL key be verified. Default is True
+    :param nickname: optional arbitrary short nick name to assign this endpoint
+
+    Here's an example of how you could use endpoints to identify servers simultaneously managed by two DCM instances:
+
+        .. code-block:: python
+
+            from mixcoatl.infrastructure.server import Server
+            from mixcoatl.resource import Endpoint
+
+            saas_endpoint = Endpoint(nickname="saas",
+                                     url="https://dcm.enstratius.com/api/enstratus/2015-05-25",
+                                     api_version="2015-05-25",
+                                     access_key="POIUYTREQ",
+                                     secret_key="ukjdf8HydvkLlki=4hfksj")
+
+            vagrant_endpoint = Endpoint(nickname="vagrant",
+                                        url="https://vagrant.vm/api/enstratus/2015-05-25",
+                                        api_version="2015-05-25",
+                                        access_key="LKJHGFDSAQ",
+                                        secret_key="ht748fbsd974d=t874gDFb",
+                                        ssl_verify=False)
+
+
+            saas_servers = Server.all(endpoint=saas_endpoint)
+            vagrant_servers = Server.all(endpoint=vagrant_endpoint)
+
+            # find all the servers managed by two DCM instances
+            for s in saas_servers:
+                for v in vagrant_servers:
+                    if s.provider_id == v.provider_id:
+                        print "SaaS: %s Vagrant: %s, Provider ID %s" % (s.server_id, v.server_id, v.provider_id)
+
+
+
+
     """
 
     def __init__(self, url=None, basepath=None, api_version=None, secret_key=None,
                  access_key=None, ssl_verify=True, nickname=None):
         """
-        :param url: The url of the DCM endpoint (e.g https://dcm.enstratius.com/api/enstratus/2015-05-25 )
-        :param basepath: Optional server path to the API (e.g. /api/enstratus/2015-05-25)
-        :param api_version: required API version (e.g. 2015-05-25) , if missing an attempt is made to parse it
-                            from from the end of the url
-        :param access_key: DCM access key
-        :param secret_key: DCM secret key
-        :param ssl_verify: Should the endpoints SSL key be verified. Default is True
-        :param nickname: optional arbitrary short nick name to assign this endpoint
-        :
+
         """
         if url:
             self.url = url
@@ -68,12 +105,26 @@ class Endpoint(object):
 
     @classmethod
     def from_file(cls, filename):
-        """ Load a DCM endpoint definition from a json file and return and Endpoint object. For an example file see:
-            TODO: add github pointed to example file
+        """ Load a DCM endpoint definition from a json file and return and Endpoint object.
 
-            :param filename: the full path to a json file containing and endpoint definition
-            :returns: Endpoint - the endpoint loaded from the file
+        :param str filename: the full path to a json file containing and endpoint definition
+        :returns: the endpoint loaded from the file
+        :rtype: Endpoint
+
+        An example json file containing the containing the endpoint definition:
+
+            .. code-block:: json
+            
+                {
+                  "nickname":"saas",
+                  "url":"https://dcm.enstratius.com/api/enstratus/2015-05-25",
+                  "api_version":"2015-05-25",
+                  "access_key":"abcdefg",
+                  "secret_key":"gfedcba",
+                  "ssl_verify": true
+                }
         """
+
         endpoint_json = open(filename).read()
         e = json.loads(endpoint_json)
 
@@ -87,13 +138,37 @@ class Endpoint(object):
 
     @classmethod
     def multiple_from_file(cls, filename):
-        """ Load multiple DCM endpoint definitions from a json file and return a dictionary indexed by endpont nicknames
-        For an example file see:
-            TODO: add github pointed to example file
+        """ Load multiple DCM endpoint definitions from a json file and return a dictionary indexed by Endpoint
+         nicknames.
 
-            :param filename: the full path to a json file containing and multiple endpoint definitions
-            :returns: Endpoint dictionary - a dictionary indexed by endpoint nicknames
+        :param str filename: the full path to a json file containing and multiple endpoint definitions
+        :returns: a dictionary of Endpoints indexed by endpoint nicknames
+        :rtype: dictionary of Endpoint objects
+
+        Here is an example json file that can be loaded by this function:
+
+            .. code-block:: json
+
+                [
+                  {
+                    "nickname": "saas",
+                    "url": "https://dcm.enstratius.com/api/enstratus/2015-05-25",
+                    "api_version": "2015-05-25",
+                    "access_key": "abcdefg",
+                    "secret_key": "gfedcba",
+                    "ssl_verify": true
+                  },
+                  {
+                    "nickname": "vagrant",
+                    "url": "https://vagrant.vm/api/enstratus/2015-05-25",
+                    "api_version": "2015-05-25",
+                    "access_key": "abcdefg",
+                    "secret_key": "gfedcba",
+                    "ssl_verify": true
+                  }
+                ]
         """
+
         endpoint_json = open(filename).read()
         endpoint_in = json.loads(endpoint_json)
         endpoint_dict = {}
