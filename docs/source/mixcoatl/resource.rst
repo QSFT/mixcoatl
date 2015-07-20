@@ -1,7 +1,7 @@
-:mod:`resource`
+:class:`Resource`
 ---------------
 
-.. automodule:: mixcoatl.resource
+.. autoclass:: mixcoatl.resource.Resource
     :members:
     :undoc-members:
     :show-inheritance:

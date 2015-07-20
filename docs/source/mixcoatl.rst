@@ -16,4 +16,5 @@ Mixcoatl
 
    mixcoatl/auth
    mixcoatl/resource
+   mixcoatl/endpoint
    mixcoatl/utils

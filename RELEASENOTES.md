@@ -4,15 +4,18 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
-0.11.1
+1.0.0
 =============
 
 Release Date: 2015-07-17
 
-The release allows you to access multiple DCM endpoints using mutiple API keys simultaneously. For example, within a
-single python program you can compare the states of two DCM instances and also assume different roles by using different
-API keys. The functionality is provided via the new [Endpoint][endpointL15] object,  which also provides facilities for
-loading multiple endpoints from json files.
+Use with DCM: 10.X, 11.X
+
+Welcome to the 1.0.0 release. Mixcoatl will now follow semantic versioning with compatibility to DCM releases
+documented. This release allows you to access multiple DCM endpoints using mutiple API keys simultaneously. For example,
+within a single python program you can compare the states of two DCM instances and also assume different roles by using
+different API keys. The functionality is provided via the new [Endpoint][endpointL15] object,  which also provides
+facilities for loading multiple endpoints from json files.
 
 Here's an example of how you could use endpoints to identify servers simultaneously managed by two DCM instances:
 
