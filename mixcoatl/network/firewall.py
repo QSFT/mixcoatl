@@ -15,8 +15,8 @@ class Firewall(Resource):
     COLLECTION_NAME = 'firewalls'
     PRIMARY_KEY = "firewall_id"
 
-    def __init__(self, firewall_id=None, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, firewall_id=None, endpoint=None, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
 
         if 'detail' in kwargs:
             self.request_details = kwargs['detail']
@@ -166,7 +166,7 @@ class Firewall(Resource):
                 return self
             else:
                 if Job.wait_for(self.current_job) is True:
-                    j = Job(self.current_job)
+                    j = Job(self.current_job, endpoint=self.endpoint)
                     self.__firewall_id = j.message
                     self.load()
                     return self
@@ -179,7 +179,7 @@ class Firewall(Resource):
         """Describe a firewall"""
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """List all firewalls in `region_id`
         :param region_id: Limit results to `region_id`
         :type region_id: int.
@@ -192,7 +192,7 @@ class Firewall(Resource):
         :returns: `list` of :attr:`firewall_id` or :class:`Firewall`
         :raises: :class:`FirewallException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=None)
         params = {}
 
         if 'detail' in kwargs:
@@ -222,7 +222,7 @@ class Firewall(Resource):
         else:
             raise FirewallException(r.last_error)
 
-    def describe_firewall(firewall_id, **kwargs):
+    def describe_firewall(firewall_id, endpoint=None, **kwargs):
         """Changes the basic meta-data for a firewall
 
         :param firewall_id: The id of the firewall to modify
@@ -238,7 +238,7 @@ class Firewall(Resource):
         """
 
         if kwargs:
-            f = Firewall(firewall_id)
+            f = Firewall(firewall_id, endpoint=endpoint)
             f.label = kwargs.get('label', None)
             f.description = kwargs.get('name', None)
             f.label = kwargs.get('label', None)

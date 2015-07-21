@@ -14,16 +14,16 @@ class Subscription(Resource):
     COLLECTION_NAME = 'subscriptions'
     PRIMARY_KEY = 'region_id'
 
-    def __init__(self, region_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, region_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__region_id = region_id
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False,endpoint=None, **kwargs):
         if 'region_id' in kwargs:
-            r = Resource(cls.PATH + "/" + str(kwargs['region_id']))
+            r = Resource(cls.PATH + "/" + str(kwargs['region_id']), endpoint=endpoint)
         else:
-            r = Resource(cls.PATH)
+            r = Resource(cls.PATH, endpoint=endpoint)
 
         if 'details' in kwargs:
             r.request_details = kwargs['details']

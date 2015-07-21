@@ -7,8 +7,8 @@ class TierAnalytics(Resource):
     COLLECTION_NAME = 'analytics'
     PRIMARY_KEY = 'tier_id'
 
-    def __init__(self, tier_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, tier_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__tier_id = tier_id
 
     @property
@@ -32,8 +32,8 @@ class TierAnalytics(Resource):
         return self.__interval_in_minutes
 
     @classmethod
-    def all(cls, tier_id, **kwargs):
-        r = Resource(cls.PATH+'/'+str(tier_id))
+    def all(cls, tier_id, endpoint=None, **kwargs):
+        r = Resource(cls.PATH+'/'+str(tier_id), endpoint=endpoint)
         if 'details' in kwargs:
             r.request_details = kwargs['details']
         else:

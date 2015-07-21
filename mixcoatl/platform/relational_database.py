@@ -11,8 +11,8 @@ class RelationalDatabase(Resource):
     COLLECTION_NAME = 'relational_databases'
     PRIMARY_KEY = 'relational_database_id'
 
-    def __init__(self, relational_database_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, relational_database_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__relational_database_id = relational_database_id
 
     @property
@@ -204,7 +204,7 @@ class RelationalDatabase(Resource):
             self.load()
         else:
             if Job.wait_for(self.current_job):
-                job = Job(self.current_job)
+                job = Job(self.current_job, endpoint=self.endpoint)
                 self.__relational_database_id = job.message
                 self.load()
             else:
@@ -312,8 +312,8 @@ class RelationalDatabase(Resource):
                 return self
 
     @classmethod
-    def all(cls, **kwargs):
-        r = Resource(cls.PATH)
+    def all(cls, endpoint=None, **kwargs):
+        r = Resource(cls.PATH,endpoint=endpoint)
         params = {}
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']

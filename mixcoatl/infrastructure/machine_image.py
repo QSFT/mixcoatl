@@ -282,7 +282,7 @@ class MachineImage(Resource):
         return self.put(p, data=json.dumps(payload))
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """Return all machine images
 
         :param machine_image_id: The id of the machine image
@@ -301,9 +301,9 @@ class MachineImage(Resource):
         :raises: :class:`MachineImageException`
         """
         if 'machine_image_id' in kwargs:
-            r = Resource(cls.PATH + "/" + str(kwargs['machine_image_id']))
+            r = Resource(cls.PATH + "/" + str(kwargs['machine_image_id']), endpoint=endpoint)
         else:
-            r = Resource(cls.PATH)
+            r = Resource(cls.PATH, endpoint=endpoint)
 
         params = {}
 

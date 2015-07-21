@@ -8,6 +8,180 @@ import mixcoatl.auth as auth
 from mixcoatl.settings.load_settings import settings
 from mixcoatl.decorators.lazy import lazy_property
 from mixcoatl.utils import camel_keys
+import json
+import datetime
+
+
+class Endpoint(object):
+
+    """ A class for representing DCM endpoints and loading them from json files. Each Endpoint contains not only the URL
+    for the endpoint but also the associated API keys.
+
+    :param url: The url of the DCM endpoint (e.g https://dcm.enstratius.com/api/enstratus/2015-05-25 )
+    :param basepath: Optional server path to the API (e.g. /api/enstratus/2015-05-25)
+    :param api_version: required API version (e.g. 2015-05-25) , if missing an attempt is made to parse it
+                        from from the end of the url
+    :param access_key: DCM access key
+    :param secret_key: DCM secret key
+    :param ssl_verify: Should the endpoints SSL key be verified. Default is True
+    :param nickname: optional arbitrary short nick name to assign this endpoint
+
+    Here's an example of how you could use endpoints to identify servers simultaneously managed by two DCM instances:
+
+        .. code-block:: python
+
+            from mixcoatl.infrastructure.server import Server
+            from mixcoatl.resource import Endpoint
+
+            saas_endpoint = Endpoint(nickname="saas",
+                                     url="https://dcm.enstratius.com/api/enstratus/2015-05-25",
+                                     api_version="2015-05-25",
+                                     access_key="POIUYTREQ",
+                                     secret_key="ukjdf8HydvkLlki=4hfksj")
+
+            vagrant_endpoint = Endpoint(nickname="vagrant",
+                                        url="https://vagrant.vm/api/enstratus/2015-05-25",
+                                        api_version="2015-05-25",
+                                        access_key="LKJHGFDSAQ",
+                                        secret_key="ht748fbsd974d=t874gDFb",
+                                        ssl_verify=False)
+
+
+            saas_servers = Server.all(endpoint=saas_endpoint)
+            vagrant_servers = Server.all(endpoint=vagrant_endpoint)
+
+            # find all the servers managed by two DCM instances
+            for s in saas_servers:
+                for v in vagrant_servers:
+                    if s.provider_id == v.provider_id:
+                        print "SaaS: %s Vagrant: %s, Provider ID %s" % (s.server_id, v.server_id, v.provider_id)
+
+
+
+
+    """
+
+    def __init__(self, url=None, basepath=None, api_version=None, secret_key=None,
+                 access_key=None, ssl_verify=True, nickname=None):
+        """
+
+        """
+        if url:
+            self.url = url
+        else:
+            raise ValueError("endpoint url must be specified")
+        if api_version:
+            self.api_version = self._validate_api_version(api_version)
+        else:
+            try:
+                # attempt to grab the API version from the url
+                self.api_version = self._validate_api_version(self.url.split('/')[-1])
+            except ValueError:
+                raise ValueError("endpoint was created without an api_version and did not contain a " +
+                                 "URL terminated with a valid date in YYYY-MM-DD format")
+        if basepath:
+            self.basepath = basepath
+        else:
+            self.basepath = "/api/enstratus/%s" % self.api_version
+        if access_key:
+            self.access_key = access_key
+        else:
+            raise ValueError("access_key must be specified")
+        if secret_key:
+            self.secret_key = secret_key
+        else:
+            raise ValueError("secret_key must be specified")
+
+        self.ssl_verify = ssl_verify
+        self.nickname = nickname
+
+    @staticmethod
+    def _validate_api_version(date):
+        try:
+            datetime.datetime.strptime(date, '%Y-%m-%d')
+            return date
+        except ValueError:
+            raise ValueError("Incorrectly formatted API version, should be YYYY-MM-DD")
+
+    @classmethod
+    def from_file(cls, filename):
+        """ Load a DCM endpoint definition from a json file and return and Endpoint object.
+
+        :param str filename: the full path to a json file containing and endpoint definition
+        :returns: the endpoint loaded from the file
+        :rtype: Endpoint
+
+        An example json file containing the containing the endpoint definition:
+
+            .. code-block:: json
+            
+                {
+                  "nickname":"saas",
+                  "url":"https://dcm.enstratius.com/api/enstratus/2015-05-25",
+                  "api_version":"2015-05-25",
+                  "access_key":"abcdefg",
+                  "secret_key":"gfedcba",
+                  "ssl_verify": true
+                }
+        """
+
+        endpoint_json = open(filename).read()
+        e = json.loads(endpoint_json)
+
+        return Endpoint(url=e['url'],
+                        basepath=e['basepath'] if 'basepath' in e else None,
+                        api_version=e['api_version'],
+                        secret_key=str(e['secret_key']),
+                        access_key=str(e['access_key']),
+                        ssl_verify=e['ssl_verify'] if 'ssl_verify' in e else None,
+                        nickname=e['nickname'] if 'nickname' in e else None)
+
+    @classmethod
+    def multiple_from_file(cls, filename):
+        """ Load multiple DCM endpoint definitions from a json file and return a dictionary indexed by Endpoint
+         nicknames.
+
+        :param str filename: the full path to a json file containing and multiple endpoint definitions
+        :returns: a dictionary of Endpoints indexed by endpoint nicknames
+        :rtype: dictionary of Endpoint objects
+
+        Here is an example json file that can be loaded by this function:
+
+            .. code-block:: json
+
+                [
+                  {
+                    "nickname": "saas",
+                    "url": "https://dcm.enstratius.com/api/enstratus/2015-05-25",
+                    "api_version": "2015-05-25",
+                    "access_key": "abcdefg",
+                    "secret_key": "gfedcba",
+                    "ssl_verify": true
+                  },
+                  {
+                    "nickname": "vagrant",
+                    "url": "https://vagrant.vm/api/enstratus/2015-05-25",
+                    "api_version": "2015-05-25",
+                    "access_key": "abcdefg",
+                    "secret_key": "gfedcba",
+                    "ssl_verify": true
+                  }
+                ]
+        """
+
+        endpoint_json = open(filename).read()
+        endpoint_in = json.loads(endpoint_json)
+        endpoint_dict = {}
+
+        for e in endpoint_in:
+            endpoint_dict[e['nickname']] = Endpoint(url=e['url'],
+                                                    basepath=e['basepath'] if 'basepath' in e else None,
+                                                    api_version=e['api_version'],
+                                                    secret_key=str(e['secret_key']),
+                                                    access_key=str(e['access_key']),
+                                                    ssl_verify=e['ssl_verify'] if 'ssl_verify' in e else None,
+                                                    nickname=e['nickname'] if 'nickname' in e else None)
+        return endpoint_dict
 
 
 class Resource(object):
@@ -52,7 +226,7 @@ class Resource(object):
     #: The unique identifier of an individual resource
     PRIMARY_KEY = None
 
-    def __init__(self, base_path=None, request_details='basic', **kwargs):
+    def __init__(self, base_path=None, request_details='basic', endpoint=None, **kwargs):
         if base_path is None:
             try:
                 self.__path = self.__class__.PATH
@@ -71,7 +245,16 @@ class Resource(object):
             self.__params = kwargs['params']
         else:
             self.__params = {}
-
+        if endpoint:
+            self.__endpoint = endpoint
+        else:
+            # no endpoint provided, pull from settings
+            self.__endpoint = Endpoint(url=settings.endpoint,
+                                       basepath=settings.basepath,
+                                       api_version=settings.api_version,
+                                       secret_key=settings.secret_key,
+                                       access_key=settings.access_key,
+                                       ssl_verify=settings.ssl_verify)
         self.__last_request = None
         self.__last_error = None
         self.__current_job = None
@@ -102,6 +285,10 @@ class Resource(object):
             except KeyError:
                 d[x] = None
         return repr(convert(d))
+
+    @property
+    def endpoint(self):
+        return self.__endpoint
 
     @property
     def status_code(self):
@@ -226,9 +413,9 @@ class Resource(object):
             based on DCM API documentation
         """
         failures = [400, 403, 404, 409, 500, 501, 503]
-        sig = auth.get_sig(method, self.path)
-        url = settings.endpoint + '/' + self.path
-        ssl_verify = settings.ssl_verify
+        sig = auth.get_sig(method, self.path, endpoint=self.__endpoint)
+        url = self.__endpoint.url + '/' + self.path
+        ssl_verify = self.__endpoint.ssl_verify
 
         if self.payload_format == 'xml':
             payload_format = 'application/xml'

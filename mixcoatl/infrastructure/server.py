@@ -15,9 +15,10 @@ class Server(Resource):
     COLLECTION_NAME = 'servers'
     PRIMARY_KEY = 'server_id'
 
-    def __init__(self, server_id=None):
-        Resource.__init__(self)
+    def __init__(self, server_id=None, endpoint=None):
+        Resource.__init__(self, endpoint=endpoint)
         self.__server_id = server_id
+
 
     @property
     def server_id(self):
@@ -332,7 +333,7 @@ class Server(Resource):
             self.load()
         else:
             if Job.wait_for(self.current_job):
-                job = Job(self.current_job)
+                job = Job(self.current_job, endpoint=self.endpoint)
                 self.__server_id = job.message
                 self.load()
             else:
@@ -509,6 +510,15 @@ class Server(Resource):
         else:
             raise ServerLaunchException(self.last_error)
 
+    def set_from_file(self, filename):
+        """load server attributes from a json file
+        :param filename: str with the full path to the json file containing the server attributes
+        """
+        server_file = open(filename).read()
+        server_dict = json.loads(server_file)
+        for key,value in server_dict.items():
+            setattr(self, key, value)
+
     def duplicate(self, server):
         pass
 
@@ -540,7 +550,7 @@ class Server(Resource):
                 return self
 
     @classmethod
-    def all(cls, **kwargs):
+    def all(cls, endpoint=None, **kwargs):
         """Get a list of all known servers
 
         >>> Server.all()
@@ -549,7 +559,7 @@ class Server(Resource):
         :returns: list -- a list of :class:`Server`
         :raises: ServerException
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

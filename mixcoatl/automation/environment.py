@@ -15,13 +15,13 @@ class Environment(Resource):
     COLLECTION_NAME = 'environments'
     PRIMARY_KEY = 'environmentId'
 
-    def __init__(self, environmentId=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, environmentId=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__environmentId = environmentId
 
     @classmethod
-    def all(cls, cmAccountId, **kwargs):
-        r = Resource(cls.PATH)
+    def all(cls, cmAccountId, endpoint=None, **kwargs):
+        r = Resource(cls.PATH, endpoint=endpoint)
 
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']

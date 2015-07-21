@@ -19,8 +19,8 @@ class Customer(Resource):
     COLLECTION_NAME = 'customers'
     PRIMARY_KEY = 'customer_id'
 
-    def __init__(self, role_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, role_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__customer_id = customer_id
 
     @property
@@ -29,9 +29,9 @@ class Customer(Resource):
         return self.__customer_id
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Get all customers"""
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:

@@ -19,8 +19,8 @@ class BillingCode(Resource):
     COLLECTION_NAME = 'billingCodes'
     PRIMARY_KEY = 'billing_code_id'
 
-    def __init__(self, billing_code_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, billing_code_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__billing_code_id = billing_code_id
 
     @property
@@ -99,7 +99,7 @@ class BillingCode(Resource):
         self.__soft_quota = s
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Get all visible billing codes
 
         .. note::
@@ -113,7 +113,7 @@ class BillingCode(Resource):
         :returns: `list` - of :class:`BillingCode` or :attr:`billing_code_id`
         :raises: :class:`BillingCodeException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'details' in kwargs:

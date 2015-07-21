@@ -19,8 +19,8 @@ class User(Resource):
     COLLECTION_NAME = 'users'
     PRIMARY_KEY = 'user_id'
 
-    def __init__(self, user_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, user_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__user_id = user_id
 
     @property
@@ -252,7 +252,7 @@ class User(Resource):
             raise UserCreationException(self.last_error)
 
     @classmethod
-    def all(cls, keys_only=False, **kwargs):
+    def all(cls, keys_only=False, endpoint=None, **kwargs):
         """Return all users
 
         .. note::
@@ -266,7 +266,7 @@ class User(Resource):
         :returns: `list` of :class:`User` or :attr:`user_id`
         :raises: :class:`UserException`
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         if 'detail' in kwargs:
             r.request_details = kwargs['detail']
         else:

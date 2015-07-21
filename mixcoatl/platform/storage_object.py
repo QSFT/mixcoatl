@@ -10,8 +10,8 @@ class StorageObject(Resource):
     COLLECTION_NAME = 'storageObjects'
     PRIMARY_KEY = 'storage_object_id'
 
-    def __init__(self, storage_object_id=None, *args, **kwargs):
-        Resource.__init__(self)
+    def __init__(self, storage_object_id=None, endpoint=None, *args, **kwargs):
+        Resource.__init__(self, endpoint=endpoint)
         self.__storage_object_id = storage_object_id
 
     @property
@@ -132,14 +132,14 @@ class StorageObject(Resource):
             self.load()
         else:
             if Job.wait_for(self.current_job):
-                job = Job(self.current_job)
+                job = Job(self.current_job, self.endpoint)
                 self.__storage_object_id = job.message
                 self.load()
             else:
                 return self.last_error
 
     @classmethod
-    def all(cls, region_id, **kwargs):
+    def all(cls, region_id, endpoint=None, **kwargs):
         """Get a list of all known storage objects.
 
         >>> StorageObject.all(region_id=100)
@@ -148,7 +148,7 @@ class StorageObject(Resource):
         :returns: list -- a list of :class:`StorageObject`
         :raises: StorageObjectException
         """
-        r = Resource(cls.PATH)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {'regionId': region_id}
 
         if 'detail' in kwargs:
