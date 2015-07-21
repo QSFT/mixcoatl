@@ -5,7 +5,7 @@ import json
 import urllib2
 import argparse
 import sys
-from distutils.version import StrictVersion
+from distutils.version import StrictVersion,LooseVersion
 from mixcoatl import __version__
 
 
@@ -13,7 +13,7 @@ def versions(package_name):
     url = "https://pypi.python.org/pypi/%s/json" % (package_name,)
     data = json.load(urllib2.urlopen(urllib2.Request(url)))
     versions = data["releases"].keys()
-    versions.sort(key=StrictVersion)
+    versions.sort(key=LooseVersion)
     versions.reverse()
     return versions
 
