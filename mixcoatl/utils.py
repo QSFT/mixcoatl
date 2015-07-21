@@ -2,8 +2,44 @@ import json
 
 """Common helper utilities for use with mixcoatl"""
 
+def to_csv(data):
+    """Formats a list of dictionaries into a CSV
+
+    :param data: a list of dictionaries
+    :returns str: a str formatted in csv
+
+    .. warning::
+
+        A python dictionary object can't be fully represented in in csv form. Hence, the result returned will
+        contain cells that have a text representation of a sub elements.
+    """
+    csv = ""
+    for i in data[0].keys():
+        csv += '"'+i.replace('"','\"')+'"'+","
+    csv = csv.rstrip(",")
+
+    for x in data:
+        csv += "\n"
+        for i in x:
+            if isinstance(x[i], dict):
+                if x[i]:
+                    csv += '"'+str(x[i][x[i].keys()[0]]).replace('"','\"')+'"'+","
+                else:
+                    csv += '"",'
+            else:
+                csv += '"'+str(x[i]).replace('"','\"')+'"'+","
+        csv = csv.rstrip(",")
+
+    return csv
 
 def print_format(data, payload_format):
+    """Format the public instance variables of list of objects into either json, xml or csv . The contents of `__dict__`
+    including those instance variables that are name mangled using __
+
+    :param data: a list object to be formatted
+    :param str payload_format: the the format that should be returned, either "json","xml","csv"
+    :returns str: formatted string
+    """
     import dicttoxml
 
     newdata = []
@@ -17,26 +53,43 @@ def print_format(data, payload_format):
     if payload_format == "xml":
         return dicttoxml.dicttoxml(newdata)
     elif payload_format == "csv":
-        csv = ""
-        for i in newdata[0].keys():
-            csv += '"'+i.replace('"','\"')+'"'+","
-        csv = csv.rstrip(",")
-
-        for x in newdata:
-            csv += "\n"
-            for i in x:
-                if isinstance(x[i], dict):
-                    if x[i]:
-                        csv += '"'+str(x[i][x[i].keys()[0]]).replace('"','\"')+'"'+","
-                    else:
-                        csv += '"",'
-                else:
-                    csv += '"'+str(x[i]).replace('"','\"')+'"'+","
-            csv = csv.rstrip(",")
-
-        return csv
+        return to_csv(newdata)
     else:
         return json.dumps(newdata, indent=4, sort_keys=True)
+
+
+def format_dict(thedict, payload_format):
+    """Format a dictionary into json, xml, or csv and return a string
+
+    :param dict thedict: dictionary to be formatted
+    :param str payload_format: the format to return either "json", "xml", or "csv"
+    :returns str: formatted string
+    """
+
+    import dicttoxml
+
+    if payload_format == "json":
+        return json.dumps(thedict, indent=4, sort_keys=True)
+    elif payload_format == "xml":
+        return dicttoxml.dicttoxml(thedict)
+    elif payload_format == "csv":
+        return to_csv([thedict])
+    else:
+        raise ValueError("Unknown format requested, use payload_format json, xml, csv")
+
+
+def add_argparse_output_formats(parser):
+    """Add the supported cli output formats to the :attr:`parser` ArgumentParser object. Flags added are:
+    `--json --xml --csv`
+
+    :param ArgumentParser parser: object parser to append flags to"""
+
+    parser.add_argument('--json', dest='format', action='store_const', const='json',
+                        help='print API response in JSON format.')
+    parser.add_argument('--xml', dest='format', action='store_const', const='xml',
+                    help='print API response in XML format.')
+    parser.add_argument('--csv', dest='format', action='store_const', const='csv',
+                    help='print API response in CSV format.')
 
 
 def uncamel(val):
