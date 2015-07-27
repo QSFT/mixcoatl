@@ -25,7 +25,7 @@ packages = [
     'mixcoatl.settings'
 ]
 
-requires = ['requests>=1.0.4', 'prettytable==0.7.2', 'dicttoxml==1.5.8', 'termcolor==1.1.0', 'BeautifulSoup==3.2.1']
+requires = ['requests>=1.0.4', 'prettytable>=0.7.2', 'dicttoxml>=1.5.8']
 
 if sys.version_info < (2, 7):
     requires.append('argparse')
