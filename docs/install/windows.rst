@@ -67,14 +67,16 @@ Post-Installation
 
 .. code-block:: powershell
 
-   $env:ES_ACCESS_KEY=“access-key”
-   $env:ES_SECRET_KEY=“secret-key”
-   $env:ES_ENDPOINT=“https:/your.dcm_url/api/enstratus/<api version>
+   $env:DCM_ACCESS_KEY=“access-key”
+   $env:DCM_SECRET_KEY=“secret-key”
+   $env:DCM_API_VERSION=“api-version”
+   $env:DCM_ENDPOINT=“https:/your.dcm_url/api/enstratus/<api version>
 
 Alternatively, the variables can be set in a non-persistent way on via the command prompt:
 
 .. code-block:: powershell
 
-   set ES_ACCESS_KEY=access-key
-   set ES_SECRET_KEY=secret-key
-   set ES_ENDPOINT=https:/your.dcm_url/api/enstratus/<api version>
+   set DCM_ACCESS_KEY=access-key
+   set DCM_SECRET_KEY=secret-key
+   set DCM_API_VERSION=api-version
+   set DCM_ENDPOINT=https:/your.dcm_url/api/enstratus/<api version>
