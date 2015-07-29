@@ -8,4 +8,4 @@ prettytable>=0.7.2
 termcolor>=1.1.0
 sphinx_rtd_theme
 dicttoxml
-
+xmltodict>=0.4.2

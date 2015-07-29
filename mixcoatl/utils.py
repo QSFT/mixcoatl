@@ -1,5 +1,5 @@
 import json
-
+import xmltodict
 """Common helper utilities for use with mixcoatl"""
 
 def to_csv(data):
@@ -40,7 +40,7 @@ def print_format(data, payload_format):
     :param str payload_format: the the format that should be returned, either "json","xml","csv"
     :returns str: formatted string
     """
-    import dicttoxml
+
 
     newdata = []
     for i in data:
@@ -51,7 +51,9 @@ def print_format(data, payload_format):
         newdata.append(thedict)
 
     if payload_format == "xml":
-        return dicttoxml.dicttoxml(newdata)
+        return "%s %s %s"% ('<?xml version="1.0" ?><root>',
+                            xmltodict.unparse({"item":newdata}, full_document=False),
+                            '</root>')
     elif payload_format == "csv":
         return to_csv(newdata)
     else:
@@ -66,12 +68,13 @@ def format_dict(thedict, payload_format):
     :returns str: formatted string
     """
 
-    import dicttoxml
 
     if payload_format == "json":
         return json.dumps(thedict, indent=4, sort_keys=True)
     elif payload_format == "xml":
-        return dicttoxml.dicttoxml(thedict)
+        return "%s %s %s"% ('<?xml version="1.0" ?><root>',
+                            xmltodict.unparse({"item":thedict}, full_document=False),
+                            '</root>')
     elif payload_format == "csv":
         return to_csv([thedict])
     else:
