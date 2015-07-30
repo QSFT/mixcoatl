@@ -4,6 +4,59 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
+1.1.0
+=====
+
+Release Date: 2015-07-30
+
+Use with DCM: 10.X, 11.X
+
+In this release we move our documentation onto [docs.mixcoatl.net][rtd] and hosted with readthedocs.org. The docs are
+versioned and automatically generated as the code is committed to the repository. All of our docs are consolidated here
+as well, which should lead to better search engine results over time.
+
+We have some new additions:
+
+    $ dcm-describe-license
+    Licensee: Dell Cloud Manager Production SaaS
+    Days Until Expiration: 9819
+    Expiration Date: 2042-06-18T16:07:21.311+0000
+    Server Limit: 0
+    License Valid: True
+    
+and dcm-list-api-versions which has been updated to be able to tell you which api version you are currently using, which
+is the latest and what versions are available:
+
+    $ dcm-list-api-versions --help
+    usage: dcm-list-api-versions [-h] [--active | --latest | --supported]
+                                 [--json | --xml | --csv]
+
+
+We have also cut out BeautifulSoup and termcolor python dependencies, in the process of getting ready for deb and rpm
+vendor native packaging.
+
+Features
+---------
+- Add [#251][251] ability to get avalable API versions to the Endpoint class
+- Add [#213][213] new command dcm-describe-license 
+
+
+Fixes
+-------
+- Fixed [#250][250] InsecurePlatformWarning problem coming from request module
+- Fixed [#252][252] Drop termcolor as dependency
+- Fixed [#255][255] replace dicttoxml with xmltodict
+- Fixed [#159][159] fix dcm-list-server-terminate
+- Improved some faulty install docs (thanks Syam Puchakayala)
+
+[159]:https://github.com/enStratus/mixcoatl/issues/159
+[213]:https://github.com/enStratus/mixcoatl/issues/213
+[250]:https://github.com/enStratus/mixcoatl/issues/250
+[251]:https://github.com/enStratus/mixcoatl/issues/251
+[252]:https://github.com/enStratus/mixcoatl/issues/252
+[255]:https://github.com/enStratus/mixcoatl/issues/255
+[rtd]:http://docs.mixcoatl.net
+
 
 
 1.0.3
