@@ -9,7 +9,7 @@ class TestVolumeLive:
     def setup(self):
         # load an endpoint that this file must be hosted outside of git
         # because it contains credentials
-        self.endpoint = Endpoint.multiple_from_file("../../../secret-test-data/endpoints.json")['vagrant']
+        self.endpoint = Endpoint.multiple_from_file("../../secret-test-data/endpoints.json")['vagrant']
 
     def test_volume_creation(self):
         """Test the creating of a dummy volume against a live endpoint"""
@@ -18,7 +18,7 @@ class TestVolumeLive:
         # dcm-create-volume --budgetid 1512 --datacenter 1273 --size 1 --name mixcoatl-qa --description junk
 
         self.volume = Volume(endpoint=self.endpoint)
-        self.volume.set_from_file("../../../secret-test-data/vagrant-volume.json")
+        self.volume.set_from_file("../../secret-test-data/vagrant-volume.json")
         self.volume.name = "mixcoatl-qa-%s" % str(uuid.uuid4())[:8]
         self.job = self.volume.create()
         Job.wait_for(self.job.job_id, endpoint=self.endpoint)
