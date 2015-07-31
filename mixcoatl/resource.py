@@ -95,6 +95,15 @@ class Endpoint(object):
         self.ssl_verify = ssl_verify
         self.nickname = nickname
 
+        if self.ssl_verify is False:
+            try:
+                r.packages.urllib3.disable_warnings()
+            except AttributeError:
+                # requests is probably old and doesn't do warnings
+                pass
+        self.available_api_versions = None
+        self.loaded = False
+
     @staticmethod
     def _validate_api_version(date):
         try:
@@ -183,6 +192,35 @@ class Endpoint(object):
                                                     nickname=e['nickname'] if 'nickname' in e else None)
         return endpoint_dict
 
+    def _load_api_versions(self):
+        from mixcoatl.utils import uncamel_keys
+
+        headers = {'content-type': 'application/json', 'Accept': 'application/json'}
+        url_parts = self.url.split("/")
+        url = url_parts[0]+"//"+url_parts[2]+"/api/enstratus"
+        result = r.get(url,headers=headers)
+        result.raise_for_status()
+        self.loaded = True
+        self.available_api_versions = uncamel_keys(result.json())
+
+    def load(self):
+        """Force reload of endpoint attributes such as available API versions remote endpoint via API calls"""
+        self._load_api_versions()
+
+    def latest_api_version(self):
+        """Get the lastest API version from the DCM enpoint. Note this is could be different from the currently
+        active DCM endpoint available at Endpoint.api_version."""
+
+        if self.loaded is False:
+            self._load_api_versions()
+        return self.available_api_versions["current"]["version_id"]
+
+    def supported_api_versions(self):
+        """Get the supported API versions in from the DCM endpoint"""
+
+        if self.loaded is False:
+            self._load_api_versions()
+        return sorted([ v["version_id"] for v in self.available_api_versions["supported"] ], reverse=True)
 
 class Resource(object):
 

@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+from mixcoatl.admin.license import License
+from mixcoatl import resource_utils, utils
+import argparse
+
+
+def pretty_print(license):
+    print "Licensee: %s" % license.licensee
+    print "Days Until Expiration: %s" % license.days_until_expiration
+    print "Expiration Date: %s" % license.expiration_date_time
+    print "Server Limit: %s" % license.server_limit
+    print "License Valid: %s" % license.valid
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    # add available output formats
+    utils.add_argparse_output_formats(parser.add_mutually_exclusive_group())
+
+    cmd_args = parser.parse_args()
+
+    license = License()
+    license.load()
+
+    if cmd_args.format:
+        print utils.format_dict(license.prop_dict(), cmd_args.format)
+    else:
+        pretty_print(license)

@@ -9,7 +9,7 @@ class TestServerLive:
     def setup(self):
         # load an endpoint that this file must be hosted outside of git
         # because it contains credentials
-        self.endpoint = Endpoint.multiple_from_file("../../../secret-test-data/endpoints.json")['saas']
+        self.endpoint = Endpoint.multiple_from_file("../../secret-test-data/endpoints.json")['saas']
 
     def test_saas_server_create(self):
         """Test if we can create a VM using an live endpoint object and shut it down"""
@@ -19,7 +19,7 @@ class TestServerLive:
         #     --name igable-terminateme --productid t1.micro --budgetid 1512 --description longstring
 
         self.server = Server(endpoint=self.endpoint)
-        self.server.set_from_file("../../../secret-test-data/ubuntu-trusty-14.04-amd64-server-20150629.json")
+        self.server.set_from_file("../../secret-test-data/ubuntu-trusty-14.04-amd64-server-20150629.json")
 
         # override the server name loaded from the json
         self.server.name = "mixcoatl-qa-%s" % str(uuid.uuid4())[:8]

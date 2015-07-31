@@ -1,36 +1,54 @@
 #!/usr/bin/env python
 
-import requests as r
-from mixcoatl import resource_utils, utils
-from prettytable import PrettyTable
-from BeautifulSoup import BeautifulSoup
-import time
-import sys
-import os
 
-def remove_duplicates(l):
-    return list(set(l))
+from mixcoatl import resource_utils, utils
+from mixcoatl.resource import Endpoint
+from mixcoatl.settings.load_settings import settings
+
+import argparse
+
 
 if __name__ == '__main__':
     """ List API Versions from DCM """
-    start = time.time()
-    url = os.environ['DCM_ENDPOINT'].split("/")
-    api_url = url[0]+"//"+url[2]+"/api/enstratus"
 
-    if os.environ['DCM_SSL_VERIFY'] == 1:
-        req = r.get(api_url)
+    endpoint = Endpoint(url=settings.endpoint,
+                           basepath=settings.basepath,
+                           api_version=settings.api_version,
+                           secret_key=settings.secret_key,
+                           access_key=settings.access_key,
+                           ssl_verify=settings.ssl_verify)
+
+    parser = argparse.ArgumentParser()
+
+    type_parser = parser.add_mutually_exclusive_group()
+    type_parser.add_argument('--active', '-a', action='store_true', help='Current active API version')
+    type_parser.add_argument('--latest', '-l', action='store_true',
+                             help='Latest version supported by the DCM endpoint')
+    type_parser.add_argument('--supported', '-s', action='store_true',
+                             help='Latest version supported by the DCM endpoint')
+
+    # add available output formats
+    utils.add_argparse_output_formats(parser.add_mutually_exclusive_group())
+
+    cmd_args = parser.parse_args()
+
+    thelist = []
+
+    if cmd_args.active:
+        thelist = [endpoint.api_version]
+    elif cmd_args.latest:
+        thelist = [endpoint.latest_api_version()]
     else:
-        req = r.get(api_url, verify=False)
+        # we default to all supported versions to keep with previous function of this command
+        thelist = endpoint.supported_api_versions()
 
-    versions = []
-    soup = BeautifulSoup(req.text)
-    find_all = soup.findAll('a')
+    if cmd_args.format:
+        if cmd_args.format == "xml" or cmd_args.format == "json":
+            print utils.format_dict(thelist, cmd_args.format)
+        if cmd_args.format == "csv":
+            for v in thelist:
+                print v
 
-    for v in find_all:
-        versions.append(v.text)
-
-    for v in sorted(remove_duplicates(versions), reverse=True):
-        print v
-
-    if 'DCM_DEBUG' in os.environ:
-        print 'Results returned in', time.time()-start, 'seconds.'
+    else:
+        for v in thelist:
+            print v

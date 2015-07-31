@@ -32,12 +32,20 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
+
+
+
+
         table = PrettyTable(["RDBMS Product ID", "Name", "Provider Product ID", "Engine", "Budget Code", "Size"])
         for r in results:
+            productid = "None"
+            if hasattr(r,'rdbms_product'):
+                if 'product_id' in r.rdbms_product:
+                    productid = r.rdbms_product['product_id']
             table.add_row([
                 r.relational_database_id,
                 r.name,
-                r.rdbms_product['product_id'],
+                productid,
                 r.engine,
                 r.budget,
                 r.allocated_storage_in_gb])
