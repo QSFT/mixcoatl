@@ -11,6 +11,3 @@ Mixcoatl Automation
    :titlesonly:
 
    automation/configuration_management_account
-   automation/deployment
-   automation/service
-   automation/tier

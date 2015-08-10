@@ -28,7 +28,7 @@ from mixcoatl import __version__
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.intersphinx']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.intersphinx', 'sphinxcontrib.programoutput']
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:

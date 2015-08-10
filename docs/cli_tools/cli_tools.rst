@@ -26,6 +26,7 @@ DCM command line API tools.
    dcm-delete-volume
    dcm-describe-deployment
    dcm-describe-job
+   dcm-describe-license
    dcm-describe-machine-image
    dcm-describe-server
    dcm-detach-volume
