@@ -1,5 +1,5 @@
 :class:`Resource`
----------------
+-----------------
 
 .. autoclass:: mixcoatl.resource.Resource
     :members:
