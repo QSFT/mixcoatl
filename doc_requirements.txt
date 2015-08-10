@@ -1,0 +1,11 @@
+requests>=1.0.4
+nose>=1.2.1
+pylint==0.26.0
+nosexcover==1.0.7
+mock==1.0.1
+httpretty==0.5.5
+prettytable>=0.7.2
+termcolor>=1.1.0
+sphinx_rtd_theme
+xmltodict>=0.4.2
+sphinxcontrib-programoutput
