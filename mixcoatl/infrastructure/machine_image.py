@@ -15,11 +15,11 @@ class MachineImage(Resource):
     COLLECTION_NAME = 'images'
     PRIMARY_KEY = 'machine_image_id'
 
-    def __init__(self, machine_image_id=None, *args, **kwargs):
+    def __init__(self, machine_image_id=None, endpoint=None, *args, **kwargs):
         """A machine image is the baseline image or template from which
             virtual machines may be provisioned.
         """
-        Resource.__init__(self, request_details='basic')
+        Resource.__init__(self, request_details='basic', endpoint=endpoint)
         self.__machine_image_id = machine_image_id
 
     @property

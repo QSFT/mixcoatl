@@ -332,7 +332,7 @@ class Server(Resource):
         elif self.current_job is None:
             self.load()
         else:
-            if Job.wait_for(self.current_job):
+            if Job.wait_for(self.current_job, endpoint=self.endpoint):
                 job = Job(self.current_job, endpoint=self.endpoint)
                 self.__server_id = job.message
                 self.load()
