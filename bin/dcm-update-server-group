@@ -18,6 +18,6 @@ if __name__ == '__main__':
     results = s.set_owner(cmd_args.group_id)
 
     if results is True:
-        print "Server #"+str(cmd_args.server_id)+" group changed to ID# "+cmd_args.group_id
+        print "Server #"+str(cmd_args.server_id)+" group changed to ID# "+str(cmd_args.group_id)
     else:
         print results
