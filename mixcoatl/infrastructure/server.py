@@ -374,6 +374,13 @@ class Server(Resource):
         return self.delete(p, params=qopts)
 
     @required_attrs(['server_id'])
+    def set_owner(self, owner):
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        qopts = {'assignGroups': [{'owningGroups':[{'groupId':owner}]}]}
+        #print json.dumps(qopts)
+        return self.put(p, data=json.dumps(qopts))
+
+    @required_attrs(['server_id'])
     def start(self, reason=None):
         """Start the paused server instance with reason :attr:`reason`
 
