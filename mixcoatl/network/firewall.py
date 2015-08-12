@@ -192,7 +192,7 @@ class Firewall(Resource):
         :returns: `list` of :attr:`firewall_id` or :class:`Firewall`
         :raises: :class:`FirewallException`
         """
-        r = Resource(cls.PATH, endpoint=None)
+        r = Resource(cls.PATH, endpoint=endpoint)
         params = {}
 
         if 'detail' in kwargs:
