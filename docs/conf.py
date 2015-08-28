@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'mixcoatl'
-copyright = u'2014, Quest Software, Inc.'
+copyright = u'2014, Dell Software, Inc.'
 
 
 # The version info for the project you're documenting, acts as replacement for

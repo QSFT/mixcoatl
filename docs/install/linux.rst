@@ -20,14 +20,16 @@ Prerequisites
 Before we can install mixcoatl we need the python setuptools and `pip`. Get them using which ever package manger you have
 available.
 
-**apt-get:**
+**apt-get (for distros using debs):**
 
 
 .. code-block:: bash
 
     $ sudo apt-get install python-pip
 
-**yum:**
+or
+
+**yum (for distros using rpms):**
 
 .. code-block:: bash
 
@@ -66,6 +68,43 @@ command line tools where to find you DCM endpoint. For example (replace access k
 API keys can be generated from the DCM console
 
 
+Installing using python virtualenv (alternate install)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alternately you can install install Mixcoatl inside a Python virtual environment. Python
+`virtualenv <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_ is a good tool to install python packages
+in a isolated way that reduces the chances of interference with system python packages. This is also an
+excellent tool for development. First install pip as above.
+
+**apt-get (for distros using debs):**
+
+.. code-block:: bash
+
+    $ sudo apt-get install python-virtualenv
+
+or
+
+**yum (for distros using rpms):**
+
+.. code-block:: bash
+
+    $ sudo yum install python-virtualenv
+
+
+Now create a directory for your virtualenv and activate it:
+
+.. code-block:: bash
+
+    $ mkdir mixcoatl-venv
+    $ virtualenv mixcoatl-venv
+    New python executable in mixcoatl-venv/bin/python2.7
+    Also creating executable in mixcoatl-venv/bin/python
+    Installing setuptools, pip...done.
+    $ cd mixcoatl-venv
+    $ source bin/activate
+    $ pip install mixcoatl
+
+
 Installing from Source (for experts)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -75,7 +114,7 @@ First, clone the mixcoatl repository from git:
 
 .. code-block:: bash
 
-   $ git clone git@github.com:enStratus/mixcoatl.git
+   $ git clone https://github.com/enStratus/mixcoatl.git
 
 Then, use python to install:
 
