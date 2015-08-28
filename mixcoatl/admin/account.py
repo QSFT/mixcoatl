@@ -156,8 +156,9 @@ class Account(Resource):
             }
         ]}
 
-        if self.customer:
-            payload['addAccount'].append({'customer': {'customerId': int(self.customer)}})
+        if hasattr(self,'customer'):
+            if self.customer:
+                payload['addAccount'].append({'customer': {'customerId': int(self.customer)}})
 
         response = self.post(self.PATH, data=json.dumps(payload))
         if self.last_error is None:

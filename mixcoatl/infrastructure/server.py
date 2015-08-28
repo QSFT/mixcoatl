@@ -332,7 +332,7 @@ class Server(Resource):
         elif self.current_job is None:
             self.load()
         else:
-            if Job.wait_for(self.current_job):
+            if Job.wait_for(self.current_job, endpoint=self.endpoint):
                 job = Job(self.current_job, endpoint=self.endpoint)
                 self.__server_id = job.message
                 self.load()
@@ -372,6 +372,13 @@ class Server(Resource):
         p = '%s/%s' % (self.PATH, str(self.server_id))
         qopts = {'terminateAfter': extend}
         return self.delete(p, params=qopts)
+
+    @required_attrs(['server_id'])
+    def set_owner(self, owner):
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        qopts = {'assignGroups': [{'owningGroups':[{'groupId':owner}]}]}
+        #print json.dumps(qopts)
+        return self.put(p, data=json.dumps(qopts))
 
     @required_attrs(['server_id'])
     def start(self, reason=None):

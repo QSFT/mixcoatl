@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--account_name', '-a', help='Account Name', required=True)
 	parser.add_argument('--cloud_id', '-c', help='Cloud ID', required=True)
-	#parser.add_argument('--customer', '-C', help='Customer ID')
+	parser.add_argument('--customer', '-C', help='Customer ID')
 	parser.add_argument('--account_number', '-n', help='Account Number', required=True)
 	parser.add_argument('--api_key', '-k', help='API Key', required=True)
 	parser.add_argument('--api_secret', '-s', help='API Secret Key', required=True)
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
 	a = Account()
 	a.account_name = cmd_args.account_name
-	#a.customer = cmd_args.customer
+	a.customer = cmd_args.customer
 	a.account_number = cmd_args.account_number.replace('\xc2\xa0', '')
 	a.cloud_id = cmd_args.cloud_id
 	a.api_key_id = cmd_args.api_key

@@ -5,6 +5,34 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.2.0
+=====
+
+Release Date 2015-08-28
+
+Use with DCM: 10.X, 11.X
+
+The release adds a new CLI utility [`dcm-update-server-group`][dcm-update-server-group] that allows you to easily change
+the owning group of a sever. It also includes a number of bug fixes.
+
+Features
+--------
+- [#263][263] dcm-update-server-group cli utility (thanks Brian Williams)
+
+Fixes
+-----
+- [#264][264] Endpoint threading missing in firewall (thanks John Bresnahan)
+- [#265][265] dcm-create-account crash bug (report from Shaun Marshall)
+- [#268][268] documentation deficiencies 
+
+
+[263]:https://github.com/enStratus/mixcoatl/pull/263
+[264]:https://github.com/enStratus/mixcoatl/pull/264
+[265]:https://github.com/enStratus/mixcoatl/issues/265
+[268]:https://github.com/enStratus/mixcoatl/issues/268
+[dcm-update-server-group]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-update-server-group.html
+
+
 1.1.1
 =====
 
