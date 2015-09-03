@@ -6,11 +6,11 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--cloudid', '-c', help="DCM Cloud ID.")
-    parser.add_argument('--accountid', '-i', help="DCM Account ID.")
-    parser.add_argument('--accountnumber', '-n', help="Cloud credential's account number.")
-    parser.add_argument('--accesskey', '-a', help="Cloud credential's access key.")
-    parser.add_argument('--secretkey', '-s', help="Cloud credential's secrety key.")
+    parser.add_argument('--cloudid', '-c', help="DCM Cloud ID.", required=True)
+    parser.add_argument('--accountid', '-i', help="DCM Account ID.", required=True)
+    parser.add_argument('--accountnumber', '-n', help="Cloud credential's account number.", required=True)
+    parser.add_argument('--accesskey', '-a', help="Cloud credential's access key.", required=True)
+    parser.add_argument('--secretkey', '-s', help="Cloud credential's secrety key.", required=True)
 
     cmd_args = parser.parse_args()
 

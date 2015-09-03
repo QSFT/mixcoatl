@@ -47,9 +47,9 @@ def set_all_accounts(group_id,role_id):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--group_id', '-g', type=int, help='Group ID')
-    parser.add_argument('--role_id', '-r', type=int, help='The role ID.')
-    parser.add_argument('--account_id', '-a', type=int, help='The role ID.')
+    parser.add_argument('--group_id', '-g', type=int, help='Group ID', required=True)
+    parser.add_argument('--role_id', '-r', type=int, help='The role ID.', required=True)
+    parser.add_argument('--account_id', '-a', type=int, help='The role ID.', required=True)
 
     cmd_args = parser.parse_args()
 

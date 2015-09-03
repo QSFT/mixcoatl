@@ -6,7 +6,7 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--networkid', '-i', type=int, help='Network ID')
+    parser.add_argument('--networkid', '-i', type=int, help='Network ID', required=True)
     parser.add_argument('--reason', '-r', help='The reason for deleting the network.')
 
     cmd_args = parser.parse_args()

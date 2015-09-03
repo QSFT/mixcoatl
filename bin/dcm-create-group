@@ -14,8 +14,8 @@ def print_verbose(name,gid):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--name', '-n', help='The name of the group.')
-    parser.add_argument('--description', '-d', help='The description of the group.')
+    parser.add_argument('--name', '-n', help='The name of the group.', required=True)
+    parser.add_argument('--description', '-d', help='The description of the group.', required=True)
     parser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print out verbose information about the group creation.')
 
     cmd_args = parser.parse_args()

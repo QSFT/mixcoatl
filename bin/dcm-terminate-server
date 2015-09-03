@@ -6,7 +6,7 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--server_id', '-s', type=int, help='Server ID')
+    parser.add_argument('--server_id', '-s', type=int, help='Server ID', required=True)
     parser.add_argument('--reason', '-r', help='The reason for terminating the server.')
     cmd_args = parser.parse_args()
 
