@@ -6,26 +6,36 @@ import sys
 
 """ NOTE: an elevated User account or Customer account is required."""
 if __name__ == '__main__':
-	""" Create a cloud account. """
-	parser = argparse.ArgumentParser()
-	parser.add_argument('--account_name', '-a', help='Account Name', required=True)
-	parser.add_argument('--cloud_id', '-c', help='Cloud ID', required=True)
-	parser.add_argument('--customer', '-C', help='Customer ID')
-	parser.add_argument('--account_number', '-n', help='Account Number', required=True)
-	parser.add_argument('--api_key', '-k', help='API Key', required=True)
-	parser.add_argument('--api_secret', '-s', help='API Secret Key', required=True)
-	cmd_args = parser.parse_args()
+    """ Create a cloud account. """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--account_name', '-a', help='Account Name', required=True)
+    parser.add_argument('--cloud_id', '-c', help='Cloud ID', required=True)
+    parser.add_argument('--customer', '-C', help='Customer ID')
+    parser.add_argument('--account_number', '-n', help='Account Number', required=True)
+    parser.add_argument('--api_key', '-k', help='API Key', required=True)
+    parser.add_argument('--api_secret', '-s', help='API Secret Key', required=True)
+    parser.add_argument('--group_id', '-g', help='Group to assign budget codes, and roles, defaults to Admin Group')
+    parser.add_argument('--role_id', '-r', help='Role to assign account to')
+    parser.add_argument('--budget_codes', '-b', help='Budget codes to assign account to')
+    cmd_args = parser.parse_args()
 
-	if None in [cmd_args.account_name, cmd_args.cloud_id, cmd_args.account_number, cmd_args.api_key, cmd_args.api_secret]:
-	    parser.print_help()
-	    sys.exit(1)
+    if None in [cmd_args.account_name, cmd_args.cloud_id, cmd_args.account_number, cmd_args.api_key,
+                cmd_args.api_secret]:
+        parser.print_help()
+        sys.exit(1)
 
-	a = Account()
-	a.account_name = cmd_args.account_name
-	a.customer = cmd_args.customer
-	a.account_number = cmd_args.account_number.replace('\xc2\xa0', '')
-	a.cloud_id = cmd_args.cloud_id
-	a.api_key_id = cmd_args.api_key
-	a.api_key_secret = cmd_args.api_secret
-	result = a.add()
-	print result
+    if not all([cmd_args.role_id, cmd_args.group_id, cmd_args.role_id]):
+        print "If any of --group_id, --role_id or --budget_codes is specified, all must be specified"
+        sys.exit(1)
+
+    a = Account()
+    a.account_name = cmd_args.account_name
+    a.customer = cmd_args.customer
+    a.account_number = cmd_args.account_number.replace('\xc2\xa0', '')
+    a.cloud_id = cmd_args.cloud_id
+    a.api_key_id = cmd_args.api_key
+    a.api_key_secret = cmd_args.api_secret
+    result = a.add(group_id=cmd_args.group_id,
+                   budget_codes=cmd_args.budget_codes,
+                   role_id=cmd_args.role_id)
+    print result
