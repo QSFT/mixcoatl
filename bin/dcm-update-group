@@ -27,8 +27,8 @@ if __name__ == '__main__':
     group = Group(gid)
 
     if group_description is None and group_name is not None:
-        result = group.updateName(group_name)
+        result = group.update_name(group_name)
     elif group_name is None and group_description is not None:
-        result = group.updateDescription(group_description)
+        result = group.update_description(group_description)
     else:
         result = group.update(group_name, group_description)
