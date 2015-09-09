@@ -7,11 +7,11 @@ import sys
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--productid', '-p', help="Provider's product ID such as m1.large")
-    parser.add_argument('--machineimage', '-m', help='Machine image ID')
-    parser.add_argument('--datacenter', '-d', help='Data Center ID')
-    parser.add_argument('--description', '-D', help='Description')
-    parser.add_argument('--name', '-n', help='Server Name')
+        '--productid', '-p', help="Provider's product ID such as m1.large", required=True)
+    parser.add_argument('--machineimage', '-m', help='Machine image ID', required=True)
+    parser.add_argument('--datacenter', '-d', help='Data Center ID', required=True)
+    parser.add_argument('--description', '-D', help='Description', required=True)
+    parser.add_argument('--name', '-n', help='Server Name', required=True)
     parser.add_argument('--budgetid', '-b', help='Budget ID')
     parser.add_argument('--keypair', '-k', help='Keypair Name')
     parser.add_argument('--vlan', '-v', help='VLAN, deprecated since DCM k.50 use --network')

@@ -6,9 +6,9 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--billingcodeid', '-b', type=int, help='Billing Code ID')
-    parser.add_argument('--reason', '-r', help='The reason for deleting the billing code.')
-    parser.add_argument('--replacementcodeid', '-R', type=int, help='Replacement code ID.')
+    parser.add_argument('--billingcodeid', '-b', type=int, help='Billing Code ID', required=True)
+    parser.add_argument('--reason', '-r', help='The reason for deleting the billing code.', required=True)
+    parser.add_argument('--replacementcodeid', '-R', type=int, help='Replacement code ID.', required=True)
 
     cmd_args = parser.parse_args()
 

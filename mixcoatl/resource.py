@@ -198,7 +198,7 @@ class Endpoint(object):
         headers = {'content-type': 'application/json', 'Accept': 'application/json'}
         url_parts = self.url.split("/")
         url = url_parts[0]+"//"+url_parts[2]+"/api/enstratus"
-        result = r.get(url,headers=headers)
+        result = r.get(url,headers=headers, verify=self.ssl_verify)
         result.raise_for_status()
         self.loaded = True
         self.available_api_versions = uncamel_keys(result.json())

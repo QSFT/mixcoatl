@@ -5,6 +5,40 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+
+1.3.0
+=====
+
+Release Date 2015-07-08
+
+Use with DCM: 10.X, 11.X
+
+The dcm-create-account tool is now easier to use thanks to more reasonable defaults. Newly created accounts are added to
+default admin customer and group. We also include a number of fixes to the CLI to make it easier to understand what
+flags are required vs optional.
+
+Features
+--------
+- [#270][270] [#271][271] , dcm-create-account easier to use with better defaults
+
+
+
+Fixes
+-----
+- [#186][186] dcm-create-account accepts customer_id
+- [#266][266],[#272][272] dcm-list-api-version didn't work with unsigned server certificates
+- [#235][235] CLI tools don't differentiate between optional and required arguments
+- [#274][274] fix broken dcm-update-group
+
+
+[186]:https://github.com/enStratus/mixcoatl/issues/186
+[235]:https://github.com/enStratus/mixcoatl/issues/235
+[266]:https://github.com/enStratus/mixcoatl/issues/266
+[270]:https://github.com/enStratus/mixcoatl/issues/270
+[271]:https://github.com/enStratus/mixcoatl/pull/271
+[272]:https://github.com/enStratus/mixcoatl/pull/272
+[274]:https://github.com/enStratus/mixcoatl/issues/274
+
 1.2.0
 =====
 

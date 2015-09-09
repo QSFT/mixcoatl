@@ -142,23 +142,40 @@ class Account(Resource):
         self.__customer = n
 
     @required_attrs(['account_name', 'account_number', 'cloud_id', 'api_key_id', 'api_key_secret'])
-    def add(self):
+    def add(self, group_id=None, budget_codes=None, role_id=None):
         payload = {'addAccount': [
             {
                 'name': self.account_name,
                 'cloudSubscription':
-                {
-                    'accountNumber': self.account_number,
-                    'cloudId': int(self.cloud_id),
-                    'apiKeyId': self.api_key_id,
-                    'apiKeySecret': self.api_key_secret
-                }
+                    {
+                        'accountNumber': self.account_number,
+                        'cloudId': int(self.cloud_id),
+                        'apiKeyId': self.api_key_id,
+                        'apiKeySecret': self.api_key_secret
+                    }
             }
         ]}
 
-        if hasattr(self,'customer'):
+        if hasattr(self, 'customer'):
             if self.customer:
-                payload['addAccount'].append({'customer': {'customerId': int(self.customer)}})
+                payload['addAccount'][-1].update({'customer': {'customerId': int(self.customer)}})
+
+        if group_id is None:
+            # if no group is specified set the admin defaults.
+            payload['addAccount'][-1].update({'setAdminDefaults': True})
+        else:
+            if budget_codes is not None:
+                payload['addAccount'][-1].update(
+                    {'groupBudgetCodes':
+                        [
+                            {
+                                'groupId': group_id,
+                                'budgetCodes': budget_codes.split(',')
+                            }
+                        ]}
+                )
+            if role_id is not None:
+                payload['addAccount'][-1].update({'groupRoles': [{'roleId': role_id, 'groupId': group_id}]})
 
         response = self.post(self.PATH, data=json.dumps(payload))
         if self.last_error is None:

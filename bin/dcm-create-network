@@ -6,11 +6,11 @@ import sys
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--budgetid', '-b', help='Budget ID')
-    parser.add_argument('--name', '-n', help='Network Name')
-    parser.add_argument('--netaddress', '-a', help='Network address such as 192.168.0.0/24')
-    parser.add_argument('--regionid', '-r', help='Region ID')
-    parser.add_argument('--description', '-D', help='Description')
+    parser.add_argument('--budgetid', '-b', help='Budget ID', required=True)
+    parser.add_argument('--name', '-n', help='Network Name', required=True)
+    parser.add_argument('--netaddress', '-a', help='Network address such as 192.168.0.0/24', required=True)
+    parser.add_argument('--regionid', '-r', help='Region ID', required=True)
+    parser.add_argument('--description', '-D', help='Description', required=True)
     parser.add_argument('--dnsserver', '-d', help='DNS Server')
     parser.add_argument('--groupid', '-g', help='Owning Group ID')
 
