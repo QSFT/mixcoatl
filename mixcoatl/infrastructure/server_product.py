@@ -44,7 +44,7 @@ class ServerProduct(Resource):
 
     @lazy_property
     def currency(self):
-        """`str` - The currenct in which the associated costs are charged"""
+        """`str` - The currency in which the associated costs are charged"""
         return self.__currency
 
     @lazy_property
