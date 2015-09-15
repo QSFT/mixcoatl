@@ -5,6 +5,21 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.3.1
+=====
+
+Release Date 2015-07-15
+
+Use with DCM: 10.X, 11.X
+
+This release is a quick fix for critical bug [#278][278].
+
+Fixes
+-----
+
+- [#278][278] broken dcm-detach-volume 
+
+[278]:https://github.com/enStratus/mixcoatl/issues/278
 
 1.3.0
 =====
