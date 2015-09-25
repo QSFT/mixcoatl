@@ -47,7 +47,6 @@ if __name__ == '__main__':
                 message = None
 
             if cmd_args.job_id is not None:
-                print "Job ID: %s" % (cmd_args.job_id)
                 if cmd_args.job_id == str(r.job_id):
                     table.add_row([r.job_id, r.description, r.status, r.start_date, end_date, message])
                     break
