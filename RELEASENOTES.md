@@ -5,10 +5,26 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.3.2
+=====
+
+Release Date 2015-09-24
+
+Use with DCM: 10.X, 11.X
+
+This release is a bug fix for [#282][282].
+
+Fixes
+-----
+
+- [#282][282] dcm-list-jobs ignores --job-id
+
+[282]:https://github.com/enStratus/mixcoatl/issues/282
+
 1.3.1
 =====
 
-Release Date 2015-07-15
+Release Date 2015-09-15
 
 Use with DCM: 10.X, 11.X
 
@@ -24,7 +40,7 @@ Fixes
 1.3.0
 =====
 
-Release Date 2015-07-08
+Release Date 2015-09-08
 
 Use with DCM: 10.X, 11.X
 
