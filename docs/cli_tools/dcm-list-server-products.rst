@@ -21,7 +21,7 @@ Syntax
 .. code-block:: bash
 
    usage: dcm-list-server-products [-h]
-                                   [--regionid REGIONID | --provider-region-id PROVIDER_REGION_ID]
+                                   [--regionid REGIONID | --regionpid REGIONPID]
                                    [--json | --xml | --csv]
 
    optional arguments:
@@ -29,7 +29,7 @@ Syntax
      --regionid REGIONID, -r REGIONID
                            show only results with the DCM REGIONID (use dcm-list-
                            regions to find the IDs)
-     --provider-region-id PROVIDER_REGION_ID, -p PROVIDER_REGION_ID
+     --regionpid REGIONPID, -p REGIONPID
                            show only results with the provider PROVIDER_REGION_ID
                            (for example us-east-1 )
      --json                print API response in JSON format.
@@ -52,7 +52,7 @@ Options
 |                         |                                                       |
 |                         | Example: 1403                                         |
 +-------------------------+-------------------------------------------------------+
-|-p, --provider-region-id | The provider product id which server products will be |
+|-p, --regionpid          | The provider product id which server products will be |
 |                         | listed.                                               |
 |                         |                                                       |
 |                         | Type: String/Integer                                  |
@@ -87,7 +87,7 @@ Example 1
 
 .. code-block:: bash
 
-   dcm-list-server-products --provider-region-id us-east-1
+   dcm-list-server-products --regionpid us-east-1
 
 Output
 %%%%%%

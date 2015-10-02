@@ -26,8 +26,8 @@ if __name__ == '__main__':
     group_two = parser.add_mutually_exclusive_group()
     group_two.add_argument('--regionid', '-r', type=int,
                            help='show only results with the DCM REGIONID (use dcm-list-regions to find the IDs)')
-    group_two.add_argument('--provider-region-id', '-p',
-                           help='show only results with the provider PROVIDER_REGION_ID (for example us-east-1 )')
+    group_two.add_argument('--regionpid', '-p',
+                           help='show only results with the provider REGIONPID (for example us-east-1 )')
 
     group_three = parser.add_mutually_exclusive_group()
     group_three.add_argument('--json', action='store_true',
@@ -38,10 +38,10 @@ if __name__ == '__main__':
         help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    if cmd_args.provider_region_id is not None:
-        region_id = lookup_region_id(cmd_args.provider_region_id)
+    if cmd_args.regionpid is not None:
+        region_id = lookup_region_id(cmd_args.regionpid)
         if region_id is None:
-            print "Provider region id: %s not found" % cmd_args.provider_region_id
+            print "Provider region id: %s not found" % cmd_args.regionpid
             sys.exit(1)
     else:
         region_id = cmd_args.regionid
