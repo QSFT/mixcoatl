@@ -25,11 +25,14 @@ if __name__ == '__main__':
         print(result)
     elif cmd_args.json is not None:
         r.payload_format = 'json'
+
         try:
             with open(cmd_args.json) as json_file:
                 json_string = json.dumps(json.load(json_file))
-        except ValueError:
-            print("Invalid JSON")
+        except ValueError as e:
+            print "The file %s contains invalid JSON:\n" % cmd_args.json
+            print e
             sys.exit(1)
+
         result = r.post(data=json_string)
         print(result)
