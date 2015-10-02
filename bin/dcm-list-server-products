@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from mixcoatl.infrastructure.server_product import ServerProduct
+from mixcoatl.geography.region import Region
 from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import os
@@ -8,26 +9,44 @@ import time
 import argparse
 import sys
 
+
+def lookup_region_id(provider_region_id):
+    regions = Region.all()
+    for r in regions:
+        if r.provider_id == provider_region_id:
+            return r.region_id
+    return None
+
+
 if __name__ == '__main__':
     """ List Server Products """
     start = time.time()
     parser = argparse.ArgumentParser()
-    parser.add_argument('--regionid', '-r', help='Region ID')
 
     group_two = parser.add_mutually_exclusive_group()
-    group_two.add_argument('--json', action='store_true',
+    group_two.add_argument('--regionid', '-r', type=int,
+                           help='show only results with the DCM REGIONID (use dcm-list-regions to find the IDs)')
+    group_two.add_argument('--provider-region-id', '-p',
+                           help='show only results with the provider PROVIDER_REGION_ID (for example us-east-1 )')
+
+    group_three = parser.add_mutually_exclusive_group()
+    group_three.add_argument('--json', action='store_true',
         help='print API response in JSON format.')
-    group_two.add_argument('--xml', action='store_true',
+    group_three.add_argument('--xml', action='store_true',
         help='print API response in XML format.')
-    group_two.add_argument('--csv', action='store_true',
+    group_three.add_argument('--csv', action='store_true',
         help='print API response in XML format.')
     cmd_args = parser.parse_args()
 
-    if cmd_args.regionid != None:
-        results = ServerProduct.all(cmd_args.regionid)
+    if cmd_args.provider_region_id is not None:
+        region_id = lookup_region_id(cmd_args.provider_region_id)
+        if region_id is None:
+            print "Provider region id: %s not found" % cmd_args.provider_region_id
+            sys.exit(1)
     else:
-        parser.print_help()
-        sys.exit(1)
+        region_id = cmd_args.regionid
+
+    results = ServerProduct.all(region_id)
 
     if cmd_args.xml is True or cmd_args.json is True or cmd_args.csv is True:
         if cmd_args.xml is True:

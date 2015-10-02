@@ -31,7 +31,6 @@ class TestCli:
             "dcm-list-networks",  # You must specify either a dataCenterId, regionId, or accountId
             "dcm-list-rdbms-products",  # argument --region/-r is required
             "dcm-list-server-analytics",  # --server SERVER (also no shown as required)
-            "dcm-list-server-products",  # --regionid REGIONID
             "dcm-list-server-terminate",  # required flag --all (change de default)
             "dcm-list-storage-objects",  # --regionid/-r is required
         ]

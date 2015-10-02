@@ -12,39 +12,59 @@ List server products for a region.
 Description
 ~~~~~~~~~~~
 
-Returns server products for a given cloud region. A :ref:`region ID <dcm_list_regions>` is required.
+Returns available server products. You can filter the list of products by :ref:`region ID <dcm_list_regions>` and
+by :ref:`provider region ID <dcm_list_regions>`.
 
 Syntax
 ~~~~~~
 
 .. code-block:: bash
 
-   usage: dcm-list-server-products [-h] [--regionid REGIONID] [--verbose]
+   usage: dcm-list-server-products [-h]
+                                   [--regionid REGIONID | --provider-region-id PROVIDER_REGION_ID]
+                                   [--json | --xml | --csv]
 
    optional arguments:
      -h, --help            show this help message and exit
      --regionid REGIONID, -r REGIONID
-                           Region ID
-     --verbose, -v         Produce verbose output
+                           show only results with the DCM REGIONID (use dcm-list-
+                           regions to find the IDs)
+     --provider-region-id PROVIDER_REGION_ID, -p PROVIDER_REGION_ID
+                           show only results with the provider PROVIDER_REGION_ID
+                           (for example us-east-1 )
+     --json                print API response in JSON format.
+     --xml                 print API response in XML format.
+     --csv                 print API response in XML format.
 
 Options
 ~~~~~~~
 
-+--------------------+------------------------------------------------------------+
-| Option             | Description                                                |
-+====================+============================================================+
-| -r, --regionid     | The region for which server products will be listed        | 
-|                    |                                                            |
-|                    | Type: String/Integer                                       |
-|                    |                                                            |
-|                    | Default: None                                              |
-|                    |                                                            |
-|                    | Required: Yes                                              |
-|                    |                                                            |
-|                    | Example: 1403                                              |
-+--------------------+------------------------------------------------------------+
-| -v, --verbose      | Print out verbose information while listing regions        |
-+--------------------+------------------------------------------------------------+
++-------------------------+-------------------------------------------------------+
+| Option                  | Description                                           |
++=========================+=======================================================+
+| -r, --regionid          | The region for which server products will be listed   |
+|                         |                                                       |
+|                         | Type: String/Integer                                  |
+|                         |                                                       |
+|                         | Default: None                                         |
+|                         |                                                       |
+|                         | Required: No                                          |
+|                         |                                                       |
+|                         | Example: 1403                                         |
++-------------------------+-------------------------------------------------------+
+|-p, --provider-region-id | The provider product id which server products will be |
+|                         | listed.                                               |
+|                         |                                                       |
+|                         | Type: String/Integer                                  |
+|                         |                                                       |
+|                         | Default: None                                         |
+|                         |                                                       |
+|                         | Required: No                                          |
+|                         |                                                       |
+|                         | Example: us-east-1                                    |
++-------------------------+-------------------------------------------------------+
+| -v, --verbose           | Print out verbose information while listing regions   |
++-------------------------+-------------------------------------------------------+
 
 Common Options
 ~~~~~~~~~~~~~~
@@ -67,18 +87,37 @@ Example 1
 
 .. code-block:: bash
 
-   dcm-list-server-products -r RegionOne
+   dcm-list-server-products --provider-region-id us-east-1
 
 Output
 %%%%%%
 
 .. code-block:: bash
 
-   +-------------------+--------------------+---------------------+-----------+----------+----------+-------------+
-   | Server Product ID | Provider Region ID | Provider Product ID | Name      | Platform | Currency | Hourly Rate |
-   +-------------------+--------------------+---------------------+-----------+----------+----------+-------------+
-   | 10000             | RegionOne          | 6                   | m1.custom | UNIX     | USD      | 0.14        |
-   +-------------------+--------------------+---------------------+-----------+----------+----------+-------------+
+   +-------------------+--------------------+---------------------+----------------------+----------+----------+-------------+
+   | Server Product ID | Provider Region ID | Provider Product ID | Name                 | Platform | Currency | Hourly Rate |
+   +-------------------+--------------------+---------------------+----------------------+----------+----------+-------------+
+   | 2052              | us-east-1          | c1.medium           | c1.medium            | SUSE     | USD      | 0.23        |
+   | 2053              | us-east-1          | c1.medium           | c1.medium            | SUSE     | USD      | 0.23        |
+   | 1452              | us-east-1          | c1.medium           | c1.medium            | RHEL     | USD      | 0.19        |
+   | 1453              | us-east-1          | c1.medium           | c1.medium            | RHEL     | USD      | 0.19        |
+   | 3039              | us-east-1          | c1.medium           | c1.medium            | UNIX     | USD      | 0.13        |
+   | 3040              | us-east-1          | c1.medium           | High-CPU Medium      | UNKNOWN  | USD      | 0.145       |
+   | 3041              | us-east-1          | c1.medium           | c1.medium            | UNIX     | USD      | 0.13        |
+   | 3042              | us-east-1          | c1.medium           | High-CPU Medium      | UNKNOWN  | USD      | 0.145       |
+   | 3043              | us-east-1          | c1.medium           | c1.medium            | WINDOWS  | USD      | 0.21        |
+   | 3044              | us-east-1          | c1.medium           | c1.medium            | WINDOWS  | USD      | 0.21        |
+   | 2055              | us-east-1          | c1.xlarge           | c1.xlarge            | SUSE     | USD      | 0.62        |
+   | 1455              | us-east-1          | c1.xlarge           | c1.xlarge            | RHEL     | USD      | 0.65        |
+   | 3045              | us-east-1          | c1.xlarge           | c1.xlarge            | UNIX     | USD      | 0.52        |
+   | 3046              | us-east-1          | c1.xlarge           | High-CPU Extra Large | UNKNOWN  | USD      | 0.58        |
+   | 3047              | us-east-1          | c1.xlarge           | c1.xlarge            | WINDOWS  | USD      | 0.84        |
+   | 523               | us-east-1          | c3.2xlarge          | c3.2xlarge           | UNKNOWN  | USD      | 0.42        |
+   | 2317              | us-east-1          | c3.2xlarge          | c3.2xlarge           | WINDOWS  | USD      | 0.752       |
+   | 1119              | us-east-1          | c3.2xlarge          | c3.2xlarge           | RHEL     | USD      | 0.55        |
+   | 1719              | us-east-1          | c3.2xlarge          | c3.2xlarge           | SUSE     | USD      | 0.52        |
+   +-------------------+--------------------+---------------------+----------------------+----------+----------+-------------+
+
 
 Example 2
 ^^^^^^^^^
