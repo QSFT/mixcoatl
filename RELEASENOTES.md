@@ -14,8 +14,8 @@ Release Date 2015-10-05
 Use with DCM: 10.X, 11.X
 
 This [dcm-list-server-products][dcm-list-server-products] tool can now filter by external cloud provider region ID and
-not just DCM internal IDs. This allows you filter server products like this allowing you to filter like this:
-`dcm-list-server-products --regionpid us-east-1`. We also now provider more useful json formatting error messages for
+not just DCM internal IDs. This allows you filter server products like this:
+`dcm-list-server-products --regionpid us-east-1`. We also now provide more useful json formatting error messages for
 `dcm-put` and `dcm-post`, which is especially useful for developers working out how to format their DCM API payloads.
 
 Features
