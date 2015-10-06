@@ -5,6 +5,30 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+
+1.4.0
+=====
+
+Release Date 2015-10-05
+
+Use with DCM: 10.X, 11.X
+
+This [dcm-list-server-products][dcm-list-server-products] tool can now filter by external cloud provider region ID and
+not just DCM internal IDs. This allows you filter server products like this allowing you to filter like this:
+`dcm-list-server-products --regionpid us-east-1`. We also now provider more useful json formatting error messages for
+`dcm-put` and `dcm-post`, which is especially useful for developers working out how to format their DCM API payloads.
+
+Features
+--------
+- [#281][281] dcm-put and dcm-post produces useful json parsing error messages. 
+- [#286][286] dcm-list-server-products handles provider region IDs
+- [#287][287] dcm-list-server-products displays CPU architecture
+
+[281]:https://github.com/enStratus/mixcoatl/issues/281
+[286]:https://github.com/enStratus/mixcoatl/issues/286
+[287]:https://github.com/enStratus/mixcoatl/issues/287
+[dcm-list-server-products]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-list-server-products.html
+
 1.3.2
 =====
 
