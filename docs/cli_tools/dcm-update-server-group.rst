@@ -5,7 +5,7 @@
 .. _dcm_update_server_group:
 
 dcm-update-server-group
-----------------
+-----------------------
 
 Update the the owning group of a a server.
 
