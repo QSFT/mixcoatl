@@ -1,16 +1,20 @@
 from mixcoatl.admin.billing_code import BillingCode
 from mixcoatl.geography.region import Region
+from mixcoatl.infrastructure.machine_image import MachineImage
 from mixcoatl.admin.group import Group
 from mixcoatl.admin.user import User
+"""Common utilities for manipulating cloud resources"""
 
 
 def get_servers(servers, **kwargs):
     """ Returns a list of servers
 
     Arguments:
+
     :param servers: a list of servers that needs to be filtered.
 
     Keyword arguments:
+
     :param account_user_id: owning user's account user ID.
     :param vm_login_id: owning user's VM login ID.
     :param email: owning user's email address.
@@ -62,9 +66,11 @@ def get_snapshots(snapshots, **kwargs):
     """ Returns a list of snapshots
 
     Arguments:
+
     :param snapshots: a list of snapshots that needs to be filtered.
 
     Keyword arguments:
+
     :param group_id: owning group's group ID.
     :param budget_id: budget ID.
     :returns: a list of filtered snapshots.
@@ -86,9 +92,11 @@ def get_volumes(volumes, **kwargs):
     """ Returns a list of volumes
 
     Arguments:
+
     :param volumes: a list of volumes that needs to be filtered.
 
     Keyword arguments:
+
     :param vm_login_id: owning user's VM login ID.
     :param email: owning user's email address.
     :param group_id: owning group's group ID.
@@ -135,9 +143,11 @@ def get_user(users, **kwargs):
     """ Returns a user that matches with arguments.
 
     Arguments:
+
     :param users: a list of users that needs to be filtered.
 
     Keyword arguments:
+
     :param vm_login_id: owning user's VM login ID.
     :param email: owning user's email address.
     :returns: a list of filtered users.
@@ -161,6 +171,7 @@ def get_account_user_id(**kwargs):
     """ Returns account_user_id from arguments
 
     Keyword arguments:
+
     :param vm_login_id: user's VM login ID like p100
     :param email: user's E-Mail address
     :returns: account_user_id
@@ -180,6 +191,7 @@ def get_vm_login_id(**kwargs):
     """ Returns vm_login_id from arguments
 
     Keyword arguments:
+
     :param email: user's E-Mail address
     :returns: vm_login_id
     :rtype: str
@@ -195,6 +207,7 @@ def get_budget_id(budget_name):
     """ Returns budget_id from arguments
 
     Arguments:
+
     :param budget_name: budget name
     :returns: budget_id
     :rtype: int
@@ -211,6 +224,7 @@ def get_group_id(group_name):
     """ Returns a group ID from group name
 
     Arguments:
+
     :param group_name: name of the group
     :returns: group_id
     :rtype: int
@@ -227,6 +241,7 @@ def get_region_id(region_pid):
     """ Returns a region ID from provider_id such as us-east-1.
 
     Arguments:
+    
     :param region_pid: provider ID of the region such as us-east-1
     :returns: region_id such as 19343
     :rtype: int
@@ -237,3 +252,40 @@ def get_region_id(region_pid):
         if hasattr(region, 'provider_id') and region.provider_id == region_pid:
             selected_region = region
             return selected_region.region_id
+
+def get_machine_image_lookup_table(region_list):
+    """ Returns a nested dictionary of machine image names keyed with region_id and machine_image_id. As
+
+        .. code-block:: python
+
+            regions = [1031, 1032, 1034]
+            machine_image_id = 50321
+
+            lookup_table = get_machine_image_lookup_table(regions)
+
+            print "VM Image Name:"
+            print lookup_table["1031"][str(machine_image_id)]
+
+    :param region_list: list of regions which you want lookup table composed of
+    :return: dict of dicts containing machine image names
+    """
+    unique_regions = set(region_list)
+    lookup_table = dict((rk, {}) for rk in unique_regions)
+
+    for region in unique_regions:
+        machines = MachineImage.all(region_id=region)
+        for m in MachineImage.all(region_id=region):
+            if str(region) not in lookup_table:
+                lookup_table[str(region)] = {}
+
+            try:
+                machine_image_id = m.machine_image_id
+            except AttributeError:
+                break
+            try:
+                machine_name = m.name
+            except AttributeError:
+                break
+            lookup_table[str(region)][str(machine_image_id)] = m.name
+
+    return lookup_table

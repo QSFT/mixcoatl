@@ -18,3 +18,4 @@ Mixcoatl
    mixcoatl/resource
    mixcoatl/endpoint
    mixcoatl/utils
+   mixcoatl/resource_utils

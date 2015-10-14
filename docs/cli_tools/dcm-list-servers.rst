@@ -19,27 +19,34 @@ Syntax
 
 .. code-block:: bash
 
-   usage: dcm-list-servers [-h] [--all] [--userid USERID | --email EMAIL]
-                           [--groupid GROUPID | --groupname GROUPNAME]
-                           [--budgetid BUDGETID | --budgetname BUDGETNAME]
-                           [--verbose]
+    usage: dcm-list-servers [-h] [--region REGION] [--extended EXTENDED]
+                            [--verbose] [--userid USERID | --email EMAIL]
+                            [--groupid GROUPID | --groupname GROUPNAME]
+                            [--budgetid BUDGETID | --budgetname BUDGETNAME]
+                            [--json | --xml | --csv]
 
-   optional arguments:
-     -h, --help            show this help message and exit
-     --all, -a             List all servers.
-     --userid USERID, -u USERID
-                           Owning user's VM login ID. For example, p100.
-     --email EMAIL, -m EMAIL
-                           E-Mail address of owning user.
-     --groupid GROUPID, -g GROUPID
-                           Owning group's group ID.
-     --groupname GROUPNAME, -G GROUPNAME
-                           Owning group's group name.
-     --budgetid BUDGETID, -b BUDGETID
-                           Budget ID.
-     --budgetname BUDGETNAME, -B BUDGETNAME
-                           Budget Name.
-     --verbose, -v         Produce verbose output
+    optional arguments:
+      -h, --help            show this help message and exit
+      --region REGION, -r REGION
+                            Region ID
+      --extended EXTENDED, -e EXTENDED
+                            Extended Status
+      --verbose, -v         print more more Server properties in the table
+      --userid USERID, -u USERID
+                            Owning user's VM login ID. For example, p100.
+      --email EMAIL, -m EMAIL
+                            E-Mail address of owning user.
+      --groupid GROUPID, -g GROUPID
+                            Owning group's group ID.
+      --groupname GROUPNAME, -G GROUPNAME
+                            Owning group's group name.
+      --budgetid BUDGETID, -b BUDGETID
+                            Budget ID.
+      --budgetname BUDGETNAME, -B BUDGETNAME
+                            Budget Name.
+      --json                print API response in JSON format.
+      --xml                 print API response in XML format.
+      --csv                 print API response in CSV format.
 
 Options
 ~~~~~~~
@@ -109,7 +116,9 @@ Options
 |                    |                                                              |
 |                    | Example: QA                                                  |
 +--------------------+--------------------------------------------------------------+
-| -v, --verbose      | Print out verbose information while listing servers.         |
+| -v, --verbose      | Print out more information about servers when listing such   |
+|                    | as Machine Image Name, Architecture, Owning User, Owning     |
+|                    | Group etc                                                    |
 +--------------------+--------------------------------------------------------------+
 
 Common Options
@@ -140,10 +149,39 @@ Output
 
 .. code-block:: bash
 
-   +-----------+-----------+-------------+----------------------------+-----------+---------+------------------------------+
-   | Server ID |   Region  | Provider ID |        Server Name         | Public IP |  Status |          Start Date          |
-   +-----------+-----------+-------------+----------------------------+-----------+---------+------------------------------+
-   |    528    | eu-west-1 |  i-e91fde98 |        web server          |    None   | STOPPED | 2014-02-02T23:19:31.000+0000 |
-   |    529    | eu-west-1 |  i-97481137 |        chef server         |    None   | STOPPED | 2014-02-25T07:21:30.000+0000 |
-   |    601    | us-east-1 |  i-83a3fa23 |       puppet server        |    None   | STOPPED | 2014-01-31T07:55:55.000+0000 |
-   +-----------+-----------+-------------+----------------------------+-----------+---------+------------------------------+
+    +-----------+--------+-------------+----------------------+---------------+----------+--------+-----------+---------+------------------------------+
+    | Server ID | Region | Provider ID | Server Name          | Public IP     | Platform | Budget | Product   | Status  | Start Date                   |
+    +-----------+--------+-------------+----------------------+---------------+----------+--------+-----------+---------+------------------------------+
+    | 115626    | 1031   | i-2fb42dfd  | jds-2012-test        | None          | WINDOWS  | 200    | m3.medium | STOPPED | 2015-08-14T14:41:57.000+0000 |
+    | 115642    | 1031   | i-bdd74716  | jds-sensu1           | None          | UBUNTU   | 200    | m1.medium | STOPPED | 2015-08-19T12:40:13.000+0000 |
+    | 226380    | 1031   | i-58c804fa  | jdsiara54            | 22.22.22.21   | UBUNTU   | 200    | m1.medium | RUNNING | 2015-10-07T17:07:27.000+0000 |
+    | 155837    | 1031   | i-4a8028e9  | jdsubu090915-1       | 22.22.22.22   | UBUNTU   | 807    | m1.medium | RUNNING | 2015-09-09T12:21:02.000+0000 |
+    | 155805    | 1034   | i-a21c8362  | appliance-win        | 22.22.22.23   | WINDOWS  | 200    | m3.medium | RUNNING | 2015-09-02T20:03:50.000+0000 |
+    | 85236     | 1034   | i-b8e7a77b  | puppetmaster (keep!) | 22.22.22.24   | CENT_OS  | 200    | m3.medium | RUNNING | 2015-08-14T16:07:55.000+0000 |
+    | 155833    | 1033   | i-bcd59679  | training             | 22.22.22.25   | UBUNTU   | 200    | m1.medium | RUNNING | 2015-09-04T16:51:06.000+0000 |
+    +-----------+--------+-------------+----------------------+---------------+----------+--------+-----------+---------+------------------------------+
+
+
+Example 2
+^^^^^^^^^
+
+.. code-block:: bash
+
+   dcm-list-servers -v
+
+Output
+%%%%%%
+
+.. code-block:: bash
+
+    +-----------+--------+-------------+----------------------+---------------+----------+--------+-----------+---------+------------------------------+------+------+-------------+-------+--------+-----------------------------------------------------------------+
+    | Server ID | Region | Provider ID | Server Name          | Public IP     | Platform | Budget | Product   | Status  | Start Date                   | User | Arch | Data Center | Agent | Groups | Machine Image                                                   |
+    +-----------+--------+-------------+----------------------+---------------+----------+--------+-----------+---------+------------------------------+------+------+-------------+-------+--------+-----------------------------------------------------------------+
+    | 115626    | 1031   | i-2fb42dfd  | jds-2012-test        | None          | WINDOWS  | 200    | m3.medium | STOPPED | 2015-08-14T14:41:57.000+0000 | 3250 | I64  | 1266        | None  | None   | Windows_Server-2012-R2_RTM-English-64Bit-Base-2015.07.15        |
+    | 115642    | 1031   | i-bdd74716  | jds-sensu1           | None          | UBUNTU   | 200    | m1.medium | STOPPED | 2015-08-19T12:40:13.000+0000 | 3250 | I64  | 1265        | None  | 201    | ubuntu/images/ebs/ubuntu-trusty-14.04-amd64-server-20140416.1   |
+    | 226380    | 1031   | i-58c804fa  | jdsiara54            | 22.22.22.21   | UBUNTU   | 200    | m1.medium | RUNNING | 2015-10-07T17:07:27.000+0000 | 3250 | I64  | 1265        | None  | 201    | ubuntu/images/ebs/ubuntu-precise-12.04-amd64-server-20150204    |
+    | 155837    | 1031   | i-4a8028e9  | jdsubu090915-1       | 22.22.22.22   | UBUNTU   | 807    | m1.medium | RUNNING | 2015-09-09T12:21:02.000+0000 | 3250 | I64  | 1265        | None  | 201    | ubuntu/images/ebs/ubuntu-precise-12.04-amd64-server-20150204    |
+    | 155805    | 1034   | i-a21c8362  | appliance-win        | 22.22.22.23   | WINDOWS  | 200    | m3.medium | RUNNING | 2015-09-02T20:03:50.000+0000 | 900  | I64  | 1274        | None  | None   | Amazon/Windows_Server-2008-R2_SP1-English-64Bit-Base-2015.01.01 |
+    | 85236     | 1034   | i-b8e7a77bc | puppetmaster (keep!) | 22.22.22.24   | CENT_OS  | 200    | m3.medium | RUNNING | 2015-08-14T16:07:55.000+0000 | 1005 | I64  | 1273        | None  | None   | CentOS 6.4 x86_64 - with updates - G2 support                   |
+    | 155833    | 1033   | i-bcd59679  | training             | 22.22.22.25   | UBUNTU   | 200    | m1.medium | RUNNING | 2015-09-04T16:51:06.000+0000 | 900  | I64  | 1271        | 104   | None   | ubuntu/images/ebs/ubuntu-trusty-14.04-amd64-server-20140416.1   |
+    +-----------+--------+-------------+----------------------+---------------+----------+--------+-----------+---------+------------------------------+------+------+-------------+-------+--------+-----------------------------------------------------------------+
