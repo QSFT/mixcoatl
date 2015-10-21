@@ -289,3 +289,14 @@ def get_machine_image_lookup_table(region_list):
             lookup_table[str(region)][str(machine_image_id)] = m.name
 
     return lookup_table
+
+def get_user_lookup_table():
+    users = {}
+    for user in User.all():
+        try:
+            users[str(user.user_id)] = user.email
+        except KeyError:
+            pass
+    return users
+
+

@@ -68,6 +68,8 @@ if __name__ == '__main__':
 
                 lookup_table = resource_utils.get_machine_image_lookup_table([r.region['region_id'] for r in results])
 
+                user_lookup_table = resource_utils.get_user_lookup_table()
+
                 table = PrettyTable(
                     ["Server ID", "Region", "Provider ID", "Server Name", "Public IP", "Platform", "Budget",
                      "Product", "Status", "Start Date", "User", "Arch", "Data Center", "Agent", "Groups",
@@ -99,6 +101,17 @@ if __name__ == '__main__':
                     except KeyError:
                         machine_image_name = None
 
+                    try:
+                        user_email = user_lookup_table[str(r.owning_user['user_id'])]
+                    except KeyError:
+                        user_email = None
+
+                    try:
+                        # trim the sub second time to save save width
+                        start_date = r.start_date.split(".")[0]
+                    except KeyError:
+                        start_date = None
+
                     table.add_row([r.server_id,
                                    r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
                                    r.provider_id if hasattr(r, 'provider_id') else None,
@@ -108,13 +121,13 @@ if __name__ == '__main__':
                                    r.budget if hasattr(r, 'budget') else None,
                                    r.provider_product_id if hasattr(r, 'provider_product_id') else None,
                                    r.status if hasattr(r, 'status') else None,
-                                   r.start_date if hasattr(r, 'start_date') else None,
-                                   r.owning_user['user_id'] if hasattr(r, 'owning_user') else None,
+                                   start_date,
+                                   user_email,
                                    r.architecture if hasattr(r, 'architecture') else None,
                                    r.data_center['data_center_id'] if hasattr(r, "data_center") else None,
                                    agent_version,
                                    owning_group_ids,
-                                   lookup_table[str(r.region['region_id'])][str(r.machine_image['machine_image_id'])]])
+                                   machine_image_name])
                 table.align = 'l'
                 print(table)
 
