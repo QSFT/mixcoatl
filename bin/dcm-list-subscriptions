@@ -32,44 +32,31 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Region ID", 
-                            "Auto Scaling",
-                            "Blob Store",
-                            "CDN",
-                            "DNS",
+        table = PrettyTable(["Region ID",
                             "Email",
                             "Firewall",
-                            "KVDB",
                             "Load Balancers",
-                            "MQ",
                             "Machine Image",
                             "Network",
                             "RDBMS",
                             "Server",
                             "Snapshot",
                             "Static IP",
-                            "VPN",
                             "Volume"])
 
         for r in results:
-            table.add_row([r.region_id,
-                            r.subscribed_auto_scaling,
-                            r.subscribed_blob_store,
-                            r.subscribed_cdn,
-                            r.subscribed_dns,
-                            r.subscribed_email,
-                            r.subscribed_firewall,
-                            r.subscribed_kvdb,
-                            r.subscribed_load_balancer,
-                            r.subscribed_mq,
-                            r.subscribed_machine_image,
-                            r.subscribed_network,
-                            r.subscribed_rdbms,
-                            r.subscribed_server,
-                            r.subscribed_snapshot,
-                            r.subscribed_static_ip,
-                            r.subscribed_vpn,
-                            r.subscribed_volume])
+            table.add_row([r.region_id if hasattr(r, 'region_id') else None,
+                            r.subscribed_email if hasattr(r, 'subscribed_email') else None,
+                            r.subscribed_firewall if hasattr(r, 'subscribed_firewall') else None,
+                            r.subscribed_load_balancer if hasattr(r, 'subscribed_load_balancer') else None,
+                            r.subscribed_machine_image if hasattr(r, 'subscribed_machine_image') else None,
+                            r.subscribed_network if hasattr(r, 'subscribed_network') else None,
+                            r.subscribed_rdbms if hasattr(r, 'subscribed_rdbms') else None,
+                            r.subscribed_server if hasattr(r, 'subscribed_server') else None,
+                            r.subscribed_snapshot if hasattr(r, 'subscribed_snapshot') else None,
+                            r.subscribed_static_ip if hasattr(r, 'subscribed_static_ip') else None,
+                            r.subscribed_volume if hasattr(r, 'subscribed_volume') else None
+                           ])
         table.align = 'l'
         print(table)
 
