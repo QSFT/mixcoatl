@@ -5,6 +5,21 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.4.2
+=====
+
+Release Date 2015-10-22
+
+Use with DCM: 10.X, 11.X
+
+Quick fix release for [#302][302].
+
+Fixes
+-----
+- [#302][302] AttributeError with missing owning_user
+
+[302]:https://github.com/enStratus/mixcoatl/issues/302
+
 1.4.1
 =====
 
