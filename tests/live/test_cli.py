@@ -74,6 +74,10 @@ class TestCli:
             "dcm-list-users",
             "dcm-list-volumes"]
 
+        self.simple_flags = [
+            "dcm-list-servers -v"
+        ]
+
     def test_list_cli_simple(self):
         """run dcm-list-* commands that require no flags and work with account keys"""
         failed_commands = []
@@ -114,3 +118,20 @@ class TestCli:
             for command in failed_commands:
                 fail_message = "%s\n%s" % (fail_message, command)
             raise AssertionError(fail_message)
+
+    def test_list_cli_simple_flags(self):
+        """run dcm-list-* commands that require some simple flags and work with account keys"""
+        failed_commands = []
+
+        for command in self.simple_flags:
+            try:
+                assert 0 == subprocess.call(command.split())
+            except AssertionError:
+                failed_commands.append(command)
+
+        if failed_commands:
+            fail_message = "These commands failed"
+            for command in failed_commands:
+                fail_message = "%s\n%s" % (fail_message, command)
+            raise AssertionError(fail_message)
+

@@ -5,7 +5,6 @@ from mixcoatl import resource_utils, utils
 from prettytable import PrettyTable
 import argparse
 import time
-import sys
 import os
 
 if __name__ == '__main__':
@@ -13,6 +12,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--region', '-r', help='Region ID')
     parser.add_argument('--extended', '-e', help='Extended Status')
+    parser.add_argument('--verbose', '-v', action='store_true', help='print more more Server properties in the table')
 
     user_args = parser.add_mutually_exclusive_group()
     user_args.add_argument("--userid", "-u", help="Owning user's VM login ID. For example, p100.")
@@ -64,30 +64,99 @@ if __name__ == '__main__':
         print utils.print_format(results, payload_format)
     else:
         if len(results) > 0:
-            table = PrettyTable(["Server ID", "Region", "Provider ID", "Server Name", "Public IP", "Platform", "Budget",
-                                 "Product", "Status", "Start Date"])
-            for r in results:
-                if hasattr(r, 'public_ip_address'):
-                    public_ip_address = r.public_ip_address
-                elif hasattr(r, 'public_ip_addresses'):
-                    public_ip_address = ",".join(r.public_ip_addresses)
-                else:
-                    public_ip_address = None
+            if cmd_args.verbose is True:
 
-                table.add_row([r.server_id,
-                               r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
-                               r.provider_id if hasattr(r,'provider') else None,
-                               r.name if hasattr(r,'name') else None,
-                               public_ip_address,
-                               r.platform if hasattr(r,'platform') else None,
-                               r.budget if hasattr(r,'budget') else None,
-                               r.provider_product_id if hasattr(r,'provider_product_id') else None,
-                               r.status if hasattr(r,'status') else None,
-                               r.start_date if hasattr(r,'start_date') else None])
-            table.align = 'l'
-            print(table)
+                lookup_table = resource_utils.get_machine_image_lookup_table([r.region['region_id'] for r in results])
+
+                user_lookup_table = resource_utils.get_user_lookup_table()
+
+                table = PrettyTable(
+                    ["Server ID", "Region", "Provider ID", "Server Name", "Public IP", "Platform", "Budget",
+                     "Product", "Status", "Start Date", "User", "Arch", "Data Center", "Agent", "Groups",
+                     "Machine Image"])
+                for r in results:
+                    owning_group_ids = None
+                    agent_version = None
+
+                    if hasattr(r, 'public_ip_address'):
+                        public_ip_address = r.public_ip_address
+                    elif hasattr(r, 'public_ip_addresses'):
+                        public_ip_address = ",".join(r.public_ip_addresses)
+                    else:
+                        public_ip_address = None
+
+                    if hasattr(r, 'owning_groups'):
+                        owning_group_ids = ",".join([str(g['group_id']) for g in r.owning_groups])
+
+                    try:
+                        if r.agent_version != 0:
+                            # agent version 0 means not installed
+                            agent_version = r.agent_version
+                    except AttributeError:
+                        pass
+
+                    try:
+                        machine_image_name = lookup_table[str(r.region['region_id'])][
+                            str(r.machine_image['machine_image_id'])]
+                    except KeyError:
+                        machine_image_name = None
+
+                    try:
+                        user_email = user_lookup_table[str(r.owning_user['user_id'])]
+                    except KeyError:
+                        user_email = None
+
+                    try:
+                        # trim the sub second time to save save width
+                        start_date = r.start_date.split(".")[0]
+                    except KeyError:
+                        start_date = None
+
+                    table.add_row([r.server_id,
+                                   r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
+                                   r.provider_id if hasattr(r, 'provider_id') else None,
+                                   r.name if hasattr(r, 'name') else None,
+                                   public_ip_address,
+                                   r.platform if hasattr(r, 'platform') else None,
+                                   r.budget if hasattr(r, 'budget') else None,
+                                   r.provider_product_id if hasattr(r, 'provider_product_id') else None,
+                                   r.status if hasattr(r, 'status') else None,
+                                   start_date,
+                                   user_email,
+                                   r.architecture if hasattr(r, 'architecture') else None,
+                                   r.data_center['data_center_id'] if hasattr(r, "data_center") else None,
+                                   agent_version,
+                                   owning_group_ids,
+                                   machine_image_name])
+                table.align = 'l'
+                print(table)
+
+            else:
+                table = PrettyTable(
+                    ["Server ID", "Region", "Provider ID", "Server Name", "Public IP", "Platform", "Budget",
+                     "Product", "Status", "Start Date"])
+                for r in results:
+                    if hasattr(r, 'public_ip_address'):
+                        public_ip_address = r.public_ip_address
+                    elif hasattr(r, 'public_ip_addresses'):
+                        public_ip_address = ",".join(r.public_ip_addresses)
+                    else:
+                        public_ip_address = None
+
+                    table.add_row([r.server_id,
+                                   r.region['name'] if hasattr(r.region, 'name') else r.region['region_id'],
+                                   r.provider_id if hasattr(r, 'provider_id') else None,
+                                   r.name if hasattr(r, 'name') else None,
+                                   public_ip_address,
+                                   r.platform if hasattr(r, 'platform') else None,
+                                   r.budget if hasattr(r, 'budget') else None,
+                                   r.provider_product_id if hasattr(r, 'provider_product_id') else None,
+                                   r.status if hasattr(r, 'status') else None,
+                                   r.start_date if hasattr(r, 'start_date') else None])
+                table.align = 'l'
+                print(table)
         else:
             print "No results found."
 
     if 'DCM_DEBUG' in os.environ:
-        print 'Results returned in', time.time()-start, 'seconds.'
+        print 'Results returned in', time.time() - start, 'seconds.'
