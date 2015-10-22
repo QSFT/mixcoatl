@@ -5,6 +5,28 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.4.1
+=====
+
+Release Date 2015-10-21
+
+Use with DCM: 10.X, 11.X
+
+The [dcm-list-servers][dcm-list-servers] CLI tool now has a `--verbose` flag that gives you more detailed view of
+current servers. This avoids the need, in many cases, to make a seperate call to `dcm-describe-server` to get more
+information about an individual server.
+
+Features
+--------
+- [#292][292] dcm-put and dcm-post produces useful json parsing error messages.
+
+Fixes
+-----
+- [#296][296] crash bug in dcm-list-subscriptions
+
+[292]:https://github.com/enStratus/mixcoatl/issues/292
+[296]:https://github.com/enStratus/mixcoatl/issues/296
+[dcm-list-servers]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-list-servers.html
 
 1.4.0
 =====
