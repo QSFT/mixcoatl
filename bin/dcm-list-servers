@@ -98,18 +98,18 @@ if __name__ == '__main__':
                     try:
                         machine_image_name = lookup_table[str(r.region['region_id'])][
                             str(r.machine_image['machine_image_id'])]
-                    except KeyError:
+                    except (KeyError,AttributeError):
                         machine_image_name = None
 
                     try:
                         user_email = user_lookup_table[str(r.owning_user['user_id'])]
-                    except KeyError:
+                    except (KeyError, AttributeError):
                         user_email = None
 
                     try:
                         # trim the sub second time to save save width
                         start_date = r.start_date.split(".")[0]
-                    except KeyError:
+                    except (KeyError,AttributeError):
                         start_date = None
 
                     table.add_row([r.server_id,
