@@ -17,11 +17,7 @@ Creates a server from a specified machine image.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-create-server -p <product_id> -m <machine_image_id> -d <datacenter_id>
-                     -n <server_name> -b <budget_id> -k <keypair_name>
-                     -v <vlan>
+.. program-output:: dcm-create-server -h
 
 Options
 ~~~~~~~

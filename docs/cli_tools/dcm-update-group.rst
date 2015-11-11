@@ -17,9 +17,7 @@ Update DCM group's name or description.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-update-group -g <group_id> -n <name> -d <description>
+.. program-output:: dcm-update-group -h
 
 Options
 ~~~~~~~

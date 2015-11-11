@@ -17,13 +17,7 @@ Returns a list of clouds in DCM database.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-clouds [-h] [--verbose]
-
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output
+.. program-output:: dcm-list-clouds -h
 
 Options
 ~~~~~~~

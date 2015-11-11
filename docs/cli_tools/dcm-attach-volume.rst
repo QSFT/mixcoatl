@@ -17,9 +17,7 @@ Attach a volume to server with optional specific device ID.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-attach-volume -v <volume_id> -s <server_id> -d <device_id>
+.. program-output:: dcm-attach-volume -h
 
 Options
 ~~~~~~~

@@ -17,17 +17,7 @@ Returns a list of datacenters within a region.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-datacenters [-h] [--regionid REGIONID] [--regionpid REGIONPID] [--verbose]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           Region ID
-     --regionpid REGIONPID, -R REGIONPID
-                           Region Provider ID such as us-east-1
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-datacenters -h
 
 Options
 ~~~~~~~

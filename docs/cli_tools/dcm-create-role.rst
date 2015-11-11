@@ -17,9 +17,7 @@ Creates a DCM role. Requires permission to create roles.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-create-role -n <role name> -d <role description>
+.. program-output:: dcm-create-role -h
 
 Options
 ~~~~~~~

@@ -17,9 +17,7 @@ Pauses a server. The server will be paused. In some cloud environments, pausing 
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-pause-server <server_id>
+.. program-output:: dcm-pause-server -h
 
 Options
 ~~~~~~~

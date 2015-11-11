@@ -17,14 +17,7 @@ Returns a list of all budget codes in table format or if called using the `-v` o
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-list-billing-codes --help
-   usage: dcm-list-billing-codes [-h] [--verbose]
-   
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output
+.. program-output:: dcm-list-billing-codes -h
 
 Options
 ~~~~~~~

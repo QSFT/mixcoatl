@@ -20,15 +20,7 @@ Lists all servers with their accompanying terminateAfter timestamp.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-    usage: dcm-list-server-terminate [-h] [--all] [--serverid SERVERID]
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --all, -a             List all servers.
-      --serverid SERVERID, -s SERVERID
-                            Server ID
+.. program-output:: dcm-list-server-terminate -h
 
 Options
 ~~~~~~~

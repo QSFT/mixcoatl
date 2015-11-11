@@ -11,20 +11,16 @@ DCM command line API tools.
    dcm-check-job
    dcm-create-billing-code
    dcm-create-cm
-   dcm-create-deployment
    dcm-create-group
-   dcm-create-launch-config
    dcm-create-network
    dcm-create-role
    dcm-create-server
-   dcm-create-tier
    dcm-create-user
    dcm-create-volume
    dcm-delete-billing-code
    dcm-delete-group
    dcm-delete-network
    dcm-delete-volume
-   dcm-describe-deployment
    dcm-describe-job
    dcm-describe-license
    dcm-describe-machine-image
@@ -33,10 +29,8 @@ DCM command line API tools.
    dcm-list-accounts
    dcm-list-billing-codes
    dcm-list-clouds
-   dcm-list-cm-accounts
    dcm-list-cm
    dcm-list-datacenters
-   dcm-list-deployments
    dcm-list-firewall-rules
    dcm-list-firewalls
    dcm-list-groups

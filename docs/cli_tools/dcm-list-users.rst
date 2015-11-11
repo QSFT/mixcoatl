@@ -17,13 +17,7 @@ Returns a list of users.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-users [-h] [--verbose]
-
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output
+.. program-output:: dcm-list-users -h
 
 Options
 ~~~~~~~

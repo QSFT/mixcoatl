@@ -17,29 +17,7 @@ Returns a list of snapshots.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-snapshots [-h]
-                             (--regionid REGIONID | --regionpid REGIONPID | --all)
-                             [--groupid GROUPID | --groupname GROUPNAME]
-                             [--budgetid BUDGETID | --budgetname BUDGETNAME]
-                             [--verbose]
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           Region ID.
-     --regionpid REGIONPID, -R REGIONPID
-                           Region Provider ID such as us-east-1.
-     --all, -a             List volumes in all regions.
-     --groupid GROUPID, -g GROUPID
-                           Owning group's group ID.
-     --groupname GROUPNAME, -G GROUPNAME
-                           Owning group's group name.
-     --budgetid BUDGETID, -b BUDGETID
-                           Budget ID.
-     --budgetname BUDGETNAME, -B BUDGETNAME
-                           Budget Name.
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-snapshots -h
 
 Options
 ~~~~~~~

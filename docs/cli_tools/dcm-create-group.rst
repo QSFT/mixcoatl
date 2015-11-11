@@ -21,9 +21,7 @@ Creates a DCM group. Requires permission to create groups.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-create-group -n <group name> -d <group description>
+.. program-output:: dcm-create-group -h
 
 Options
 ~~~~~~~

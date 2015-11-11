@@ -17,14 +17,7 @@ Returns a list of DCM accounts. The list returned is subject to the scope of the
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-jobs [-h] [--verbose] [--job-id JOB_ID]
-
-   optional arguments:
-   -h, --help            show this help message and exit
-   --verbose, -v         Produce verbose output
-   --job-id JOB_ID, -j JOB_ID Job ID
+.. program-output:: dcm-list-jobs -h
 
 
 Options

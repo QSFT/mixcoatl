@@ -17,16 +17,7 @@ Returns a short summary about a job.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-describe-job [-h] [--verbose] jobid
-
-   positional arguments:
-     jobid          Job ID
-
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output.
+.. program-output:: dcm-describe-job -h
 
 Options
 ~~~~~~~

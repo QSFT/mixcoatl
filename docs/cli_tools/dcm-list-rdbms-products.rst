@@ -17,19 +17,7 @@ Returns a list of RDBMS products.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-rdbms-products [-h] [--regionid REGIONID] [--engine ENGINE]
-                                  [--verbose]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           Region ID
-     --engine ENGINE, -e ENGINE
-                           DB engine. examples: MYSQL51, MYSQL55, ORACLE11G,
-                           ORACLE11GEX, ORACLE11GX
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-rdbms-products  -h
 
 Options
 ~~~~~~~

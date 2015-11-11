@@ -17,17 +17,7 @@ Deletes a volume.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-delete-volume [-h] [--reason REASON] volumeid
-
-   positional arguments:
-     volumeid              Volume ID
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --reason REASON, -r REASON
-                           The reason for deleting the volume.
+.. program-output:: dcm-delete-volume -h
 
 Options
 ~~~~~~~

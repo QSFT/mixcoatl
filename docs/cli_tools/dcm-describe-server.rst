@@ -17,16 +17,7 @@ Returns a short summary about a server.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-describe-server [-h] [--verbose] serverid
-   
-   positional arguments:
-     serverid       Server ID
-   
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output
+.. program-output:: dcm-describe-server -h
 
 Options
 ~~~~~~~

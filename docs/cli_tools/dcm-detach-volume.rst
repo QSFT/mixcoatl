@@ -17,9 +17,7 @@ Detaches a volume from server.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-detach-volume -v <volume_id>
+.. program-output:: dcm-detach-volume -h
 
 Options
 ~~~~~~~

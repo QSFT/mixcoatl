@@ -17,25 +17,7 @@ Stops a server. The server will not be terminated but will be paused.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-stop-server <server_id>
-
-Options
-~~~~~~~
-
-+--------------------+--------------------------------------------------------+
-| Option             | Description                                            |
-+====================+========================================================+
-| No flag needed     | Server ID                                              | 
-|                    |                                                        |
-|                    | Type: Integer                                          |
-|                    |                                                        |
-|                    | Default: None                                          |
-|                    |                                                        |
-|                    | Required: Yes                                          |
-|                    |                                                        |
-+--------------------+--------------------------------------------------------+
+.. program-output:: dcm-stop-server -h
 
 Output
 ~~~~~~

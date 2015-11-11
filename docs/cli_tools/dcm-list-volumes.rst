@@ -17,35 +17,7 @@ Returns a list of volumes.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-volumes [-h] (--regionid REGIONID | --regionpid REGIONPID | --all)
-          [--userid USERID | --email EMAIL] [--groupid GROUPID | --groupname GROUPNAME]
-          [--budgetid BUDGETID | --budgetname BUDGETNAME] [--nonattached]
-          [--minsize MINSIZE] [--verbose]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           Region ID.
-     --regionpid REGIONPID, -R REGIONPID
-                           Region Provider ID such as us-east-1.
-     --all, -a             List volumes in all regions.
-     --userid USERID, -u USERID
-                           Owning user's VM login ID. For example, p100.
-     --email EMAIL, -m EMAIL
-                           E-Mail address of owning user.
-     --groupid GROUPID, -g GROUPID
-                           Owning group's group ID.
-     --groupname GROUPNAME, -G GROUPNAME
-                           Owning group's group name.
-     --budgetid BUDGETID, -b BUDGETID
-                           Budget ID.
-     --budgetname BUDGETNAME, -B BUDGETNAME
-                           Budget Name.
-     --nonattached, -n     List non-attached volumes.
-     --minsize MINSIZE     Minimum size of the volumes.
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-volumes -h
 
 Options
 ~~~~~~~

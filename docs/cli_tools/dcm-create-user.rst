@@ -17,9 +17,7 @@ Creates a DCM user in a given account. Requires permission to create users.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-create-user -a <account_id> -f <first_name> -l <last_name> -e <email_address> -g <group_id> -b <budget_code> -p <password>
+.. program-output:: dcm-create-user -h
 
 Options
 ~~~~~~~

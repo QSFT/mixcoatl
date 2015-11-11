@@ -17,16 +17,7 @@ Returns a short summary about a machine image.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-describe-machine-image [-h] [--verbose] machineimageid
-
-   positional arguments:
-     machineimageid  Machine Image ID
-
-   optional arguments:
-     -h, --help      show this help message and exit
-     --verbose, -v   Produce verbose output
+.. program-output:: dcm-describe-machine-image -h
 
 Options
 ~~~~~~~

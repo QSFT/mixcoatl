@@ -19,20 +19,7 @@ that incur cost are provisioned.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-create-billing-code
-   usage: dcm-create-billing-code [-h] [--name NAME] [--code CODE] [--soft SOFT]
-                                  [--hard HARD] [--description DESCRIPTION]
-   
-   optional arguments:
-     -h, --help            show this help message and exit
-     --name NAME, -n NAME  Name
-     --code CODE, -c CODE  Budget Code
-     --soft SOFT           Soft Quota
-     --hard HARD           Hard Quota
-     --description DESCRIPTION, -d DESCRIPTION
-                           Description
+.. program-output:: dcm-create-billing-code -h
 
 Options
 ~~~~~~~
