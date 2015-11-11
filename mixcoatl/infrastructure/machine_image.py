@@ -281,6 +281,18 @@ class MachineImage(Resource):
         p = self.PATH + "/" + str(self.machine_image_id)
         return self.put(p, data=json.dumps(payload))
 
+    @required_attrs(['machine_image_id'])
+    def set_owner(self, owner):
+        p = '%s/%s' % (self.PATH, str(self.machine_image_id))
+        qopts = {'assignGroups': [{'owningGroups':[{'groupId':owner}]}]}
+        return self.put(p, data=json.dumps(qopts))
+
+    @required_attrs(['machine_image_id'])
+    def set_billing_code(self, budget_id):
+        p = '%s/%s' % (self.PATH, str(self.machine_image_id))
+        qopts = {'assignBudget': [{'budget': budget_id}]}
+        return self.put(p, data=json.dumps(qopts))
+
     @classmethod
     def all(cls, endpoint=None, **kwargs):
         """Return all machine images

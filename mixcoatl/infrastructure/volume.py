@@ -370,6 +370,18 @@ class Volume(Resource):
         except SnapshotException, e:
             raise VolumeSnapshotException(str(e))
 
+    @required_attrs(['volume_id'])
+    def set_owner(self, owner):
+        p = '%s/%s' % (self.PATH, str(self.volume_id))
+        qopts = {'assignGroups': [{'owningGroups':[{'groupId':owner}]}]}
+        return self.put(p, data=json.dumps(qopts))
+
+    @required_attrs(['volume_id'])
+    def set_billing_code(self, budget_id):
+        p = '%s/%s' % (self.PATH, str(self.volume_id))
+        qopts = {'assignBudget': [{'budget': budget_id}]}
+        return self.put(p, data=json.dumps(qopts))
+
     @classmethod
     def all(cls, endpoint=None, **kwargs):
         """List all volumes

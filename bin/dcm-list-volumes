@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owner", "Budget", "Status"])
+        table = PrettyTable(["Volume ID", "Provider ID", "Zone", "Name", "Server", "Size", "Owning User", "Budget", "Status"])
         for r in results:
             if hasattr(r, 'server'):
                 server = r.server['server_id'] if 'server_id' in r.server else 'Not Mounted'

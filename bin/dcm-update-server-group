@@ -5,14 +5,10 @@ import argparse
 import sys
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Update a servers's owning group")
     parser.add_argument('--server_id', '-s', type=int, help='Server ID', required=True)
     parser.add_argument('--group_id', '-g', type=int, help='Group ID', required=True)
     cmd_args = parser.parse_args()
-
-    if cmd_args.server_id is None or cmd_args.group_id is None:
-        parser.print_help()
-        sys.exit(1)
 
     s = Server(cmd_args.server_id)
     results = s.set_owner(cmd_args.group_id)

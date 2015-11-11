@@ -61,4 +61,9 @@ DCM command line API tools.
    dcm-stop-server
    dcm-terminate-server
    dcm-update-group
+   dcm-update-server-billing-code
    dcm-update-server-group
+   dcm-update-machine-image-billing-code
+   dcm-update-machine-image-group
+   dcm-update-volume-billing-code
+   dcm-update-volume-group

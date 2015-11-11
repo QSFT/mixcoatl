@@ -13,16 +13,7 @@ Update the the owning group of a a server.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-    usage: dcm-update-server-group [-h] --server_id SERVER_ID --group_id GROUP_ID
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --server_id SERVER_ID, -s SERVER_ID
-                            Server ID
-      --group_id GROUP_ID, -g GROUP_ID
-                            Group ID
+.. program-output:: dcm-update-server-group -h
 
 
 Examples
