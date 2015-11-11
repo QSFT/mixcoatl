@@ -21,7 +21,7 @@ Examples
 
 .. code-block:: bash
 
-    $ dcm-update-machine-image-group --machine-image_id 95 --billing_code 201
+    $ dcm-update-machine-image-billing-code --machine-image_id 95 --billing_code 201
     Machine Image with ID: 95 has changed to Billing Code: 201
 
 Related Topics
