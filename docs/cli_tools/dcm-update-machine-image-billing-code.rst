@@ -7,7 +7,11 @@
 dcm-update-machine-image-billing-code
 -------------------------------------
 
-Update the billing code of a machine image.
+Update the billing/budged code of a machine image.
+
+Note that billing code has been replaced with budget in DCM, however Mixcoatl
+maintains the use of of the word billing code to maintain backwards CLI compatibility.
+Version 2.0 of Mixcoatl will replace billing-code with budget in all CLI commands.
 
 
 Syntax
@@ -27,6 +31,7 @@ Examples
 Related Topics
 ~~~~~~~~~~~~~~
 
-:ref:`List Groups  <dcm_list_groups>`
-:ref:`List Groups  <dcm_list_machine_images>`
+:ref:`List Billins Codes  <dcm_list_billing_codes>`
+
+:ref:`List Machine Images  <dcm_list_machine_images>`
 

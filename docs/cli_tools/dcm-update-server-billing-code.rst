@@ -7,7 +7,11 @@
 dcm-update-server-billing-code
 ------------------------------
 
-Update the billing code of a server.
+Update the billing/budget code of a server.
+
+Note that billing code has been replaced with budget in DCM, however Mixcoatl
+maintains the use of of the word billing code to maintain backwards CLI compatibility.
+Version 2.0 of Mixcoatl will replace billing-code with budget in all CLI commands.
 
 
 Syntax
@@ -27,5 +31,7 @@ Examples
 Related Topics
 ~~~~~~~~~~~~~~
 
-:ref:`List Groups  <dcm_list_groups>`
+:ref:`List Billing Codes <dcm_list_billing_codes>`
+
+:ref:`List Servers  <dcm_list_servers>`
 

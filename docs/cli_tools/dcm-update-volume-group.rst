@@ -28,5 +28,6 @@ Related Topics
 ~~~~~~~~~~~~~~
 
 :ref:`List Groups  <dcm_list_groups>`
-:ref:`List Groups  <dcm_list_volumes>`
+
+:ref:`List Volumes  <dcm_list_volumes>`
 

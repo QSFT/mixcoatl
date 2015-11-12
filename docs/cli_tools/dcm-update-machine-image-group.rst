@@ -28,5 +28,6 @@ Related Topics
 ~~~~~~~~~~~~~~
 
 :ref:`List Groups  <dcm_list_groups>`
-:ref:`List Groups  <dcm_list_machine_images>`
+
+:ref:`List Machine Images  <dcm_list_machine_images>`
 

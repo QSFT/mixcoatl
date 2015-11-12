@@ -7,7 +7,11 @@
 dcm-update-volume-billing-code
 ------------------------------
 
-Update the billing code a volume.
+Update the billing code/budget of a volume.
+
+Note that billing code has been replaced with budget in DCM, however Mixcoatl
+maintains the use of of the word billing code to maintain backwards CLI compatibility.
+Version 2.0 of Mixcoatl will replace billing-code with budget in all CLI commands.
 
 
 Syntax
@@ -27,6 +31,7 @@ Examples
 Related Topics
 ~~~~~~~~~~~~~~
 
-:ref:`List Groups  <dcm_list_groups>`
-:ref:`List Groups  <dcm_list_volumes>`
+:ref:`List Billing Code  <dcm_list_billing_codes>`
+
+:ref:`List Volumes  <dcm_list_volumes>`
 
