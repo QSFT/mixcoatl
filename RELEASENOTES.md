@@ -5,6 +5,40 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.5.0
+=====
+
+Release Date 2015-11-16
+
+Use with DCM: 10.X, 11.X
+
+This release adds a number of CLI commands for managing budget/billing codes and ownership of resources that are 
+already provisioned. These new commands are:
+
+ - [dcm-update-server-billing-code][dcm-update-server-billing-code]
+ - [dcm-update-machine-image-billing-code][dcm-update-machine-image-billing-code]
+ - [dcm-update-machine-image-group][dcm-update-machine-image-group]
+ - [dcm-update-volume-billing-code][dcm-update-volume-billing-code]
+ - [dcm-update-volume-group][dcm-update-volume-group]
+ 
+In addition, all Sphinx documentation hosted on [ReadTheDocs][rtd] now uses the program-output
+utility to ensure that all DCM CLI command syntax docs are exactly up to date with the implementations. 
+ 
+Features
+--------
+- [#306][306] New resource update commands (extensive input from G. Forghetti)
+- [#308][308] ReadTheDocs CLI commands syntax automatically generated
+
+
+[306]:https://github.com/enStratus/mixcoatl/issues/306
+[308]:https://github.com/enStratus/mixcoatl/issues/308
+[dcm-update-server-billing-code]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-update-server-billing-code.html
+[dcm-update-machine-image-billing-code]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-update-machine-image-billing-code.html
+[dcm-update-machine-image-group]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-update-machine-image-group.html
+[dcm-update-volume-billing-code]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-update-volume-billing-code.html
+[dcm-update-volume-group]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-update-volume-group.html
+ 
+
 1.4.2
 =====
 
