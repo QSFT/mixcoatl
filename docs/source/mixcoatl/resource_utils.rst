@@ -1,5 +1,5 @@
 :mod:`resource_utils`
-------------
+---------------------
 
 .. automodule:: mixcoatl.resource_utils
     :members:

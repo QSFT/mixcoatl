@@ -17,9 +17,7 @@ Assign cloud account to DCM account using cloud credentials.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-assign-cloud -c <cloud_id> -i <account_id> -n <account_number> -a <access_key> -s <secret_key>
+.. program-output:: dcm-assign-cloud -h
 
 Options
 ~~~~~~~

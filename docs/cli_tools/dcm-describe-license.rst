@@ -17,15 +17,7 @@ deployments of DCM.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-    usage: dcm-describe-license [-h] [--json | --xml | --csv]
-
-    optional arguments:
-    -h, --help  show this help message and exit
-    --json      print API response in JSON format.
-    --xml       print API response in XML format.
-    --csv       print API response in CSV format.
+.. program-output:: dcm-describe-license -h
 
 
 Output

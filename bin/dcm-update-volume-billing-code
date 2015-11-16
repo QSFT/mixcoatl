@@ -1,0 +1,18 @@
+#!/usr/bin/env python
+from mixcoatl.infrastructure.volume import Volume
+import argparse
+import sys
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Update a volumes's billing code/budget.")
+    parser.add_argument('--volume_id', '-v', type=int, help='Volume ID', required=True)
+    parser.add_argument('--billing_code', '-b', type=int, help='Billing code, also known as budget ID', required=True)
+    cmd_args = parser.parse_args()
+
+    s = Volume(cmd_args.volume_id)
+    results = s.set_billing_code(cmd_args.billing_code)
+
+    if results is True:
+        print "Volume Image with ID: %s has changed to Billing Code/BudgetID: %s" % (str(cmd_args.volume_id), str(cmd_args.billing_code))
+    else:
+        print results

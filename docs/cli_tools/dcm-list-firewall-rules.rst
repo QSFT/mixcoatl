@@ -17,16 +17,7 @@ Returns a list of firewall rules.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-firewall-rules [-h] [--verbose] firewallid
-
-   positional arguments:
-     firewallid     Firewall ID
-
-   optional arguments:
-      -h, --help     show this help message and exit
-      --verbose, -v  Produce verbose output
+.. program-output:: dcm-list-firewall-rules -h
 
 Options
 ~~~~~~~

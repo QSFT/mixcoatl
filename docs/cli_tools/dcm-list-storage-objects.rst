@@ -17,15 +17,7 @@ Returns a list of storage objects.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-storage-objects [-h] [--regionid REGIONID] [--verbose]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           Region ID
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-storage-objects -h
 
 Options
 ~~~~~~~

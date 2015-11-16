@@ -17,18 +17,7 @@ Returns a list of machine images.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-machine-images [-h] (--regionid REGIONID | --regionpid REGIONPID) [--registered] [--verbose]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           Region ID.
-     --regionpid REGIONPID, -R REGIONPID
-                           Region Provider ID such as us-east-1.
-     --registered, -e      Returns only images with agent installed
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-machine-images -h
 
 Options
 ~~~~~~~

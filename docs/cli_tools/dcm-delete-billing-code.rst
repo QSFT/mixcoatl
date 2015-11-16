@@ -17,20 +17,7 @@ Deletes a billing code and returns if it was successful.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-delete-billing-code [-h] [--billingcodeid BILLINGCODEID]
-                                  [--reason REASON]
-                                  [--replacementcodeid REPLACEMENTCODEID]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --billingcodeid BILLINGCODEID, -b BILLINGCODEID
-                           Billing Code ID
-     --reason REASON, -r REASON
-                           The reason for deleting the billing code.
-     --replacementcodeid REPLACEMENTCODEID, -R REPLACEMENTCODEID
-                           Replacement code ID.
+.. program-output:: dcm-delete-billing-code -h
 
 Options
 ~~~~~~~

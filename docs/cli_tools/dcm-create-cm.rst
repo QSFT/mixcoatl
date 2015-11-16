@@ -1,29 +1,5 @@
 dcm-create-cm
 -------------
 
-Description
-~~~~~~~~~~~
+.. program-output:: dcm-create-cm -h
 
-Syntax
-~~~~~~
-
-Options
-~~~~~~~
-
-Common Options
-~~~~~~~~~~~~~~
-
-Deprecated Options
-^^^^^^^^^^^^^^^^^^
-
-Output
-~~~~~~
-
-Examples
-~~~~~~~~
-
-Example 1
-^^^^^^^^^
-
-Related Topics
-~~~~~~~~~~~~~~

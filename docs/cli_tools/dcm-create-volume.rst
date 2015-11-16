@@ -22,25 +22,7 @@ Creates a volume. Requires permission to create volumes.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-create-volume [-h] (--budgetid BUDGETID | --budgetname BUDGETNAME)
-                            [--datacenter DATACENTER] [--description DESCRIPTION]
-                            [--name NAME] [--size SIZE]
-   
-   optional arguments:
-
-     -h, --help            show this help message and exit
-     --budgetid BUDGETID, -b BUDGETID
-                           Budget ID.
-     --budgetname BUDGETNAME, -B BUDGETNAME
-                           Budget name.
-     --datacenter DATACENTER, -d DATACENTER
-                           Data Center ID in which to create the volume.
-     --description DESCRIPTION, -D DESCRIPTION
-                           The description of the volume.
-     --name NAME, -n NAME  The name of the volume.
-     --size SIZE, -s SIZE  The size of the volume in GB.
+.. program-output:: dcm-create-volume -h
 
 Options
 ~~~~~~~

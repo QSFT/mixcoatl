@@ -17,17 +17,7 @@ Returns status of a job.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-check-job [-h] jobid
-
-   Check if Job was successfully completed. Possible return values are COMPLETE for completed job, ERROR for failed job, NONE for nonexistent job.
-
-   positional arguments:
-     jobid       Job ID
-
-   optional arguments:
-     -h, --help  show this help message and exit
+.. program-output:: dcm-check-job -h
 
 Options
 ~~~~~~~

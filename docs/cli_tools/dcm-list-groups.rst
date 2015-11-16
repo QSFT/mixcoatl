@@ -17,18 +17,7 @@ Returns a list of groups.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-groups [-h] [--userid USERID] [--email EMAIL] [--all] [--verbose]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --userid USERID, -u USERID
-                           User ID. For example, p100
-     --email EMAIL, -m EMAIL
-                           E-Mail address of user
-     --all, -a             List all groups
-     --verbose, -v         Produce verbose output
+.. program-output:: dcm-list-groups -h
 
 Options
 ~~~~~~~

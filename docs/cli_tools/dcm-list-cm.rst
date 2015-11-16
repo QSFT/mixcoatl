@@ -17,13 +17,7 @@ Returns a list of configuration management accounts.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-cm [-h] [--verbose]
-
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output
+.. program-output:: dcm-list-cm -h
 
 Options
 ~~~~~~~

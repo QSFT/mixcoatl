@@ -17,9 +17,7 @@ Deletes a DCM group.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   dcm-delete-group <group_id>
+.. program-output:: dcm-delete-group -h
 
 Options
 ~~~~~~~

@@ -17,36 +17,7 @@ Returns a list of servers.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-    usage: dcm-list-servers [-h] [--region REGION] [--extended EXTENDED]
-                            [--verbose] [--userid USERID | --email EMAIL]
-                            [--groupid GROUPID | --groupname GROUPNAME]
-                            [--budgetid BUDGETID | --budgetname BUDGETNAME]
-                            [--json | --xml | --csv]
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --region REGION, -r REGION
-                            Region ID
-      --extended EXTENDED, -e EXTENDED
-                            Extended Status
-      --verbose, -v         print more more Server properties in the table
-      --userid USERID, -u USERID
-                            Owning user's VM login ID. For example, p100.
-      --email EMAIL, -m EMAIL
-                            E-Mail address of owning user.
-      --groupid GROUPID, -g GROUPID
-                            Owning group's group ID.
-      --groupname GROUPNAME, -G GROUPNAME
-                            Owning group's group name.
-      --budgetid BUDGETID, -b BUDGETID
-                            Budget ID.
-      --budgetname BUDGETNAME, -B BUDGETNAME
-                            Budget Name.
-      --json                print API response in JSON format.
-      --xml                 print API response in XML format.
-      --csv                 print API response in CSV format.
+.. program-output:: dcm-list-servers -h
 
 Options
 ~~~~~~~

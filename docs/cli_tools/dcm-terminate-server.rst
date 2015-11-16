@@ -17,16 +17,7 @@ Terminates a server.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-terminate-server [-h] [--serverid SERVERID] [--reason REASON]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --serverid SERVERID, -s SERVERID
-                           Server ID
-     --reason REASON, -r REASON
-                           The reason for terminating the server.
+.. program-output:: dcm-terminate-server -h
 
 Options
 ~~~~~~~

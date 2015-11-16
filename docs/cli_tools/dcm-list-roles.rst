@@ -17,13 +17,7 @@ Returns a list of roles.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-roles [-h] [--verbose]
-   
-   optional arguments:
-     -h, --help     show this help message and exit
-     --verbose, -v  Produce verbose output
+.. program-output:: dcm-list-roles -h
 
 Options
 ~~~~~~~

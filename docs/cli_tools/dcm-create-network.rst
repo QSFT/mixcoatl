@@ -17,28 +17,7 @@ Creates a network.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-create-network [-h] [--budgetid BUDGETID] [--name NAME]
-                             [--netaddress NETADDRESS] [--regionid REGIONID]
-                             [--description DESCRIPTION] [--dnsserver DNSSERVER]
-                             [--groupid GROUPID]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --budgetid BUDGETID, -b BUDGETID
-                           Budget ID
-     --name NAME, -n NAME  Network Name
-     --netaddress NETADDRESS, -a NETADDRESS
-                           Network address such as 192.168.0.0/24
-     --regionid REGIONID, -r REGIONID
-                           Region ID
-     --description DESCRIPTION, -D DESCRIPTION
-                           Description
-     --dnsserver DNSSERVER, -d DNSSERVER
-                           DNS Server
-     --groupid GROUPID, -g GROUPID
-                           Owning Group ID
+.. program-output:: dcm-create-network -h
 
 Options
 ~~~~~~~

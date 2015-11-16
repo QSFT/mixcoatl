@@ -17,25 +17,8 @@ Start a server that is in stopped/paused status.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
+.. program-output:: dcm-start-server -h
 
-   dcm-start-server <server_id>
-
-Options
-~~~~~~~
-
-+--------------------+--------------------------------------------------------+
-| Option             | Description                                            |
-+====================+========================================================+
-| No flag needed     | Server ID                                              | 
-|                    |                                                        |
-|                    | Type: Integer                                          |
-|                    |                                                        |
-|                    | Default: None                                          |
-|                    |                                                        |
-|                    | Required: Yes                                          |
-|                    |                                                        |
-+--------------------+--------------------------------------------------------+
 
 Output
 ~~~~~~

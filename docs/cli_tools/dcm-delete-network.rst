@@ -17,16 +17,7 @@ Deletes a network.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-delete-network [-h] [--networkid NETWORKID] [--reason REASON]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --networkid NETWORKID, -i NETWORKID
-                           Network ID
-     --reason REASON, -r REASON
-                           The reason for deleting the network.
+.. program-output:: dcm-delete-network -h
 
 Options
 ~~~~~~~

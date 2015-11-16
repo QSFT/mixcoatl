@@ -18,23 +18,7 @@ by :ref:`provider region ID <dcm_list_regions>`.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-server-products [-h]
-                                   [--regionid REGIONID | --regionpid REGIONPID]
-                                   [--json | --xml | --csv]
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     --regionid REGIONID, -r REGIONID
-                           show only results with the DCM REGIONID (use dcm-list-
-                           regions to find the IDs)
-     --regionpid REGIONPID, -p REGIONPID
-                           show only results with the provider PROVIDER_REGION_ID
-                           (for example us-east-1 )
-     --json                print API response in JSON format.
-     --xml                 print API response in XML format.
-     --csv                 print API response in XML format.
+.. program-output:: dcm-list-server-products -h
 
 Options
 ~~~~~~~

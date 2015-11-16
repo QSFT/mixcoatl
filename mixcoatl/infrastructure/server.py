@@ -381,6 +381,12 @@ class Server(Resource):
         return self.put(p, data=json.dumps(qopts))
 
     @required_attrs(['server_id'])
+    def set_billing_code(self, budget_id):
+        p = '%s/%s' % (self.PATH, str(self.server_id))
+        qopts = {'assignBudget': [{'budget': budget_id}]}
+        return self.put(p, data=json.dumps(qopts))
+
+    @required_attrs(['server_id'])
     def start(self, reason=None):
         """Start the paused server instance with reason :attr:`reason`
 

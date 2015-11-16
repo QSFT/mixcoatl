@@ -17,13 +17,7 @@ Returns a list of DCM accounts. The list returned is subject to the scope of the
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-accounts [-h] [--verbose]
-   
-   optional arguments:
-     -h, --help     show this help message and exit
-     -verbose, -v  Produce verbose output
+.. program-output:: dcm-list-accounts -h
 
 Options
 ~~~~~~~

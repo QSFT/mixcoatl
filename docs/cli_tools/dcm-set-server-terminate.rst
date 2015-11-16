@@ -20,20 +20,7 @@ Set or Extend a servers terminateAfter timestamp.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-    usage: dcm-set-server-terminate [-h] [--serverid SERVERID] [--extend EXTEND]
-                                    [--date_format DATE_FORMAT]
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --serverid SERVERID, -s SERVERID
-                            Server ID
-      --extend EXTEND, -x EXTEND
-                            Extend termination time by (x) hours
-      --date_format DATE_FORMAT, -d DATE_FORMAT
-                            Extend termination time to specified date (Example:
-                            2014-07-04 08:03:11)
+.. program-output:: dcm-set-server-terminate -h
 
 Options
 ~~~~~~~

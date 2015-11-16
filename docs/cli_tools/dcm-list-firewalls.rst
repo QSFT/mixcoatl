@@ -17,17 +17,7 @@ Returns a list of firewalls.
 Syntax
 ~~~~~~
 
-.. code-block:: bash
-
-   usage: dcm-list-firewalls [-h] [--accountid ACCOUNTID | --regionid REGIONID | --all]
-   
-   optional arguments:
-     -h, --help            show this help message and exit
-     --accountid ACCOUNTID, -i ACCOUNTID
-                           Account ID
-     --regionid REGIONID, -r REGIONID
-                           Region ID
-     --all, -a
+.. program-output:: dcm-list-firewalls -h
 
 Options
 ~~~~~~~
