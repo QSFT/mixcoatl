@@ -45,7 +45,7 @@ Examples
 
 .. code-block:: bash
 
-   dcm-pause-server 49680
+   dcm-pause-server --server_id 49680
 
    55832
 

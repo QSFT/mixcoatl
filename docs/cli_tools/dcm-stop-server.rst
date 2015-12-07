@@ -29,7 +29,7 @@ Examples
 
 .. code-block:: bash
 
-   dcm-stop-server 47382
+   dcm-stop-server --server_id 47382
 
    54833
 

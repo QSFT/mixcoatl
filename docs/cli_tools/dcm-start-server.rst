@@ -30,7 +30,7 @@ Examples
 
 .. code-block:: bash
 
-   dcm-start-server 47382
+   dcm-start-server --server_id 47382
 
    54834
 
