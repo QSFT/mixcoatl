@@ -21,7 +21,7 @@ Examples
 
 .. code-block:: bash
 
-    $ dcm-update-machine-image-group --machine-image_id 95 --group_id 201
+    $ dcm-update-machine-image-group --machine_image_id 95 --group_id 201
     Machine Image with ID: 95 has changed to Group ID: 201
 
 Related Topics

@@ -5,6 +5,27 @@ The CLI and Python library for interfacing with [Dell Cloud Manager](http://www.
 ![Mixcoatl Snake](http://mixcoatl.net/assets/images/mixcoatl_serpent.png)
 
 
+1.5.1
+=====
+
+Release Date 2015-12-08
+
+Use with DCM: 10.X, 11.X
+
+These release includes a fix to the output of [dcm-delete-volume][dcm-delete-volume] that erroneously reported a failure
+to delete an volume, as well as a number of CLI documentation improvements.
+
+Fixes
+-----
+- [#313][313] missing docs for dcm-create-machine-image and other documentation errors
+- [#312][312] dcm-delete-volume erroneously reporting failed volume deletion despite the delete being successful.
+- [#311][311] fixes to CLI flag docs
+
+[313]:https://github.com/enStratus/mixcoatl/pull/313
+[312]:https://github.com/enStratus/mixcoatl/pull/312
+[311]:https://github.com/enStratus/mixcoatl/pull/311
+[dcm-delete-volume]:http://docs.mixcoatl.net/en/stable/cli_tools/dcm-delete-volume.html
+
 1.5.0
 =====
 

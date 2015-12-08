@@ -7,16 +7,16 @@ import sys
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--productid', '-p', help="Provider's product ID such as m1.large", required=True)
-    parser.add_argument('--machineimage', '-m', help='Machine image ID', required=True)
-    parser.add_argument('--datacenter', '-d', help='Data Center ID', required=True)
-    parser.add_argument('--description', '-D', help='Description', required=True)
-    parser.add_argument('--name', '-n', help='Server Name', required=True)
-    parser.add_argument('--budgetid', '-b', help='Budget ID')
-    parser.add_argument('--keypair', '-k', help='Keypair Name')
+        '--productid', '-p', help="provider's product ID such as m1.large", required=True)
+    parser.add_argument('--machineimage', '-m', help='machine image ID', required=True)
+    parser.add_argument('--datacenter', '-d', help='data center ID', required=True)
+    parser.add_argument('--description', '-D', help='description of the server', required=True)
+    parser.add_argument('--name', '-n', help='name of the server', required=True)
+    parser.add_argument('--budgetid', '-b', help='budget ID')
+    parser.add_argument('--keypair', '-k', help='keypair name')
     parser.add_argument('--vlan', '-v', help='VLAN, deprecated since DCM k.50 use --network')
-    parser.add_argument('--network', '-e', help='Network ID')
-    parser.add_argument('--subnet', '-s', help='Subnet ID')
+    parser.add_argument('--network', '-e', help='network ID')
+    parser.add_argument('--subnet', '-s', help='subnet ID')
     parser.add_argument('--userdata', '-u',
                         help='User data that will be added to the metadata '
                              'inside of the VM.  If the value starts with'

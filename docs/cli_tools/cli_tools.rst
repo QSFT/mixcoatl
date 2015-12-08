@@ -12,6 +12,7 @@ DCM command line API tools.
    dcm-create-billing-code
    dcm-create-cm
    dcm-create-group
+   dcm-create-machine-image
    dcm-create-network
    dcm-create-role
    dcm-create-server
@@ -44,7 +45,6 @@ DCM command line API tools.
    dcm-list-servers
    dcm-list-server-terminate
    dcm-list-snapshots
-   dcm-list-storage-objects
    dcm-list-users
    dcm-list-volumes
    dcm-pause-server
