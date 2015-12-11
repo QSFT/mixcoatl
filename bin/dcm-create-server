@@ -12,7 +12,7 @@ if __name__ == '__main__':
     parser.add_argument('--datacenter', '-d', help='data center ID', required=True)
     parser.add_argument('--description', '-D', help='description of the server', required=True)
     parser.add_argument('--name', '-n', help='name of the server', required=True)
-    parser.add_argument('--budgetid', '-b', help='budget ID')
+    parser.add_argument('--budgetid', '-b', help='budget ID', required=True)
     parser.add_argument('--keypair', '-k', help='keypair name')
     parser.add_argument('--vlan', '-v', help='VLAN, deprecated since DCM k.50 use --network')
     parser.add_argument('--network', '-e', help='network ID')
