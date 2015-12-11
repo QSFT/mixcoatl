@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
         print utils.print_format(results, payload_format)
     else:
-        table = PrettyTable(["ID", "Type", "Customer", "Name", "Endpoint", "Status"])
+        table = PrettyTable(["ID", "Description", "Status", "Start Date", "End Date", "Message"])
         for r in results:
             if hasattr(r, 'end_date'):
                 end_date = r.end_date
